@@ -1,0 +1,19 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.tabSize": 2,
+  "eslint.useFlatConfig": false,
+  "prettier.bracketSameLine": false,
+  "prettier.singleAttributePerLine": false,
+  "prettier.trailingComma": "all",
+  "cSpell.languageSettings": [
+    {
+      "languageId": [],
+      "words": [
+        "heroui",
+        "katex",
+        "gsgfs",
+        "Turbopack"
+      ]
+    }
+  ],
+}

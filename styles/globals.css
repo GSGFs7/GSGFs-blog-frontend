@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* 自定义颜色 tailwindcss 升级到 v4 之后 heroui 里的颜色就失效了 */
+@theme {
+  --color-background: #1c1b22;
+  --color-primary: #cccccc;
+}

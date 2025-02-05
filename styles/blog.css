@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+@layer components {
+  .markdown-body {
+    /* 不让他修改我的字体 */
+    font-family: inherit !important;
+
+    /* 代码使用等宽字体 */
+    pre,
+    code {
+      @apply font-mono;
+    }
+
+    /* 列表加上象征性的点 */
+    ul {
+      @apply list-none;
+      padding-left: 1rem !important;
+    }
+
+    ul li {
+      @apply relative pl-3;
+    }
+
+    ul li::before {
+      content: "•";
+      @apply absolute left-0 text-gray-400;
+    }
+  }
+  .blog-link {
+    @apply rounded-full border border-gray-500/20 bg-gray-500/20 px-1;
+  }
+  .about {
+    background: #1c1b2294 !important;
+  }
+  .copyButton {
+    @apply absolute top-2 right-2 rounded-sm bg-gray-700 px-1 py-1 text-sm text-white hover:bg-gray-600;
+  }
+}
+
+.main-hero-waves-area {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: -11px;
+  z-index: 0;
+}
+
+.waves-area .waves-svg {
+  width: 100%;
+  height: 4rem;
+}
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+
+/* .parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+  fill: #f7f9febd;
+}
+
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+  fill: #f7f9fe82;
+}
+
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+  fill: #f7f9fe36;
+}
+
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+  fill: #f7f9fe;
+} */
+
+/* @media (prefers-color-scheme: dark) { */
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+  fill: #474557c8;
+}
+
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+  fill: #38364480;
+}
+
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+  fill: #2b2a353e;
+}
+
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+  fill: #1c1b22;
+}
+/* } */
+
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .waves-area .waves-svg {
+    height: 40px;
+    min-height: 40px;
+  }
+}
+
+/* high light */
+.parent-container-of-pre {
+  display: grid; /* in order { overflow-x: auto; } works in child <pre> */
+}
+
+pre,
+pre code {
+  background-color: var(--color-code-background);
+
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.2;
+  tab-size: 2;
+  hyphens: none;
+}
+
+pre {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-text-weak);
+  border-radius: 5px;
+
+  overflow-x: auto;
+}
+
+pre > code {
+  float: left;
+  min-width: 100%;
+}
+
+.code-line {
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-left: -12px;
+  margin-right: -12px;
+  border-left: 4px solid transparent; /* prepare for highlighted code-lines */
+}
+
+div.code-line:empty {
+  /* it is necessary because there is no even eol character in div code-lines */
+  height: 15.5938px; /* calculated height */
+}
+
+span.code-line {
+  min-width: 100%;
+  display: inline-block;
+}
+
+.code-line.inserted {
+  background-color: var(
+    --color-inserted-line
+  ); /* inserted code-line (+) color */
+}
+
+.code-line.deleted {
+  background-color: var(--color-deleted-line); /* deleted code-line (-) color */
+}
+
+.highlighted-code-line {
+  background-color: var(--color-highlighted-line);
+  border-left: 4px solid var(--color-highlighted-line-indicator);
+}
+
+.numbered-code-line::before {
+  content: attr(data-line-number);
+
+  margin-left: -8px;
+  margin-right: 16px;
+  width: 1rem;
+  color: var(--color-text-weak);
+  text-align: right;
+
+  display: inline-block;
+}
