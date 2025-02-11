@@ -1,4 +1,4 @@
-import { Input } from "@heroui/input";
+// import { Input } from "@heroui/react";
 import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
 import {
@@ -21,26 +21,26 @@ import { siteConfig } from "@/config/site";
 import NavAvatar from "@/components/nav-avatar";
 
 export const Navbar = async () => {
-  const searchInput = (
-    <Input
-      aria-label="Search"
-      classNames={{
-        inputWrapper: "bg-[#cccccc]",
-        input: "text-sm",
-      }}
-      endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
-          K
-        </Kbd>
-      }
-      labelPlacement="outside"
-      placeholder="Search..."
-      startContent={
-        <SearchIcon className="pointer-events-none flex-shrink-0 text-base" />
-      }
-      type="search"
-    />
-  );
+  // const searchInput = (
+  //   <Input
+  //     aria-label="Search"
+  //     classNames={{
+  //       inputWrapper: "bg-[#cccccc]",
+  //       input: "text-sm",
+  //     }}
+  //     endContent={
+  //       <Kbd className="hidden lg:inline-block" keys={["command"]}>
+  //         K
+  //       </Kbd>
+  //     }
+  //     labelPlacement="outside"
+  //     placeholder="Search..."
+  //     startContent={
+  //       <SearchIcon className="pointer-events-none flex-shrink-0 text-base" />
+  //     }
+  //     type="search"
+  //   />
+  // );
 
   const session = await auth();
   // console.log(session);
@@ -110,7 +110,7 @@ export const Navbar = async () => {
       </NavbarContent>
 
       <NavbarMenu className="z-50 px-10 pt-6">
-        {searchInput}
+        {/* {searchInput} */}
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>

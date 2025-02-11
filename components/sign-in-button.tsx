@@ -8,7 +8,7 @@ export default function SigninButton({
   disabled = false,
 }: {
   img: string;
-  name: string;
+  name: "github" | "google";
   disabled?: boolean;
 }) {
   return (

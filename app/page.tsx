@@ -27,8 +27,6 @@ export default function Home() {
           GitHub
         </Link>
       </div> */}
-
-      {/* <div className="h-[50rem]" /> */}
     </section>
   );
 }

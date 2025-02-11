@@ -8,8 +8,8 @@ import { IoFileTrayFullSharp } from "react-icons/io5";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-import { PostsCard } from "@/types/posts";
-import { formatDate } from "@/utils/formatDate";
+import { PostsCard } from "@/types";
+import { formatDate } from "@/utils";
 
 export default function BlogListCard({
   category,

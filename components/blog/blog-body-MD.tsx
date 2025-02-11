@@ -10,7 +10,7 @@ import "github-markdown-css";
 import "highlight.js/styles/github-dark.css";
 import "katex/dist/katex.min.css";
 
-export function BlogBody({ markdown }: { markdown: string }) {
+export default function BlogBodyMD({ markdown }: { markdown: string }) {
   return (
     <article className="markdown-body rounded-2xl border border-gray-500/50 bg-black/10 p-8 shadow-lg shadow-slate-500/80">
       <Markdown

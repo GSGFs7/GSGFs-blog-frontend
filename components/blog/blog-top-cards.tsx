@@ -1,9 +1,18 @@
-import BlogTopCard from "@/components/blog/blog-top-card";
-import { PostIdsResponse } from "@/types/posts";
+import BlogTopCard from "./blog-top-card";
+
+import { PostIdsResponse } from "@/types";
 
 export default async function BlogTopCards() {
   const res = await fetch(`${process.env.BACKEND_URL}/api/posts/ids`);
-  const { ids } = (await res.json()) as PostIdsResponse;
+  let ids: number[];
+
+  try {
+    const data = (await res.json()) as PostIdsResponse;
+
+    ids = data.ids;
+  } catch {
+    ids = [];
+  }
 
   return (
     <div className="mb-4 flex h-80 w-full flex-wrap gap-6">

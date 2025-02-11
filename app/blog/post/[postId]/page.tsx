@@ -1,11 +1,10 @@
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
 
-import { postRender } from "@/app/actions";
-import BlogBody from "@/components/blog/blog-body";
-import { BlogHeader } from "@/components/blog/blog-header";
+import { postRenderToBackend } from "@/app/actions";
+import { BlogBody, BlogHeader } from "@/components/blog";
 import { Post, Render } from "@/types/posts";
-import { markdownToHtml } from "@/utils/markdown";
+import { markdownToHtml } from "@/utils";
 
 export default async function Page({
   params,
@@ -43,7 +42,7 @@ export default async function Page({
       tags: frontmatter.tags ?? null,
     } as Render;
 
-    await postRender(newPost);
+    await postRenderToBackend(newPost);
   }
 
   if (!html) {

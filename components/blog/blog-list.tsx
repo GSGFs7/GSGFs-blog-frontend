@@ -1,6 +1,12 @@
-import BlogListCard from "@/components/blog/blog-list-card";
-import { PaginationType, PostsCard } from "@/types/posts";
+import BlogListCard from "./blog-list-card";
+
 import Pagination from "@/components/pagination";
+import { PaginationType, PostsCard } from "@/types";
+
+interface PostWithPagination {
+  posts: PostsCard[];
+  pagination: PaginationType;
+}
 
 export default async function BlogList({
   searchParamsPage,
@@ -11,15 +17,30 @@ export default async function BlogList({
 }) {
   const page = Number(searchParamsPage ?? 1);
   const size = Number(searchParamsSize ?? 10);
+  let posts: PostsCard[];
+  let pagination: PaginationType;
 
   const res = await fetch(
     `${process.env.BACKEND_URL}/api/posts?page=${page}&size=${size}`,
   );
-  const {
-    posts,
-    pagination,
-  }: { posts: PostsCard[]; pagination: PaginationType } = await res.json();
-  // console.log(pagination);
+
+  try {
+    const data = (await res.json()) as PostWithPagination;
+    // console.log(data)
+
+    posts = data.posts;
+    pagination = data.pagination;
+  } catch {
+    return <div className="mt-12 text-2xl">服务器挂了哦, 杂鱼~</div>;
+  }
+
+  if (!posts) {
+    return (
+      <div className="mt-12 text-2xl">
+        <p>竟然连一篇文章都找不到</p>
+      </div>
+    );
+  }
 
   // 先分两组
   const cols = posts.reduce(

@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar as HerouiAvatar } from "@heroui/react";
+import { Avatar as HerouiAvatar } from "@heroui/avatar";
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";

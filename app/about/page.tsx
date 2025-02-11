@@ -8,9 +8,11 @@ export default async function AboutPage() {
         <h1 className={title()}>About</h1>
         <p className="text-gray-400">
           {process.env.NODE_ENV === "development" && (
-            <span>当前运行环境: </span>
+            <>
+              <span>当前运行环境: </span>
+              <span>{process.env.NODE_ENV}</span>
+            </>
           )}
-          <span>{process.env.NODE_ENV}</span>
         </p>
       </div>
       <AboutContent />

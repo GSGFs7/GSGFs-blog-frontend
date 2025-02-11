@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Post } from "@/types/posts";
-import { formatDate } from "@/utils/formatDate";
 import "@/styles/blog.css";
+import { Post } from "@/types";
+import { formatDate } from "@/utils";
 
-export function BlogHeader({ post }: { post: Post }) {
+export default function BlogHeader({ post }: { post: Post }) {
   const {
     title,
     created_at: createTime,
@@ -22,7 +22,7 @@ export function BlogHeader({ post }: { post: Post }) {
   // console.log(frontmatter?.date?.toISOString());
 
   return (
-    <header className="absolute left-0 top-0 z-0 h-[30rem] w-screen overflow-hidden">
+    <header className="absolute top-0 left-0 z-0 h-[30rem] w-screen overflow-hidden">
       {/* 顶部大图 */}
       <Image
         fill

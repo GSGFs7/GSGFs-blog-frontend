@@ -25,7 +25,7 @@ export default function BlogBody({
 
       const copyButton = document.createElement("button");
 
-      copyButton.className = "copyButton"; // 在 @/styles/blog.css 这里定义
+      copyButton.className = "copyButton cursor-pointer"; // 在 @/styles/blog.css 这里定义
       copyButton.textContent = "copy";
 
       // 图标
@@ -49,6 +49,21 @@ export default function BlogBody({
           copyButton.textContent = "copy";
         }, 1500);
       });
+    });
+
+    // 新标签页打开链接
+    const links = document.querySelectorAll(".markdown-body a");
+
+    links.forEach((link) => {
+      const excludePattern = /^(data-footnote-backref|user-content-fnref)*/;
+
+      if (!link.className.match(excludePattern)) {
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener noreferrer");
+        // noopener 隔离原页面和新页面
+        // noreferrer 不发送referrer头
+        // 可以防止钓鱼攻击和信息泄露
+      }
     });
   }, [html]);
 

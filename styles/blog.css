@@ -11,6 +11,10 @@
       @apply font-mono;
     }
 
+    pre code {
+      padding: 0 !important;
+    }
+
     /* 列表加上象征性的点 */
     ul {
       @apply list-none;

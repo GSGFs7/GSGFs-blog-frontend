@@ -14,7 +14,7 @@ export async function generateAuthToken(): Promise<string> {
   return signature;
 }
 
-export async function postRender(render: Render) {
+export async function postRenderToBackend(render: Render) {
   fetch(`${process.env.BACKEND_URL}/api/front-server-api/render`, {
     method: "POST",
     headers: {

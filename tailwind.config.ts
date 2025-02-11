@@ -1,4 +1,5 @@
 import { heroui } from "@heroui/theme";
+import Typography from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -14,6 +15,7 @@ export default {
         mono: ["var(--font-mono)"],
       },
       /* 自定义颜色 tailwindcss 升级到 v4 之后 heroui 里的颜色就失效了 */
+      // 还是不行
       // colors: {
       //   primary: "#cccccc",
       //   background: "#1c1b22",
@@ -40,5 +42,6 @@ export default {
         },
       },
     }),
+    Typography,
   ],
 };
