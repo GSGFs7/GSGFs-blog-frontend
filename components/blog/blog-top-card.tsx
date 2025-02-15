@@ -23,7 +23,7 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
     const randomIndex = Math.floor(Math.random() * postIds.length);
     const randomPostId = postIds[randomIndex];
 
-    router.push(`/blog/post/${randomPostId}`);
+    router.push(`/blog/${randomPostId}`);
   }
 
   return (
