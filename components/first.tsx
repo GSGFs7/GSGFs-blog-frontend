@@ -8,9 +8,9 @@ import { FaGithub } from "react-icons/fa";
 import { HiInformationCircle } from "react-icons/hi";
 
 import Modal from "@/components/modal";
+import GPG from "@/markdown/GPG.mdx";
 import avatar_png from "@/public/avatar.png";
 import osu_svg from "@/public/osu.svg";
-import GPG from "@/markdown/GPG.mdx";
 
 export function First() {
   const [show, setShow] = useState(false);
@@ -27,17 +27,19 @@ export function First() {
   }
 
   return (
-    <div className="flex h-full w-full max-w-5xl translate-y-[10%] flex-col md:flex-row">
+    <div className="flex h-full w-full max-w-5xl flex-col sm:translate-y-[10%] md:flex-row">
       <div className="flex-[8]">
-        <div className="flex max-w-xl flex-col justify-center gap-y-6 pt-20 text-left text-[#cccccc]">
-          <h1 className="text-8xl drop-shadow-lg">Hi!</h1>
-          <h2 className="inline-block text-7xl drop-shadow-lg">
+        <div className="flex max-w-xl flex-col justify-center gap-y-6 text-left text-[#dadada] sm:pt-20">
+          <h1 className="text-7xl drop-shadow-lg sm:text-8xl">Hi!</h1>
+          <h2 className="inline-block text-6xl drop-shadow-lg sm:text-7xl">
             I&apos;m{" "}
-            <p className="inline-block bg-gradient-to-b from-blue-400 to-[#0072F5] bg-clip-text text-8xl text-transparent">
+            <p className="inline-block bg-gradient-to-b from-blue-400 to-[#0072F5] bg-clip-text text-7xl text-transparent sm:text-8xl">
               GSGFs
             </p>
           </h2>
-          <h2 className="mt-4 text-5xl drop-shadow-lg">A College Student</h2>
+          <h2 className="text-4xl drop-shadow-lg sm:mt-4 sm:text-5xl">
+            A College Student
+          </h2>
 
           <div className="flex gap-3">
             <a
@@ -66,7 +68,7 @@ export function First() {
                 </button>
               </Modal.Open>
               <Modal.Window name="gpg-key">
-                <div ref={ref} className="relative">
+                <div ref={ref} className="relative text-sm">
                   <GPG />
 
                   <button

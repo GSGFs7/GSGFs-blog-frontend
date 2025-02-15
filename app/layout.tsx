@@ -1,13 +1,15 @@
 import "@/styles/globals.css";
-import { Link } from "@heroui/link";
-import { Metadata, Viewport } from "next";
 import { clsx } from "clsx";
+import { Metadata, Viewport } from "next";
+import NextTopLoader from "nextjs-toploader";
 
 import { Providers } from "./providers";
 
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/navbar/navbar";
+import { fontMono, fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
-import { fontSans, fontMono } from "@/config/fonts";
+import BackgroundImage from "@/components/background-image";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: {
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: "/favicon.png",
+    icon: "/favicon.ico",
   },
 };
 
@@ -45,6 +47,7 @@ export default function RootLayout({
         {/* 客户端组件 */}
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative z-10 flex h-screen w-screen flex-col items-center">
+            <NextTopLoader zIndex={999} />
             <header
               className="fixed z-40 flex w-full justify-center pb-10"
               role="banner"
@@ -57,37 +60,10 @@ export default function RootLayout({
               {children}
             </main>
 
-            <footer className="flex w-full items-center justify-center gap-1 py-3">
-              <span className="text-default-600">Powered by</span>
-              <Link
-                isExternal
-                className="flex items-center text-current"
-                href="https://nextjs.org/"
-                title="nextjs homepage"
-              >
-                <p className="text-primary">Next.js</p>
-              </Link>
-              <span className="text-default-600">&</span>
-              <Link
-                isExternal
-                className="flex items-center text-current"
-                href="https://djangoproject.com"
-                title="django homepage"
-              >
-                <p className="text-primary">Django</p>
-              </Link>
-            </footer>
-
-            {/* 背景色 */}
+            <Footer />
           </div>
-          <div
-            aria-hidden="true"
-            className="fixed top-[-6rem] right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full bg-[#ffa6a9]/10 blur-[10rem] sm:w-[68.75rem]"
-          />
-          <div
-            aria-hidden="true"
-            className="fixed top-[-1rem] left-[-35rem] h-[41.25rem] w-[50rem] rounded-full bg-[#ada2ff]/10 blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2xl:left-[-5rem]"
-          />
+
+          <BackgroundImage />
         </Providers>
       </body>
     </html>

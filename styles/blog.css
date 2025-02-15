@@ -29,6 +29,24 @@
       content: "•";
       @apply absolute left-0 text-gray-400;
     }
+
+    background: inherit !important;
+    background-color: #1a1c25 !important;
+
+    table {
+      @apply rounded-md;
+
+      background: #0d1117c0 !important;
+
+      * {
+        background: none !important;
+        border: none;
+      }
+    }
+
+    .numbered-code-line {
+      padding-left: 1rem !important;
+    }
   }
   .blog-link {
     @apply rounded-full border border-gray-500/20 bg-gray-500/20 px-1;

@@ -36,12 +36,12 @@ export default function BlogListCard({
       className="group mt-8 h-64 overflow-hidden rounded-lg border border-gray-500/70 md:mt-10 md:h-72"
       style={{ scale: scaleProgress, opacity: opacityProgress }}
     >
-      <Link href={`/blog/post/${id}`}>
+      <Link href={`/blog/${id}`}>
         <div className="relative z-10 h-44 w-full overflow-hidden transition-all duration-500 group-hover:scale-[1.65] md:h-56">
           <Image
             fill
             alt="postImage"
-            className="scale-100 object-cover object-top"
+            className="scale-100 object-cover object-center"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             src={cover_image ? cover_image : default_cover}
           />

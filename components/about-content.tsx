@@ -6,7 +6,7 @@ import "@/styles/blog.css";
 
 export default function AboutContent() {
   return (
-    <article className="markdown-body about w-full rounded-lg px-6 py-8 shadow-lg">
+    <article className="markdown-body about w-full rounded-lg px-6 py-8">
       <About />
     </article>
   );

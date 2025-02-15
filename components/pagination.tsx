@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
 export default function Pagination({
@@ -47,14 +48,22 @@ export default function Pagination({
 
   return (
     <div className="flex pt-8">
-      <button onClick={() => handlePageChange(prevPage())}>
-        <HiChevronLeft className="cursor-pointer text-xl" />
+      <button
+        className="text-gray-600 enabled:cursor-pointer disabled:cursor-not-allowed"
+        disabled={currentPage === 1}
+        onClick={() => handlePageChange(prevPage())}
+      >
+        <HiChevronLeft className="text-xl" />
       </button>
       <div className="mx-2 rounded-md border border-blue-700 px-3 py-1">
         {currentPage}
       </div>
-      <button onClick={() => handlePageChange(nextPage())}>
-        <HiChevronRight className="cursor-pointer text-xl" />
+      <button
+        className="text-gray-600 enabled:cursor-pointer disabled:cursor-not-allowed"
+        disabled={currentPage === total}
+        onClick={() => handlePageChange(nextPage())}
+      >
+        <HiChevronRight className="text-xl" />
       </button>
     </div>
   );

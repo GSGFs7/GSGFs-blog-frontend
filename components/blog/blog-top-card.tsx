@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { useState } from "react";
 
 import cardImageR from "@/public/0.png";
@@ -53,7 +53,7 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
         <div className="absolute z-10 h-full w-full bg-black/10" />
       </div>
 
-      <div className="group relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 bg-gray-600/15 sm:flex-[4]">
+      <div className="group relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:flex-[4]">
         <button
           className="relative flex h-full w-full cursor-pointer items-center justify-center"
           onClick={handleRandomPost}

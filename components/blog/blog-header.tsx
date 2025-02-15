@@ -15,22 +15,18 @@ export default function BlogHeader({ post }: { post: Post }) {
     header_image,
   } = post;
 
-  const default_header_image = process.env.DEFAULT_HEADER_IMAGE as string;
-
-  // console.log(final_tags);
-  // console.log(formatDate("2025-01-22T00:00:00Z"));
-  // console.log(frontmatter?.date?.toISOString());
+  const default_header_image = "/1.jpg";
 
   return (
     <header className="absolute top-0 left-0 z-0 h-[30rem] w-screen overflow-hidden">
       {/* 顶部大图 */}
-      <Image
+      {/* <Image
         fill
         alt="Header image"
         className="object-cover"
         // 优先使用文章frontmatter中的
         src={header_image ? header_image : default_header_image}
-      />
+      /> */}
 
       <section
         className="absolute bottom-0 left-[20%] z-20 p-2 pb-4"

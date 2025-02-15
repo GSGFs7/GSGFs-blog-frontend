@@ -12,6 +12,7 @@ export default function BlogBody({
 }: {
   html: string;
   action?: () => {};
+  bg?: string | null;
 }) {
   // 使用 useEffect 查找代码块并添加复制按钮
   useEffect(() => {
@@ -50,28 +51,13 @@ export default function BlogBody({
         }, 1500);
       });
     });
-
-    // 新标签页打开链接
-    const links = document.querySelectorAll(".markdown-body a");
-
-    links.forEach((link) => {
-      const excludePattern = /^(data-footnote-backref|user-content-fnref)*/;
-
-      if (!link.className.match(excludePattern)) {
-        link.setAttribute("target", "_blank");
-        link.setAttribute("rel", "noopener noreferrer");
-        // noopener 隔离原页面和新页面
-        // noreferrer 不发送referrer头
-        // 可以防止钓鱼攻击和信息泄露
-      }
-    });
   }, [html]);
 
   return (
     <>
       <article
         dangerouslySetInnerHTML={{ __html: html }}
-        className="markdown-body rounded-2xl border border-gray-500/50 bg-black/10 p-8 shadow-lg shadow-slate-500/80 backdrop-blur-sm"
+        className="markdown-body rounded-2xl backdrop-blur-lg md:border-2 md:border-gray-500/50 md:p-8"
         data-theme="dark"
       />
     </>

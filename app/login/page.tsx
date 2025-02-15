@@ -1,13 +1,12 @@
 import SigninButton from "@/components/sign-in-button";
 import githubIcon from "@/public/github.svg";
-import googleIcon from "@/public/google.svg";
+import osuIcon from "@/public/osu.svg";
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className="">
-      <SigninButton disabled img={githubIcon} name="github" />
-      <SigninButton disabled img={googleIcon} name="google" />
-      <p>登陆功能还没写完</p>
+      <SigninButton img={githubIcon} name="github" />
+      <SigninButton img={osuIcon} name="osu" />
     </div>
   );
 }

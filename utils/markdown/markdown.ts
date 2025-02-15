@@ -9,6 +9,9 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
+import { rehypeCustomAttrs } from "./rehype-custom-attrs";
+import { RehypeCustomImage } from "./rehype-custom-image";
+
 export async function markdownToHtml(markdown: string): Promise<string> {
   const result = await unified()
     .use(remarkParse) // 解析为AST(抽象语法树)
@@ -16,6 +19,8 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     .use(remarkGfm) // Github Flavored Markdown支持 表格，删除线等
     .use(remarkRehype, { allowDangerousHtml: true }) // 将 Markdown AST 转换为 HTML AST
     .use(rehypeRaw) // 允许在 Markdown 中使用 HTML
+    .use(rehypeCustomAttrs) // 自定义a标签
+    .use(RehypeCustomImage) // 自定义
     .use(rehypeKatex) // 数学公式渲染为 HTML
     .use(rehypeHighlight) // 代码语法高亮
     .use(rehypeHighlightCodeLines, { showLineNumbers: true }) // 代码段添加行号
