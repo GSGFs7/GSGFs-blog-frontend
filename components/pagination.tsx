@@ -60,7 +60,7 @@ export default function Pagination({
       </div>
       <button
         className="text-gray-600 enabled:cursor-pointer disabled:cursor-not-allowed"
-        disabled={currentPage === total}
+        disabled={currentPage === pageCount}
         onClick={() => handlePageChange(nextPage())}
       >
         <HiChevronRight className="text-xl" />
