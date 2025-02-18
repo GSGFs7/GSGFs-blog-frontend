@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { verifyAuth } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 
 // 需要保护的路由
 const protectedRoutes = ["/admin"];
@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
   );
 
   if (isProtectedRoute) {
-    const session = await verifyAuth();
+    const session = await getSession();
 
     if (!session) {
       const loginUrl = new URL("/login", request.url);

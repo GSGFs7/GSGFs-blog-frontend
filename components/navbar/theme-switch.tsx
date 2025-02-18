@@ -85,13 +85,13 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
         )} */}
         <MoonFilledIcon size={22} />
       </div>
-      {isHover && (
+      {isHover ? (
         <div className="bg-background absolute top-full mt-2 rounded-md px-2 py-1">
           <p className="inline-block text-sm whitespace-nowrap">
             浅色模式暂不可用
           </p>
         </div>
-      )}
+      ) : null}
     </Component>
   );
 };

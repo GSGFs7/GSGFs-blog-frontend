@@ -49,7 +49,7 @@ export default function Pagination({
   return (
     <div className="flex pt-8">
       <button
-        className="text-gray-600 enabled:cursor-pointer disabled:cursor-not-allowed"
+        className="enabled:cursor-pointer disabled:cursor-not-allowed disabled:text-gray-600"
         disabled={currentPage === 1}
         onClick={() => handlePageChange(prevPage())}
       >
@@ -59,7 +59,7 @@ export default function Pagination({
         {currentPage}
       </div>
       <button
-        className="text-gray-600 enabled:cursor-pointer disabled:cursor-not-allowed"
+        className="enabled:cursor-pointer disabled:cursor-not-allowed disabled:text-gray-600"
         disabled={currentPage === pageCount}
         onClick={() => handlePageChange(nextPage())}
       >

@@ -19,7 +19,7 @@ export function NavItems() {
         <NavbarItem
           key={item.href}
           className={clsx(
-            "rounded-lg transition-all data-[active=true]:bg-gray-500/30 data-[active=true]:px-2 data-[active=true]:py-1 data-[active=true]:text-blue-500",
+            "rounded-lg transition-all data-[active=true]:bg-gray-500/30 data-[active=true]:px-2 data-[active=true]:py-1 data-[active=true]:text-blue-400",
           )}
           isActive={active === item.href.split("/").at(1)}
         >

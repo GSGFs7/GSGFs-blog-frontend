@@ -13,7 +13,6 @@ export function RehypeCustomImage() {
             classname: "my-4",
           }),
         };
-        console.log(node);
       }
     });
   };

@@ -68,11 +68,11 @@ export function First() {
                 </button>
               </Modal.Open>
               <Modal.Window name="gpg-key">
-                <div ref={ref} className="relative text-sm">
+                <div ref={ref} className="relative w-xl text-sm">
                   <GPG />
 
                   <button
-                    className="mt-3 w-full cursor-pointer rounded-sm border text-center text-xl text-blue-600"
+                    className="mt-4 w-full cursor-pointer rounded-sm border text-center text-xl text-blue-600"
                     onClick={handleCopyGPG}
                   >
                     复制
@@ -94,11 +94,11 @@ export function First() {
         />
         <div className="group relative flex items-center justify-end">
           {/* absolute 与上面的relative对应 */}
-          {show && (
-            <p className="absolute w-full -translate-x-1 translate-y-4 text-center text-gray-500">
-              图片中的角色是《常轨脱离Creative》中的锦亚澄
-            </p>
-          )}
+          <p
+            className={`absolute w-full -translate-x-1 translate-y-4 text-center text-gray-500 ${show ? "" : "hidden"}`}
+          >
+            图片中的角色是《常轨脱离Creative》中的锦亚澄
+          </p>
           <HiInformationCircle
             className="translate-y-4 cursor-pointer text-xl text-[#cccccc] hover:text-[#c0c0c0]"
             onClick={() => setShow((now) => !now)}
