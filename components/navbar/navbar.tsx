@@ -73,7 +73,7 @@ export const Navbar = async () => {
           <NavAvatar
             img={session.avatar_url ? session.avatar_url : defaultAvatar}
             // TODO: fix here
-            isAdmin={session.email === siteConfig.admin.email}
+            isAdmin={session === siteConfig.admin.email}
             signOutAction={signOutAction}
           />
         )}
