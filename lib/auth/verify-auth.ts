@@ -5,7 +5,7 @@ import { sessionType } from "@/types";
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
 
-export async function verifyAuth(): Promise<sessionType | null> {
+export async function getSession(): Promise<sessionType | null> {
   const token = (await cookies()).get("token");
 
   if (!token) {

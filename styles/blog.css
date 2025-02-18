@@ -30,6 +30,24 @@
       @apply absolute left-0 text-gray-400;
     }
 
+    /* 有序列表样式 */
+    ol {
+      @apply list-decimal pl-6;
+    }
+
+    ol li {
+      @apply relative pl-2;
+    }
+
+    /* 嵌套列表样式 */
+    ol ol {
+      list-style-type: lower-alpha;
+    }
+
+    ol ol ol {
+      list-style-type: lower-roman;
+    }
+
     background: inherit !important;
     background-color: #1a1c25 !important;
 

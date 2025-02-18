@@ -8,15 +8,17 @@ import {
 } from "@heroui/navbar";
 import { default as Link, default as NextLink } from "next/link";
 import { HiOutlineHome } from "react-icons/hi";
+import { AiOutlineLogin } from "react-icons/ai";
 
-import { ThemeSwitch } from "./theme-switch";
+// import { ThemeSwitch } from "./theme-switch";
+import NavAvatar from "./nav-avatar";
 
 import { NavItems } from "@/components/navbar/nav-items";
 import { siteConfig } from "@/config/site";
-import { verifyAuth } from "@/lib/auth/verifyAuth";
+import { getSession } from "@/lib/auth";
 
 export const Navbar = async () => {
-  const session = await verifyAuth();
+  const session = await getSession();
   const defaultAvatar = "/avatar.png";
 
   async function signOutAction() {
@@ -56,8 +58,8 @@ export const Navbar = async () => {
         className="hidden min-w-[5.875rem] basis-1/5 justify-end text-xl sm:flex sm:basis-full"
         justify="end"
       >
-        <ThemeSwitch className="group flex items-center justify-center" />
-        {/* {!session ? (
+        {/* <ThemeSwitch className="group flex items-center justify-center" /> */}
+        {!session ? (
           <NextLink className="" href={"/login"}>
             <AiOutlineLogin />
           </NextLink>
@@ -74,7 +76,7 @@ export const Navbar = async () => {
             isAdmin={session.email === siteConfig.admin.email}
             signOutAction={signOutAction}
           />
-        )} */}
+        )}
       </NavbarContent>
 
       <NavbarContent className="sm:hidden" justify="end">

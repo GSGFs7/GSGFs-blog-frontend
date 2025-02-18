@@ -16,37 +16,32 @@ export async function osuAuth(code: string) {
       client_id: OSU_CLIENT_ID,
       client_secret: OSU_CLIENT_SECRET,
       code,
-      redirect_uri: process.env.SITE_URL,
+      // redirect_uri: `${process.env.SITE_URL}/api/auth/callback/osu`, // 加上这个就不对了
       grant_type: "authorization_code", // 比 github 多了这个必选项
-      // state:
     }),
   });
   const accessTokenData = await accessTokenResponse.json();
+  const accessTokenType = accessTokenData.token_type;
   const accessToken = accessTokenData.access_token;
 
-  if (!accessTokenResponse.ok) {
-    return null;
-  }
+  if (!accessTokenResponse.ok) return null;
 
   // 获取用户信息
   const userResponse = await fetch(`https://osu.ppy.sh/api/v2/me/osu`, {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `${accessTokenType} ${accessToken}`,
       "Content-Type": "application/json",
       Accept: "application/json",
     },
   });
   const userData = await userResponse.json();
 
-  if (!userResponse.ok) {
-    return null;
-  }
+  if (!userResponse.ok) return null;
 
   // 创建 JWT
   const token = await new SignJWT({
     id: userData.id,
     name: userData.name,
-    // email: userData.email, // 没有邮箱
     avatar_url: userData.avatar_url,
     provider: "osu",
   })
@@ -62,10 +57,6 @@ export async function osuAuth(code: string) {
     sameSite: "lax",
     maxAge: 60 * 60 * 24,
   });
-
-  // console.log(accessTokenResponse.status);
-  // console.log(userResponse.status);
-  // console.log(userData);
 
   return userData;
 }

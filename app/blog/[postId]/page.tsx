@@ -2,9 +2,9 @@ import matter from "gray-matter";
 import { notFound } from "next/navigation";
 
 import { BlogBody } from "@/components/blog";
+import Comment from "@/components/comment";
 import { Post, Render } from "@/types/posts";
 import { markdownToHtml } from "@/utils";
-import { postRenderToBackend } from "@/app/actions";
 
 export default async function Page({
   params,
@@ -45,14 +45,13 @@ export default async function Page({
       slug: frontmatter.slug ?? frontmatter.url ?? null,
       tags: frontmatter.tags ?? null,
     } as Render;
-
-    await postRenderToBackend(newPost);
   }
 
   return (
     <div className="">
       {/* <BlogHeader post={post} /> */}
       <BlogBody bg={post.header_image} html={html ?? "some thing error"} />
+      {/* <Comment /> */}
     </div>
   );
 }

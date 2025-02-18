@@ -1,7 +1,6 @@
 export interface sessionType {
   id?: number;
   name?: string;
-  email?: string;
   avatar_url?: string;
   provider?: string;
   iat?: number;
@@ -30,9 +29,9 @@ export interface githubResponse {
   site_admin: boolean;
   name: string;
   company: string | null;
-  blog: string;
+  blog: string | null;
   location: string | null;
-  email: string;
+  email: string | null;
   hireable: string | null;
   bio: string | null;
   twitter_username: string | null;

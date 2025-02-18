@@ -6,3 +6,8 @@ export interface commentType {
   created_at: string;
   update_at: string;
 }
+
+export interface newCommentType {
+  content: string;
+  post: string;
+}

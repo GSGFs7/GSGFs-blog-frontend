@@ -51,7 +51,6 @@ export async function githubOAuth(
   const token = await new SignJWT({
     id: userData.id,
     name: userData.name,
-    email: userData.email,
     avatar_url: userData.avatar_url,
     provider: "github",
   })
