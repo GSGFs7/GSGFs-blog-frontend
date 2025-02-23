@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "nextjs-toploader/app";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 import cardImageR from "@/public/0.png";
 import cardImageL from "@/public/2_cut.jpg";
@@ -18,7 +19,9 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
   }
 
   function handleRandomPost() {
-    if (postIds.length < 1) return;
+    if (postIds.length < 1) {
+      toast.error("出了点小问题");
+    }
 
     const randomIndex = Math.floor(Math.random() * postIds.length);
     const randomPostId = postIds[randomIndex];

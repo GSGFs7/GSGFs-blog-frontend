@@ -1,7 +1,7 @@
 import { join } from "path";
 import { readdirSync, statSync } from "fs";
 
-import { getAllPostIds } from "@/lib/api/post";
+import { getPostSitemap } from "@/lib/api/post";
 
 interface SitemapField {
   url: string;
@@ -46,7 +46,7 @@ export async function generateSitemap() {
 
   const baseUrl = process.env.SITE_URL;
   const appDir = join(process.cwd(), "app");
-  const postIds = await getAllPostIds();
+  const postIds = await getPostSitemap();
 
   const routes = getRoutes(appDir)
     .filter((route) => route !== "") // 移除跟路由
@@ -58,9 +58,10 @@ export async function generateSitemap() {
     }));
 
   const postRoutes =
-    postIds?.map((id) => ({
+    postIds?.map(({ id, update_at }) => ({
       url: `${baseUrl}/blog/${id}`,
       changefreq: "weekly",
+      lastmod: `${update_at}`,
       priority: "0.8",
     })) ?? [];
 
