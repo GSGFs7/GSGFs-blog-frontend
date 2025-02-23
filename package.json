@@ -1,6 +1,6 @@
 {
   "name": "gsgfs-blog",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "license": "MIT",
   "author": {
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "tsx scripts/generate-buildtime.ts && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
   },
