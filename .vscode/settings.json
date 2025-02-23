@@ -7,7 +7,13 @@
   "prettier.trailingComma": "all",
   "cSpell.words": [
     "beatmaps",
+    "changefreq",
+    "Galgame",
+    "gsgfs",
+    "heroui",
+    "katex",
     "kudosu",
+    "lastmod",
     "noopener",
     "noreferrer",
     "partialize",
@@ -15,9 +21,6 @@
     "playstyle",
     "taiko",
     "toploader",
-    "heroui",
-    "katex",
-    "gsgfs",
     "Turbopack"
   ],
 }

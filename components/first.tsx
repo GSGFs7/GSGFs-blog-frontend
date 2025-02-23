@@ -53,7 +53,7 @@ export function First() {
             </a>
 
             <a
-              className="flex cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
+              className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
               href="https://github.com/GSGFs7"
               rel="noopener noreferrer"
               target="_blank"
@@ -68,7 +68,10 @@ export function First() {
                 </button>
               </Modal.Open>
               <Modal.Window name="gpg-key">
-                <div ref={ref} className="relative w-xl text-sm">
+                <div
+                  ref={ref}
+                  className="relative mt-4 mb-2 flex w-xl flex-col items-center justify-center text-sm"
+                >
                   <GPG />
 
                   <button

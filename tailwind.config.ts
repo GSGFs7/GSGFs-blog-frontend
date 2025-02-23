@@ -1,4 +1,3 @@
-import { heroui } from "@heroui/theme";
 import Typography from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
@@ -23,25 +22,5 @@ export default {
     },
   },
   darkMode: "class",
-  plugins: [
-    heroui({
-      defaultTheme: "dark",
-      defaultExtendTheme: "dark",
-      themes: {
-        light: {
-          colors: {
-            background: "#e8e2ec",
-            primary: "#2c332c",
-          },
-        },
-        dark: {
-          colors: {
-            background: "#1c1b22",
-            primary: "#cccccc",
-          },
-        },
-      },
-    }),
-    Typography,
-  ],
+  plugins: [Typography],
 };

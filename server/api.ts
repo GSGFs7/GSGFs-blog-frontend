@@ -103,9 +103,11 @@ export async function apiAddComment(content: string, postId: number) {
       headers: {
         Authorization: `Bearer ${await generateAuthToken()}`,
       },
-      body:JSON.stringify({
-        
-      })
+      body: JSON.stringify({
+        unique_id: `${guest?.provider}-${guest?.provider_id}`,
+        content,
+        post_id: postId,
+      }),
     });
   } catch {}
 }

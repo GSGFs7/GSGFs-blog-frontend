@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 import BlogListCard from "./blog-list-card";
 
 import Pagination from "@/components/pagination";
@@ -60,7 +62,12 @@ export default async function BlogList({
 
   return (
     <>
-      <div className="grid w-full grid-cols-2 flex-col gap-10">
+      <div
+        className={clsx(
+          "sm:grid sm:w-full sm:grid-cols-2 sm:flex-col sm:gap-10",
+          "flex flex-col gap-4",
+        )}
+      >
         {cols.map((col: PostsCard[], colIndex: number) => (
           <div key={colIndex}>
             {col.map((post) => (

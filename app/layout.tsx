@@ -49,7 +49,7 @@ export default function RootLayout({
           <div className="relative z-10 flex h-screen w-screen flex-col items-center">
             <NextTopLoader zIndex={999} />
             <header
-              className="fixed z-40 flex w-full justify-center pb-10"
+              className="fixed z-40 flex w-full justify-center"
               role="banner"
             >
               <Navbar />
