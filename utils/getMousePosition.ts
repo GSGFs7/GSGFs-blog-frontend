@@ -1,3 +1,6 @@
+/**
+ * 获取指针在元素中的相对位置
+ */
 export function getMousePosition(e: React.MouseEvent<HTMLDivElement>) {
   // https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect
   const rect = e.currentTarget.getBoundingClientRect();

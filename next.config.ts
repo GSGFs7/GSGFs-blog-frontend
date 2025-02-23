@@ -7,9 +7,9 @@ const nextConfig: import("next").NextConfig = {
   output: "standalone" as const,
   images: {
     remotePatterns: [
-      {
-        hostname: "img.gsgfs.moe",
-      },
+      { hostname: "img.gsgfs.moe" },
+      { hostname: "avatars.githubusercontent.com" },
+      { hostname: "a.ppy.sh" },
     ],
   },
 };

@@ -1,5 +1,5 @@
 import AboutContent from "@/components/about-content";
-import { title } from "@/components/primitives";
+import { title } from "@/utils/primitives";
 
 export default async function AboutPage() {
   return (

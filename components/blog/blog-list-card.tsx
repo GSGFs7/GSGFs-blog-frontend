@@ -6,7 +6,7 @@ import { TbTagsFilled } from "react-icons/tb";
 import { MdDateRange } from "react-icons/md";
 import { IoFileTrayFullSharp } from "react-icons/io5";
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "motion/react";
 
 import { PostsCard } from "@/types";
 import { formatDate } from "@/utils";
@@ -46,7 +46,7 @@ export default function BlogListCard({
             src={cover_image ? cover_image : default_cover}
           />
         </div>
-        <h3 className="absolute z-20 -translate-y-14 translate-x-3 rounded-md bg-gray-500/30 px-4 py-1 text-white backdrop-blur-sm">
+        <h3 className="absolute z-20 translate-x-3 -translate-y-14 rounded-md bg-gray-500/30 px-4 py-1 text-white backdrop-blur-sm">
           {title}
         </h3>
         <section className="flex w-full flex-row flex-wrap px-2 py-1">

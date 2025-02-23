@@ -15,7 +15,7 @@ export default async function BlogTopCards() {
   }
 
   return (
-    <div className="mb-4 flex h-80 w-full flex-wrap gap-6">
+    <div className="mb-4 flex w-full flex-wrap gap-6 sm:h-52 md:h-80">
       <BlogTopCard postIds={ids} />
     </div>
   );

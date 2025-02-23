@@ -29,12 +29,12 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
   return (
     <>
       <div
-        className="group relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:flex-[9]"
+        className="group sm:52 relative flex h-52 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:flex-[9] md:h-80"
         onMouseMove={handleMouseMove}
       >
         <div className="absolute z-20 flex -translate-y-4 flex-col flex-wrap items-center justify-center gap-4 text-white">
           <h2 className="text-4xl">Blog</h2>
-          <p className="max-w-lg text-center text-xl">
+          <p className="hidden max-w-lg text-center text-xl sm:block">
             <span>光标位置: </span>
             <span>{mousePosition.x.toFixed(2).padEnd(4, "0")}, </span>
             <span>{mousePosition.y.toFixed(2).padEnd(4, "0")}</span>
@@ -53,7 +53,7 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
         <div className="absolute z-10 h-full w-full bg-black/10" />
       </div>
 
-      <div className="group relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:flex-[4]">
+      <div className="group relative flex h-16 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:h-52 sm:flex-[4] md:h-80">
         <button
           className="relative flex h-full w-full cursor-pointer items-center justify-center"
           onClick={handleRandomPost}
@@ -63,7 +63,7 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
           </p>
           <Image
             alt="top card image"
-            className="absolute bottom-0 translate-y-8 transition-all hover:translate-y-0"
+            className="absolute bottom-0 hidden translate-y-8 transition-all hover:translate-y-0 sm:block"
             sizes="100vw"
             src={cardImageR}
             style={{ width: "100%", height: "auto" }}

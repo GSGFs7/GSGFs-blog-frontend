@@ -12,6 +12,10 @@ export const siteConfig = {
       label: "Blog",
       href: "/blog",
     },
+    {
+      label: "Pages",
+      href: "/pages",
+    },
     // {
     //   label: "Galgame",
     //   href: "/galgame",
@@ -30,6 +34,10 @@ export const siteConfig = {
       label: "Blog",
       href: "/blog",
     },
+    {
+      label: "Pages",
+      href: "/pages",
+    },
     // {
     //   label: "Galgame",
     //   href: "galgame",
@@ -39,13 +47,7 @@ export const siteConfig = {
       href: "/about",
     },
   ] as const,
-  links: {
-    github: "https://github.com/nextui-org/nextui",
-    twitter: "https://twitter.com/getnextui",
-    docs: "https://nextui.org",
-    discord: "https://discord.gg/9b6yyZKmH4",
-    sponsor: "https://patreon.com/jrgarciadev",
-  } as const,
+  links: {} as const,
   admin: {
     email: "gsgfs@gsgfs.moe",
   },

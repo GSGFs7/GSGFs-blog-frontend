@@ -1,9 +1,8 @@
 "use client";
 
-import { Avatar as HerouiAvatar } from "@heroui/avatar";
 import Link from "next/link";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function NavAvatar({
   img,
@@ -36,7 +35,13 @@ export default function NavAvatar({
       onPointerLeave={() => handleMouseLeave()}
     >
       <Link href={"/user"}>
-        <HerouiAvatar size="sm" src={img ?? undefined} />
+        <Image
+          alt="avatar of current user"
+          className="rounded-full"
+          height={"40"}
+          src={img ? img : "/default-avatar.png"}
+          width={"40"}
+        />
       </Link>
       {/* {isOpen && (
         <motion.div

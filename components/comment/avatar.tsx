@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Avatar } from "@heroui/avatar";
 
 import { getSession } from "@/lib/auth";
 
@@ -9,10 +9,12 @@ export default async function AvatarWithName() {
 
   return (
     <Link className="flex w-fit flex-row items-center gap-3" href={"/user"}>
-      <Avatar
+      <Image
         alt={session?.name ?? "avatar"}
         className="m-2 h-9 w-fit rounded-full"
-        src={session?.avatar_url ?? defaultAvatar}
+        height={"40"}
+        src={session?.avatar_url ? session.avatar_url : defaultAvatar}
+        width={"40"}
       />
       <span>{session ? session.name : "游客"}</span>
     </Link>

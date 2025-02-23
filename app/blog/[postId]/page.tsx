@@ -1,10 +1,12 @@
 import matter from "gray-matter";
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 
 import { BlogBody } from "@/components/blog";
-import Comment from "@/components/comment";
 import { Post, Render } from "@/types/posts";
 import { markdownToHtml } from "@/utils";
+
+const Comment = dynamic(() => import("@/components/comment"));
 
 export default async function Page({
   params,
@@ -51,7 +53,7 @@ export default async function Page({
     <div className="">
       {/* <BlogHeader post={post} /> */}
       <BlogBody bg={post.header_image} html={html ?? "some thing error"} />
-      {/* <Comment /> */}
+      <Comment postId={postId} />
     </div>
   );
 }

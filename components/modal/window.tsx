@@ -15,11 +15,11 @@ interface WindowChildProps {
 export function Window({
   children,
   name,
-  className,
+  className = null,
 }: {
   children: React.ReactElement<WindowChildProps>;
   name: string;
-  className?: string;
+  className?: string | null;
 }) {
   const { openModal: openName, close } = useContext(ModalContext);
   const ref = useOutsideClick(close);
@@ -34,8 +34,9 @@ export function Window({
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
         className={
-          className ??
-          "text-md absolute top-1/2 left-1/2 flex h-fit w-[38rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg bg-[#1c1b22] px-4 pt-6 pb-4 shadow-2xs shadow-black"
+          className
+            ? className
+            : "text-md absolute top-1/2 left-1/2 flex h-fit w-[38rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg bg-[#1c1b22] px-4 pt-6 pb-4 shadow-2xs shadow-black"
         }
       >
         <button
