@@ -67,6 +67,9 @@ type ProfileOrderType = Array<
 >;
 
 export interface osuResponse {
+  id: number;
+  username: string;
+  avatar_url: string;
   cover_url: string;
   discord?: string;
   has_supported: boolean;

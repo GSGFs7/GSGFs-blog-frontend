@@ -23,7 +23,7 @@ export default async function BlogList({
   let pagination: PaginationType;
 
   const res = await fetch(
-    `${process.env.BACKEND_URL}/api/posts?page=${page}&size=${size}`,
+    `${process.env.BACKEND_URL}/api/post/posts?page=${page}&size=${size}`,
   );
 
   try {

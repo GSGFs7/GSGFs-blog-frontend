@@ -53,7 +53,7 @@ export default async function Page({
     <div className="">
       {/* <BlogHeader post={post} /> */}
       <BlogBody bg={post.header_image} html={html ?? "some thing error"} />
-      <Comment postId={postId} />
+      {/* <Comment postId={postId} /> */}
     </div>
   );
 }
