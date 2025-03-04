@@ -1,6 +1,8 @@
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
+import { osuResponse } from "@/types";
+
 const OSU_CLIENT_ID = process.env.AUTH_OSU_ID!;
 const OSU_CLIENT_SECRET = process.env.AUTH_OSU_SECRET!;
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
@@ -34,14 +36,14 @@ export async function osuAuth(code: string) {
       Accept: "application/json",
     },
   });
-  const userData = await userResponse.json();
+  const userData: osuResponse = await userResponse.json();
 
   if (!userResponse.ok) return null;
 
   // 创建 JWT
   const token = await new SignJWT({
     id: userData.id,
-    name: userData.name,
+    name: userData.username,
     avatar_url: userData.avatar_url,
     provider: "osu",
   })

@@ -15,6 +15,24 @@
 - `types`: 类型定义
 - `utils`: 实用函数
 
+## 如何运行
+
+需要`Node.js`和`pnpm`
+
+1. 安装依赖
+
+   ```bash
+   pnpm i
+   ```
+
+2. 将`.env.example`复制一份为`.env.local`并填写需要的环境变量
+
+3. 运行
+
+   ```bash
+   pnpm run dev
+   ```
+
 ## 开源协议
 
 MIT

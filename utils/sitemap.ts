@@ -33,7 +33,11 @@ function getRoutes(dir: string, baseRoute: string = ""): string[] {
 
       // 递归查找
       routes.push(...getRoutes(path, baseRoute + subRoute));
-    } else if (item === "page.tsx" || "page.ts" || "page.js") {
+    } else if (
+      item === "page.tsx" ||
+      item === "page.ts" ||
+      item === "page.js"
+    ) {
       routes.push(baseRoute);
     }
   }
