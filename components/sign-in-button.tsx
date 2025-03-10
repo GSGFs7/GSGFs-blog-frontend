@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 export default function SigninButton({
   img,
@@ -11,14 +12,19 @@ export default function SigninButton({
   name: "github" | "osu";
   disabled?: boolean;
 }) {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
   function github() {
-    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=user`;
+    // const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=user`;
+    const githubAuthUrl = `/api/auth/login/github?callbackUrl=${callbackUrl}`;
 
     window.location.href = githubAuthUrl;
   }
 
   function osu() {
-    const osuAuthUrl = `https://osu.ppy.sh/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_OSU_CLIENT_ID}&response_type=code`;
+    // const osuAuthUrl = `https://osu.ppy.sh/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_OSU_CLIENT_ID}&response_type=code`;
+    const osuAuthUrl = `/api/auth/login/osu?callbackUrl=${callbackUrl}`;
 
     window.location.href = osuAuthUrl;
   }

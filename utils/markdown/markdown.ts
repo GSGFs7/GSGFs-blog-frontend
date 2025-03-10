@@ -10,7 +10,6 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
 import { rehypeCustomAttrs } from "./rehype-custom-attrs";
-import { RehypeCustomImage } from "./rehype-custom-image";
 
 export async function markdownToHtml(markdown: string): Promise<string> {
   const result = await unified()
@@ -20,8 +19,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     .use(remarkRehype, { allowDangerousHtml: true }) // 将 Markdown AST 转换为 HTML AST
     .use(rehypeRaw) // 允许在 Markdown 中使用 HTML
     .use(rehypeCustomAttrs) // 自定义a标签
-    .use(RehypeCustomImage) // 自定义
-    .use(rehypeKatex) // 数学公式渲染为 HTML
+    .use(rehypeKatex, { strict: false }) // 数学公式渲染为 HTML
     .use(rehypeHighlight) // 代码语法高亮
     .use(rehypeHighlightCodeLines, { showLineNumbers: true }) // 代码段添加行号
     .use(rehypeStringify) // 将 HTML AST 转换为HTML

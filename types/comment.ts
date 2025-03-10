@@ -6,6 +6,7 @@ export interface commentType {
   guest_name: string;
   created_at: string;
   update_at: string;
+  avatar?: string;
 }
 
 export interface newCommentType {

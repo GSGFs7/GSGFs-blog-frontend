@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import React, { ReactNode } from "react";
 
-import { getPost } from "@/lib/api/post";
+import { getPost } from "@/lib/api";
 
 export async function generateMetadata({
   params,

@@ -65,13 +65,28 @@
     .numbered-code-line {
       padding-left: 1rem !important;
     }
+
+    /* 黑幕 */
+    .heimu {
+      @apply rounded-sm p-1 transition-all;
+      color: #000;
+      background: #000;
+    }
+
+    .heimu:hover,
+    .heimu:active {
+      color: inherit !important;
+    }
   }
+
   .blog-link {
     @apply rounded-full border border-gray-500/20 bg-gray-500/20 px-1;
   }
+
   .about {
     background: #1c1b2294 !important;
   }
+
   .copyButton {
     @apply absolute top-2 right-2 rounded-sm bg-gray-700 px-1 py-1 text-sm text-white hover:bg-gray-600;
   }
@@ -142,6 +157,7 @@
   animation-duration: 20s;
   fill: #1c1b22;
 }
+
 /* } */
 
 @keyframes move-forever {
@@ -163,7 +179,8 @@
 
 /* high light */
 .parent-container-of-pre {
-  display: grid; /* in order { overflow-x: auto; } works in child <pre> */
+  display: grid;
+  /* in order { overflow-x: auto; } works in child <pre> */
 }
 
 pre,
@@ -198,12 +215,14 @@ pre > code {
   padding-right: 12px;
   margin-left: -12px;
   margin-right: -12px;
-  border-left: 4px solid transparent; /* prepare for highlighted code-lines */
+  border-left: 4px solid transparent;
+  /* prepare for highlighted code-lines */
 }
 
 div.code-line:empty {
   /* it is necessary because there is no even eol character in div code-lines */
-  height: 15.5938px; /* calculated height */
+  height: 15.5938px;
+  /* calculated height */
 }
 
 span.code-line {
@@ -212,13 +231,13 @@ span.code-line {
 }
 
 .code-line.inserted {
-  background-color: var(
-    --color-inserted-line
-  ); /* inserted code-line (+) color */
+  background-color: var(--color-inserted-line);
+  /* inserted code-line (+) color */
 }
 
 .code-line.deleted {
-  background-color: var(--color-deleted-line); /* deleted code-line (-) color */
+  background-color: var(--color-deleted-line);
+  /* deleted code-line (-) color */
 }
 
 .highlighted-code-line {

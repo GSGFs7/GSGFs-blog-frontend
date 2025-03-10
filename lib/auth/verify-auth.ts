@@ -1,3 +1,5 @@
+"use server";
+
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
