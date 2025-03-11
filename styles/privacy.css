@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@layer components {
+  .privacy h2 {
+    @apply mb-2 text-2xl leading-relaxed;
+  }
+
+  /* 列表加上象征性的点 */
+  .privacy ul {
+    @apply list-none;
+    padding-left: 1rem !important;
+  }
+
+  .privacy ul li {
+    @apply relative pl-3;
+  }
+
+  .privacy ul li::before {
+    content: "•";
+    @apply absolute left-0 text-gray-400;
+  }
+
+  /* 有序列表样式 */
+  .privacy ol {
+    @apply list-decimal pl-6;
+  }
+
+  .privacy ol li {
+    @apply relative pl-2;
+  }
+
+  /* 嵌套列表样式 */
+  .privacy ol ol {
+    list-style-type: lower-alpha;
+  }
+
+  .privacy ol ol ol {
+    list-style-type: lower-roman;
+  }
+}

@@ -4,6 +4,8 @@ import { createHmac, randomBytes } from "crypto";
 
 import { Render } from "@/types/posts";
 import { getGuest } from "@/lib/api/post";
+import { guestLogin } from "@/types/guest";
+import { getSession } from "@/lib/auth";
 
 async function generateAuthToken(): Promise<string> {
   const timestamp = Math.floor(Date.now() / 1000 / 10); // 10s
@@ -57,13 +59,19 @@ export async function apiSendRender(render: Render) {
 }
 
 export async function apiGuestLogin(): Promise<{ id: number } | null> {
-  "use server";
   try {
-    const guest = await getGuest();
+    const session = await getSession();
 
-    if (!guest) {
+    if (!session) {
       throw new Error("No guest provided");
     }
+
+    const loginDate: guestLogin = {
+      name: session.name!,
+      provider: session.provider!,
+      provider_id: session.id!,
+      avatar_url: session.avatar_url!,
+    };
 
     const res = await fetch(
       `${process.env.BACKEND_URL}/api/front/guest/login`,
@@ -72,11 +80,7 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
         headers: {
           Authorization: `Bearer ${await generateAuthToken()}`,
         },
-        body: JSON.stringify({
-          name: guest.name,
-          provider: guest.provider,
-          provider_id: guest.provider_id,
-        }),
+        body: JSON.stringify(loginDate),
       },
     );
 
@@ -93,21 +97,43 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
   }
 }
 
-export async function apiAddComment(content: string, postId: number) {
-  "use server";
+export async function apiAddComment(
+  content: string,
+  postId: number,
+  metadata: {
+    user_agent?: string;
+    platform?: string;
+    browser?: string;
+    browser_version?: string;
+    OS?: string;
+  },
+): Promise<{ id: number } | null> {
   const guest = await getGuest();
 
+  await apiGuestLogin();
+
+  const body = JSON.stringify({
+    unique_id: `${guest?.provider}-${guest?.provider_id}`,
+    content,
+    post_id: postId,
+    metadata,
+  });
+
   try {
-    await fetch(`${process.env.BACKEND_URL}/api/comment/new`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${await generateAuthToken()}`,
+    const res = await fetch(
+      `${process.env.BACKEND_URL}/api/front/comment/new`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${await generateAuthToken()}`,
+        },
+        body,
       },
-      body: JSON.stringify({
-        unique_id: `${guest?.provider}-${guest?.provider_id}`,
-        content,
-        post_id: postId,
-      }),
-    });
-  } catch {}
+    );
+    const data = await res.json();
+
+    return data.id;
+  } catch {
+    return null;
+  }
 }

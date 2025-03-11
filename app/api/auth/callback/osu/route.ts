@@ -4,9 +4,12 @@ import { isValidRedirectUrl } from "@/utils";
 export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url); // 获取查询参数
   const code = searchParams.get("code"); // 从 osu 重定向回来后会携带一个 code
-  let callbackUrl = searchParams.get("callbackUrl") || "/";
+  const state = searchParams.get("state");
+  let callbackUrl = JSON.parse(
+    Buffer.from(state || "", "base64").toString(),
+  ).callbackUrl;
 
-  if (!isValidRedirectUrl(callbackUrl)) {
+  if (!callbackUrl || !isValidRedirectUrl(callbackUrl)) {
     callbackUrl = "/";
   }
 

@@ -4,8 +4,7 @@
 FROM node:23-alpine AS builder
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-# 玄学问题, 多加几个包
-RUN apk add --no-cache libc6-compat make python3 g++
+RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
@@ -61,5 +60,3 @@ ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
 CMD [ "node", "server.js" ]
-
-

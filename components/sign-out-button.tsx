@@ -1,6 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import { isValidRedirectUrl } from "@/utils";
 
 export default function SignoutButton({
   disabled = false,
@@ -8,15 +10,22 @@ export default function SignoutButton({
   disabled?: boolean;
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  let callbackUrl = searchParams.get("callbackUrl");
+
+  if (!callbackUrl || !isValidRedirectUrl(callbackUrl)) {
+    callbackUrl = "/";
+  }
 
   async function handleLogout() {
     try {
+      // 代替用户触发对应的函数
       const response = await fetch("/api/auth/logout", {
         method: "POST",
       });
 
       if (response.ok) {
-        router.push("/login");
+        router.push(`${callbackUrl}`);
         router.refresh();
       }
     } catch (error) {

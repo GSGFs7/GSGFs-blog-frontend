@@ -1,13 +1,14 @@
 import Image from "next/image";
 
-import { getSession } from "@/lib/auth";
-
 export default async function CommentAvatar({
   col = false,
+  avatar,
+  name,
 }: {
   col?: boolean;
+  avatar?: string;
+  name?: string;
 }) {
-  const session = await getSession();
   const defaultAvatar = "/default-avatar.png";
 
   return (
@@ -15,13 +16,13 @@ export default async function CommentAvatar({
       className={`flex w-fit items-center ${col ? "flex-col" : "flex-row gap-3"}`}
     >
       <Image
-        alt={session?.name ?? "avatar"}
+        alt={name ?? "avatar"}
         className="m-2 h-9 w-fit rounded-full"
         height={"40"}
-        src={session?.avatar_url ? session.avatar_url : defaultAvatar}
+        src={avatar ? avatar : defaultAvatar}
         width={"40"}
       />
-      <span>{session ? session.name : "游客"}</span>
+      <span>{name ? name : "未登录"}</span>
     </div>
   );
 }

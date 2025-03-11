@@ -1,7 +1,3 @@
 export default function Setting() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }

@@ -7,9 +7,11 @@
   "prettier.trailingComma": "all",
   "cSpell.words": [
     "beatmaps",
+    "bowser",
     "changefreq",
     "Galgame",
     "gsgfs",
+    "heimu",
     "heroui",
     "katex",
     "kudosu",
@@ -23,4 +25,8 @@
     "toploader",
     "Turbopack"
   ],
+  // 解决 Unknown at rule @apply css(unknownAtRules)
+  "css.customData": [
+    ".vscode/css_custom_data.json"
+  ]
 }

@@ -1,5 +1,7 @@
-import { cookies } from "next/headers";
+"use server";
+
 import { SignJWT } from "jose";
+import { cookies } from "next/headers";
 
 import { githubResponse } from "@/types";
 
@@ -50,7 +52,9 @@ export async function githubOAuth(
   // 创建 JWT
   const token = await new SignJWT({
     id: userData.id,
-    name: userData.name,
+    name: userData.name
+      ? `${userData.name}(${userData.login})`
+      : userData.login,
     avatar_url: userData.avatar_url,
     provider: "github",
   })

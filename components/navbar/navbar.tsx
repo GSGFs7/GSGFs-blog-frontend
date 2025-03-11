@@ -1,23 +1,11 @@
 import Link from "next/link";
 import { HiOutlineHome } from "react-icons/hi";
-import { AiOutlineLogin } from "react-icons/ai";
 
-import NavAvatar from "./nav-avatar";
 import SmallScreenButton from "./small-screen-button";
-
-import { NavItems } from "@/components/navbar/nav-items";
-import { siteConfig } from "@/config/site";
-import { getSession } from "@/lib/auth";
+import NavAvatar from "./avatar";
+import { NavItems } from "./nav-items";
 
 export const Navbar = async () => {
-  const session = await getSession();
-  const defaultAvatar = "/avatar.png";
-
-  async function signOutAction() {
-    "use server";
-    // await signOut();
-  }
-
   return (
     <nav className="sticky top-0 z-50 w-6xl">
       {/* 导航栏主容器 */}
@@ -38,17 +26,7 @@ export const Navbar = async () => {
 
           {/* 右侧功能区 */}
           <div className="hidden min-w-[5.875rem] items-center justify-end text-xl sm:flex">
-            {!session ? (
-              <Link href="/login">
-                <AiOutlineLogin />
-              </Link>
-            ) : (
-              <NavAvatar
-                img={session.avatar_url ?? defaultAvatar}
-                isAdmin={session === siteConfig.admin.email}
-                signOutAction={signOutAction}
-              />
-            )}
+            <NavAvatar />
           </div>
 
           {/* 移动端菜单按钮 */}

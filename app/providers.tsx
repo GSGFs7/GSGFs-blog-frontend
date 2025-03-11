@@ -3,8 +3,6 @@
 import type { ThemeProviderProps } from "next-themes";
 
 import * as React from "react";
-// import { useRouter } from "next/navigation";
-import { useRouter } from "nextjs-toploader/app";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -26,8 +24,6 @@ export interface ProvidersProps {
 const queryClient = new QueryClient();
 
 export function Providers({ children, themeProps }: ProvidersProps) {
-  const router = useRouter(); // ?
-
   return (
     <QueryClientProvider client={queryClient}>
       <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
