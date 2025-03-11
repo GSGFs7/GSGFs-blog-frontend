@@ -11,7 +11,9 @@ export default function Footer() {
         target="_blank"
         title="nextjs homepage"
       >
-        <p className="text-primary hover:text-gray-400">Next.js</p>
+        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+          Next.js
+        </span>
       </Link>
       <span className="text-default-600">&</span>
       <Link
@@ -21,28 +23,34 @@ export default function Footer() {
         target="_blank"
         title="django homepage"
       >
-        <p className="text-primary hover:text-gray-400">Django</p>
+        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+          Django
+        </span>
       </Link>
-      {/* <span>|</span>
-      <Link
-        isExternal
-        className="flex items-center text-current"
-        href="/sitemap"
-      >
-        sitemap
-      </Link> */}
       <span>|</span>
-      <div>
-        <Link
-          className="text-primary transition-colors hover:text-gray-400"
-          href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans"
-          rel="noopener noreferrer"
-          target="_blank"
-          title="Creative Commons Attribution 4.0 International License"
-        >
-          CC BY 4.0
-        </Link>
-      </div>
+      <Link
+        className="text-primary transition-colors hover:text-[#aaaaaa]"
+        href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Creative Commons Attribution 4.0 International License"
+      >
+        CC BY 4.0
+      </Link>
+      <span>|</span>
+      <Link
+        className="text-primary transition-colors hover:text-[#aaaaaa]"
+        href={"/privacy"}
+        title="隐私协议"
+      >
+        privacy
+      </Link>{" "}
+      <span>|</span>
+      <Link className="flex items-center text-current" href="/sitemap.xml">
+        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+          sitemap
+        </span>
+      </Link>
     </footer>
   );
 }

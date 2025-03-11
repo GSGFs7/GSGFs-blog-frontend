@@ -1,8 +1,6 @@
 import {
-  // Fira_Code as FontMono,
-  // Inter as FontSans,
   LXGW_WenKai_TC as FontSans,
-  // Noto_Sans as FontSans,
+  // Noto_Sans as FontSans, // 如果获取字体失败就改成这个
   JetBrains_Mono as FontMono,
 } from "next/font/google";
 

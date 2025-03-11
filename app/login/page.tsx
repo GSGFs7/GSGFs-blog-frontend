@@ -12,7 +12,6 @@ export default async function Page({}: {}) {
         <SigninButton img={githubIcon} name="github" />
         <SigninButton img={osuIcon} name="osu" />
       </Suspense>
-      <p>登陆功能暂不可用(因为评论功能还没写完哦)</p>
     </div>
   );
 }
