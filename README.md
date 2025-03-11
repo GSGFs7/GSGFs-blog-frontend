@@ -29,9 +29,53 @@
 
 3. 运行
 
+   _需要将`next.config.ts`中的`remarkGfm`改为`["remark-gfm"]`_
+
    ```bash
    pnpm run dev
    ```
+
+## 如何部署
+
+_需要将`next.config.ts`中的`["remark-gfm"]`改回为`remarkGfm`_
+
+1. 直接使用构建产物部署
+
+   1. 构建
+
+      ```bash
+      pnpm run build
+      ```
+
+   2. 运行
+
+      ```bash
+      node .next/standalone/server.js
+      ```
+
+   _构建产物生成在`.next/standalone`下, 可以移动全部内容到任意文件夹后执行`node server.js`_
+
+2. docker 部署
+
+   1. 构建镜像
+
+      ```bash
+      docker build -t blog .
+      ```
+
+   2. 运行
+
+      ```bash
+      docker run -d -p 3000:3000 blog
+      ```
+
+3. vercel 部署
+
+   复制本仓库到自己的仓库后, 在 vercel 上即可部署
+
+## 提交commit
+
+因为配置了`commitlint`和`husky`, 所以提交时需要遵守[conventional commit](https://www.conventionalcommits.org/zh-hans/v1.0.0/)规范
 
 ## 开源协议
 
