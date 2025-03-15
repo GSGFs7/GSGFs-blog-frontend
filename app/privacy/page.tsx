@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import "@/styles/privacy.css";
 
 export const metadata: Metadata = {
-  title: "隐私协议 | GSGFs's blog",
+  title: "隐私协议",
   description: "GSGFs's blog的隐私政策, 我们如何保护您的隐私.",
 };
 

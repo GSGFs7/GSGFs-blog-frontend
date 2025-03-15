@@ -1,5 +1,7 @@
 # GSGFs-blog-frontend
 
+使用`Next.js`和`TailwindCSS`构建的个人网站前端
+
 ## 目录规划
 
 - `app`: 路由
@@ -39,7 +41,7 @@
 
 _需要将`next.config.ts`中的`["remark-gfm"]`改回为`remarkGfm`_
 
-1. 直接使用构建产物部署
+1. 直接构建并部署
 
    1. 构建
 
@@ -50,10 +52,10 @@ _需要将`next.config.ts`中的`["remark-gfm"]`改回为`remarkGfm`_
    2. 运行
 
       ```bash
-      node .next/standalone/server.js
+      pnpm run start
       ```
 
-   _构建产物生成在`.next/standalone`下, 可以移动全部内容到任意文件夹后执行`node server.js`_
+   _如果需要更小的文件, 可以参考`dockerfile`中的方式部署._
 
 2. docker 部署
 
