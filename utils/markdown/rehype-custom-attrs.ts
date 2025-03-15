@@ -13,7 +13,7 @@ export function rehypeCustomAttrs() {
         // 这个标签的 id
         const id = node.properties?.id as string | undefined;
 
-        // 判断是否是内联标签
+        // 判断是否是内部链接
         const isInternalLink =
           className?.some((cls) => internalLinkPattern.test(cls)) ||
           internalLinkPattern.test(id ?? "");
