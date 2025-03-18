@@ -2,9 +2,13 @@
 
 @layer components {
   .markdown-body {
+    /* ===== 1. 基础样式 ===== */
     /* 不让他修改我的字体 */
     font-family: inherit !important;
+    background: inherit !important;
+    background-color: #1a1c25 !important;
 
+    /* ===== 2. 代码块样式 ===== */
     /* 代码使用等宽字体 */
     pre,
     code {
@@ -13,95 +17,6 @@
 
     pre code {
       padding: 0 !important;
-    }
-
-    /* 列表加上象征性的点 */
-    ul {
-      @apply list-none;
-      padding-left: 1rem !important;
-    }
-
-    ul li {
-      @apply relative pl-3;
-    }
-
-    ul li::before {
-      content: "•";
-      @apply absolute left-0 text-gray-400;
-    }
-
-    /* 有序列表样式 */
-    ol {
-      @apply list-decimal pl-6;
-    }
-
-    ol li {
-      @apply relative pl-2;
-    }
-
-    /* 嵌套列表样式 */
-    ol ol {
-      list-style-type: lower-alpha;
-    }
-
-    ol ol ol {
-      list-style-type: lower-roman;
-    }
-
-    background: inherit !important;
-    background-color: #1a1c25 !important;
-
-    table {
-      @apply rounded-md;
-
-      background: #0d1117c0 !important;
-
-      * {
-        background: none !important;
-        border: none;
-      }
-    }
-
-    .numbered-code-line {
-      padding-left: 1rem !important;
-    }
-
-    /* 黑幕 */
-    .heimu {
-      @apply rounded-sm p-0.5 transition-all;
-      color: #000;
-      background: #000;
-    }
-
-    .heimu:hover,
-    .heimu:active {
-      color: inherit !important;
-    }
-
-    .blog-link {
-      @apply rounded-full border border-gray-500/20 bg-gray-500/20 px-1;
-    }
-
-    .about {
-      background: #1c1b2294 !important;
-    }
-
-    .copyButton {
-      @apply absolute top-2 right-2 rounded-sm bg-gray-700 px-1 py-1 text-sm text-white hover:bg-gray-600;
-    }
-
-    .anchor-link {
-      color: inherit !important;
-    }
-
-    .anchor-link:hover {
-      text-decoration: none !important;
-    }
-
-    /* high light */
-    .parent-container-of-pre {
-      display: grid;
-      /* in order { overflow-x: auto; } works in child <pre> */
     }
 
     pre,
@@ -141,6 +56,10 @@
       /* prepare for highlighted code-lines */
     }
 
+    .numbered-code-line {
+      padding-left: 1rem !important;
+    }
+
     div.code-line:empty {
       /* it is necessary because there is no even eol character in div code-lines */
       height: 15.5938px;
@@ -178,90 +97,179 @@
 
       display: inline-block;
     }
-  }
-}
 
-.main-hero-waves-area {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: -11px;
-  z-index: 0;
-}
+    /* high light */
+    .parent-container-of-pre {
+      display: grid;
+      /* in order { overflow-x: auto; } works in child <pre> */
+    }
 
-.waves-area .waves-svg {
-  width: 100%;
-  height: 4rem;
-}
+    /* ===== 3. 列表样式 ===== */
+    /* 列表加上象征性的点 */
+    ul {
+      @apply list-none;
+      padding-left: 1rem !important;
+    }
 
-.parallax > use {
-  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-}
+    ul li {
+      @apply relative pl-3;
+    }
 
-/* .parallax > use:nth-child(1) {
-  animation-delay: -2s;
-  animation-duration: 7s;
-  fill: #f7f9febd;
-}
+    ul li::before {
+      content: "•";
+      @apply absolute left-0 text-gray-400;
+    }
 
-.parallax > use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 10s;
-  fill: #f7f9fe82;
-}
+    /* 有序列表样式 */
+    ol {
+      @apply list-decimal pl-6;
+    }
 
-.parallax > use:nth-child(3) {
-  animation-delay: -4s;
-  animation-duration: 13s;
-  fill: #f7f9fe36;
-}
+    ol li {
+      @apply relative pl-2;
+    }
 
-.parallax > use:nth-child(4) {
-  animation-delay: -5s;
-  animation-duration: 20s;
-  fill: #f7f9fe;
-} */
+    /* 嵌套列表样式 */
+    ol ol {
+      list-style-type: lower-alpha;
+    }
 
-/* @media (prefers-color-scheme: dark) { */
-.parallax > use:nth-child(1) {
-  animation-delay: -2s;
-  animation-duration: 7s;
-  fill: #474557c8;
-}
+    ol ol ol {
+      list-style-type: lower-roman;
+    }
 
-.parallax > use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 10s;
-  fill: #38364480;
-}
+    /* ===== 4. 表格样式 ===== */
+    table {
+      @apply rounded-md;
 
-.parallax > use:nth-child(3) {
-  animation-delay: -4s;
-  animation-duration: 13s;
-  fill: #2b2a353e;
-}
+      background: #0d1117c0 !important;
 
-.parallax > use:nth-child(4) {
-  animation-delay: -5s;
-  animation-duration: 20s;
-  fill: #1c1b22;
-}
+      * {
+        background: none !important;
+        border: none;
+      }
+    }
 
-/* } */
+    /* ===== 5. 锚点和链接样式 ===== */
+    .blog-link {
+      @apply rounded-full border border-gray-500/20 bg-gray-500/20 px-1;
+    }
 
-@keyframes move-forever {
-  0% {
-    transform: translate3d(-90px, 0, 0);
+    .copyButton {
+      @apply absolute top-2 right-2 rounded-sm bg-gray-700 px-1 py-1 text-sm text-white hover:bg-gray-600;
+    }
+
+    .anchor-link {
+      color: inherit !important;
+    }
+
+    .anchor-link:hover {
+      text-decoration: none !important;
+    }
   }
 
-  100% {
-    transform: translate3d(85px, 0, 0);
+  /* ===== 6. 特殊样式 ===== */
+  /* 黑幕 */
+  .heimu {
+    @apply rounded-sm p-0.5 transition-all;
+    color: #000;
+    background: #000;
   }
-}
 
-@media (max-width: 768px) {
+  .heimu:hover,
+  .heimu:active {
+    color: inherit !important;
+  }
+
+  /* ===== 7. blog-header的过渡波浪 ===== */
+  .main-hero-waves-area {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -11px;
+    z-index: 0;
+  }
+
   .waves-area .waves-svg {
-    height: 40px;
-    min-height: 40px;
+    width: 100%;
+    height: 4rem;
+  }
+
+  .parallax > use {
+    animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  }
+
+  /* .parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+    fill: #f7f9febd;
+  }
+  
+  .parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+    fill: #f7f9fe82;
+  }
+  
+  .parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+    fill: #f7f9fe36;
+  }
+  
+  .parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+    fill: #f7f9fe;
+  } */
+
+  /* @media (prefers-color-scheme: dark) { */
+  .parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+    fill: #474557c8;
+  }
+
+  .parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+    fill: #38364480;
+  }
+
+  .parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+    fill: #2b2a353e;
+  }
+
+  .parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+    fill: #1c1b22;
+  }
+
+  /* } */
+
+  @keyframes move-forever {
+    0% {
+      transform: translate3d(-90px, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(85px, 0, 0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .waves-area .waves-svg {
+      height: 40px;
+      min-height: 40px;
+    }
+  }
+
+  .about {
+    /* background: #1c1b2294 !important; */
+    background: inherit !important;
+    background-color: inherit !important;
   }
 }
