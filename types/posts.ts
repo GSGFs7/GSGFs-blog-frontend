@@ -73,3 +73,8 @@ export interface CategoryResponse {
   pagination: PaginationResponse;
   name: string;
 }
+
+export interface PostSitemapItem {
+  id: number;
+  update_at: string;
+}

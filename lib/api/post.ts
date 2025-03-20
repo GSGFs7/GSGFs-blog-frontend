@@ -1,5 +1,5 @@
 import { getSession } from "@/lib/auth";
-import { Post } from "@/types";
+import { Post, PostSitemapItem } from "@/types";
 import { guestLogin } from "@/types/guest";
 
 export async function getPost(postId: string): Promise<Post | null> {
@@ -43,9 +43,7 @@ export async function getAllPostIds(): Promise<number[] | null> {
   }
 }
 
-export async function getPostSitemap(): Promise<
-  { id: number; update_at: string }[] | null
-> {
+export async function getPostSitemap(): Promise<PostSitemapItem[] | null> {
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/api/post/sitemap`);
 

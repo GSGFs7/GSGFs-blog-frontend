@@ -5,9 +5,16 @@ import { getPostSitemap } from "@/lib/api/post";
 
 interface SitemapField {
   url: string;
-  lastmod?: string;
-  changefreq?: string;
-  priority?: string;
+  lastModified?: string | Date;
+  changeFrequency?:
+    | "always"
+    | "hourly"
+    | "daily"
+    | "weekly"
+    | "monthly"
+    | "yearly"
+    | "never";
+  priority?: number;
 }
 
 function getRoutes(dir: string, baseRoute: string = ""): string[] {
@@ -45,7 +52,7 @@ function getRoutes(dir: string, baseRoute: string = ""): string[] {
   return [...new Set(routes)];
 }
 
-export async function generateSitemap() {
+export async function generateSitemap(): Promise<SitemapField[]> {
   "use server";
 
   const baseUrl = process.env.SITE_URL;
@@ -54,39 +61,48 @@ export async function generateSitemap() {
 
   const routes = getRoutes(appDir)
     .filter((route) => route !== "") // 移除跟路由
-    .map((route) => ({
-      // 要用括号括起来, 不然是 undefined
-      url: `${baseUrl}${route}`,
-      changefreq: "weekly",
-      priority: "0.7",
-    }));
+    .map(
+      (route) =>
+        ({
+          // 要用括号括起来, 不然是 undefined
+          url: `${baseUrl}${route}`,
+          changeFrequency: "weekly",
+          priority: 0.7,
+        }) as SitemapField,
+    );
 
   const postRoutes =
-    postIds?.map(({ id, update_at }) => ({
-      url: `${baseUrl}/blog/${id}`,
-      changefreq: "weekly",
-      lastmod: `${update_at}`,
-      priority: "0.8",
-    })) ?? [];
+    postIds?.map(
+      ({ id, update_at }) =>
+        ({
+          url: `${baseUrl}/blog/${id}`,
+          changeFrequency: "weekly",
+          lastModified: `${update_at}`,
+          priority: 0.8,
+        }) as SitemapField,
+    ) ?? [];
 
   const fields: SitemapField[] = [
-    { url: `${baseUrl}`, changefreq: "monthly", priority: "1.0" },
+    { url: `${baseUrl}`, changeFrequency: "monthly", priority: 1.0 },
     ...routes,
     ...postRoutes,
   ];
 
-  return `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-  ${fields
-    .map(
-      (field) =>
-        `<url>
-          <loc>${field.url}</loc>
-          ${field.lastmod ? `<lastmod>${field.lastmod}</lastmod>` : ""}
-          ${field.changefreq ? `<changefreq>${field.changefreq}</changefreq>` : ""}
-          ${field.priority ? `<priority>${field.priority}</priority>` : ""}
-        </url>`,
-    )
-    .join("")}
-    </urlset>`;
+  // 旧的生成站点地图的方式(app/sitemap.xml/route.ts), 现在使用 app/sitemap.ts 替代
+  // return `<?xml version="1.0" encoding="UTF-8"?>
+  // <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  // ${fields
+  //   .map(
+  //     (field) =>
+  //       `<url>
+  //         <loc>${field.url}</loc>
+  //         ${field.lastmod ? `<lastmod>${field.lastmod}</lastmod>` : ""}
+  //         ${field.changefreq ? `<changefreq>${field.changefreq}</changefreq>` : ""}
+  //         ${field.priority ? `<priority>${field.priority}</priority>` : ""}
+  //       </url>`,
+  //   )
+  //   .join("")}
+  //   </urlset>`;
+
+  return fields;
 }
