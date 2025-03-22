@@ -62,6 +62,9 @@ importers:
       katex:
         specifier: ^0.16.21
         version: 0.16.21
+      lowlight:
+        specifier: ^3.3.0
+        version: 3.3.0
       motion:
         specifier: ^12.5.0
         version: 12.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
