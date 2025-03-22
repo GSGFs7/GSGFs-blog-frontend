@@ -1,8 +1,10 @@
+import { common } from "lowlight";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
 import rehypeHighlightCodeLines from "rehype-highlight-code-lines";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
+import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
@@ -39,10 +41,57 @@ export async function markdownToHtml(markdown: string): Promise<string> {
       properties: { className: ["anchor-link"] },
     }) // 添加锚点链接
     .use(rehypeKatex, { strict: false }) // 数学公式渲染为 HTML
-    .use(rehypeHighlight) // 代码语法高亮
+    .use(rehypeHighlight, { languages: { ...common } }) // 代码语法高亮
     .use(rehypeHighlightCodeLines, { showLineNumbers: true }) // 代码段添加行号
     .use(rehypeStringify) // 将 HTML AST 转换为HTML
     .process(markdown);
+
+  return result.toString();
+}
+
+export async function commentMarkdownToHtml(comment: string): Promise<string> {
+  if (comment.length > 5000) {
+    comment = comment.substring(0, 5000) + "...(length limit exceeded)";
+  }
+
+  const sanitizeSchema: import("rehype-sanitize").Options = {
+    ...defaultSchema,
+    // allowed tags
+    tagNames: [
+      ...(defaultSchema.tagNames || []),
+      "p",
+      "em",
+      "strong",
+      "a",
+      "ul",
+      "ol",
+      "li",
+      "code",
+      "blockquote",
+    ],
+    attributes: {
+      ...defaultSchema.attributes,
+      a: [
+        // do not work.
+        ["href", /^https?:\/\//], // only allow http/https link
+        ["target", "_blank"], // open the page in new tab
+        ["rel", "noopener noreferrer"], // Prevent the new window from obtaining a reference to the original window
+      ],
+      blockquote: [["heimu"]],
+    },
+    clobberPrefix: "user-content-",
+    allowComments: false,
+    protocols: {},
+  };
+
+  const result = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: false })
+    .use(rehypeCustomAttrs)
+    .use(rehypeSanitize, sanitizeSchema)
+    .use(rehypeStringify)
+    .process(comment);
 
   return result.toString();
 }

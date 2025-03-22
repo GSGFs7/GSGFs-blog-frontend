@@ -3,6 +3,7 @@
 import bowser from "bowser";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 import { apiAddComment } from "@/server";
 
@@ -29,15 +30,21 @@ export default function CommentInput({
 
         const content = formData.get("content");
 
-        if (!content) return;
+        if (String(content).trim().length < 1) return;
 
-        await apiAddComment(String(content), postId, {
+        const res = await apiAddComment(String(content), postId, {
           user_agent: bowser.getParser(userAgent).getUA(),
           browser: bowser.getParser(userAgent).getBrowser().name,
           browser_version: bowser.getParser(userAgent).getBrowserVersion(),
           platform: bowser.getParser(userAgent).getPlatform().type,
           OS: bowser.getParser(userAgent).getOS().name,
         });
+
+        if (res === null) {
+          toast.error("评论失败! 不要干坏事哦~");
+
+          return;
+        }
 
         router.refresh();
       }}
