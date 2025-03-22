@@ -2,10 +2,11 @@
 
 import { createHmac, randomBytes } from "crypto";
 
-import { Render } from "@/types/posts";
 import { getGuest } from "@/lib/api/post";
-import { guestLogin } from "@/types/guest";
 import { getSession } from "@/lib/auth";
+import { guestLogin } from "@/types/guest";
+import { Render } from "@/types/posts";
+import { commentMarkdownToHtml } from "@/utils/markdown";
 
 async function generateAuthToken(): Promise<string> {
   const timestamp = Math.floor(Date.now() / 1000 / 10); // 10s
@@ -112,9 +113,13 @@ export async function apiAddComment(
 
   await apiGuestLogin();
 
+  const htmlContent = (await commentMarkdownToHtml(content)).trim();
+
+  if (htmlContent.length < 1) return null;
+
   const body = JSON.stringify({
     unique_id: `${guest?.provider}-${guest?.provider_id}`,
-    content,
+    content: htmlContent,
     post_id: postId,
     metadata,
   });

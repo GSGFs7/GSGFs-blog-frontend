@@ -12,6 +12,11 @@ const nextConfig: import("next").NextConfig = {
       { hostname: "a.ppy.sh" },
     ],
   },
+  // CSP protection
+  // TODO
+  async headers() {
+    return [];
+  },
 };
 
 const withMDX = createMDX({
