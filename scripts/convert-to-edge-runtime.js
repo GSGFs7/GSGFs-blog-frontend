@@ -20,7 +20,8 @@ function findPageFiles(dir, fileList = []) {
       file == "page.tsx" ||
       file === "not-found.tsx" ||
       file === "error.tsx" ||
-      file === "route.ts"
+      file === "route.ts" ||
+      file === "layout.tsx"
     ) {
       fileList.push(filePath);
     }
