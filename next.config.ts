@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 /** @type {import('next').NextConfig} */
 const nextConfig: import("next").NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-  output: "standalone" as const,
+  output: "standalone" as const, // for docker
   images: {
     remotePatterns: [
       { hostname: "img.gsgfs.moe" },

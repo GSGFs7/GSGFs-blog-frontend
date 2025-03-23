@@ -11,6 +11,7 @@ import { commentMarkdownToHtml } from "@/utils/markdown";
 
 async function randomBytes(length: number): Promise<Buffer> {
   const array = new Uint8Array(length);
+  const crypto = globalThis.crypto;
 
   crypto.getRandomValues(array);
 
@@ -22,6 +23,7 @@ async function createHMAC(
   ...messages: string[]
 ): Promise<string> {
   const encoder = new TextEncoder();
+  const crypto = globalThis.crypto;
   const secretKey = await crypto.subtle.importKey(
     "raw",
     encoder.encode(secret),
@@ -41,7 +43,7 @@ async function createHMAC(
 }
 
 async function generateAuthToken(): Promise<string> {
-  const timestamp = Math.floor(Date.now() / 1000 / 10); // 10s
+  const timestamp = Math.floor(globalThis.Date.now() / 1000 / 10); // 10s
   const message = (await randomBytes(8)).toString("hex");
 
   if (!process.env.SERVER_SECRET_KEY) {
