@@ -1,3 +1,5 @@
+"use client";
+
 import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";

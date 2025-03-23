@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import AboutContent from "@/components/about-content";
 import { title } from "@/utils/primitives";
 

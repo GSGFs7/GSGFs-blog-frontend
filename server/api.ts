@@ -1,7 +1,7 @@
 "use server";
 
 // This is a nodejs api, it will get a error in edge runtime
-import { createHmac, randomBytes } from "crypto";
+// import { createHmac, randomBytes } from "crypto";
 
 import { getGuest } from "@/lib/api/post";
 import { getSession } from "@/lib/auth";
@@ -9,9 +9,40 @@ import { guestLogin } from "@/types/guest";
 import { Render } from "@/types/posts";
 import { commentMarkdownToHtml } from "@/utils/markdown";
 
+async function randomBytes(length: number): Promise<Buffer> {
+  const array = new Uint8Array(length);
+
+  crypto.getRandomValues(array);
+
+  return Buffer.from(array);
+}
+
+async function createHMAC(
+  secret: string,
+  ...messages: string[]
+): Promise<string> {
+  const encoder = new TextEncoder();
+  const secretKey = await crypto.subtle.importKey(
+    "raw",
+    encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+
+  const message = messages.join("");
+  const signature = await crypto.subtle.sign(
+    "HMAC",
+    secretKey,
+    encoder.encode(message),
+  );
+
+  return Buffer.from(signature).toString("hex");
+}
+
 async function generateAuthToken(): Promise<string> {
   const timestamp = Math.floor(Date.now() / 1000 / 10); // 10s
-  const message = randomBytes(8).toString("hex");
+  const message = (await randomBytes(8)).toString("hex");
 
   if (!process.env.SERVER_SECRET_KEY) {
     // eslint-disable-next-line no-console
@@ -20,10 +51,16 @@ async function generateAuthToken(): Promise<string> {
     return "";
   }
 
-  const signature = createHmac("sha256", process.env.SERVER_SECRET_KEY)
-    .update(timestamp.toString())
-    .update(message)
-    .digest("hex");
+  // const signature = createHmac("sha256", process.env.SERVER_SECRET_KEY)
+  //   .update(timestamp.toString())
+  //   .update(message)
+  //   .digest("hex");
+
+  const signature = createHMAC(
+    process.env.SERVER_SECRET_KEY,
+    timestamp.toString(),
+    message,
+  );
 
   return Buffer.from(
     JSON.stringify({

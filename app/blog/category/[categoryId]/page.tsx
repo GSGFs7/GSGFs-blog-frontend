@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { CategoryResponse } from "@/types/posts";
 
 export default async function Page({

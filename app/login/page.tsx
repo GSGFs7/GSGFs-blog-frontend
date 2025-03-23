@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { Suspense } from "react";
 
 import SigninButton from "@/components/sign-in-button";
