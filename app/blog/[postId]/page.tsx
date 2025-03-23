@@ -1,14 +1,13 @@
 export const runtime = "edge";
 
+// import matter from "gray-matter";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Post } from "@/types/posts";
+import adapter from "@/components/blog/runtime-adapter";
+import { getPost } from "@/lib/api";
 
-const BlogBodyMD = dynamic(
-  () => import("@/components/blog/client-blog-wrapper"),
-);
 const Comment = dynamic(() => import("@/components/comment"));
 
 export default async function Page({
@@ -16,47 +15,20 @@ export default async function Page({
 }: {
   params: Promise<{ postId: number }>;
 }) {
+  const BlogBody = (await adapter()).default;
   const postId = (await params).postId;
-  const res = await fetch(`${process.env.BACKEND_URL}/api/post/${postId}`);
+  const post = await getPost(postId.toString());
 
   // 如果找不到的话
-  if (res.status === 404) {
+  if (post === null) {
     notFound();
   }
-
-  const post = (await res.json()) as Post;
-
-  // let html = post.content_html;
-
-  // if (!html) {
-  //   html = await markdownToHtml(markdownContent);
-  // }
-
-  // async function sendToBack(frontmatter: any, html: string) {
-  //   "use server";
-  //   const newPost = {
-  //     author: frontmatter.author ?? null,
-  //     category: frontmatter.category ?? frontmatter.categories ?? null,
-  //     content_html: html ?? null,
-  //     cover_image: frontmatter.cover_image ?? frontmatter.cover ?? null,
-  //     header_image:
-  //       frontmatter.header_image ??
-  //       frontmatter.top_image ??
-  //       frontmatter.top_img ??
-  //       null,
-  //     id: postId,
-  //     meta_description: frontmatter.meta_description ?? null,
-  //     slug: frontmatter.slug ?? frontmatter.url ?? null,
-  //     tags: frontmatter.tags ?? null,
-  //   } as Render;
-  // }
 
   return (
     <div className="">
       {/* <BlogHeader post={post} /> */}
-      {/* <BlogBody bg={post.header_image} html={html ?? "some thing error"} /> */}
-      <BlogBodyMD markdown={post.content} />
-      <Suspense fallback={<p>评论加载中...</p>}>
+      <BlogBody markdown={post.content} />
+      <Suspense fallback={<div className="spinner" />}>
         <Comment postId={postId} />
       </Suspense>
     </div>

@@ -14,7 +14,12 @@ import remarkMath from "remark-math";
 
 import { useBlog } from "@/hooks/blog";
 
-export default function BlogBodyMD({ markdown }: { markdown: string }) {
+export default function BlogBodyMD({
+  markdown,
+}: {
+  markdown: string;
+  html?: string;
+}) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: frontmatter, content: markdownContent } = matter(markdown); // 分离出frontmatter和正文
 

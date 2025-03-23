@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import NextTopLoader from "nextjs-toploader";
+import { Suspense } from "react";
 
 import { Providers } from "./providers";
 
@@ -54,7 +55,9 @@ export default function RootLayout({
               className="fixed z-40 flex w-full justify-center"
               role="banner"
             >
-              <Navbar />
+              <Suspense>
+                <Navbar />
+              </Suspense>
             </header>
 
             <main className="dark container mx-auto max-w-7xl grow px-6 pt-24">

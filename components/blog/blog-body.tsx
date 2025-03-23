@@ -13,7 +13,7 @@ export default function BlogBody({
 }: {
   html: string;
   action?: () => {};
-  bg?: string | null;
+  markdown?: string;
 }) {
   useBlog(html);
 
