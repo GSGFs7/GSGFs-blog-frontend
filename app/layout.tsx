@@ -5,11 +5,11 @@ import NextTopLoader from "nextjs-toploader";
 
 import { Providers } from "./providers";
 
+import BackgroundImage from "@/components/background-image";
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { fontMono, fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
-import BackgroundImage from "@/components/background-image";
-import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: {
