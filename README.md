@@ -17,7 +17,7 @@
 - `types`: 类型定义
 - `utils`: 实用函数
 
-## 如何运行
+## 运行
 
 需要`Node.js`和`pnpm`
 
@@ -37,7 +37,7 @@
    pnpm run dev
    ```
 
-## 如何部署
+## 部署
 
 _需要将`next.config.ts`中的`["remark-gfm"]`改回为`remarkGfm`_
 
@@ -74,6 +74,16 @@ _需要将`next.config.ts`中的`["remark-gfm"]`改回为`remarkGfm`_
 3. vercel 部署
 
    复制本仓库到自己的仓库后, 在 vercel 上即可部署
+
+## 分支
+
+- `main`: 稳定分支
+- `dev`: 开发分支
+- `edge-runtime`: 使用`edge`运行时的分支, 可以部署在`Cloudflare Pages`上
+
+运行时切换: 见`package.json`中的`scripts`
+
+_目前`edge`运行时需要`next`的版本不超过`15.1`, 具体见这个[issue](https://github.com/cloudflare/next-on-pages/issues/949)_
 
 ## 提交commit
 

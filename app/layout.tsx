@@ -2,14 +2,15 @@ import "@/styles/globals.css";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import NextTopLoader from "nextjs-toploader";
+import { Suspense } from "react";
 
 import { Providers } from "./providers";
 
+import BackgroundImage from "@/components/background-image";
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { fontMono, fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
-import BackgroundImage from "@/components/background-image";
-import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: {
@@ -52,7 +53,9 @@ export default function RootLayout({
               className="fixed z-40 flex w-full justify-center"
               role="banner"
             >
-              <Navbar />
+              <Suspense>
+                <Navbar />
+              </Suspense>
             </header>
 
             <main className="dark container mx-auto max-w-7xl grow px-6 pt-24">

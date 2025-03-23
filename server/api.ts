@@ -1,6 +1,9 @@
 "use server";
 
-import { createHmac, randomBytes } from "crypto";
+// This is a nodejs api, it will get a error in edge runtime
+// import { createHmac, randomBytes } from "crypto";
+
+import adapter from "./runtime-adapter";
 
 import { getGuest } from "@/lib/api/post";
 import { getSession } from "@/lib/auth";
@@ -8,36 +11,12 @@ import { guestLogin } from "@/types/guest";
 import { Render } from "@/types/posts";
 import { commentMarkdownToHtml } from "@/utils/markdown";
 
-async function generateAuthToken(): Promise<string> {
-  const timestamp = Math.floor(Date.now() / 1000 / 10); // 10s
-  const message = randomBytes(8).toString("hex");
-
-  if (!process.env.SERVER_SECRET_KEY) {
-    // eslint-disable-next-line no-console
-    console.error("SERVER_SECRET_KEY not found");
-
-    return "";
-  }
-
-  const signature = createHmac("sha256", process.env.SERVER_SECRET_KEY)
-    .update(timestamp.toString())
-    .update(message)
-    .digest("hex");
-
-  return Buffer.from(
-    JSON.stringify({
-      message,
-      signature,
-    }),
-  ).toString("base64");
-}
-
 // 测试用的函数 不应该在生产环境使用
 export async function apiTest() {
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/api/front/test`, {
       headers: {
-        Authorization: `Bearer ${await generateAuthToken()}`,
+        Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
       },
     });
 
@@ -53,7 +32,7 @@ export async function apiSendRender(render: Render) {
   await fetch(`${process.env.BACKEND_URL}/api/front/render`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${await generateAuthToken()}`,
+      Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
     },
     body: JSON.stringify(render),
   });
@@ -79,7 +58,7 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${await generateAuthToken()}`,
+          Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
         },
         body: JSON.stringify(loginDate),
       },
@@ -130,7 +109,7 @@ export async function apiAddComment(
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${await generateAuthToken()}`,
+          Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
         },
         body,
       },

@@ -8,7 +8,7 @@ export default async function Page({}: {}) {
   return (
     <div className="">
       {/* useSearchParams() 需要包裹在 Suspense 中 */}
-      <Suspense>
+      <Suspense fallback={<div className="spinner-big" />}>
         <SigninButton img={githubIcon} name="github" />
         <SigninButton img={osuIcon} name="osu" />
       </Suspense>
