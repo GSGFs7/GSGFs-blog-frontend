@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { osuAuth } from "@/lib/auth";
 import { isValidRedirectUrl } from "@/utils";
 

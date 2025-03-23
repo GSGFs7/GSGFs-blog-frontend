@@ -1,12 +1,12 @@
 "use client";
 
+import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { TbTagsFilled } from "react-icons/tb";
-import { MdDateRange } from "react-icons/md";
-import { IoFileTrayFullSharp } from "react-icons/io5";
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { IoFileTrayFullSharp } from "react-icons/io5";
+import { MdDateRange } from "react-icons/md";
+import { TbTagsFilled } from "react-icons/tb";
 
 import { PostsCard } from "@/types";
 import { formatDate } from "@/utils";

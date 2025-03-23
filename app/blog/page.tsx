@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { Suspense } from "react";
 
 import { BlogList, BlogTopCards } from "@/components/blog";
@@ -11,7 +13,7 @@ export default async function BlogPage({
     <div className="flex flex-col items-center justify-center">
       <BlogTopCards />
 
-      <Suspense>
+      <Suspense fallback={<div className="spinner" />}>
         <BlogList
           searchParamsPage={Number((await searchParams)?.page ?? 1)}
           searchParamsSize={Number((await searchParams)?.size ?? 10)}

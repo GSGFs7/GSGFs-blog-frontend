@@ -5,3 +5,33 @@
   --color-background: #1c1b22;
   --color-primary: #cccccc;
 }
+
+@layer components {
+  @layer components {
+    .spinner {
+      margin: 3.2rem auto 1.6rem;
+      width: 60px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 8px solid #1b2631;
+      border-right-color: #b7c7d7;
+      animation: rotate 1s infinite linear;
+    }
+
+    .spinner-mini {
+      margin: 0;
+      width: 20px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid #b7c7d7;
+      border-right-color: transparent;
+      animation: rotate 1s infinite linear;
+    }
+
+    @keyframes rotate {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+  }
+}

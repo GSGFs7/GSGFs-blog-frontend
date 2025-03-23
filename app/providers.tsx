@@ -21,9 +21,9 @@ export interface ProvidersProps {
 //   }
 // }
 
-const queryClient = new QueryClient();
-
 export function Providers({ children, themeProps }: ProvidersProps) {
+  const queryClient = new QueryClient();
+
   return (
     <QueryClientProvider client={queryClient}>
       <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>

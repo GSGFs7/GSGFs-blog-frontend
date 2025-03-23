@@ -5,13 +5,13 @@ import { cookies } from "next/headers";
 
 import { githubResponse } from "@/types";
 
-const GITHUB_CLIENT_ID = process.env.AUTH_GITHUB_ID!;
-const GITHUB_CLIENT_SECRET = process.env.AUTH_GITHUB_SECRET!;
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
-
 export async function githubOAuth(
   code: string,
 ): Promise<githubResponse | null> {
+  const GITHUB_CLIENT_ID = process.env.AUTH_GITHUB_ID!;
+  const GITHUB_CLIENT_SECRET = process.env.AUTH_GITHUB_SECRET!;
+  const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
+
   // 获取一次性的 access token
   const accessTokenResponse = await fetch(
     "https://github.com/login/oauth/access_token",
