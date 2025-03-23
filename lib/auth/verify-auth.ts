@@ -5,9 +5,9 @@ import { cookies } from "next/headers";
 
 import { sessionType } from "@/types";
 
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
-
 export async function getSession(): Promise<sessionType | null> {
+  const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
+
   const token = (await cookies()).get("token");
 
   if (!token) {
