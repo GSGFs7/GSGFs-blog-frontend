@@ -1,5 +1,6 @@
 "use server";
 
+// This is a nodejs api, it will get a error in edge runtime
 import { createHmac, randomBytes } from "crypto";
 
 import { getGuest } from "@/lib/api/post";
