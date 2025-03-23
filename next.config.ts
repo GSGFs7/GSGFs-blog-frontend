@@ -5,7 +5,10 @@ import remarkGfm from "remark-gfm";
 const nextConfig: import("next").NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   output: "standalone" as const,
+  serverExternalPackages: [],
   images: {
+    // not dependent on nodejs API
+    unoptimized: true,
     remotePatterns: [
       { hostname: "img.gsgfs.moe" },
       { hostname: "avatars.githubusercontent.com" },
