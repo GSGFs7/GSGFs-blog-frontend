@@ -1,12 +1,14 @@
 export const runtime = "edge";
 
-import matter from "gray-matter";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
-import BlogBodyMD from "@/components/blog/blog-body-MD";
 import { Post } from "@/types/posts";
 
+const BlogBodyMD = dynamic(
+  () => import("@/components/blog/client-blog-wrapper"),
+);
 const Comment = dynamic(() => import("@/components/comment"));
 
 export default async function Page({
@@ -23,8 +25,6 @@ export default async function Page({
   }
 
   const post = (await res.json()) as Post;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: frontmatter, content: markdownContent } = matter(post.content); // 分离出frontmatter和正文
 
   // let html = post.content_html;
 
@@ -55,8 +55,10 @@ export default async function Page({
     <div className="">
       {/* <BlogHeader post={post} /> */}
       {/* <BlogBody bg={post.header_image} html={html ?? "some thing error"} /> */}
-      <BlogBodyMD markdown={markdownContent} />
-      <Comment postId={postId} />
+      <BlogBodyMD markdown={post.content} />
+      <Suspense fallback={<p>评论加载中...</p>}>
+        <Comment postId={postId} />
+      </Suspense>
     </div>
   );
 }

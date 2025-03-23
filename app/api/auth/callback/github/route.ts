@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { githubOAuth } from "@/lib/auth";
 import { isValidRedirectUrl } from "@/utils";
 

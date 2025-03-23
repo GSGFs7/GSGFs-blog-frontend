@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { logout } from "@/lib/auth";
 
 // 使用 POST 触发
