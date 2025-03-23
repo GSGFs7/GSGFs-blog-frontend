@@ -7,5 +7,5 @@
 // }
 
 export default function adapter() {
-  return import("./client-blog-wrapper");
+  return import("./server-blog-wrapper");
 }

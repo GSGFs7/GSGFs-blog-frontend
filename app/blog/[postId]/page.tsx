@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 // import matter from "gray-matter";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
@@ -28,7 +26,7 @@ export default async function Page({
     <div className="">
       {/* <BlogHeader post={post} /> */}
       <BlogBody markdown={post.content} />
-      <Suspense fallback={<div className="spinner" />}>
+      <Suspense fallback={<div className="spinner-big" />}>
         <Comment postId={postId} />
       </Suspense>
     </div>

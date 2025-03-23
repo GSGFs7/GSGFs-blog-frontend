@@ -18,7 +18,9 @@
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix",
     "prepare": "husky",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "nodejs-runtime": "node scripts/convert-to-nodejs-runtime.js",
+    "edge-runtime": "node scripts/convert-to-edge-runtime.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
@@ -36,14 +38,14 @@
     "gray-matter": "^4.0.3",
     "hastscript": "^9.0.1",
     "highlight.js": "^11.11.1",
-    "intl-messageformat": "^10.7.15",
+    "intl-messageformat": "^10.7.16",
     "jose": "^6.0.10",
     "katex": "^0.16.21",
     "lowlight": "^3.3.0",
     "motion": "^12.5.0",
-    "next": "^15.1.7",
+    "next": "^15.2.3",
     "next-themes": "^0.4.6",
-    "nextjs-toploader": "^3.7.15",
+    "nextjs-toploader": "^3.8.15",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",

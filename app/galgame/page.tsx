@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { title } from "@/utils/primitives";
 
 export default async function Page() {
