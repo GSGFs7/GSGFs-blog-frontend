@@ -6,14 +6,13 @@ import Image from "next/image";
 
 export default function NavAvatar({
   img,
-  isAdmin,
-  signOutAction,
 }: {
   img: string | null | undefined;
   isAdmin: boolean;
   signOutAction: () => {};
 }) {
   // 控制悬浮菜单
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isOpen, setIsOpen] = useState(false);
   let timeoutId: NodeJS.Timeout;
 

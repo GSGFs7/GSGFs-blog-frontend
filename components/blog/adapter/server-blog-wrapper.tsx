@@ -5,13 +5,14 @@ import dynamic from "next/dynamic";
 
 import { markdownToHtml } from "@/utils";
 
-const Blog = dynamic(() => import("./blog-body"));
+const Blog = dynamic(() => import("../blog-body"));
 
 export default async function ClientBlogWrapper({
   markdown,
 }: {
   markdown: string;
 }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: frontmatter, content: markdownContent } = matter(markdown); // this function use DOMParser
 
   const html = await markdownToHtml(markdownContent);

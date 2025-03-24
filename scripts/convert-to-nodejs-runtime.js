@@ -38,22 +38,9 @@ function addEdgeRuntime(filePath) {
   }
 }
 
-function renderMD() {
-  let content = fs.readFileSync("components/blog/runtime-adapter.ts", "utf-8");
-
-  content = content.replace(
-    'return import("./client-blog-wrapper");',
-    'return import("./server-blog-wrapper");',
-  );
-
-  fs.writeFileSync("components/blog/runtime-adapter.ts", content);
-}
-
 function main() {
   const appDir = path.join(process.cwd(), "app");
   const pageFiles = findPageFiles(appDir);
-
-  renderMD();
 
   pageFiles.forEach(addEdgeRuntime);
   console.log(`succeed. total ${pageFiles.length} files`);
