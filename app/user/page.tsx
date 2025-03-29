@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { redirect } from "next/navigation";
 
 import SignoutButton from "@/components/sign-out-button";

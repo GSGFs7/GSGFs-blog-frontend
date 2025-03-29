@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { First } from "@/components/first";
 
 export default function Home() {
