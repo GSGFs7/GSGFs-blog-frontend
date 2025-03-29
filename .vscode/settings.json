@@ -6,6 +6,7 @@
   "prettier.singleAttributePerLine": false,
   "prettier.trailingComma": "all",
   "cSpell.words": [
+    "alttitle",
     "beatmaps",
     "bowser",
     "changefreq",
@@ -23,7 +24,8 @@
     "playstyle",
     "taiko",
     "toploader",
-    "Turbopack"
+    "Turbopack",
+    "vndb"
   ],
   // 解决 Unknown at rule @apply css(unknownAtRules)
   "css.customData": [

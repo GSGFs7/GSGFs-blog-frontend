@@ -16,10 +16,10 @@ export const siteConfig = {
     //   label: "Pages",
     //   href: "/pages",
     // },
-    // {
-    //   label: "Galgame",
-    //   href: "/galgame",
-    // },
+    {
+      label: "Galgame",
+      href: "/galgame",
+    },
     {
       label: "About",
       href: "/about",
@@ -38,10 +38,10 @@ export const siteConfig = {
     //   label: "Pages",
     //   href: "/pages",
     // },
-    // {
-    //   label: "Galgame",
-    //   href: "galgame",
-    // },
+    {
+      label: "Galgame",
+      href: "galgame",
+    },
     {
       label: "About",
       href: "/about",
@@ -50,5 +50,5 @@ export const siteConfig = {
   links: {} as const,
   admin: {
     email: "gsgfs@gsgfs.moe",
-  },
+  } as const,
 };

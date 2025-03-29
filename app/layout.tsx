@@ -1,4 +1,6 @@
 import "@/styles/globals.css";
+import "@fontsource/maple-mono";
+import "@fontsource/lxgw-wenkai";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import NextTopLoader from "nextjs-toploader";
@@ -9,7 +11,6 @@ import { Providers } from "./providers";
 import BackgroundImage from "@/components/background-image";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { fontMono, fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -41,8 +42,6 @@ export default function RootLayout({
       <body
         className={clsx(
           "bg-background min-h-screen scroll-smooth font-sans antialiased",
-          fontMono.variable,
-          fontSans.variable,
         )}
       >
         {/* 客户端组件 */}

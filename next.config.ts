@@ -12,6 +12,7 @@ const nextConfig: import("next").NextConfig = {
       { hostname: "a.ppy.sh" },
     ],
   },
+  productionBrowserSourceMaps: true, // generate source map in dev environment
   // CSP protection
   // TODO
   async headers() {
