@@ -7,7 +7,7 @@
       "references": [
         {
           "name": "Tailwind CSS Documentation",
-          "url": "https://tailwindcss.com/docs/functions-and-directives#apply"
+          "url": "https://tailwindcss.com/docs/functions-and-directives#apply-directive"
         }
       ]
     },
@@ -17,7 +17,17 @@
       "references": [
         {
           "name": "Tailwind CSS Documentation",
-          "url": "https://tailwindcss.com/docs/functions-and-directives#layer"
+          "url": "https://tailwindcss.com/docs/functions-and-directives#layer-directive"
+        }
+      ]
+    },
+    {
+      "name": "@theme",
+      "description": "Tailwind CSS @theme directive",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#theme-directive"
         }
       ]
     }

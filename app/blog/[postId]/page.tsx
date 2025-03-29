@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import adapter from "@/components/blog/runtime-adapter";
+import adapter from "@/components/blog/adapter";
 import { getPost } from "@/lib/api";
 
 const Comment = dynamic(() => import("@/components/comment"));

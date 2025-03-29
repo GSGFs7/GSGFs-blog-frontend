@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { useContext } from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
@@ -26,6 +27,11 @@ export function Window({
 
   if (name !== openName) return null;
 
+  const baseStyles =
+    "absolute top-1/2 left-1/2 flex h-fit -translate-x-1/2 -translate-y-1/2 rounded-lg bg-[#1c1b22] shadow-2xs shadow-black px-4 pt-6 pb-4";
+
+  const defaultWidth = !className ? "w-[38rem]" : "";
+
   // 通过createPortal将Modal组件渲染到body下
   // createPortal的第一个参数是要渲染的内容，第二个参数是要渲染到的位置
   // createPortal不会改变组件层级，依旧可以接受父组件的props
@@ -33,11 +39,7 @@ export function Window({
     <div className="absolute top-0 left-0 z-20 h-full w-full bg-white/5 p-4 font-mono backdrop-blur-md transition-all">
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
-        className={
-          className
-            ? className
-            : "text-md absolute top-1/2 left-1/2 flex h-fit w-[38rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg bg-[#1c1b22] px-4 pt-6 pb-4 shadow-2xs shadow-black"
-        }
+        className={clsx(baseStyles, defaultWidth, className)}
       >
         <button
           className="absolute top-4 right-4 z-10 cursor-pointer text-2xl"

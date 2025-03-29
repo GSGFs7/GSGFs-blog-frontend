@@ -17,11 +17,23 @@ export const ModalContext = createContext<ModalContextType>({
   close: () => {},
 });
 
-function Modal({ children }: { children: ReactNode }) {
+function Modal({
+  children,
+  compulsion,
+  compulsionAction,
+}: {
+  children: ReactNode;
+  compulsion?: boolean;
+  compulsionAction?: () => void;
+}) {
   const [openModal, setOpenModal] = useState("");
 
   const open = setOpenModal;
-  const close = () => setOpenModal("");
+  const close = compulsion
+    ? () => {
+        compulsionAction ? compulsionAction() : null;
+      }
+    : () => setOpenModal("");
 
   return (
     <ModalContext.Provider value={{ openModal, open, close }}>

@@ -6,6 +6,7 @@ import { useBackgroundStore } from "@/lib/store/background";
 
 export default function BackgroundImageSetting() {
   const [url, setUrl] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { backgroundImage, setBackgroundImage } = useBackgroundStore();
 
   function handleSubmit(e: React.FormEvent) {
@@ -14,10 +15,11 @@ export default function BackgroundImageSetting() {
     setUrl("");
   }
 
+  // TODO
   return (
     <form onSubmit={handleSubmit}>
-      <select></select>
-      <button></button>
+      <select>1</select>
+      <button>2</button>
     </form>
   );
 }

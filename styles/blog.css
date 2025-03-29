@@ -8,6 +8,11 @@
     background: inherit !important;
     background-color: #1a1c25 !important;
 
+    pre,
+    code {
+      font-family: "Maple Mono" !important;
+    }
+
     /* ===== 2. 代码块样式 ===== */
     /* 代码使用等宽字体 */
     pre,
