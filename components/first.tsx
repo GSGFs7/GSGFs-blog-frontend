@@ -113,12 +113,11 @@ export function First() {
           >
             图片中的角色是《常轨脱离Creative》中的锦亚澄
           </p>
-          <HiInformationCircle
+          <button
             aria-controls="image-description"
             aria-expanded={show}
             aria-label="显示/隐藏图片信息"
             className="translate-y-4 cursor-pointer text-xl text-[#cccccc] hover:text-[#c0c0c0]"
-            role="button"
             tabIndex={0}
             onClick={() => setShow((now) => !now)}
             onKeyDown={(e) => {
@@ -127,7 +126,9 @@ export function First() {
                 setShow((prev) => !prev);
               }
             }}
-          />
+          >
+            <HiInformationCircle />
+          </button>
         </div>
       </div>
     </div>
