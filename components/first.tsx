@@ -24,7 +24,7 @@ export function First() {
 
   async function handleCopyGPG() {
     await navigator.clipboard.writeText(ref.current?.innerText || "");
-    toast.success("GPG 公钥以复制到剪切板");
+    toast.success("GPG 公钥已复制到剪切板");
   }
 
   return (
