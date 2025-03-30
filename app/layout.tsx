@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import "@fontsource/maple-mono";
-import "@fontsource/lxgw-wenkai";
+import "lxgw-wenkai-webfont";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import NextTopLoader from "nextjs-toploader";
