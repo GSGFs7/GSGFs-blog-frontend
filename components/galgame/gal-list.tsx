@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-import "@/styles/gal-table.css";
+import "@/styles/gal-table.scss";
 import "github-markdown-css/github-markdown-dark.css";
 
 import { getAllGal } from "@/lib/api";

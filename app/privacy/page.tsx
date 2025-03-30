@@ -1,10 +1,12 @@
 import { Metadata } from "next";
-import "@/styles/privacy.css";
+import "@/styles/privacy.scss";
 
 export const metadata: Metadata = {
   title: "隐私协议",
   description: "GSGFs's blog的隐私政策, 我们如何保护您的隐私.",
 };
+
+export const dynamic = "force-static";
 
 export default function Page() {
   return (

@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import "@/styles/globals.scss";
 import "@fontsource/maple-mono";
 import "lxgw-wenkai-webfont";
 import { clsx } from "clsx";

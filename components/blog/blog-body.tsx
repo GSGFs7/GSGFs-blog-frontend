@@ -1,6 +1,6 @@
 "use client";
 
-import "@/styles/blog.css";
+import "@/styles/blog.scss";
 import "github-markdown-css/github-markdown-dark.css";
 // import "wysiwyg.css";
 import "highlight.js/styles/github-dark.css";
