@@ -9,7 +9,7 @@ import { HiInformationCircle } from "react-icons/hi";
 
 import Modal from "@/components/modal";
 import GPG from "@/markdown/GPG.mdx";
-import avatar_png from "@/public/avatar.png";
+import avatar_webp from "@/public/avatar-optimized.webp";
 import osu_svg from "@/public/osu.svg";
 
 export function First() {
@@ -24,6 +24,7 @@ export function First() {
 
   async function handleCopyGPG() {
     await navigator.clipboard.writeText(ref.current?.innerText || "");
+    toast.success("GPG 公钥已复制到剪切板");
   }
 
   return (
@@ -43,6 +44,7 @@ export function First() {
 
           <div className="flex gap-3">
             <a
+              aria-label="访问我的 OSU! 主页"
               className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
               href="https://osu.ppy.sh/users/36335512"
               // 不发送 HTTP referer header 防止目标获取源页面信息
@@ -53,6 +55,7 @@ export function First() {
             </a>
 
             <a
+              aria-label="访问我的 Github 主页"
               className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
               href="https://github.com/GSGFs7"
               rel="noopener noreferrer"
@@ -63,7 +66,11 @@ export function First() {
 
             <Modal>
               <Modal.Open opens="gpg-key">
-                <button className="flex cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105">
+                <button
+                  aria-label="查看我的 GPG 公钥"
+                  className="flex cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
+                  title="查看我的 GPG 公钥"
+                >
                   <BsFingerprint />
                 </button>
               </Modal.Open>
@@ -75,6 +82,7 @@ export function First() {
                   <GPG />
 
                   <button
+                    aria-label="复制 GPG 公钥"
                     className="mt-4 w-full cursor-pointer rounded-sm border text-center text-xl text-blue-600"
                     onClick={handleCopyGPG}
                   >
@@ -91,9 +99,12 @@ export function First() {
         <Image
           alt="avatar"
           className="rounded-xl shadow-lg shadow-black/50 transition-all hover:scale-105"
+          loading="eager"
+          placeholder="blur"
           priority={true}
-          quality={100}
-          src={avatar_png}
+          quality={85}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          src={avatar_webp}
         />
         <div className="group relative flex items-center justify-end">
           {/* absolute 与上面的relative对应 */}
@@ -103,8 +114,19 @@ export function First() {
             图片中的角色是《常轨脱离Creative》中的锦亚澄
           </p>
           <HiInformationCircle
+            aria-controls="image-description"
+            aria-expanded={show}
+            aria-label="显示/隐藏图片信息"
             className="translate-y-4 cursor-pointer text-xl text-[#cccccc] hover:text-[#c0c0c0]"
+            role="button"
+            tabIndex={0}
             onClick={() => setShow((now) => !now)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setShow((prev) => !prev);
+              }
+            }}
           />
         </div>
       </div>

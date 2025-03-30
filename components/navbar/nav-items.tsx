@@ -18,7 +18,7 @@ export function NavItems() {
           className={clsx(
             "rounded-lg transition-all",
             item.href.split("/").at(1) === active &&
-              "bg-gray-500/30 px-2 py-1 text-blue-400",
+              "border border-gray-500/10 bg-gray-500/20 px-2 py-1 text-blue-300 shadow-xs",
           )}
         >
           <Link color="foreground" href={item.href}>
