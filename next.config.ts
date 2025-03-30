@@ -18,6 +18,14 @@ const nextConfig: import("next").NextConfig = {
   async headers() {
     return [];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/sitemap",
+        destination: "/sitemap.xml",
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({

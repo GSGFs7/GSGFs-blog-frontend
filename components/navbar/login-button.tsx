@@ -19,7 +19,7 @@ export default function LoginButton() {
 
   // 没有就用当前的path
   return (
-    <Link href={`/login?callbackUrl=${path}`}>
+    <Link href={`/login?callbackUrl=${path}`} title="login">
       <AiOutlineLogin />
     </Link>
   );
