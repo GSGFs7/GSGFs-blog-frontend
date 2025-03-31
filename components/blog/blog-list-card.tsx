@@ -43,7 +43,6 @@ export default function BlogListCard({
             alt="postImage"
             className="scale-100 object-cover object-center"
             loading="lazy"
-            placeholder="blur"
             quality={90}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             src={cover_image ? cover_image : default_cover}

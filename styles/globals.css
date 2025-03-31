@@ -28,6 +28,20 @@
   }
 }
 
+@layer utilities {
+  .text-outline-thin {
+    -webkit-text-stroke: 0.5px;
+  }
+
+  .text-outline-white {
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .text-outline-blue {
+    -webkit-text-stroke-color: rgba(59, 130, 246, 0.3);
+  }
+}
+
 body {
   font-family: "LXGW WenKai", sans-serif;
 }
