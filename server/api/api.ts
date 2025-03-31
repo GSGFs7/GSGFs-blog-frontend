@@ -3,7 +3,7 @@
 // This is a nodejs api, it will get a error in edge runtime
 // import { createHmac, randomBytes } from "crypto";
 
-import adapter from "./runtime-adapter";
+import adapter from "./adapter";
 
 import { getGuest } from "@/lib/api/post";
 import { getSession } from "@/lib/auth";

@@ -68,6 +68,11 @@ export interface PaginationResponse {
   size: number;
 }
 
+export interface PostWithPagination {
+  posts: PostsCard[];
+  pagination: PaginationType;
+}
+
 export interface CategoryResponse {
   posts: PostsCard[];
   pagination: PaginationResponse;

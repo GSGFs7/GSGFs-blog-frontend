@@ -36,3 +36,6 @@ next-env.d.ts
 
 # 构建产物
 buildtime.ts
+
+# pnpm workspace
+pnpm-workspace.yaml

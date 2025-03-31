@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build -d",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix",
     "prepare": "husky",
@@ -23,15 +23,14 @@
     "edge-runtime": "node scripts/convert-to-edge-runtime.cjs"
   },
   "dependencies": {
-    "@fontsource/lxgw-wenkai": "^5.2.5",
     "@fontsource/maple-mono": "^5.2.5",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.2.4",
     "@react-aria/ssr": "^3.9.7",
     "@react-aria/visually-hidden": "^3.8.21",
-    "@tanstack/react-query": "^5.70.0",
-    "@tanstack/react-query-devtools": "^5.70.0",
+    "@tanstack/react-query": "^5.71.0",
+    "@tanstack/react-query-devtools": "^5.71.0",
     "@types/mdx": "^2.0.13",
     "@uiw/react-md-editor": "^4.0.5",
     "bowser": "^2.11.0",
@@ -44,6 +43,7 @@
     "jose": "^6.0.10",
     "katex": "^0.16.21",
     "lowlight": "^3.3.0",
+    "lxgw-wenkai-webfont": "^1.7.0",
     "motion": "^12.6.2",
     "next": "~15.1.7",
     "next-themes": "^0.4.6",
@@ -66,9 +66,10 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
     "remark-toc": "^9.0.0",
+    "sharp": "^0.33.5",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
-    "wysiwyg.css": "^0.0.4",
+    "zod": "^3.24.2",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -100,6 +101,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwind-variants": "^0.3.1",
     "tailwindcss": "^4.0.17",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   }
 }

@@ -86,10 +86,10 @@ function TableBody({}: { onRowClick?: (id: number) => void }) {
                 ) : null}
               </div>
             </td>
-            <td>{row.VNDBScore || "-"}</td>
             <td>{row.characterScore || "-"}</td>
             <td>{row.storyScore || "-"}</td>
             <td>{row.comprehensiveScore || "-"}</td>
+            <td>{row.VNDBScore || "-"}</td>
             <td>{row.summary || "-"}</td>
           </tr>
         ) : (

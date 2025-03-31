@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: "GSGFs's blog的隐私政策, 我们如何保护您的隐私.",
 };
 
+export const dynamic = "force-static";
+
 export default function Page() {
   return (
     <div className="container mx-auto max-w-3xl px-4 py-8">

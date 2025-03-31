@@ -2,6 +2,8 @@ export const runtime = "edge";
 
 import { Metadata } from "next";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "About",
 };

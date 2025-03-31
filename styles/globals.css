@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-/* 自定义颜色 tailwindcss 升级到 v4 之后 heroui 里的颜色就失效了 */
-@theme {
-  --color-background: #1c1b22;
-  --color-primary: #cccccc;
-}
-
 @layer components {
   .spinner-big {
     margin: 3.2rem auto 1.6rem;
@@ -31,6 +25,20 @@
     to {
       transform: rotate(1turn);
     }
+  }
+}
+
+@layer utilities {
+  .text-outline-thin {
+    -webkit-text-stroke: 0.5px;
+  }
+
+  .text-outline-white {
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .text-outline-blue {
+    -webkit-text-stroke-color: rgba(59, 130, 246, 0.3);
   }
 }
 
