@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import "@/styles/privacy.scss";
+import "@/styles/privacy.css";
 
 export const metadata: Metadata = {
   title: "隐私协议",

@@ -49,8 +49,11 @@ export default function Pagination({
   return (
     <div className="flex pt-8">
       <button
+        aria-label="上一页"
         className="enabled:cursor-pointer disabled:cursor-not-allowed disabled:text-gray-600"
         disabled={currentPage === 1}
+        tabIndex={0}
+        title="上一页"
         onClick={() => handlePageChange(prevPage())}
       >
         <HiChevronLeft className="text-xl" />
@@ -59,8 +62,11 @@ export default function Pagination({
         {currentPage}
       </div>
       <button
+        aria-label="下一页"
         className="enabled:cursor-pointer disabled:cursor-not-allowed disabled:text-gray-600"
         disabled={currentPage === pageCount}
+        tabIndex={0}
+        title="下一页"
         onClick={() => handlePageChange(nextPage())}
       >
         <HiChevronRight className="text-xl" />

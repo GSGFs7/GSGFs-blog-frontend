@@ -47,6 +47,8 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
           fill
           alt="top card image"
           className="scale-110 object-cover"
+          loading="eager"
+          placeholder="blur"
           src={cardImageL}
           style={{
             height: "100%",
@@ -67,6 +69,8 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
           <Image
             alt="top card image"
             className="absolute bottom-0 hidden translate-y-8 transition-all hover:translate-y-0 sm:block"
+            loading="eager"
+            placeholder="blur"
             sizes="100vw"
             src={cardImageR}
             style={{ width: "100%", height: "auto" }}

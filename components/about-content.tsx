@@ -2,7 +2,7 @@
 
 import About from "@/markdown/about.mdx";
 import "github-markdown-css/github-markdown-dark.css";
-import "@/styles/blog.scss";
+import "@/styles/blog.css";
 
 export default function AboutContent() {
   return (

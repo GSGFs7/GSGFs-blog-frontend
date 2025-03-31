@@ -102,7 +102,7 @@ export function First() {
           loading="eager"
           placeholder="blur"
           priority={true}
-          quality={85}
+          quality={90}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           src={avatar_webp}
         />
