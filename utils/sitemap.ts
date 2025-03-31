@@ -3,7 +3,7 @@ import { readdirSync, statSync } from "fs";
 
 import { getPostSitemap } from "@/lib/api/post";
 
-interface SitemapField {
+export interface SitemapField {
   url: string;
   lastModified?: string | Date;
   changeFrequency?:
@@ -88,16 +88,15 @@ export async function generateSitemap(): Promise<SitemapField[]> {
     ...postRoutes,
   ];
 
-  // 旧的生成站点地图的方式(app/sitemap.xml/route.ts), 现在使用 app/sitemap.ts 替代
   // return `<?xml version="1.0" encoding="UTF-8"?>
-  // <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  //   <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
   // ${fields
   //   .map(
   //     (field) =>
   //       `<url>
   //         <loc>${field.url}</loc>
-  //         ${field.lastmod ? `<lastmod>${field.lastmod}</lastmod>` : ""}
-  //         ${field.changefreq ? `<changefreq>${field.changefreq}</changefreq>` : ""}
+  //         ${field.lastModified ? `<lastmod>${field.lastModified}</lastmod>` : ""}
+  //         ${field.changeFrequency ? `<changefreq>${field.changeFrequency}</changefreq>` : ""}
   //         ${field.priority ? `<priority>${field.priority}</priority>` : ""}
   //       </url>`,
   //   )
