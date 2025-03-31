@@ -17,6 +17,7 @@
     "katex",
     "kudosu",
     "lastmod",
+    "nodenext",
     "noopener",
     "noreferrer",
     "partialize",
@@ -30,5 +31,8 @@
   // 解决 Unknown at rule @apply css(unknownAtRules)
   "css.customData": [
     ".vscode/css_custom_data.json"
-  ]
+  ],
+  "files.associations": {
+    "*.css": "tailwindcss",
+  },
 }

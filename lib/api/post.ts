@@ -1,5 +1,5 @@
 import { getSession } from "@/lib/auth";
-import { Post, PostSitemapItem } from "@/types";
+import { Post, PostSitemapItem, PostWithPagination } from "@/types";
 import { guestLogin } from "@/types/guest";
 
 export async function getPost(postId: string): Promise<Post | null> {
@@ -10,6 +10,25 @@ export async function getPost(postId: string): Promise<Post | null> {
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
+
+    return null;
+  }
+}
+
+export async function getPostList(
+  page: number,
+  size: number,
+): Promise<PostWithPagination | null> {
+  try {
+    const res = await fetch(
+      `${process.env.BACKEND_URL}/api/post/posts?page=${page}&size=${size}`,
+    );
+    const data = (await res.json()) as PostWithPagination;
+
+    return data;
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error("get post list error: ", e);
 
     return null;
   }

@@ -12,6 +12,7 @@ export default function SmallScreenMenu({}: {}) {
       animate={{ y: 0 }}
       className="fixed inset-0 -z-10 h-screen w-screen bg-black/15 backdrop-blur-md"
       exit={{ y: -1000 }}
+      id="small-screen-menu"
       initial={{ y: -1000 }}
       transition={{ type: "keyframes" }}
     >
