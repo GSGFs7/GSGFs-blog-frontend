@@ -38,6 +38,8 @@
     "@uiw/react-md-editor": "^4.0.5",
     "bowser": "^2.11.0",
     "clsx": "^2.1.1",
+    "cookie": "^1.0.2",
+    "esbuild": "^0.25.2",
     "github-markdown-css": "^5.8.1",
     "gray-matter": "^4.0.3",
     "hastscript": "^9.0.1",
