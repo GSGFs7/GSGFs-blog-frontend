@@ -21,7 +21,7 @@ export async function getCommentFromId(
   commentId: number,
 ): Promise<commentType | null> {
   try {
-    const data = fc.get<commentType>(`/comment/${commentId}`);
+    const data = await fc.get<commentType>(`/comment/${commentId}`);
 
     return data;
   } catch (e) {
