@@ -9,7 +9,7 @@ export default async function NavAvatar() {
   const session = await getSession();
   const defaultAvatar = "/default-avatar.png";
 
-  if (!session) return <LoginButton />;
+  if (session === null) return <LoginButton />;
 
   return (
     <NavAvatarLink>

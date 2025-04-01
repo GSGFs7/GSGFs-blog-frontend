@@ -15,7 +15,11 @@ export default async function BlogList({
   const data = await getPostList(page, size);
 
   if (data === null) {
-    return <div className="mt-12 text-2xl">服务器挂了哦, 杂鱼~</div>;
+    return (
+      <div className="mt-12 text-2xl">
+        <p>服务器挂了哦, 杂鱼~</p>
+      </div>
+    );
   }
 
   const { posts, pagination } = data;

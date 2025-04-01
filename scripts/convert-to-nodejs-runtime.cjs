@@ -43,7 +43,7 @@ function main() {
   const pageFiles = findPageFiles(appDir);
 
   pageFiles.forEach(addEdgeRuntime);
-  console.log(`succeed. total ${pageFiles.length} files`);
+  console.log(`succeed. total match ${pageFiles.length} files`);
 }
 
 main();

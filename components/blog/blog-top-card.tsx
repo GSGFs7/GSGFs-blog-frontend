@@ -21,6 +21,8 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
   function handleRandomPost() {
     if (postIds.length < 1) {
       toast.error("出了点小问题");
+
+      return;
     }
 
     const randomIndex = Math.floor(Math.random() * postIds.length);

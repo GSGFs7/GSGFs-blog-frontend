@@ -39,3 +39,9 @@ buildtime.ts
 
 # pnpm workspace
 pnpm-workspace.yaml
+
+# cloudflare
+.open-next
+.wrangler
+.dev.vars
+cloudflare-env.d.ts

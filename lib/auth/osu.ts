@@ -3,7 +3,7 @@
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
-import { osuResponse } from "@/types";
+import { osuResponse, tokenResponse } from "@/types";
 
 export async function osuAuth(code: string): Promise<osuResponse | null> {
   const OSU_CLIENT_ID = process.env.AUTH_OSU_ID!;
@@ -23,7 +23,7 @@ export async function osuAuth(code: string): Promise<osuResponse | null> {
       grant_type: "authorization_code", // 比 github 多了这个必选项
     }),
   });
-  const accessTokenData = await accessTokenResponse.json();
+  const accessTokenData = (await accessTokenResponse.json()) as tokenResponse;
   const accessTokenType = accessTokenData.token_type;
   const accessToken = accessTokenData.access_token;
 
