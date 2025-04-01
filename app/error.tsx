@@ -1,7 +1,5 @@
 "use client";
 
-export const runtime = "edge";
-
 import { useEffect } from "react";
 
 export default function Error({

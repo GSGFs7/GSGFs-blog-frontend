@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { First } from "@/components/first";
 
 export const dynamic = "force-static"; // static page

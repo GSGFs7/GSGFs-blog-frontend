@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import "@/styles/globals.css";
 import "@fontsource/maple-mono";
 import "lxgw-wenkai-webfont";

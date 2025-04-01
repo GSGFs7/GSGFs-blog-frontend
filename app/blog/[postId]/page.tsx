@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 // import matter from "gray-matter";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";

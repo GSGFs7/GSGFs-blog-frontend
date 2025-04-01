@@ -1,12 +1,13 @@
+import { fc } from "../fetchClient";
+
 import { getSession } from "@/lib/auth";
-import { Post, PostSitemapItem, PostWithPagination } from "@/types";
-import { guestLogin } from "@/types/guest";
+import { guestLogin, Post, PostSitemapItem, PostWithPagination } from "@/types";
 
 export async function getPost(postId: string): Promise<Post | null> {
   try {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/post/${postId}`);
+    const res = await fc.get<Post>(`/post/${postId}`);
 
-    return await res.json();
+    return res;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
@@ -20,12 +21,11 @@ export async function getPostList(
   size: number,
 ): Promise<PostWithPagination | null> {
   try {
-    const res = await fetch(
-      `${process.env.BACKEND_URL}/api/post/posts?page=${page}&size=${size}`,
+    const res = await fc.get<PostWithPagination>(
+      `/post/posts?page=${page}&size=${size}`,
     );
-    const data = (await res.json()) as PostWithPagination;
 
-    return data;
+    return res;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error("get post list error: ", e);
@@ -51,9 +51,9 @@ export async function getGuest(): Promise<guestLogin | null> {
 
 export async function getAllPostIds(): Promise<number[] | null> {
   try {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/post/ids`);
+    const res = await fc.get<number[]>("/post/ids");
 
-    return (await res.json()).ids;
+    return res;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(`getAllPosts error: ${e}`);
@@ -64,9 +64,9 @@ export async function getAllPostIds(): Promise<number[] | null> {
 
 export async function getPostSitemap(): Promise<PostSitemapItem[] | null> {
   try {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/post/sitemap`);
+    const res = await fc.get<PostSitemapItem[]>("/post/sitemap");
 
-    return await res.json();
+    return res;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(`getAllPosts error: ${e}`);

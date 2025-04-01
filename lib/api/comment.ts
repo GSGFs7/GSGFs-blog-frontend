@@ -1,14 +1,12 @@
+import { fc } from "../fetchClient";
+
 import { commentType } from "@/types";
 
 export async function getAllCommentIdFromPostId(
   postId: number,
 ): Promise<number[] | null> {
   try {
-    const res = await fetch(
-      `${process.env.BACKEND_URL}/api/comment/post/${postId}`,
-      { method: "GET" },
-    );
-    const data = await res.json();
+    const data = await fc.get<{ ids: number[] }>(`/comment/post/${postId}`);
 
     return data.ids;
   } catch (e) {
@@ -23,14 +21,7 @@ export async function getCommentFromId(
   commentId: number,
 ): Promise<commentType | null> {
   try {
-    const res = await fetch(
-      `${process.env.BACKEND_URL}/api/comment/${commentId}`,
-      { method: "GET" },
-    );
-
-    if (res.status === 404) return null;
-
-    const data = (await res.json()) as commentType;
+    const data = fc.get<commentType>(`/comment/${commentId}`);
 
     return data;
   } catch (e) {

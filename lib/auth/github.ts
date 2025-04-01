@@ -3,7 +3,7 @@
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
-import { githubResponse } from "@/types";
+import { githubResponse, tokenResponse } from "@/types";
 
 export async function githubOAuth(
   code: string,
@@ -29,7 +29,7 @@ export async function githubOAuth(
       }),
     },
   );
-  const accessTokenData = await accessTokenResponse.json();
+  const accessTokenData = (await accessTokenResponse.json()) as tokenResponse;
   const accessTokenType = accessTokenData.token_type;
   const accessToken = accessTokenData.access_token;
 

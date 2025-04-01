@@ -1,3 +1,4 @@
+import { fc } from "../fetchClient";
 import { queryVN } from "../vndb";
 
 import { GalData, GalResponse, Pagination } from "@/types";
@@ -7,13 +8,7 @@ export async function getAllGal(): Promise<{
   pagination: Pagination;
 } | null> {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/gal/gals`);
-
-    if (!response.ok) {
-      throw new Error(`API responded with status: ${response.status}`);
-    }
-
-    const data: GalResponse = await response.json();
+    const data = await fc.get<GalResponse>("/gal/gals");
 
     const galPromises = (data.gals || []).map(async (gal) => {
       const res = await queryVN(gal.vndb_id);

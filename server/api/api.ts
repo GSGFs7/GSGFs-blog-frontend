@@ -7,8 +7,7 @@ import adapter from "./adapter";
 
 import { getGuest } from "@/lib/api/post";
 import { getSession } from "@/lib/auth";
-import { guestLogin } from "@/types/guest";
-import { Render } from "@/types/posts";
+import { guestLogin, IDNumber, Render } from "@/types";
 import { commentMarkdownToHtml } from "@/utils/markdown";
 
 // 测试用的函数 不应该在生产环境使用
@@ -69,7 +68,7 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
       throw new Error("apiGuestLogin error");
     }
 
-    const data = await res.json();
+    const data = (await res.json()) as IDNumber;
 
     return { id: data.id };
   } catch {
@@ -87,7 +86,7 @@ export async function apiAddComment(
     browser_version?: string;
     OS?: string;
   },
-): Promise<{ id: number } | null> {
+): Promise<number | null> {
   const guest = await getGuest();
 
   await apiGuestLogin();
@@ -114,7 +113,7 @@ export async function apiAddComment(
         body,
       },
     );
-    const data = await res.json();
+    const data = (await res.json()) as IDNumber;
 
     return data.id;
   } catch {

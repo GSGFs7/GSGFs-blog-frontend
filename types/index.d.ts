@@ -8,4 +8,6 @@ export * from "./auth";
 export * from "./comment";
 export * from "./common";
 export * from "./gal";
+export * from "./guest";
 export * from "./posts";
+

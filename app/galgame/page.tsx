@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import clsx from "clsx";
 import { Suspense } from "react";
 

@@ -89,3 +89,8 @@ export interface osuResponse {
   twitter?: string;
   website?: string;
 }
+
+export interface tokenResponse {
+  token_type: string;
+  access_token: string;
+}

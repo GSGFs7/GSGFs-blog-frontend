@@ -79,11 +79,7 @@ _需要将`next.config.ts`中的`["remark-gfm"]`改回为`remarkGfm`_
 
 - `main`: 稳定分支
 - `dev`: 开发分支
-- `edge-runtime`: 使用`edge`运行时的分支, 可以部署在`Cloudflare Pages`上
-
-运行时切换: 见`package.json`中的`scripts`
-
-_目前`edge`运行时需要`next`的版本不超过`15.1`, 具体见这个[issue](https://github.com/cloudflare/next-on-pages/issues/949)_
+- `edge-runtime`: 使用`edge`运行时的分支, 可以部署在`Cloudflare Pages`上 (这个分支正准备废弃, 改为使用`OpenNext`提供的方案, 部署至`Cloudflare Workers`)
 
 ## 提交commit
 
