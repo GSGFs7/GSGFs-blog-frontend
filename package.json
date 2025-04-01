@@ -38,8 +38,6 @@
     "@uiw/react-md-editor": "^4.0.5",
     "bowser": "^2.11.0",
     "clsx": "^2.1.1",
-    "cookie": "^1.0.2",
-    "esbuild": "^0.25.2",
     "github-markdown-css": "^5.8.1",
     "gray-matter": "^4.0.3",
     "hastscript": "^9.0.1",
@@ -81,7 +79,6 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@next/eslint-plugin-next": "^15.2.4",
-    "@opennextjs/cloudflare": "^0.6.5",
     "@react-types/shared": "^3.28.0",
     "@tailwindcss/postcss": "^4.0.17",
     "@tailwindcss/typography": "^0.5.16",
@@ -108,7 +105,10 @@
     "tailwind-variants": "^0.3.1",
     "tailwindcss": "^4.0.17",
     "tsx": "^4.19.3",
-    "typescript": "^5.8.2",
-    "wrangler": "^4.6.0"
+    "typescript": "^5.8.2"
+  },
+  "optionalDependencies": {
+    "wrangler": "^4.6.0",
+    "@opennextjs/cloudflare": "^0.6.5"
   }
 }
