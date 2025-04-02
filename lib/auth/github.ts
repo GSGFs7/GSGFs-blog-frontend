@@ -29,13 +29,16 @@ export async function githubOAuth(
       }),
     },
   );
+
+  if (!accessTokenResponse.ok) {
+    throw new Error(
+      `GitHub OAuth token request failed: ${accessTokenResponse.statusText}`,
+    );
+  }
+
   const accessTokenData = (await accessTokenResponse.json()) as tokenResponse;
   const accessTokenType = accessTokenData.token_type;
   const accessToken = accessTokenData.access_token;
-
-  if (!accessTokenResponse.ok) {
-    return null;
-  }
 
   // 获取用户信息
   const userResponse = await fetch("https://api.github.com/user", {
@@ -43,11 +46,14 @@ export async function githubOAuth(
       Authorization: `${accessTokenType} ${accessToken}`,
     },
   });
-  const userData: githubResponse = await userResponse.json();
 
   if (!userResponse.ok) {
-    return null;
+    throw new Error(
+      `GitHub get user info request failed: ${userResponse.statusText}`,
+    );
   }
+
+  const userData: githubResponse = await userResponse.json();
 
   // 创建 JWT
   const token = await new SignJWT({

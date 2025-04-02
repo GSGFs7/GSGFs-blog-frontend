@@ -40,9 +40,15 @@ export async function fetchClient<T = any>(
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
   try {
-    const url = endpoint.startsWith("http")
-      ? endpoint
-      : `${process.env.BACKEND_URL}/api${endpoint}`;
+    let url: string;
+
+    if (endpoint.startsWith("http") || endpoint.startsWith("https")) {
+      url = endpoint;
+    } else if (endpoint.startsWith("/api")) {
+      url = endpoint;
+    } else {
+      url = `${process.env.BACKEND_URL}/api${endpoint}`;
+    }
 
     const response = await fetch(url, {
       ...fetchOptions,
@@ -54,7 +60,7 @@ export async function fetchClient<T = any>(
 
     if (!response.ok) {
       throw new FetchError(
-        `API error ${response.status}: ${response.statusText}`,
+        `API error ${response.status}: ${response.statusText} when ${fetchOptions.method} ${endpoint}`,
         { status: response.status },
       );
     }

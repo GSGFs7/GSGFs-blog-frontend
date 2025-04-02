@@ -1,19 +1,23 @@
-import Image from "next/image";
-
-import LoginButton from "./login-button";
 import NavAvatarLink from "./avatar-link";
+import LoginButton from "./login-button";
 
-import { getSession } from "@/lib/auth";
+import { sessionType } from "@/types";
 
-export default async function NavAvatar() {
-  const session = await getSession();
+export default function NavAvatar({
+  initialSession,
+}: {
+  initialSession: sessionType | null;
+}) {
+  const session = initialSession;
   const defaultAvatar = "/default-avatar.png";
 
-  if (session === null) return <LoginButton />;
+  if (session === null || session === undefined) return <LoginButton />;
 
   return (
     <NavAvatarLink>
-      <Image
+      {/* disable Next.js image optimize. it will cache the picture! */}
+      {/* eslint-disable-next-line @next/next/no-img-element*/}
+      <img
         alt={`${session.name}'s avatar`}
         className="rounded-full"
         height={"40"}
