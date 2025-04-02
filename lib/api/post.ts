@@ -51,9 +51,9 @@ export async function getGuest(): Promise<guestLogin | null> {
 
 export async function getAllPostIds(): Promise<number[] | null> {
   try {
-    const res = await fc.get<number[]>("/post/ids");
+    const res = await fc.get<{ ids: number[] }>("/post");
 
-    return res;
+    return res.ids;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(`getAllPosts error: ${e}`);
