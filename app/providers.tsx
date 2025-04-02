@@ -13,6 +13,8 @@ export interface ProvidersProps {
   themeProps?: ThemeProviderProps;
 }
 
+export const dynamic = "force-dynamic";
+
 // declare module "@react-types/shared" {
 //   interface RouterConfig {
 //     routerOptions: NonNullable<
