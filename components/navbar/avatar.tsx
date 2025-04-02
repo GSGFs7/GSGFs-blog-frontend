@@ -22,13 +22,14 @@ export default function NavAvatar({
     if (!isLoading && newSession !== undefined) {
       setSession(newSession);
     }
-  }, [isLoading]);
+  }, [isLoading, newSession]);
 
   if (!session) return <LoginButton />;
 
   return (
     <NavAvatarLink>
       <Image
+        unoptimized
         alt={`${session.name}'s avatar`}
         className="rounded-full"
         height={"40"}
