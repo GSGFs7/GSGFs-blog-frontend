@@ -23,11 +23,16 @@ export async function osuAuth(code: string): Promise<osuResponse | null> {
       grant_type: "authorization_code", // 比 github 多了这个必选项
     }),
   });
+
+  if (!accessTokenResponse.ok) {
+    throw new Error(
+      `OSU OAuth token request failed: ${accessTokenResponse.statusText}`,
+    );
+  }
+
   const accessTokenData = (await accessTokenResponse.json()) as tokenResponse;
   const accessTokenType = accessTokenData.token_type;
   const accessToken = accessTokenData.access_token;
-
-  if (!accessTokenResponse.ok) return null;
 
   // 获取用户信息
   const userResponse = await fetch(`https://osu.ppy.sh/api/v2/me/osu`, {
@@ -37,9 +42,14 @@ export async function osuAuth(code: string): Promise<osuResponse | null> {
       Accept: "application/json",
     },
   });
-  const userData: osuResponse = await userResponse.json();
 
-  if (!userResponse.ok) return null;
+  if (!userResponse.ok) {
+    throw new Error(
+      `OSU get user info request failed: ${userResponse.statusText}`,
+    );
+  }
+
+  const userData: osuResponse = await userResponse.json();
 
   // 创建 JWT
   const token = await new SignJWT({

@@ -28,5 +28,11 @@
   "observability": {
     "enabled": true,
     "head_sampling_rate": 1 // debug
-  }
+  },
+  "routes": [
+    {
+      "pattern": "gsgfs.moe",
+      "custom_domain": true
+    }
+  ]
 }

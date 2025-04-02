@@ -5,7 +5,11 @@ import SmallScreenButton from "./small-screen-button";
 import NavAvatar from "./avatar";
 import { NavItems } from "./nav-items";
 
-export const Navbar = async () => {
+import { getSession } from "@/lib/auth";
+
+export async function Navbar() {
+  const session = await getSession();
+
   return (
     <nav className="sticky top-0 z-50 w-6xl">
       {/* 导航栏主容器 */}
@@ -26,7 +30,7 @@ export const Navbar = async () => {
 
           {/* 右侧功能区 */}
           <div className="hidden min-w-[5.875rem] items-center justify-end text-xl sm:flex">
-            <NavAvatar />
+            <NavAvatar initialSession={session} />
           </div>
 
           {/* 移动端菜单按钮 */}
@@ -35,4 +39,4 @@ export const Navbar = async () => {
       </div>
     </nav>
   );
-};
+}

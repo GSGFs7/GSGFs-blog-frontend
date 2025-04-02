@@ -22,7 +22,15 @@ export interface ProvidersProps {
 // }
 
 export function Providers({ children, themeProps }: ProvidersProps) {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 10 * 1000,
+        refetchOnWindowFocus: true,
+        retry: false,
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
