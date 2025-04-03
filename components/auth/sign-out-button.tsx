@@ -3,14 +3,12 @@
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { isValidRedirectUrl } from "@/utils";
+import { useAuth } from "@/app/providers";
 
-export default function SignoutButton({
-  disabled = false,
-}: {
-  disabled?: boolean;
-}) {
+export function SignoutButton({ disabled = false }: { disabled?: boolean }) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { dispatch } = useAuth();
   let callbackUrl = searchParams.get("callbackUrl");
 
   if (!callbackUrl || !isValidRedirectUrl(callbackUrl)) {
@@ -25,6 +23,7 @@ export default function SignoutButton({
       });
 
       if (response.ok) {
+        dispatch({ type: "logout" });
         router.push(`${callbackUrl}`);
         router.refresh();
       }

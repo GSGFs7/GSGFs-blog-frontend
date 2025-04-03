@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
-export default function SigninButton({
+export function SigninButton({
   img,
   name,
   disabled = false,

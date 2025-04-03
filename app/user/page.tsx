@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import SignoutButton from "@/components/sign-out-button";
+import { SignoutButton } from "@/components/auth";
 import { getSession } from "@/lib/auth";
 
 export default async function Page() {
