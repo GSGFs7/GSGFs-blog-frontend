@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import SigninButton from "@/components/sign-in-button";
+import { SigninButton } from "@/components/auth";
 import githubIcon from "@/public/github.svg";
 import osuIcon from "@/public/osu.svg";
 

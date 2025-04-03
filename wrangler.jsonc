@@ -34,5 +34,37 @@
       "pattern": "gsgfs.moe",
       "custom_domain": true
     }
-  ]
+  ],
+  "limits": {
+    "cpu_ms": 20
+  },
+  // run `pnpm run dev` need to comment out this
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "NEXT_CACHE_DO_QUEUE",
+        "class_name": "DurableObjectQueueHandler"
+      },
+      {
+        "name": "NEXT_CACHE_DO_SHARDED",
+        "class_name": "DOShardedTagCache",
+      },
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "NEXT_TAG_CACHE_D1",
+      "database_name": "gsgfs",
+      "database_id": "da4ae0e1-702b-4c13-a9d2-f35ab76f6ec0"
+    }
+  ],
+  "migrations": [
+    {
+      "tag": "v2",
+      "new_sqlite_classes": [
+        "DurableObjectQueueHandler",
+        "DOShardedTagCache"
+      ]
+    }
+  ],
 }

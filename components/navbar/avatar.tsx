@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 import NavAvatarLink from "./avatar-link";
 import LoginButton from "./login-button";
 
-import useAuth from "@/hooks/auth/useAuth";
+import { useFetchAuth } from "@/hooks/auth/useFetchAuth";
 import { sessionType } from "@/types";
 
 export default function NavAvatar({
@@ -15,21 +14,31 @@ export default function NavAvatar({
   initialSession: sessionType | null;
 }) {
   const defaultAvatar = "/default-avatar.png";
-  const [session, setSession] = useState<sessionType | null>(initialSession);
-  const { session: newSession, isLoading } = useAuth();
+  const { session, isLoading } = useFetchAuth();
 
-  useEffect(() => {
-    if (!isLoading && newSession !== undefined) {
-      setSession(newSession);
-    }
-  }, [isLoading, newSession]);
+  if (isLoading && initialSession) {
+    return (
+      <NavAvatarLink>
+        <Image
+          alt={`${initialSession.name}'s avatar`}
+          className="rounded-full"
+          height={"40"}
+          src={
+            initialSession.avatar_url
+              ? initialSession.avatar_url
+              : defaultAvatar
+          }
+          width={"40"}
+        />
+      </NavAvatarLink>
+    );
+  }
 
   if (!session) return <LoginButton />;
 
   return (
     <NavAvatarLink>
       <Image
-        unoptimized
         alt={`${session.name}'s avatar`}
         className="rounded-full"
         height={"40"}

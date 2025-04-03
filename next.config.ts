@@ -11,6 +11,8 @@ const nextConfig: import("next").NextConfig = {
       { hostname: "avatars.githubusercontent.com" },
       { hostname: "a.ppy.sh" },
     ],
+    // loader: "custom",
+    // loaderFile: "./image-loader.ts",
   },
   productionBrowserSourceMaps: true, // generate source map in dev environment
   // CSP protection
