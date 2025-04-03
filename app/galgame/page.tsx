@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { Suspense } from "react";
 
-import AprilFoolConfirm from "@/components/galgame/april-fool-confirm";
 import { GalList } from "@/components/galgame";
 import { title } from "@/utils/primitives";
+import Intro from "@/components/galgame/intro";
 
 export default async function Page() {
   return (
@@ -12,7 +12,7 @@ export default async function Page() {
       <Suspense fallback={<div className="spinner-big" />}>
         <GalList />
       </Suspense>
-      <AprilFoolConfirm />
+      <Intro />
     </div>
   );
 }
