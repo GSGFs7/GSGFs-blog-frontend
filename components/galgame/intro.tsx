@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TiInfoLargeOutline } from "react-icons/ti";
 
 import AprilFoolConfirm from "./april-fool-confirm";
@@ -10,12 +10,6 @@ import AprilFoolConfirm from "./april-fool-confirm";
 export default function Intro() {
   const [show, setShow] = useState<boolean>(false);
   const [showModel, setShowModel] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (showModel === true) {
-      setShowModel(false);
-    }
-  }, [showModel]);
 
   return (
     <div className="relative mb-6 flex w-full flex-col items-end">
