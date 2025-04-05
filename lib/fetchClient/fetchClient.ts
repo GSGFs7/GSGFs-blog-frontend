@@ -60,7 +60,7 @@ export async function fetchClient<T = any>(
 
     if (!response.ok) {
       throw new FetchError(
-        `API error ${response.status}: ${response.statusText} when ${fetchOptions.method} ${endpoint}`,
+        `API error ${response.status}: ${response.statusText} when ${fetchOptions.method} ${endpoint}. Message: ${await response.text()}`,
         { status: response.status },
       );
     }

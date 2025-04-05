@@ -7,7 +7,8 @@ import adapter from "./adapter";
 
 import { getGuest } from "@/lib/api/post";
 import { getSession } from "@/lib/auth";
-import { guestLogin, IDNumber, Render } from "@/types";
+import { fc } from "@/lib/fetchClient";
+import { GalData, guestLogin, IDNumber, Render } from "@/types";
 import { commentMarkdownToHtml } from "@/utils/markdown";
 
 // 测试用的函数 不应该在生产环境使用
@@ -112,5 +113,18 @@ export async function apiAddComment(
     return data.id;
   } catch {
     return null;
+  }
+}
+
+export async function apiUpdateGal(gal: GalData) {
+  try {
+    fc.post(`/gal/${gal.id}`, gal, {
+      headers: {
+        Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
+      },
+    });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(`update gal error: ${e}`);
   }
 }
