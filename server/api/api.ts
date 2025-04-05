@@ -13,7 +13,7 @@ import { commentMarkdownToHtml } from "@/utils/markdown";
 // 测试用的函数 不应该在生产环境使用
 export async function apiTest() {
   try {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/front/test`, {
+    const res = await fetch(`${process.env.BACKEND_URL}/api/test/auth`, {
       headers: {
         Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
       },
@@ -28,7 +28,7 @@ export async function apiTest() {
 }
 
 export async function apiSendRender(render: Render) {
-  await fetch(`${process.env.BACKEND_URL}/api/front/render`, {
+  await fetch(`${process.env.BACKEND_URL}/api/post/render`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
@@ -52,16 +52,13 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
       avatar_url: session.avatar_url!,
     };
 
-    const res = await fetch(
-      `${process.env.BACKEND_URL}/api/front/guest/login`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
-        },
-        body: JSON.stringify(loginDate),
+    const res = await fetch(`${process.env.BACKEND_URL}/api/guest/login`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
       },
-    );
+      body: JSON.stringify(loginDate),
+    });
 
     // console.log(await res.json());
     if (!res.ok) {
@@ -103,16 +100,13 @@ export async function apiAddComment(
   });
 
   try {
-    const res = await fetch(
-      `${process.env.BACKEND_URL}/api/front/comment/new`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
-        },
-        body,
+    const res = await fetch(`${process.env.BACKEND_URL}/api/comment/new`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
       },
-    );
+      body,
+    });
     const data = (await res.json()) as IDNumber;
 
     return data.id;
