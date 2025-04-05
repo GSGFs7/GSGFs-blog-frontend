@@ -1,3 +1,5 @@
+import { fc } from "../fetchClient";
+
 import { vndbVNQuery } from "@/types/vndb";
 
 export async function queryVN(id: string): Promise<vndbVNQuery | null> {
@@ -5,25 +7,17 @@ export async function queryVN(id: string): Promise<vndbVNQuery | null> {
     // https://api.vndb.org/kana#vn-fields
     const fields = [
       "alttitle",
-      "title", // alttitle can be null
+      "title", // alttitle may be null
       "titles.lang",
       "titles.title",
       "image.url",
       "rating",
     ];
 
-    const res = await fetch("https://api.vndb.org/kana/vn", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        filters: ["id", "=", id],
-        fields: fields.join(", "),
-      }),
+    const data = await fc.post<vndbVNQuery>("https://api.vndb.org/kana/vn", {
+      filters: ["id", "=", id],
+      fields: fields.join(", "),
     });
-
-    const data: vndbVNQuery = await res.json();
 
     return data;
   } catch (e) {

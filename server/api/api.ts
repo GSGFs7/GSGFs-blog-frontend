@@ -7,7 +7,8 @@ import adapter from "./adapter";
 
 import { getGuest } from "@/lib/api/post";
 import { getSession } from "@/lib/auth";
-import { guestLogin, IDNumber, Render } from "@/types";
+import { fc } from "@/lib/fetchClient";
+import { GalData, guestLogin, IDNumber, Render } from "@/types";
 import { commentMarkdownToHtml } from "@/utils/markdown";
 
 // 测试用的函数 不应该在生产环境使用
@@ -113,4 +114,31 @@ export async function apiAddComment(
   } catch {
     return null;
   }
+}
+
+export async function apiUpdateGal(gal: GalData): Promise<() => void> {
+  const updatePromise = (async () => {
+    try {
+      const authToken = await (await adapter()).generateAuthToken();
+
+      return await fc.post(`/gal/${gal.id}`, gal, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(`update gal error: ${e}`);
+      throw e;
+    }
+  })();
+
+  // Add default error handling to prevent uncaught Promise rejections
+  updatePromise.catch((e) => {
+    // This error handling only occurs if the caller does not use await or .catch()
+    // eslint-disable-next-line no-console
+    console.error(`Unhandled gal update error for ID ${gal.id}:`, e);
+  });
+
+  return updatePromise;
 }

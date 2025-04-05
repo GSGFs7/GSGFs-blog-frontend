@@ -1,7 +1,12 @@
 import { fc } from "../fetchClient";
 import { queryVN } from "../vndb";
 
+import { apiUpdateGal } from "@/server";
 import { GalData, GalResponse, Pagination } from "@/types";
+import { getTimeDiffDays } from "@/utils";
+
+// How many days it takes to re-fetch data from VNDB
+const GAL_DATA_OUTDATED_DAYS = 7;
 
 export async function getAllGal(): Promise<{
   data: GalData[];
@@ -11,33 +16,38 @@ export async function getAllGal(): Promise<{
     const data = await fc.get<GalResponse>("/gal/gals");
 
     const galPromises = (data.gals || []).map(async (gal) => {
-      const res = await queryVN(gal.vndb_id);
-      const vn = res;
+      const isNeedUpdate =
+        getTimeDiffDays(gal.update_at) > GAL_DATA_OUTDATED_DAYS || !gal.title;
+      const vn = isNeedUpdate ? await queryVN(gal.vndb_id) : null;
 
-      return {
+      const newVN = {
         id: gal.id,
-        vndbId: gal.vndb_id,
+        vndb_id: gal.vndb_id,
         title:
           gal.title ?? vn?.results[0].alttitle ?? vn?.results[0].title ?? "",
         title_cn:
           gal.title_cn ??
           vn?.results[0].titles.find((title) => title.lang === "zh-Hans")
             ?.title,
-        cover: gal.cover_image ?? vn?.results[0].image.url,
-        VNDBScore: gal.vndb_rating ?? vn?.results[0].rating,
-        characterScore: gal.character_score,
-        storyScore: gal.story_score,
-        comprehensiveScore: gal.comprehensive_score,
+        cover_image: gal.cover_image ?? vn?.results[0].image.url,
+        vndb_rating: gal.vndb_rating ?? vn?.results[0].rating,
+        character_score: gal.character_score,
+        story_score: gal.story_score,
+        comprehensive_score: gal.comprehensive_score,
         summary: gal.summary,
         review: gal.review,
-      };
+      } as GalData;
+
+      if (isNeedUpdate) {
+        // Execute in the background, don't care about the results
+        apiUpdateGal(newVN);
+      }
+
+      return newVN;
     });
 
-    const resolvedGals = await Promise.all(galPromises);
-
-    const gals = resolvedGals.filter(
-      (gal) => gal !== null && gal !== undefined,
-    );
+    // concurrent
+    const gals: GalData[] = await Promise.all(galPromises);
 
     const pagination: Pagination = {
       total: data.pagination.total,

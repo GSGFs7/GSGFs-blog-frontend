@@ -77,7 +77,7 @@ function TableBody({}: { onRowClick?: (id: number) => void }) {
 
         return !row.review ? (
           <tr key={row.id}>
-            <td>{row.vndbId}</td>
+            <td>{row.vndb_id}</td>
             <td>
               <div className="flex flex-col gap-1">
                 <span>{row.title}</span>
@@ -86,10 +86,10 @@ function TableBody({}: { onRowClick?: (id: number) => void }) {
                 ) : null}
               </div>
             </td>
-            <td>{row.characterScore || "-"}</td>
-            <td>{row.storyScore || "-"}</td>
-            <td>{row.comprehensiveScore || "-"}</td>
-            <td>{row.VNDBScore ? (row.VNDBScore / 10).toFixed(2) : "-"}</td>
+            <td>{row.character_score || "-"}</td>
+            <td>{row.story_score || "-"}</td>
+            <td>{row.comprehensive_score || "-"}</td>
+            <td>{row.vndb_rating ? (row.vndb_rating / 10).toFixed(2) : "-"}</td>
             <td>{row.summary || "-"}</td>
           </tr>
         ) : (
@@ -102,7 +102,7 @@ function TableBody({}: { onRowClick?: (id: number) => void }) {
               onClick={() => handleRowClick(row.id)}
               onKeyDown={(e) => handleKeyDown(e, row.id)}
             >
-              <td>{row.vndbId}</td>
+              <td>{row.vndb_id}</td>
               <td>
                 <div className="flex flex-col gap-1">
                   <span>{row.title}</span>
@@ -113,10 +113,12 @@ function TableBody({}: { onRowClick?: (id: number) => void }) {
                   ) : null}
                 </div>
               </td>
-              <td>{row.characterScore || "-"}</td>
-              <td>{row.storyScore || "-"}</td>
-              <td>{row.comprehensiveScore || "-"}</td>
-              <td>{row.VNDBScore || "-"}</td>
+              <td>{row.character_score || "-"}</td>
+              <td>{row.story_score || "-"}</td>
+              <td>{row.comprehensive_score || "-"}</td>
+              <td>
+                {row.vndb_rating ? (row.vndb_rating / 10).toFixed(2) : "-"}
+              </td>
               <td>{row.summary || "-"}</td>
             </tr>
 
