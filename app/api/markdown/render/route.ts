@@ -34,14 +34,14 @@ export async function POST(request: Request) {
     try {
       body = await request.json();
     } catch {
-      return createErrorResponse(400, "invalid JSON body");
+      return createErrorResponse(400, "Invalid JSON body");
     }
 
     // ===verify schema===
     const result = markdownSchema.safeParse(body);
 
     if (!result.success) {
-      return createErrorResponse(400, "request format verify failed");
+      return createErrorResponse(400, "Request format verification failed");
     }
 
     // ===get data===
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
       (contentLength && parseInt(contentLength) > 128 * 1024) ||
       content.length > 128 * 1024
     ) {
-      return createErrorResponse(413, "content is to long");
+      return createErrorResponse(413, "Content is too long");
     }
 
     // ===return html===
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
       // eslint-disable-next-line no-console
       console.error(error);
 
-      return createErrorResponse(500, "rendering failed");
+      return createErrorResponse(500, "Rendering failed");
     }
   } catch (error) {
     // eslint-disable-next-line no-console
