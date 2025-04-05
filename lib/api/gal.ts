@@ -39,7 +39,8 @@ export async function getAllGal(): Promise<{
       } as GalData;
 
       if (isNeedUpdate) {
-        await apiUpdateGal(newVN);
+        // Execute in the background, don't care about the results
+        apiUpdateGal(newVN);
       }
 
       return newVN;
