@@ -118,7 +118,7 @@ export async function apiAddComment(
 
 export async function apiUpdateGal(gal: GalData) {
   try {
-    fc.post(`/gal/${gal.id}`, gal, {
+    await fc.post(`/gal/${gal.id}`, gal, {
       headers: {
         Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
       },

@@ -116,7 +116,9 @@ function TableBody({}: { onRowClick?: (id: number) => void }) {
               <td>{row.character_score || "-"}</td>
               <td>{row.story_score || "-"}</td>
               <td>{row.comprehensive_score || "-"}</td>
-              <td>{row.vndb_rating || "-"}</td>
+              <td>
+                {row.vndb_rating ? (row.vndb_rating / 10).toFixed(2) : "-"}
+              </td>
               <td>{row.summary || "-"}</td>
             </tr>
 
