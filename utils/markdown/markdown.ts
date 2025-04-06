@@ -15,6 +15,7 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
 import { rehypeCustomAttrs } from "./rehype-custom-attrs";
+import rehypeCustomImg from "./rehype-custom-img";
 // import { RemarkAutoToc } from "./remark-auto-toc";
 
 export async function markdownToHtml(markdown: string): Promise<string> {
@@ -35,6 +36,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     .use(remarkRehype, { allowDangerousHtml: true }) // 将 Markdown AST 转换为 HTML AST
     .use(rehypeRaw) // 允许在 Markdown 中使用 HTML
     .use(rehypeCustomAttrs) // 自定义a标签
+    .use(rehypeCustomImg)
     .use(rehypeSlug) // 给标题添加id
     .use(rehypeAutolinkHeadings, {
       behavior: "wrap",
