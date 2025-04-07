@@ -12,10 +12,11 @@ export default function GalTable({
   tableColumns,
 }: {
   data?: GalData[];
-  tableColumns: string[];
+  tableColumns: Array<{ label: string; value: string }>;
 }) {
   return (
     <>
+      {/* <Table.Control /> */}
       <Table data={data}>
         <Table.Header columns={tableColumns} />
         <Table.Body />

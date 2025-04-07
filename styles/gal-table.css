@@ -2,6 +2,8 @@
 
 @layer components {
   .gal-table {
+    background: none !important;
+
     td {
       @apply border-b px-4 py-3 text-center;
     }

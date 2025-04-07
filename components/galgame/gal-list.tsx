@@ -13,17 +13,17 @@ export default async function GalList() {
   const data = (await getAllGal())?.data;
 
   const tableColumns = [
-    "VNDB ID",
-    "title",
-    "characterScore",
-    "storyScore",
-    "comprehensiveScore",
-    "VNDBScore",
-    "remark",
+    { label: "VNDB ID", value: "vndb_id" },
+    { label: "title", value: "title" },
+    { label: "character", value: "character_score" },
+    { label: "story", value: "story_score" },
+    { label: "comprehensive", value: "comprehensive_score" },
+    { label: "VNDB Rating", value: "vndb_rating" },
+    { label: "remark", value: "" },
   ];
 
   return (
-    <article className="markdown-body gal-table">
+    <article className="gal-table markdown-body">
       <GalTable data={data} tableColumns={tableColumns} />
     </article>
   );

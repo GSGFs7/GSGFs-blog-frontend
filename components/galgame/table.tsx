@@ -1,14 +1,36 @@
 "use client";
 
-import clsx from "clsx";
-import { AnimatePresence, motion } from "motion/react";
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+
+import { GalTableBody } from "./table-body";
+import { GalTableHeader } from "./table-header";
+import { GalTableControl } from "./table-control";
 
 import { GalData } from "@/types/gal";
 
-const GalContext = createContext<GalData[]>([]);
+interface galTableContext {
+  data: GalData[];
+  sortField: string | null;
+  sortDirection: "asc" | "desc";
+  filter: string;
+  setSortField: (filed: string | null) => void;
+  setSortDirection: (direction: "asc" | "desc") => void;
+  setFilter: (filter: string) => void;
+}
 
-function useTable() {
+const defaultContext: galTableContext = {
+  data: [],
+  sortField: null,
+  sortDirection: "asc",
+  filter: "",
+  setSortField: () => {},
+  setSortDirection: () => {},
+  setFilter: () => {},
+};
+
+const GalContext = createContext<galTableContext>(defaultContext);
+
+export function useGalTable() {
   const context = useContext(GalContext);
 
   if (!context) {
@@ -23,132 +45,56 @@ function Table({
   className,
   data = [],
 }: {
-  data?: GalData[];
+  data: GalData[];
   className?: string;
   children: ReactNode;
 }) {
+  const [sortField, setSortField] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [filter, setFilter] = useState("");
+
+  // TODO
+  const filteredData = data;
+
+  const sortedData = useMemo(() => {
+    if (!sortField) return filteredData;
+
+    // avoid mutation
+    return [...filteredData].sort((a, b) => {
+      const aValue = a[sortField as keyof GalData];
+      const bValue = b[sortField as keyof GalData];
+
+      if (aValue === null || aValue === undefined) return 1;
+      if (bValue === null || bValue === undefined) return -1;
+
+      const compareResult =
+        typeof aValue === "number" && typeof bValue === "number"
+          ? aValue - bValue
+          : String(aValue).localeCompare(String(bValue));
+
+      return sortDirection === "asc" ? compareResult : -compareResult;
+    });
+  }, [filteredData, sortField, sortDirection]);
+
+  const contextValue: galTableContext = {
+    data: sortedData,
+    sortField,
+    sortDirection,
+    filter,
+    setSortField,
+    setSortDirection,
+    setFilter,
+  };
+
   return (
-    <GalContext.Provider value={data}>
+    <GalContext.Provider value={contextValue}>
       <table className={className}>{children}</table>
     </GalContext.Provider>
   );
 }
 
-function TableHeader({ columns }: { columns: string[] }) {
-  return (
-    <thead>
-      <tr>
-        {columns.map((column, index) => (
-          <th key={index} scope="col">
-            {column}
-          </th>
-        ))}
-      </tr>
-    </thead>
-  );
-}
-
-function TableBody({}: { onRowClick?: (id: number) => void }) {
-  const data = useTable();
-  const [expandedRows, setExpandedRows] = useState<Record<number, boolean>>({});
-
-  if (!data) {
-    return <p>No data to show at the moment</p>;
-  }
-
-  function toggleRow(id: number) {
-    setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
-  }
-
-  function handleRowClick(id: number) {
-    toggleRow(id);
-  }
-
-  function handleKeyDown(e: React.KeyboardEvent, id: number) {
-    if (e.key == "Enter" || e.key == " ") {
-      toggleRow(id);
-    }
-  }
-
-  return (
-    <tbody>
-      {data.map((row) => {
-        const isExpanded = !!expandedRows[row.id];
-
-        return !row.review ? (
-          <tr key={row.id}>
-            <td>{row.vndb_id}</td>
-            <td>
-              <div className="flex flex-col gap-1">
-                <span>{row.title}</span>
-                {row.title_cn ? (
-                  <span className="text-sm text-gray-400">{row.title_cn}</span>
-                ) : null}
-              </div>
-            </td>
-            <td>{row.character_score || "-"}</td>
-            <td>{row.story_score || "-"}</td>
-            <td>{row.comprehensive_score || "-"}</td>
-            <td>{row.vndb_rating ? (row.vndb_rating / 10).toFixed(2) : "-"}</td>
-            <td>{row.summary || "-"}</td>
-          </tr>
-        ) : (
-          <React.Fragment key={row.id}>
-            <tr
-              aria-label={`查看 ${row.title} 剧透内容`}
-              className={clsx("cursor-pointer transition-colors")}
-              role="button"
-              tabIndex={0}
-              onClick={() => handleRowClick(row.id)}
-              onKeyDown={(e) => handleKeyDown(e, row.id)}
-            >
-              <td>{row.vndb_id}</td>
-              <td>
-                <div className="flex flex-col gap-1">
-                  <span>{row.title}</span>
-                  {row.title_cn ? (
-                    <span className="text-sm text-gray-400">
-                      {row.title_cn}
-                    </span>
-                  ) : null}
-                </div>
-              </td>
-              <td>{row.character_score || "-"}</td>
-              <td>{row.story_score || "-"}</td>
-              <td>{row.comprehensive_score || "-"}</td>
-              <td>
-                {row.vndb_rating ? (row.vndb_rating / 10).toFixed(2) : "-"}
-              </td>
-              <td>{row.summary || "-"}</td>
-            </tr>
-
-            <AnimatePresence>
-              {isExpanded && (
-                <motion.tr
-                  animate={{ opacity: 1, height: "auto" }}
-                  className={"-z-10"}
-                  exit={{ opacity: 0, height: 0 }}
-                  initial={{ opacity: 0, height: 0 }}
-                  transition={{
-                    type: "keyframes",
-                    duration: 0.1,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <td colSpan={Object.keys(data[0]).length}>
-                    <div className="min-h-12 px-4 py-2">{row.review}</div>
-                  </td>
-                </motion.tr>
-              )}
-            </AnimatePresence>
-          </React.Fragment>
-        );
-      })}
-    </tbody>
-  );
-}
-
-Table.Header = TableHeader;
-Table.Body = TableBody;
+Table.Control = GalTableControl;
+Table.Header = GalTableHeader;
+Table.Body = GalTableBody;
 
 export default Table;
