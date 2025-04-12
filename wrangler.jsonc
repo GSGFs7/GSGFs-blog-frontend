@@ -27,7 +27,7 @@
   ],
   "observability": {
     "enabled": true,
-    "head_sampling_rate": 1 // debug
+    "head_sampling_rate": 0.1 // debug
   },
   "routes": [
     {

@@ -31,15 +31,11 @@
 
 3. 运行
 
-   _需要将`next.config.ts`中的`remarkGfm`改为`["remark-gfm"]`_
-
    ```bash
    pnpm run dev
    ```
 
 ## 部署
-
-_需要将`next.config.ts`中的`["remark-gfm"]`改回为`remarkGfm`_
 
 1. 直接构建并部署
 

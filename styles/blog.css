@@ -171,6 +171,12 @@
     .anchor-link:hover {
       text-decoration: none !important;
     }
+
+    /* ===== 8. 图片样式 ===== */
+    .image-wrapper::after {
+      content: attr(data-alt);
+      @apply block text-center text-sm text-gray-400 italic;
+    }
   }
 
   /* ===== 6. 特殊样式 ===== */

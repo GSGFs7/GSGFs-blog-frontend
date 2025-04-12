@@ -34,7 +34,7 @@ export default async function BlogList({
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-10">
+      <div className="grid grid-cols-1 gap-4 pt-6 sm:grid-cols-2 sm:gap-10">
         {posts.map((post) => (
           <div key={post.id}>
             <BlogListCard {...post} />
