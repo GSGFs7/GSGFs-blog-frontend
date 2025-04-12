@@ -33,7 +33,7 @@ export default function BlogListCard({
   return (
     <motion.article
       ref={ref}
-      className="group mt-8 h-64 overflow-hidden rounded-lg border border-gray-500/70 md:mt-10 md:h-72"
+      className="group mt-4 h-64 overflow-hidden rounded-lg border border-gray-500/70 md:mt-4 md:h-72"
       style={{ scale: scaleProgress, opacity: opacityProgress }}
     >
       <Link href={`/blog/${id}`}>

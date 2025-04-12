@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-  output: "standalone" as const, // for docker
+  output: "standalone", // for docker
   images: {
     remotePatterns: [
       { hostname: "img.gsgfs.moe" },
@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
     ],
     // loader: "custom",
     // loaderFile: "./image-loader.ts",
+  },
+  turbopack: {
+    resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
   },
   productionBrowserSourceMaps: true, // generate source map in dev environment
   // CSP protection
