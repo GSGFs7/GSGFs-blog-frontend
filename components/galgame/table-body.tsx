@@ -10,8 +10,14 @@ export function GalTableBody() {
   const { data } = useGalTable();
   const [expandedRows, setExpandedRows] = useState<Record<number, boolean>>({});
 
-  if (!data) {
-    return <p>No data to show at the moment</p>;
+  if (!data || data.length === 0) {
+    return (
+      <tbody>
+        <tr>
+          <td>暂无数据</td>
+        </tr>
+      </tbody>
+    );
   }
 
   function toggleRow(id: number) {

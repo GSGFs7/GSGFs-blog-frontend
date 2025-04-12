@@ -40,7 +40,7 @@ export const siteConfig = {
     // },
     {
       label: "Galgame",
-      href: "galgame",
+      href: "/galgame",
     },
     {
       label: "About",

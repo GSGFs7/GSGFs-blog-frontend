@@ -8,7 +8,7 @@
     "email": "gsgfs@gsgfs.moe",
     "url": "https://gsgfs.moe"
   },
-  "packageManager": "pnpm@10.7.0",
+  "packageManager": "pnpm@10.8.0",
   "engines": {
     "node": ">=22"
   },
@@ -47,6 +47,7 @@
     "jose": "^6.0.10",
     "katex": "^0.16.22",
     "lowlight": "^3.3.0",
+    "lucide-react": "^0.487.0",
     "lxgw-wenkai-webfont": "^1.7.0",
     "motion": "^12.6.5",
     "next": "^15.3.0",
