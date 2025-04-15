@@ -3,55 +3,57 @@
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
+import { fc } from "../fetchClient";
+
 import { osuResponse, tokenResponse } from "@/types";
 
 export async function osuAuth(code: string): Promise<osuResponse | null> {
   const OSU_CLIENT_ID = process.env.AUTH_OSU_ID!;
   const OSU_CLIENT_SECRET = process.env.AUTH_OSU_SECRET!;
   const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
-  const accessTokenResponse = await fetch(`https://osu.ppy.sh/oauth/token`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      client_id: OSU_CLIENT_ID,
-      client_secret: OSU_CLIENT_SECRET,
-      code,
-      // redirect_uri: `${process.env.SITE_URL}/api/auth/callback/osu`, // 加上这个就不对了
-      grant_type: "authorization_code", // 比 github 多了这个必选项
-    }),
-  });
 
-  if (!accessTokenResponse.ok) {
-    throw new Error(
-      `OSU OAuth token request failed: ${accessTokenResponse.statusText}`,
+  let accessTokenData: tokenResponse;
+
+  try {
+    accessTokenData = await fc.post(
+      `https://osu.ppy.sh/oauth/token`,
+      {
+        client_id: OSU_CLIENT_ID,
+        client_secret: OSU_CLIENT_SECRET,
+        code,
+        // redirect_uri: `${process.env.SITE_URL}/api/auth/callback/osu`, // 加上这个就不对了
+        grant_type: "authorization_code", // 比 github 多了这个必选项
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      },
     );
+  } catch (e) {
+    throw new Error(`OSU OAuth token request failed: ${e}`);
   }
 
-  const accessTokenData = (await accessTokenResponse.json()) as tokenResponse;
   const accessTokenType = accessTokenData.token_type;
   const accessToken = accessTokenData.access_token;
 
-  // 获取用户信息
-  const userResponse = await fetch(`https://osu.ppy.sh/api/v2/me/osu`, {
-    headers: {
-      Authorization: `${accessTokenType} ${accessToken}`,
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  });
+  let userData: osuResponse;
 
-  if (!userResponse.ok) {
-    throw new Error(
-      `OSU get user info request failed: ${userResponse.statusText}`,
-    );
+  // 获取用户信息
+  try {
+    userData = await fc.get<osuResponse>(`https://osu.ppy.sh/api/v2/me/osu`, {
+      headers: {
+        Authorization: `${accessTokenType} ${accessToken}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+  } catch (e) {
+    throw new Error(`OSU get user info request failed: ${e}`);
   }
 
-  const userData: osuResponse = await userResponse.json();
-
-  // 创建 JWT
+  // create JWT
   const token = await new SignJWT({
     id: userData.id,
     name: userData.username,

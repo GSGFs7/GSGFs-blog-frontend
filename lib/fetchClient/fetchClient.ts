@@ -58,6 +58,7 @@ export async function fetchClient<T = any>(
 
     clearTimeout(timeoutId);
 
+    // report error when request failed
     if (!response.ok) {
       throw new FetchError(
         `API error ${response.status}: ${response.statusText} when ${fetchOptions.method} ${endpoint}. Message: ${await response.text()}`,

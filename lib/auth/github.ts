@@ -3,6 +3,8 @@
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
+import { fc } from "../fetchClient";
+
 import { githubResponse, tokenResponse } from "@/types";
 
 export async function githubOAuth(
@@ -12,52 +14,51 @@ export async function githubOAuth(
   const GITHUB_CLIENT_SECRET = process.env.AUTH_GITHUB_SECRET!;
   const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
 
+  let accessTokenData: tokenResponse;
+
   // 获取一次性的 access token
-  const accessTokenResponse = await fetch(
-    "https://github.com/login/oauth/access_token",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
+  try {
+    accessTokenData = await fc.post<tokenResponse>(
+      "https://github.com/login/oauth/access_token",
+      {
         client_id: GITHUB_CLIENT_ID,
         client_secret: GITHUB_CLIENT_SECRET,
         code,
         redirect_uri: `${process.env.SITE_URL}/api/auth/callback/github`,
-      }),
-    },
-  );
-
-  if (!accessTokenResponse.ok) {
-    throw new Error(
-      `GitHub OAuth token request failed: ${accessTokenResponse.statusText}`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      },
     );
+  } catch (e) {
+    throw new Error(`GitHub OAuth token request failed: ${e}`);
   }
 
-  const accessTokenData = (await accessTokenResponse.json()) as tokenResponse;
   const accessTokenType = accessTokenData.token_type;
   const accessToken = accessTokenData.access_token;
 
-  // 获取用户信息
-  const userResponse = await fetch("https://api.github.com/user", {
-    headers: {
-      Authorization: `${accessTokenType} ${accessToken}`,
-    },
-  });
+  let userData: githubResponse;
 
-  if (!userResponse.ok) {
-    throw new Error(
-      `GitHub get user info request failed: ${userResponse.statusText}`,
-    );
+  // 获取用户信息
+  // may be forbidden in CF worker
+  try {
+    userData = await fc.get<githubResponse>("https://api.github.com/user", {
+      headers: {
+        Accept: "application/json",
+        Authorization: `${accessTokenType} ${accessToken}`,
+      },
+    });
+  } catch (e) {
+    throw new Error(`GitHub get user info request failed: ${e}`);
   }
 
-  const userData: githubResponse = await userResponse.json();
-
-  // 创建 JWT
+  // create JWT
   const token = await new SignJWT({
     id: userData.id,
+    // if user set name, show 'name(Github ID)'
     name: userData.name
       ? `${userData.name}(${userData.login})`
       : userData.login,
