@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "gsgfs",
-  "compatibility_date": "2024-12-30",
+  "compatibility_date": "2025-4-17",
   "compatibility_flags": [
     "nodejs_compat"
   ],
@@ -65,6 +65,12 @@
         "DurableObjectQueueHandler",
         "DOShardedTagCache"
       ]
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "next-cache"
     }
   ],
 }

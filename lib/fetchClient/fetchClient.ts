@@ -43,10 +43,13 @@ export async function fetchClient<T = any>(
     let url: string;
 
     if (endpoint.startsWith("http") || endpoint.startsWith("https")) {
+      // complete URL
       url = endpoint;
     } else if (endpoint.startsWith("/api")) {
+      // frontend URL
       url = endpoint;
     } else {
+      // backend URL
       url = `${process.env.BACKEND_URL}/api${endpoint}`;
     }
 

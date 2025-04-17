@@ -12,3 +12,7 @@ export interface IDsNumber {
 export interface IDNumber {
   id: number;
 }
+
+export interface MessageResponse {
+  message: string;
+}
