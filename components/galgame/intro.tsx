@@ -43,9 +43,9 @@ export default function Intro() {
                 >
                   VNDB
                 </Link>
-                (The Visual Novel Database), 并从中获取评分与标题之类的信息,
-                对于VNDB的评分, 取10分为满分为基准(除以10).
+                (The Visual Novel Database), 并从中获取评分与标题之类的信息.
               </p>
+              <p>对于VNDB的评分, 取10分为满分为基准(除以10).</p>
 
               <div>
                 <p className="pt-4 text-xl">关于评分</p>

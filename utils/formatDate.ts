@@ -46,3 +46,19 @@ export function getTimeDiffDays(dateString: string): number {
 
   return diffDay;
 }
+
+/**
+ * get the time difference from now in minutes
+ * @param dateString the date need calculate
+ * @returns how many days difference
+ */
+export function getTimeDiffMins(dateString: string): number {
+  const date = new Date(dateString);
+  const now = new Date();
+
+  const diffMs = now.getTime() - date.getTime();
+  const diffSec = Math.floor(diffMs / 1000);
+  const diffMin = Math.floor(diffSec / 60);
+
+  return diffMin;
+}
