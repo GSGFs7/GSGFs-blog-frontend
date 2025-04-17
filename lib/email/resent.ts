@@ -2,7 +2,7 @@ import { CreateEmailResponse, Resend } from "resend";
 
 import { EmailTemplate } from "./email-template";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY ?? "");
 
 export async function mailAdmin(
   subject: string,
