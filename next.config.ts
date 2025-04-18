@@ -56,8 +56,8 @@ const withMDX = createMDX({
 
 export default withMDX(nextConfig);
 
-// do not use in vercel environment
-if (process.env.NODE_ENV === "development" && process.env.VERCEL !== "1") {
+// open next in dev env
+if (process.env.NODE_ENV === "development") {
   import("@opennextjs/cloudflare").then((openNext) =>
     openNext.initOpenNextCloudflareForDev(),
   );
