@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import { useGalTable } from "./table";
 
@@ -11,6 +11,49 @@ import { markdownToHtml } from "@/utils";
 export function GalTableBody() {
   const { data } = useGalTable();
   const [expandedRows, setExpandedRows] = useState<Record<number, boolean>>({});
+  const [loadingRows, setLoadingRows] = useState<Record<number, boolean>>({});
+  const [processedHtml, setProcessedHtml] = useState<Record<number, string>>(
+    {},
+  );
+
+  const processMarkdown = async (id: number, markdown: string) => {
+    if (processedHtml[id]) return;
+
+    setLoadingRows((prev) => ({ ...prev, [id]: true }));
+
+    try {
+      if (!processedHtml[id]) {
+        const html = await markdownToHtml(markdown);
+
+        setProcessedHtml((prev) => ({
+          ...prev,
+          [id]: html,
+        }));
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(`render markdown error: ${e}`);
+      setProcessedHtml((prev) => ({ ...prev, [id]: markdown }));
+    } finally {
+      setLoadingRows((prev) => ({ ...prev, [id]: false }));
+    }
+  };
+
+  useEffect(() => {
+    if (!data) return;
+
+    Object.keys(expandedRows).forEach((idStr) => {
+      const id = parseInt(idStr);
+
+      if (expandedRows[id]) {
+        const row = data.find((r) => r.id === id);
+
+        if (row?.review) {
+          processMarkdown(id, row.review);
+        }
+      }
+    });
+  }, [expandedRows, data]);
 
   if (!data || data.length === 0) {
     return (
@@ -38,8 +81,19 @@ export function GalTableBody() {
 
   return (
     <tbody>
-      {data.map(async (row) => {
+      {data.map((row) => {
+        const isLoading = !!loadingRows[row.id];
         const isExpanded = !!expandedRows[row.id];
+
+        if (isLoading) {
+          return (
+            <tr key={`spinner-${row.id}`}>
+              <td>
+                <div className="spinner-mini" />;
+              </td>
+            </tr>
+          );
+        }
 
         return !row.review ? (
           <tr key={row.id}>
@@ -104,7 +158,7 @@ export function GalTableBody() {
                   <td colSpan={Object.keys(data[0]).length}>
                     <div
                       dangerouslySetInnerHTML={{
-                        __html: await markdownToHtml(row.review),
+                        __html: processedHtml[row.id],
                       }}
                       className="min-h-12 px-4 py-2"
                     />
