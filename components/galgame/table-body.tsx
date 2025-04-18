@@ -38,7 +38,7 @@ export function GalTableBody() {
 
   return (
     <tbody>
-      {data.map((row) => {
+      {data.map(async (row) => {
         const isExpanded = !!expandedRows[row.id];
 
         return !row.review ? (
@@ -104,7 +104,7 @@ export function GalTableBody() {
                   <td colSpan={Object.keys(data[0]).length}>
                     <div
                       dangerouslySetInnerHTML={{
-                        __html: markdownToHtml(row.review),
+                        __html: await markdownToHtml(row.review),
                       }}
                       className="min-h-12 px-4 py-2"
                     />
