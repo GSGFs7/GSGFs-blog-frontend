@@ -27,7 +27,7 @@ export default function Intro() {
           <motion.section
             key={"gal-into-content"}
             animate={{ opacity: 1, y: 0 }}
-            className="text-left"
+            className="w-full text-left"
             initial={{ opacity: 0, y: 10 }}
             transition={{ delay: 0.1 }}
           >

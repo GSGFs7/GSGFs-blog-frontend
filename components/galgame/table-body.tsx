@@ -6,6 +6,8 @@ import { Fragment, useState } from "react";
 
 import { useGalTable } from "./table";
 
+import { markdownToHtml } from "@/utils";
+
 export function GalTableBody() {
   const { data } = useGalTable();
   const [expandedRows, setExpandedRows] = useState<Record<number, boolean>>({});
@@ -100,7 +102,12 @@ export function GalTableBody() {
                   }}
                 >
                   <td colSpan={Object.keys(data[0]).length}>
-                    <div className="min-h-12 px-4 py-2">{row.review}</div>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: markdownToHtml(row.review),
+                      }}
+                      className="min-h-12 px-4 py-2"
+                    />
                   </td>
                 </motion.tr>
               )}
