@@ -19,8 +19,41 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  icons: {
-    icon: "/favicon.ico",
+  applicationName: siteConfig.name,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: siteConfig.name,
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: {
+      default: siteConfig.name,
+      template: `%s - ${siteConfig.name}`,
+    },
+    description: siteConfig.description,
+    images: {
+      url: `${process.env.SITE_URL}/api/og`,
+      width: 1200,
+      height: 630,
+    },
+  },
+  twitter: {
+    card: "summary",
+    title: {
+      default: siteConfig.name,
+      template: `%s - ${siteConfig.name}`,
+    },
+    description: siteConfig.description,
+    images: {
+      url: `${process.env.SITE_URL}/api/og`,
+      width: 1200,
+      height: 630,
+    },
   },
 };
 
@@ -38,7 +71,16 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning className="scroll-p-24" lang="zh">
-      <head />
+      <head>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            :root { background-color: #1a1c25; }
+            .light { background-color: #ffffff; }
+            .dark { background-color: #1a1c25; }`,
+          }}
+        />
+      </head>
       <body
         className={clsx(
           "bg-background min-h-screen scroll-smooth font-sans antialiased",
