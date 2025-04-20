@@ -1,4 +1,4 @@
-```
+export default `\`\`\`
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mDMEZs/z5xYJKwYBBAHaRw8BAQdAOEcKpYbKJLRmy6tap3jC0rTuvQolCZedIiDN
@@ -22,4 +22,5 @@ GtFfNPkuSRvQUwD/Qf2kcZ0we7FPcwwJE+gbQkMBsXiwbH4JFRWjROpOwkIA/Awc
 hyq3qTBhnyrZDD7t1hDLDymet3kAnTmvYQFFs74E
 =Rutu
 -----END PGP PUBLIC KEY BLOCK-----
-```
+\`\`\`
+`;

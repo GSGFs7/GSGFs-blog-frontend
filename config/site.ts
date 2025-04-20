@@ -48,7 +48,5 @@ export const siteConfig = {
     },
   ] as const,
   links: {} as const,
-  admin: {
-    email: "gsgfs@gsgfs.moe",
-  } as const,
+  adminEmail: "admin@gsgfs.moe" as const,
 };

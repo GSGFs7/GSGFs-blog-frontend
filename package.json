@@ -8,13 +8,13 @@
     "email": "gsgfs@gsgfs.moe",
     "url": "https://gsgfs.moe"
   },
-  "packageManager": "pnpm@10.8.0",
+  "packageManager": "pnpm@10.8.1",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "dev": "next dev",
-    "dev-t": "next dev --turbopack",
+    "dev": "next dev --turbopack",
+    "dev-https": "next dev --experimental-https --turbopack",
     "build": "next build -d",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix",
@@ -33,11 +33,15 @@
     "@next/mdx": "^15.3.1",
     "@react-aria/ssr": "^3.9.8",
     "@react-aria/visually-hidden": "^3.8.22",
+    "@serwist/next": "^9.0.14",
+    "@serwist/precaching": "^9.0.14",
+    "@serwist/sw": "^9.0.14",
     "@supabase/supabase-js": "^2.49.4",
     "@tanstack/react-query": "^5.74.4",
     "@tanstack/react-query-devtools": "^5.74.4",
     "@types/mdx": "^2.0.13",
     "@uiw/react-md-editor": "^4.0.5",
+    "@vercel/og": "^0.6.8",
     "bowser": "^2.11.0",
     "clsx": "^2.1.1",
     "github-markdown-css": "^5.8.1",
@@ -81,7 +85,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250418.0",
+    "@cloudflare/workers-types": "^4.20250420.0",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@next/eslint-plugin-next": "^15.3.1",
@@ -92,10 +96,11 @@
     "@types/node": "^22.14.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@types/web-push": "^3.6.4",
     "@typescript-eslint/eslint-plugin": "^8.30.1",
     "@typescript-eslint/parser": "^8.30.1",
     "autoprefixer": "^10.4.21",
-    "eslint": "^9.24.0",
+    "eslint": "^9.25.0",
     "eslint-config-next": "^15.3.1",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-import": "^2.31.0",
@@ -109,10 +114,12 @@
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "serwist": "^9.0.14",
     "tailwind-variants": "^0.3.1",
     "tailwindcss": "^4.1.4",
     "tsx": "^4.19.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "web-push": "^3.6.7"
   },
   "optionalDependencies": {
     "@opennextjs/cloudflare": "^0.6.6",

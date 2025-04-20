@@ -42,3 +42,10 @@ pnpm-workspace.yaml
 .wrangler
 .dev.vars
 cloudflare-env.d.ts
+
+# https
+certificates
+
+# Serwist
+public/sw*
+public/swe-worker*

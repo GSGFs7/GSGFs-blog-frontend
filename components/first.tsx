@@ -8,11 +8,10 @@ import { FaGithub } from "react-icons/fa";
 import { HiInformationCircle } from "react-icons/hi";
 
 import Modal from "@/components/modal";
-import GPG from "@/markdown/GPG.mdx";
 import avatar_webp from "@/public/avatar-optimized.webp";
 import osu_svg from "@/public/osu.svg";
 
-export function First() {
+export default function First({ gpg }: { gpg: string }) {
   const [show, setShow] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -79,8 +78,10 @@ export function First() {
                   ref={ref}
                   className="relative mt-4 mb-2 flex w-xl flex-col items-center justify-center text-sm"
                 >
-                  <GPG />
-
+                  <div
+                    dangerouslySetInnerHTML={{ __html: gpg }}
+                    className="markdown-body"
+                  />
                   <button
                     aria-label="复制 GPG 公钥"
                     className="mt-4 w-full cursor-pointer rounded-sm border text-center text-xl text-blue-600"
