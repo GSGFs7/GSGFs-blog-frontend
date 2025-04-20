@@ -30,5 +30,10 @@ export async function GET(_request: NextRequest) {
         height: 630,
       },
     );
-  } catch {}
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error("Error generating OG image:", error);
+
+    return new Response("Failed to generate OG image", { status: 500 });
+  }
 }
