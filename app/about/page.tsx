@@ -1,7 +1,11 @@
-import AboutContent from "@/components/about-content";
+import aboutMdx from "@/markdown/about.mdx";
+import { markdownToHtml } from "@/utils";
 import { title } from "@/utils/primitives";
+import "@/styles/blog.css";
 
 export default async function AboutPage() {
+  const about = await markdownToHtml(aboutMdx);
+
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4">
       <div className="flex flex-col items-center justify-center">
@@ -15,7 +19,11 @@ export default async function AboutPage() {
           )}
         </p>
       </div>
-      <AboutContent />
+
+      <article
+        dangerouslySetInnerHTML={{ __html: about }}
+        className="markdown-body about w-full rounded-lg px-6 py-8"
+      />
     </div>
   );
 }

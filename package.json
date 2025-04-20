@@ -13,8 +13,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "next dev",
-    "dev-t": "next dev --turbopack",
+    "dev": "next dev --turbopack",
     "dev-https": "next dev --experimental-https --turbopack",
     "build": "next build -d",
     "start": "next start",
