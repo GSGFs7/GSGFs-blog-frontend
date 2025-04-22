@@ -177,6 +177,8 @@ export async function apiGetBackendStatus(): Promise<MessageResponse | null> {
         <p><strong>Error:</strong> ${e}</p>
         <p>This alert will not be repeated for the next 1 day.</p>`;
 
+    if (!supabase) return null;
+
     try {
       const { data, status, statusText } = await supabase
         .from("status-cache")

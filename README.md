@@ -9,7 +9,7 @@
 - `config`: 网站设置
 - `hooks`: hooks
 - `lib`: 服务端功能函数
-- `markdown`: mdx
+- `markdown`: markdown
 - `public`: 静态文件
 - `scripts`: 辅助脚本
 - `server`: 后端数据交换函数
@@ -27,7 +27,7 @@
    pnpm i
    ```
 
-2. 将`.env.example`复制一份为`.env.local`并填写需要的环境变量
+2. 将`.env.example`复制一份为`.env.local`并填写需要的环境变量, 如果不需要某些功能可以不填
 
 3. 运行
 
@@ -70,6 +70,10 @@
 3. vercel 部署
 
    复制本仓库到自己的仓库后, 在 vercel 上即可部署
+
+4. cloudflare 部署
+
+   参考`wrangler.jsonc`文件配置, 然后运行`pnpm run deploy`
 
 ## 分支
 
