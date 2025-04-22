@@ -104,10 +104,19 @@ export async function apiAddComment(
   if (htmlContent.length < 1) return null;
 
   // if not set cache disable the verify
-  if (await getCacheClient()) {
-    if (!(await cacheGet(`${guest?.provider}-${guest?.provider_id}`))) {
-      return null;
+  try {
+    const cacheClient = process.env.MOMENTO_API_KEY
+      ? await getCacheClient()
+      : null;
+
+    if (cacheClient) {
+      if (!(await cacheGet(`${guest?.provider}-${guest?.provider_id}`))) {
+        return null;
+      }
     }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error("Failed to initialize cache client:", e);
   }
 
   const body = JSON.stringify({
