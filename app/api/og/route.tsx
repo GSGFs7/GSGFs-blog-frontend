@@ -3,6 +3,7 @@ import { ImageResponse } from "@vercel/og";
 
 export async function GET(_request: NextRequest) {
   try {
+    // TODO replace here
     return new ImageResponse(
       (
         <div
