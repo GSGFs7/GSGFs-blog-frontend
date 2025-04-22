@@ -73,7 +73,7 @@
 
 4. cloudflare 部署
 
-   参考`wrangler.jsonc`文件配置, 然后运行`pnpm run deploy`
+   参考`wrangler.jsonc`文件进行配置, 然后运行`pnpm run deploy`
 
 ## 分支
 
