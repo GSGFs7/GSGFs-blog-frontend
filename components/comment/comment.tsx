@@ -5,9 +5,17 @@ import CommentInput from "./comment-input";
 import CommentList from "./comment-list";
 
 import { getSession } from "@/lib/auth";
+import { cacheSet } from "@/lib/cache";
 
 export default async function Comment({ postId }: { postId: number }) {
   const session = await getSession();
+
+  // when turnstile verify success will run this function
+  async function setVerify() {
+    "use server";
+
+    await cacheSet(`${session?.provider}-${session?.id}`, true);
+  }
 
   return (
     <>
@@ -18,7 +26,11 @@ export default async function Comment({ postId }: { postId: number }) {
       <CommentList postId={postId} />
       {/* 评论输入卡片 */}
       <div className="my-8 rounded-2xl border border-gray-600 bg-[#1a1c25]">
-        <CommentInput disabled={!session} postId={postId} />
+        <CommentInput
+          disabled={!session}
+          postId={postId}
+          setVerifyAction={setVerify}
+        />
         {/* <CommentMDEditor disabled={!session} postId={postId} /> */}
         <div className="flex items-center justify-between border-t border-gray-700">
           {session ? (

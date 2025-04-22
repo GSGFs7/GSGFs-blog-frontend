@@ -7,6 +7,7 @@ import adapter from "./adapter";
 
 import { getGuest } from "@/lib/api/post";
 import { getSession } from "@/lib/auth";
+import { cacheGet, getCacheClient } from "@/lib/cache";
 import { mailAdmin } from "@/lib/email";
 import { fc } from "@/lib/fetchClient";
 import supabase from "@/lib/supabase";
@@ -102,6 +103,13 @@ export async function apiAddComment(
 
   if (htmlContent.length < 1) return null;
 
+  // if not set cache disable the verify
+  if (await getCacheClient()) {
+    if (!(await cacheGet(`${guest?.provider}-${guest?.provider_id}`))) {
+      return null;
+    }
+  }
+
   const body = JSON.stringify({
     unique_id: `${guest?.provider}-${guest?.provider_id}`,
     content: htmlContent,
@@ -177,6 +185,7 @@ export async function apiGetBackendStatus(): Promise<MessageResponse | null> {
         <p><strong>Error:</strong> ${e}</p>
         <p>This alert will not be repeated for the next 1 day.</p>`;
 
+    // TODO: use cache to replace this
     if (!supabase) return null;
 
     try {

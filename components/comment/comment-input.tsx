@@ -5,14 +5,18 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
+import TurnstileWidget from "./turnstile-widget";
+
 import { apiAddComment } from "@/server";
 
 export default function CommentInput({
   disabled = false,
   postId,
+  setVerifyAction,
 }: {
   disabled?: boolean;
   postId: number;
+  setVerifyAction: () => void;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
@@ -67,6 +71,8 @@ export default function CommentInput({
         id="content"
         name="content"
       />
+
+      <TurnstileWidget handleVerifyAction={setVerifyAction} />
     </form>
   );
 }
