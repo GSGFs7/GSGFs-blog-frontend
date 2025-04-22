@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
 
-export default function Page() {
+export default async function Page() {
   return <div>A strange page</div>;
 }
