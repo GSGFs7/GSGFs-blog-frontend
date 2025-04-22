@@ -72,7 +72,7 @@ export default function CommentInput({
         name="content"
       />
 
-      <TurnstileWidget handleVerifyAction={setVerifyAction} />
+      {!disabled && <TurnstileWidget handleVerifyAction={setVerifyAction} />}
     </form>
   );
 }
