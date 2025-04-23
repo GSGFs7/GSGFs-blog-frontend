@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: true, // generate source map in dev environment
   // CSP protection
   // TODO
+  //! need fix: console 99+ errors
   async headers() {
     return [
       {

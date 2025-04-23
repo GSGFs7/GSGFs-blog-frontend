@@ -32,7 +32,8 @@ export default function CommentMDEditor({
 
         if (!content) return;
 
-        await apiAddComment(String(content), postId, {
+        //! fix here
+        await apiAddComment(String(content), postId, "", {
           user_agent: bowser.getParser(userAgent).getUA(),
           browser: bowser.getParser(userAgent).getBrowser().name,
           browser_version: bowser.getParser(userAgent).getBrowserVersion(),

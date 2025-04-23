@@ -39,7 +39,7 @@
     "@serwist/sw": "^9.0.14",
     "@supabase/supabase-js": "^2.49.4",
     "@tanstack/react-query": "^5.74.4",
-    "@tanstack/react-query-devtools": "^5.74.4",
+    "@tanstack/react-query-devtools": "^5.74.6",
     "@types/mdx": "^2.0.13",
     "@uiw/react-md-editor": "^4.0.5",
     "@vercel/og": "^0.6.8",
@@ -79,7 +79,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
     "remark-toc": "^9.0.0",
-    "resend": "^4.3.0",
+    "resend": "^4.4.0",
     "sharp": "^0.33.5",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
@@ -87,7 +87,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250422.0",
+    "@cloudflare/workers-types": "^4.20250423.0",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@next/eslint-plugin-next": "^15.3.1",
@@ -125,6 +125,6 @@
   },
   "optionalDependencies": {
     "@opennextjs/cloudflare": "^0.6.6",
-    "wrangler": "^4.12.0"
+    "wrangler": "^4.12.1"
   }
 }
