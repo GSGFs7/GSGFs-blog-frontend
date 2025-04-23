@@ -17,7 +17,11 @@ export default `## 关于我
 - 前端: [GitHub 仓库](https://github.com/GSGFs7/GSGFs-blog-frontend)
 - 后端: [GitHub 仓库](https://github.com/GSGFs7/GSGFs-blog-backend)
 
-_如果你认识我, 请不要将这个网站分享给身边的人, 这可能会让我很困扰_
+为什么要自己写一个网站? 也差不多是为了圆我的网站梦吧.
+
+![典型的developer思维](https://img.gsgfs.moe/img/3fa8034e5a31dd059d4629068fef4cf3.jpg)
+
+最后, 感谢所有与我同行的小伙伴们, 无论是现在的还是曾经的.
 
 ---
 
