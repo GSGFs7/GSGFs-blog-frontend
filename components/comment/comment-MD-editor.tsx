@@ -32,7 +32,7 @@ export default function CommentMDEditor({
 
         if (!content) return;
 
-        //! fix here
+        //! fix here: no token provide
         await apiAddComment(String(content), postId, "", {
           user_agent: bowser.getParser(userAgent).getUA(),
           browser: bowser.getParser(userAgent).getBrowser().name,

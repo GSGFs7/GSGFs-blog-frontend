@@ -29,6 +29,12 @@ export default function CommentInput({
       localStorage.setItem(getDraftKey(postId), content);
     }
   };
+  const clearDraft = () => {
+    if (typeof window !== "undefined") {
+      setCommentContent("");
+      localStorage.removeItem(getDraftKey(postId));
+    }
+  };
 
   useEffect(() => {
     // comment draft
@@ -45,6 +51,12 @@ export default function CommentInput({
 
   async function handleSubmit(formData: FormData) {
     if (disabled) return;
+
+    if (!turnstileToken) {
+      toast.error("请先通过人机验证");
+
+      return;
+    }
 
     const content = formData.get("content");
 
@@ -74,7 +86,7 @@ export default function CommentInput({
       return;
     }
 
-    setCommentContent("");
+    clearDraft();
     formRef.current?.reset();
     router.refresh();
   }
