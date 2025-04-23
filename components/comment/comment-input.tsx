@@ -12,46 +12,89 @@ import { apiAddComment } from "@/server";
 export default function CommentInput({
   disabled = false,
   postId,
-  setVerifyAction,
 }: {
   disabled?: boolean;
   postId: number;
-  setVerifyAction: () => void;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
   const [userAgent, setUserAgent] = useState<string>("");
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
+  const [commentContent, setCommentContent] = useState<string>("");
+
+  const getDraftKey = (postId: number) => `comment-draft-${postId}`;
+  const saveDraft = (content: string) => {
+    if (typeof window !== "undefined") {
+      setCommentContent(content);
+      localStorage.setItem(getDraftKey(postId), content);
+    }
+  };
+  const clearDraft = () => {
+    if (typeof window !== "undefined") {
+      setCommentContent("");
+      localStorage.removeItem(getDraftKey(postId));
+    }
+  };
 
   useEffect(() => {
+    // comment draft
+    if (typeof window !== "undefined") {
+      const saveDraft = localStorage.getItem(getDraftKey(postId));
+
+      if (saveDraft) {
+        setCommentContent(saveDraft);
+      }
+    }
+
     setUserAgent(window.navigator.userAgent);
   }, []);
+
+  async function handleSubmit(formData: FormData) {
+    if (disabled) return;
+
+    if (!turnstileToken) {
+      toast.error("请先通过人机验证");
+
+      return;
+    }
+
+    const content = formData.get("content");
+
+    if (String(content).trim().length < 1) {
+      toast.error("请输入内容");
+
+      return;
+    }
+
+    const res = await apiAddComment(String(content), postId, turnstileToken, {
+      user_agent: bowser.getParser(userAgent).getUA(),
+      browser: bowser.getParser(userAgent).getBrowser().name,
+      browser_version: bowser.getParser(userAgent).getBrowserVersion(),
+      platform: bowser.getParser(userAgent).getPlatform().type,
+      OS: bowser.getParser(userAgent).getOS().name,
+    });
+
+    if (res === null) {
+      toast.error("评论失败! 不要干坏事哦~");
+
+      return;
+    }
+
+    if (typeof res === "string") {
+      toast.error(res);
+
+      return;
+    }
+
+    clearDraft();
+    formRef.current?.reset();
+    router.refresh();
+  }
 
   return (
     <form
       ref={formRef}
-      action={async (formData: FormData) => {
-        if (disabled) return;
-
-        const content = formData.get("content");
-
-        if (String(content).trim().length < 1) return;
-
-        const res = await apiAddComment(String(content), postId, {
-          user_agent: bowser.getParser(userAgent).getUA(),
-          browser: bowser.getParser(userAgent).getBrowser().name,
-          browser_version: bowser.getParser(userAgent).getBrowserVersion(),
-          platform: bowser.getParser(userAgent).getPlatform().type,
-          OS: bowser.getParser(userAgent).getOS().name,
-        });
-
-        if (res === null) {
-          toast.error("评论失败! 不要干坏事哦~");
-
-          return;
-        }
-
-        router.refresh();
-      }}
+      action={handleSubmit}
       className="group relative"
       // 用于让在同组件下的button可以提交表单
       id="comment-form"
@@ -65,14 +108,15 @@ export default function CommentInput({
       </label>
       <textarea
         required
-        // peer 失效了!!!
         className="peer min-h-48 w-full resize-none bg-transparent p-3 focus:outline-0"
         disabled={disabled}
         id="content"
         name="content"
+        value={commentContent}
+        onChange={(e) => saveDraft(e.target.value)}
       />
 
-      <TurnstileWidget handleVerifyAction={setVerifyAction} />
+      {!disabled && <TurnstileWidget setToken={setTurnstileToken} />}
     </form>
   );
 }

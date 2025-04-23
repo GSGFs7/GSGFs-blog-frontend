@@ -128,4 +128,19 @@ export const fc = {
 
   delete: <T = any>(endpoint: string, options?: FetchOptions) =>
     fetchClient<T>(endpoint, { ...options, method: "DELETE" }),
+
+  postForm: <T = any>(
+    endpoint: string,
+    formData?: URLSearchParams,
+    options?: FetchOptions,
+  ) =>
+    fetchClient<T>(endpoint, {
+      ...options,
+      method: "POST",
+      headers: {
+        ...options?.headers,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData,
+    }),
 };

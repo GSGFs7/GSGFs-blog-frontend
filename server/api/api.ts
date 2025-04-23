@@ -7,7 +7,6 @@ import adapter from "./adapter";
 
 import { getGuest } from "@/lib/api/post";
 import { getSession } from "@/lib/auth";
-import { cacheGet, getCacheClient } from "@/lib/cache";
 import { mailAdmin } from "@/lib/email";
 import { fc } from "@/lib/fetchClient";
 import supabase from "@/lib/supabase";
@@ -87,6 +86,7 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
 export async function apiAddComment(
   content: string,
   postId: number,
+  token: string,
   metadata: {
     user_agent?: string;
     platform?: string;
@@ -94,7 +94,7 @@ export async function apiAddComment(
     browser_version?: string;
     OS?: string;
   },
-): Promise<number | null> {
+): Promise<number | string | null> {
   const guest = await getGuest();
 
   await apiGuestLogin();
@@ -105,18 +105,19 @@ export async function apiAddComment(
 
   // if not set cache disable the verify
   try {
-    const cacheClient = process.env.MOMENTO_API_KEY
-      ? await getCacheClient()
-      : null;
+    const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+    const formData = new URLSearchParams();
 
-    if (cacheClient) {
-      if (!(await cacheGet(`${guest?.provider}-${guest?.provider_id}`))) {
-        return null;
-      }
+    formData.append("secret", process.env.TURNSTILE_SECRET_KEY ?? "");
+    formData.append("response", token);
+
+    const res = await fc.postForm(url, formData);
+
+    if (!res.success) {
+      throw new Error("Turnstile 验证失败");
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error("Failed to initialize cache client:", e);
+    return String(e);
   }
 
   const body = JSON.stringify({
