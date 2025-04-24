@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
 
-import { apiAddComment } from "@/server";
+import { apiAddComment } from "@/server/backend";
 
 export default function CommentMDEditor({
   disabled,

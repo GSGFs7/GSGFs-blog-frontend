@@ -1,7 +1,7 @@
 import { fc } from "../fetchClient";
 import { queryVN } from "../vndb";
 
-import { apiUpdateGal } from "@/server";
+import { apiUpdateGal } from "@/server/backend";
 import { GalData, GalResponse, Pagination } from "@/types";
 import { getTimeDiffDays } from "@/utils";
 
