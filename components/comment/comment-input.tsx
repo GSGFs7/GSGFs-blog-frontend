@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 import TurnstileWidget from "./turnstile-widget";
 
-import { apiAddComment } from "@/server";
+import { apiAddComment } from "@/server/backend";
 
 export default function CommentInput({
   disabled = false,
