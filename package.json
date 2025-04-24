@@ -55,7 +55,7 @@
     "lowlight": "^3.3.0",
     "lucide-react": "^0.487.0",
     "lxgw-wenkai-webfont": "^1.7.0",
-    "motion": "^12.7.4",
+    "motion": "^12.8.0",
     "next": "^15.3.1",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.8.16",
@@ -125,6 +125,6 @@
   },
   "optionalDependencies": {
     "@opennextjs/cloudflare": "^0.6.6",
-    "wrangler": "^4.12.1"
+    "wrangler": "^4.13.0"
   }
 }
