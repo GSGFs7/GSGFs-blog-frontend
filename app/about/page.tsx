@@ -2,6 +2,7 @@ import aboutMdx from "@/markdown/about.mdx";
 import { markdownToHtml } from "@/utils";
 import { title } from "@/utils/primitives";
 import "@/styles/blog.css";
+import "github-markdown-css/github-markdown-dark.css";
 
 export default async function AboutPage() {
   const about = await markdownToHtml(aboutMdx);
