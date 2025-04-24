@@ -45,7 +45,7 @@ export async function apiGetBackendStatus(): Promise<MessageResponse | null> {
         throw new Error(`fetch supabase error:${statusText}`);
       }
 
-      // 3 mins
+      // once a minute
       if (getTimeDiffMins(data.last_modified_time) < 1) {
         return null;
       }

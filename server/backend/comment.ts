@@ -28,7 +28,6 @@ export async function apiAddComment(
 
   if (htmlContent.length < 1) return null;
 
-  // if not set cache disable the verify
   try {
     const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
     const formData = new URLSearchParams();
@@ -39,10 +38,10 @@ export async function apiAddComment(
     const res = await fc.postForm(url, formData);
 
     if (!res.success) {
-      throw new Error("Turnstile 验证失败");
+      throw new Error("Turnstile verification failed");
     }
-  } catch (e) {
-    return String(e);
+  } catch {
+    return "Turnstile 验证失败";
   }
 
   const body = JSON.stringify({
