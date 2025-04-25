@@ -28,10 +28,18 @@ export async function fetchClient<T = any>(
 ): Promise<T> {
   const { timeout = 5000, schema, ...fetchOptions } = options;
 
+  let userAgent = "";
+
+  if (typeof window !== "undefined") {
+    userAgent = window.navigator.userAgent || "unknown";
+  } else {
+    userAgent = `${siteConfig.name} NextJS/15 (+${process.env.SITE_URL})`;
+  }
+
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
-    "User-Agent": `${siteConfig.name} NextJS/15 (+${process.env.SITE_URL})`,
+    "User-Agent": userAgent,
     ...options.headers,
   };
 
