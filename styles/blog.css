@@ -18,7 +18,7 @@
     }
 
     br {
-      margin-bottom: 0.5rem !important;
+      margin-bottom: 0.75rem !important;
     }
 
     /* ===== 2. 代码块样式 ===== */
@@ -181,6 +181,14 @@
     }
 
     /* ===== 8. 图片样式 ===== */
+    .image-wrapper {
+      @apply flex w-full flex-col items-center justify-center;
+    }
+
+    .image-wrapper img {
+      @apply w-fit;
+    }
+
     .image-wrapper::after {
       content: attr(data-alt);
       @apply block text-center text-sm text-gray-400 italic;
