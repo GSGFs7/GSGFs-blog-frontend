@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import React, { ReactNode } from "react";
 
 import { getPost } from "@/lib/api";
+import { siteConfig } from "@/config/site";
 
 export async function generateMetadata({
   params,
@@ -13,7 +14,26 @@ export async function generateMetadata({
   if (!post) return {};
 
   return {
-    title: post.title,
+    // inherit superior template, no site suffix
+    title: `${post.title} - ${siteConfig.name}`,
+    description: post.meta_description || post.title,
+    openGraph: {
+      title: post.title,
+      description: post.meta_description,
+      type: "article",
+      ...(post.cover_image
+        ? {
+            images: [
+              {
+                url: post.cover_image,
+                alt: post.title,
+                width: 1200,
+                height: 630,
+              },
+            ],
+          }
+        : {}),
+    },
   };
 }
 
