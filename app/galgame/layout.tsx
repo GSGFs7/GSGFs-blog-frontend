@@ -1,4 +1,10 @@
+import { Metadata } from "next";
+
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Galgame",
+};
 
 export default function BlogLayout({
   children,

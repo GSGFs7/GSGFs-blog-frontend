@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import { getSession } from "@/lib/auth";
+import { getSession, logout } from "@/lib/auth";
 
 // Routes to be protected
 const protectedRoutes = ["/admin"];
@@ -23,7 +23,9 @@ export async function middlewareAuth(request: NextRequest) {
       const response = NextResponse.redirect(loginUrl);
 
       loginUrl.searchParams.set("from", pathname);
-      request.cookies.delete("token"); // Deleting invalid tokens
+
+      // Deleting invalid tokens
+      await logout();
 
       return response;
     }

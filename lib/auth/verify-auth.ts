@@ -7,7 +7,7 @@ import { sessionType } from "@/types";
 
 export async function getSession(): Promise<sessionType | null> {
   try {
-    const token = (await cookies()).get("token");
+    const token = (await cookies()).get("access_token");
 
     if (!token) {
       return null;
@@ -18,7 +18,7 @@ export async function getSession(): Promise<sessionType | null> {
 
     return verified.payload as sessionType;
   } catch {
-    (await cookies()).delete("token");
+    (await cookies()).delete("access_token");
 
     return null;
   }

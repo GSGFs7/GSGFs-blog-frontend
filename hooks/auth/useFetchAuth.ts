@@ -9,6 +9,7 @@ import { fc } from "@/lib/fetchClient";
 import { sessionType } from "@/types";
 
 const AUTH_QUERY_KEY = ["auth", "session"];
+const REFRESH_TOKEN_INTERVAL = 1000 * 60 * 45;
 
 export async function fetchSession(): Promise<sessionType | null> {
   try {
@@ -20,7 +21,7 @@ export async function fetchSession(): Promise<sessionType | null> {
     return session;
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error(e);
+    console.error("Failed to get session: ", e);
 
     return null;
   }
@@ -39,15 +40,21 @@ export function useFetchAuth() {
   } = useQuery({
     queryKey: AUTH_QUERY_KEY,
     queryFn: fetchSession,
-    refetchInterval: 60 * 1000,
+    refetchInterval: 1000 * 60, // 1 mins
     refetchOnWindowFocus: true,
   });
 
   const logoutMutation = useMutation({
     mutationFn: async () => await fc.post("/api/auth/logout"),
     onSuccess: () => {
-      queryClient.clear();
       queryClient.setQueryData(AUTH_QUERY_KEY, null);
+    },
+  });
+
+  const refreshMutation = useMutation({
+    mutationFn: async () => await fc.get("/api/auth/refresh"),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
     },
   });
 
@@ -60,6 +67,19 @@ export function useFetchAuth() {
 
     dispatch({ type: "update", payload: session ?? null });
   }, [session, contextSession, pathname]);
+
+  // refresh access token
+  useEffect(() => {
+    const lastRefresh = localStorage.getItem("last_token_refresh");
+    const now = Date.now();
+
+    if (lastRefresh && now - parseInt(lastRefresh) < REFRESH_TOKEN_INTERVAL) {
+      return;
+    }
+
+    refreshMutation.mutate();
+    localStorage.setItem("last_token_refresh", now.toString());
+  }, [refreshMutation, pathname, contextSession]);
 
   return {
     session,

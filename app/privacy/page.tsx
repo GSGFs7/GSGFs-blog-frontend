@@ -1,10 +1,5 @@
-import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 import "@/styles/privacy.css";
-
-export const metadata: Metadata = {
-  title: "隐私协议",
-  description: "GSGFs's blog的隐私政策, 我们如何保护您的隐私.",
-};
 
 export const dynamic = "force-static";
 
@@ -13,19 +8,19 @@ export default function Page() {
     <div className="container mx-auto max-w-3xl px-4 py-8">
       <h1 className="mb-6 text-3xl font-bold">隐私协议</h1>
       <div className="privacy max-w-none">
-        <p className="text-lg">最后更新日期: 2025年3月11日</p>
+        <p className="text-lg">最后更新日期: 2025年5月3日</p>
 
         <h2 className="mt-8">概述</h2>
         <p>
-          本网站 (GSGFs&apos;s blog)
-          高度重视您的隐私.我们采取最小化数据收集原则,
-          仅在必要情况下收集信息.本隐私协议旨在向您说明我们如何收集、使用和保护您的个人信息.
+          本网站 ({siteConfig.name})
+          高度重视您的隐私.我们采取最小化数据收集原则, 仅在必要情况下收集信息.
+          本隐私协议旨在向您说明我们如何收集、使用和保护您的个人信息.
         </p>
 
         <h2 className="mt-6">网站托管与 CDN</h2>
         <p>
-          本网站前端托管在 Vercel 平台上, 并使用 Cloudflare 作为 CDN
-          服务提供商.这意味着:
+          本网站前端托管在 Vercel/Cloudflare Worker 平台上, 并使用 Cloudflare
+          作为 CDN 服务提供商. 这意味着:
         </p>
         <ul>
           <li>
@@ -71,14 +66,13 @@ export default function Page() {
             不会用于跟踪或分析行为
           </li>
         </ul>
+        <p>同时, 我们未接入任何分析平台, 不会收集或分析您的行为数据.</p>
 
         <h2 className="mt-6">不收集的信息</h2>
         <p>除非您主动提供, 否则我们不会收集以下信息: </p>
         <ul>
           <li>您的电子邮件地址</li>
-          {/* <li>您的真实姓名或个人身份信息</li> */}
           <li>您的详细浏览历史或行为模式</li>
-          {/* <li>您的精确位置数据</li> */}
           <li>您的设备详细信息</li>
         </ul>
 
@@ -87,8 +81,6 @@ export default function Page() {
         <ul>
           <li>维护评论功能正常运行</li>
           <li>防止垃圾评论和滥用行为</li>
-          {/* <li>提升网站性能和用户体验</li> */}
-          {/* <li>解决技术问题</li> */}
         </ul>
 
         <h2 className="mt-6">第三方服务</h2>
@@ -134,19 +126,13 @@ export default function Page() {
 
         <h2 className="mt-6">联系方式</h2>
         <p>
-          如果您对本隐私协议有任何疑问或顾虑, 请通过以下方式联系我们:
-          <a
-            className="text-blue-400 hover:underline"
-            href="mailto:admin@gsgfs.moe"
-          >
-            admin@gsgfs.moe
-          </a>
+          如果您对本隐私协议有任何疑问或顾虑,
+          请通过About页面的联系方式与我们取得联系
         </p>
 
         <h2 className="mt-6">协议变更</h2>
         <p>
-          我们可能会不时更新本隐私协议. 任何变更都将在本页面发布,
-          重大变更会通过网站公告通知.
+          我们可能会不时更新本隐私协议. 任何变更都将在本页面发布.
           建议您定期查看本页面以了解我们如何保护您的信息.
         </p>
       </div>

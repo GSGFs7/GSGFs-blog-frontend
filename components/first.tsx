@@ -13,7 +13,7 @@ import osu_svg from "@/public/osu.svg";
 
 export default function First({ gpg }: { gpg: string }) {
   const [show, setShow] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const gpgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
@@ -22,7 +22,7 @@ export default function First({ gpg }: { gpg: string }) {
   }, []);
 
   async function handleCopyGPG() {
-    await navigator.clipboard.writeText(ref.current?.innerText || "");
+    await navigator.clipboard.writeText(gpgRef.current?.innerText || "");
     toast.success("GPG 公钥已复制到剪切板");
   }
 
@@ -74,13 +74,11 @@ export default function First({ gpg }: { gpg: string }) {
                 </button>
               </Modal.Open>
               <Modal.Window name="gpg-key">
-                <div
-                  ref={ref}
-                  className="relative mt-4 mb-2 flex w-xl flex-col items-center justify-center text-sm"
-                >
+                <div className="relative mt-4 mb-2 flex w-xl flex-col items-center justify-center text-sm">
                   <div
                     dangerouslySetInnerHTML={{ __html: gpg }}
-                    className="markdown-body"
+                    ref={gpgRef}
+                    className="bg-gray-900/45 p-2"
                   />
                   <button
                     aria-label="复制 GPG 公钥"

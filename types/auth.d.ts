@@ -27,7 +27,7 @@ export interface githubResponse {
   type: string;
   user_view_type: string;
   site_admin: boolean;
-  name: string;
+  name: string | null;
   company: string | null;
   blog: string | null;
   location: string | null;
@@ -93,4 +93,12 @@ export interface osuResponse {
 export interface tokenResponse {
   token_type: string;
   access_token: string;
+}
+
+export interface userData {
+  id: number;
+  username: string;
+  show_name?: string | null; // github only
+  avatar_url: string;
+  provider: "github" | "osu";
 }
