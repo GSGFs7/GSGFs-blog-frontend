@@ -1,9 +1,8 @@
 "use server";
 
-import { SignJWT } from "jose";
-import { cookies } from "next/headers";
-
 import { fc } from "../fetchClient";
+
+import { createJWT } from "./jwt";
 
 import { githubResponse, tokenResponse } from "@/types";
 
@@ -12,7 +11,6 @@ export async function githubOAuth(
 ): Promise<githubResponse | null> {
   const GITHUB_CLIENT_ID = process.env.AUTH_GITHUB_ID!;
   const GITHUB_CLIENT_SECRET = process.env.AUTH_GITHUB_SECRET!;
-  const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
 
   let accessTokenData: tokenResponse;
 
@@ -43,7 +41,6 @@ export async function githubOAuth(
   let userData: githubResponse;
 
   // 获取用户信息
-  // may be forbidden in CF worker
   try {
     userData = await fc.get<githubResponse>("https://api.github.com/user", {
       headers: {
@@ -56,26 +53,12 @@ export async function githubOAuth(
   }
 
   // create JWT
-  const token = await new SignJWT({
+  await createJWT({
     id: userData.id,
-    // if user set name, show 'name(Github ID)'
-    name: userData.name
-      ? `${userData.name}(${userData.login})`
-      : userData.login,
     avatar_url: userData.avatar_url,
+    username: userData.login,
+    show_name: userData.name,
     provider: "github",
-  })
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("24h")
-    .sign(JWT_SECRET);
-
-  // cookie
-  (await cookies()).set("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 60 * 60 * 24,
   });
 
   return userData;

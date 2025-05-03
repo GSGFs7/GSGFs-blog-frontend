@@ -1,0 +1,75 @@
+import { jwtVerify, SignJWT } from "jose";
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
+
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
+const JWT_REFRESH_SECRET = new TextEncoder().encode(
+  process.env.JWT_REFRESH_SECRET!,
+);
+
+export async function GET(_request: NextRequest) {
+  const cookieStore = await cookies();
+  const refreshToken = cookieStore.get("refresh_token")?.value;
+
+  if (!refreshToken) {
+    return NextResponse.json(
+      { error: "Refresh token not found" },
+      { status: 401 },
+    );
+  }
+
+  try {
+    const { payload } = await jwtVerify(refreshToken, JWT_REFRESH_SECRET);
+
+    if (payload.type !== "refresh") {
+      return NextResponse.json(
+        { error: "Invalid token type" },
+        { status: 401 },
+      );
+    }
+
+    let show_name = "";
+
+    if (payload.provider === "github") {
+      // if user set name, show 'name(Github ID)'
+      show_name = payload.show_name
+        ? `${payload.show_name}(${payload.username})`
+        : (payload.username as string);
+    } else {
+      show_name = payload.username as string;
+    }
+
+    const accessToken = await new SignJWT({
+      id: payload.id,
+      name: show_name,
+      avatar_url: payload.avatar_url,
+      provider: payload.provider,
+      type: "access",
+    })
+      .setProtectedHeader({ alg: "HS256" })
+      .setIssuedAt()
+      .setExpirationTime("1h")
+      .sign(JWT_SECRET);
+
+    cookieStore.set("access_token", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 1, // 1 hours
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error("Token refresh error:", e);
+
+    // clean invalid tokens
+    cookieStore.delete("refresh_token");
+    cookieStore.delete("access_token");
+
+    return NextResponse.json(
+      { error: "Invalid or expired refresh token" },
+      { status: 401 },
+    );
+  }
+}

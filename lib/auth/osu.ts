@@ -1,16 +1,14 @@
 "use server";
 
-import { SignJWT } from "jose";
-import { cookies } from "next/headers";
-
 import { fc } from "../fetchClient";
+
+import { createJWT } from "./jwt";
 
 import { osuResponse, tokenResponse } from "@/types";
 
 export async function osuAuth(code: string): Promise<osuResponse | null> {
   const OSU_CLIENT_ID = process.env.AUTH_OSU_ID!;
   const OSU_CLIENT_SECRET = process.env.AUTH_OSU_SECRET!;
-  const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)!;
 
   let accessTokenData: tokenResponse;
 
@@ -54,23 +52,11 @@ export async function osuAuth(code: string): Promise<osuResponse | null> {
   }
 
   // create JWT
-  const token = await new SignJWT({
+  await createJWT({
     id: userData.id,
-    name: userData.username,
+    username: userData.username,
     avatar_url: userData.avatar_url,
     provider: "osu",
-  })
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("24h")
-    .sign(JWT_SECRET);
-
-  // cookie
-  (await cookies()).set("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 60 * 60 * 24,
   });
 
   return userData;
