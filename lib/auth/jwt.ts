@@ -52,7 +52,7 @@ export async function createJWT(userData: userData) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 1, // 1 hours
+    maxAge: 60 * 60 * 1, // 1 hour
   });
 
   cookieStore.set("refresh_token", refreshToken, {
