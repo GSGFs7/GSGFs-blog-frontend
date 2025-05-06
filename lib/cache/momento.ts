@@ -6,6 +6,7 @@ import {
 } from "@gomomento/sdk";
 
 const CACHE_NAME = "blog";
+const TTL = 60 * 30;
 let momentoClient: CacheClient | null = null;
 
 export async function getCacheClient(): Promise<CacheClient> {
@@ -20,13 +21,13 @@ export async function getCacheClient(): Promise<CacheClient> {
   try {
     momentoClient = new CacheClient({
       configuration: Configurations.Laptop.v1(),
-      defaultTtlSeconds: 60 * 30,
+      defaultTtlSeconds: TTL,
     });
 
     return momentoClient;
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error("Initialization momento failed");
+    console.error("Initialization momento failed:", e);
     throw e;
   }
 }
