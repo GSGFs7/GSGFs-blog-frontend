@@ -116,7 +116,7 @@ export default function CommentInput({
         onChange={(e) => saveDraft(e.target.value)}
       />
 
-      {!disabled && <TurnstileWidget setToken={setTurnstileToken} />}
+      <TurnstileWidget setToken={setTurnstileToken} />
     </form>
   );
 }
