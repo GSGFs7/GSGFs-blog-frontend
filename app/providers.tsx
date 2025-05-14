@@ -53,7 +53,9 @@ function reducer(
       return { session: null };
     case "update":
       return {
-        session: state.session ? { ...state.session, ...action.payload } : null,
+        session: action.payload
+          ? { ...state.session, ...action.payload }
+          : null,
       };
     default:
       throw new Error("Unknown action");

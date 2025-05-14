@@ -66,7 +66,7 @@ export function useFetchAuth() {
     refetch();
 
     dispatch({ type: "update", payload: session ?? null });
-  }, [session, contextSession, pathname]);
+  }, [session, pathname, dispatch]);
 
   // refresh access token
   useEffect(() => {

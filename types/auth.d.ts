@@ -3,6 +3,8 @@ export interface sessionType {
   name?: string;
   avatar_url?: string;
   provider?: string;
+  type?: "access" | "refresh";
+  version?: number;
   iat?: number;
   exp?: number;
 }

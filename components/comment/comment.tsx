@@ -24,10 +24,7 @@ export default async function Comment({ postId }: { postId: number }) {
         <div className="flex items-center justify-between border-t border-gray-700">
           {session ? (
             <CommentAvatarLink type="user">
-              <CommentAvatar
-                avatar={session?.avatar_url}
-                name={session?.name}
-              />
+              <CommentAvatar />
             </CommentAvatarLink>
           ) : (
             <CommentAvatarLink type="login">
