@@ -2,12 +2,12 @@ export default `## 关于我
 
 本人现在的身份是在校大学生, *前*▇▇▇队员, 算竟败犬, [GNU/Linux](https://www.gnu.org/gnu/why-gnu-linux.html)爱好者(大概?), 阴暗爬行的社恐.
 
-ACGN爱好者:
+"ACGN"爱好者:
 
-- A: ArchLinux, 操作系统原神!
-- C: Coding, 想要成为py高手!
-- G: rhythm Game, __click__!
-- N: visual Novel, 剧情党!
+- A: \`ArchLinux\`, 操作系统原神!
+- C: \`Coding\`, 想要成为py高手!
+- G: \`rhythm Game\`, __click__!
+- N: \`visual Novel\`, 剧情党!
 
 联系方式:
 
