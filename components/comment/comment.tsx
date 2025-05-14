@@ -7,6 +7,7 @@ import CommentList from "./comment-list";
 import { getSession } from "@/lib/auth";
 
 export default async function Comment({ postId }: { postId: number }) {
+  // TODO: need get session on client side
   const session = await getSession();
 
   return (
