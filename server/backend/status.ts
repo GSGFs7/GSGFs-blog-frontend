@@ -28,7 +28,7 @@ export async function apiGetBackendStatus(): Promise<MessageResponse | null> {
     const mailBody = `
         <h2>Backend Service Alert</h2>
         <p>The backend service is currently unavailable.</p>
-        <p><strong>Time:</strong> ${new Date().toString()}</p>
+        <p><strong>Time:</strong> ${new Date().toISOString()}</p>
         <p><strong>Error:</strong> ${e}</p>
         <p>This alert will not be repeated for the next 1 day.</p>`;
 

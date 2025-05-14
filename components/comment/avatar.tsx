@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 
-export default async function CommentAvatar({
+import { useAuth } from "@/app/providers";
+
+export default function CommentAvatar({
   col = false,
   avatar,
   name,
@@ -10,6 +14,10 @@ export default async function CommentAvatar({
   name?: string;
 }) {
   const defaultAvatar = "/default-avatar.png";
+  const { session } = useAuth();
+
+  avatar = avatar ?? session?.avatar_url;
+  name = name ?? session?.name;
 
   return (
     <div
