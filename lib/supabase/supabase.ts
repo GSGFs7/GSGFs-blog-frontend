@@ -12,7 +12,7 @@ if (supabaseUrl && supabaseKey) {
   supabaseClient = createClient(supabaseUrl, supabaseKey);
 } else {
   // eslint-disable-next-line no-console
-  console.warn("Missing Supabase credentials - some features will disable.");
+  // console.warn("Missing Supabase credentials - some features will disable.");
 }
 
 export default supabaseClient;
