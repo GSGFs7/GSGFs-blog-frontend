@@ -43,63 +43,10 @@ const rehypeClassToClassName = () => (tree: Element) => {
 };
 
 export function CustomMDX({ source }: { source: string }) {
-  let processedSource = source;
-
   // process `<url>` to `[url](url)`
-  processedSource = processedSource.replace(
+  const processedSource = source.replace(
     /<(http|https):\/\/([^>]+)>/g,
     (_, protocol, url) => `[${protocol}://${url}](${protocol}://${url})`,
-  );
-
-  // it's a stupid way to fix it
-  const validHtmlTags = [
-    "div",
-    "span",
-    "p",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "ul",
-    "ol",
-    "li",
-    "a",
-    "img",
-    "code",
-    "pre",
-    "blockquote",
-    "table",
-    "tr",
-    "td",
-    "th",
-    "strong",
-    "em",
-    "br",
-    "hr",
-  ];
-
-  const validTagsPattern = new RegExp(
-    `<\\/?(?:${validHtmlTags.join("|")})(?:\\s[^>]*)?(?:>|\\/>)`,
-    "g",
-  );
-
-  const placeholders: string[] = [];
-
-  processedSource = processedSource.replace(validTagsPattern, (match) => {
-    placeholders.push(match);
-
-    return `__VALID_TAG_${placeholders.length - 1}__`;
-  });
-
-  processedSource = processedSource.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-  processedSource = processedSource.replace(
-    /__VALID_TAG_(\d+)__/g,
-    (_, index) => {
-      return placeholders[parseInt(index)];
-    },
   );
 
   const options: MDXRemoteOptions = {
