@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { getPost } from "@/lib/api";
-import BlogBodyMDX from "@/components/blog/blog-body-MDX";
+import adapter from "@/components/blog/adapter";
 
 const Comment = dynamic(() => import("@/components/comment"));
 
@@ -14,15 +14,16 @@ export default async function Page({
 }) {
   const postId = (await params).postId;
   const post = await getPost(postId.toString());
+  const BlogBody = (await adapter()).default;
 
-  // 如果找不到的话
+  // if not found
   if (post === null) {
     notFound();
   }
 
   return (
     <div className="">
-      <BlogBodyMDX markdown={post.content} />
+      <BlogBody markdown={post.content} />
       <Suspense fallback={<div className="spinner-big" />}>
         <Comment postId={postId} />
       </Suspense>
