@@ -43,6 +43,12 @@ const rehypeClassToClassName = () => (tree: Element) => {
 };
 
 export function CustomMDX({ source }: { source: string }) {
+  // process `<url>` to `[url](url)`
+  const processedSource = source.replace(
+    /<(http|https):\/\/([^>]+)>/g,
+    (_, protocol, url) => `[${protocol}://${url}](${protocol}://${url})`,
+  );
+
   const options: MDXRemoteOptions = {
     mdxOptions: {
       remarkPlugins: [
@@ -69,13 +75,8 @@ export function CustomMDX({ source }: { source: string }) {
     <MDXRemote
       components={components}
       options={options}
-      source={source}
-      onError={({ error }) => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-
-        return <ErrorComponent error={error} />;
-      }}
+      source={processedSource}
+      onError={({ error }) => <ErrorComponent error={error} />}
     />
   );
 }
