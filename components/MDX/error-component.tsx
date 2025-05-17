@@ -1,3 +1,6 @@
 export default function ErrorComponent({ error }) {
-  return <div>Error: {error.message}</div>;
+  // eslint-disable-next-line no-console
+  console.error(error.message);
+
+  return <div>渲染MDX出现错误, 赶紧拷打去拷打作者吧</div>;
 }

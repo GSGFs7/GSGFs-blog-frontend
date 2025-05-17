@@ -1,3 +1,4 @@
+import { common } from "lowlight";
 import { Element } from "mdx/types";
 import { MDXRemote, MDXRemoteOptions } from "next-mdx-remote-client/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -44,14 +45,19 @@ const rehypeClassToClassName = () => (tree: Element) => {
 export function CustomMDX({ source }: { source: string }) {
   const options: MDXRemoteOptions = {
     mdxOptions: {
-      remarkPlugins: [remarkMath, remarkGfm, remarkParse, remarkRehype],
+      remarkPlugins: [
+        remarkParse,
+        remarkMath,
+        remarkGfm,
+        [remarkRehype, { allowDangerousHtml: true }],
+      ],
       rehypePlugins: [
         rehypeClassToClassName,
         rehypeSlug,
-        rehypeKatex,
-        rehypeHighlight,
-        rehypeHighlightCodeLines,
         rehypeAutolinkHeadings,
+        [rehypeKatex, { strict: false }],
+        [rehypeHighlight, { languages: { ...common } }],
+        [rehypeHighlightCodeLines, { showLineNumbers: true }],
       ],
       format: "mdx",
     },
