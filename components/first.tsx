@@ -98,6 +98,7 @@ export default function First({ gpg }: { gpg: string }) {
         <Image
           alt="avatar"
           className="rounded-xl shadow-lg shadow-black/50 transition-all hover:scale-105"
+          fetchPriority="high"
           loading="eager"
           placeholder="blur"
           priority={true}
