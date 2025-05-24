@@ -69,7 +69,7 @@
 
 3. vercel 部署
 
-   复制本仓库到自己的仓库后, 在 vercel 上即可部署
+   复制本仓库到自己的账号下后, 在 vercel 上即可部署
 
 4. cloudflare 部署
 
