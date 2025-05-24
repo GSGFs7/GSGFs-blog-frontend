@@ -22,7 +22,7 @@ export async function queryVN(id: string): Promise<vndbVNQuery | null> {
     return data;
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error("Test VNDB failed: ", e);
+    console.error("Query VNDB failed: ", e);
 
     return null;
   }

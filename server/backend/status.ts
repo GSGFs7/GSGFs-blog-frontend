@@ -10,7 +10,7 @@ import { withLock } from "@/utils/lock";
 // monitor backend online status
 export async function apiGetBackendStatus(): Promise<MessageResponse | null> {
   try {
-    const res = await fc.get<MessageResponse>("/health", {
+    const res = await fc.get<MessageResponse>("/health/", {
       headers: {
         cache: "no-store",
       },

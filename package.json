@@ -8,14 +8,20 @@
     "email": "gsgfs@gsgfs.moe",
     "url": "https://gsgfs.moe"
   },
-  "packageManager": "pnpm@10.8.1",
+  "packageManager": "pnpm@10.11.0",
+  "description": "GSGFs Blog",
+  "homepage": "https://gsgfs.moe",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GSGFs7/GSGFs-blog-frontend"
+  },
   "engines": {
     "node": ">=22"
   },
   "scripts": {
     "dev": "next dev --turbopack",
     "dev-https": "next dev --experimental-https --turbopack",
-    "build": "next build -d",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix",
     "prepare": "husky",
@@ -33,15 +39,15 @@
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.3.2",
     "@react-aria/ssr": "^3.9.8",
-    "@react-aria/visually-hidden": "^3.8.22",
+    "@react-aria/visually-hidden": "^3.8.23",
     "@serwist/next": "^9.0.14",
     "@serwist/precaching": "^9.0.14",
     "@serwist/sw": "^9.0.14",
-    "@supabase/supabase-js": "^2.49.4",
-    "@tanstack/react-query": "^5.76.1",
-    "@tanstack/react-query-devtools": "^5.76.1",
+    "@supabase/supabase-js": "^2.49.8",
+    "@tanstack/react-query": "^5.77.0",
+    "@tanstack/react-query-devtools": "^5.77.0",
     "@types/mdx": "^2.0.13",
-    "@uiw/react-md-editor": "^4.0.6",
+    "@uiw/react-md-editor": "^4.0.7",
     "@vercel/og": "^0.6.8",
     "bowser": "^2.11.0",
     "clsx": "^2.1.1",
@@ -55,7 +61,7 @@
     "lowlight": "^3.3.0",
     "lucide-react": "^0.487.0",
     "lxgw-wenkai-webfont": "^1.7.0",
-    "motion": "^12.12.1",
+    "motion": "^12.12.2",
     "next": "^15.3.2",
     "next-mdx-remote-client": "^2.1.2",
     "next-themes": "^0.4.6",
@@ -84,20 +90,20 @@
     "sharp": "^0.33.5",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
-    "zod": "^3.24.4",
-    "zustand": "^5.0.4"
+    "zod": "^3.25.28",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250517.0",
+    "@cloudflare/workers-types": "^4.20250524.0",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@next/eslint-plugin-next": "^15.3.2",
-    "@react-types/shared": "^3.29.0",
+    "@react-types/shared": "^3.29.1",
     "@tailwindcss/postcss": "^4.1.7",
     "@tailwindcss/typography": "^0.5.16",
     "@types/hast": "^3.0.4",
-    "@types/node": "^22.15.18",
-    "@types/react": "^19.1.4",
+    "@types/node": "^22.15.21",
+    "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@types/web-push": "^3.6.4",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
@@ -126,6 +132,6 @@
   },
   "optionalDependencies": {
     "@opennextjs/cloudflare": "^0.6.6",
-    "wrangler": "^4.15.2"
+    "wrangler": "^4.16.1"
   }
 }

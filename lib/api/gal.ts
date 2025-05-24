@@ -16,6 +16,7 @@ export async function getAllGal(): Promise<{
     const data = await fc.get<GalResponse>("/gal/gals");
 
     const galPromises = (data.gals || []).map(async (gal) => {
+      // TODO: move this to backend
       const isNeedUpdate =
         getTimeDiffDays(gal.update_at) > GAL_DATA_OUTDATED_DAYS || !gal.title;
       const vn = isNeedUpdate ? await queryVN(gal.vndb_id) : null;
