@@ -15,7 +15,7 @@ export async function generateMetadata({
 
   return {
     // inherit superior template, no site suffix
-    title: `${post.title} - ${siteConfig.name}`,
+    title: `${post.title} - ${siteConfig.siteName}`,
     description: post.meta_description || post.title,
     openGraph: {
       title: post.title,

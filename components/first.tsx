@@ -10,6 +10,7 @@ import { HiInformationCircle } from "react-icons/hi";
 import Modal from "@/components/modal";
 import avatar_webp from "@/public/avatar-optimized.webp";
 import osu_svg from "@/public/osu.svg";
+import { siteConfig } from "@/config/site";
 
 export default function First({ gpg }: { gpg: string }) {
   const [show, setShow] = useState(false);
@@ -34,7 +35,7 @@ export default function First({ gpg }: { gpg: string }) {
           <h2 className="inline-block text-6xl drop-shadow-lg sm:text-7xl">
             I&apos;m{" "}
             <p className="inline-block bg-gradient-to-b from-blue-400 to-[#0072F5] bg-clip-text text-7xl text-transparent sm:text-8xl">
-              GSGFs
+              {siteConfig.author}
             </p>
           </h2>
           <h2 className="text-4xl drop-shadow-lg sm:mt-4 sm:text-5xl">
@@ -42,26 +43,23 @@ export default function First({ gpg }: { gpg: string }) {
           </h2>
 
           <div className="flex gap-3">
-            <a
-              aria-label="访问我的 OSU! 主页"
-              className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
-              href="https://osu.ppy.sh/users/36335512"
-              // 不发送 HTTP referer header 防止目标获取源页面信息
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Image alt="osu icon" height="32" src={osu_svg} width="32" />
-            </a>
-
-            <a
-              aria-label="访问我的 Github 主页"
-              className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
-              href="https://github.com/GSGFs7"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <FaGithub />
-            </a>
+            {siteConfig.links.map(({ label, url }) => (
+              <a
+                key={label}
+                aria-label={`访问我的 ${label} 主页`}
+                className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
+                href={url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {label === "osu!" && (
+                  <Image alt="osu icon" height="32" src={osu_svg} width="32" />
+                )}
+                {label === "Github" && (
+                  <FaGithub style={{ height: 32, width: 32, color: "black" }} />
+                )}
+              </a>
+            ))}
 
             <Modal>
               <Modal.Open opens="gpg-key">
@@ -107,7 +105,6 @@ export default function First({ gpg }: { gpg: string }) {
           src={avatar_webp}
         />
         <div className="group relative flex items-center justify-end">
-          {/* absolute 与上面的relative对应 */}
           <p
             className={`absolute w-full -translate-x-1 translate-y-4 text-center text-gray-500 ${show ? "" : "hidden"}`}
           >

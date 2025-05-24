@@ -66,7 +66,7 @@ export function useFetchAuth() {
     refetch();
 
     dispatch({ type: "update", payload: session ?? null });
-  }, [session, pathname, dispatch]);
+  }, [session, pathname, dispatch]); // do not add refetch to the dependency array, otherwise it will cause an infinite loop
 
   // refresh access token
   useEffect(() => {

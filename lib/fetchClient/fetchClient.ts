@@ -35,7 +35,7 @@ export async function fetchClient<T = any>(
   if (typeof window !== "undefined") {
     userAgent = window.navigator.userAgent || "unknown";
   } else {
-    userAgent = `${siteConfig.name} NextJS/15 (+${process.env.SITE_URL})`;
+    userAgent = `${siteConfig.siteName} NextJS/15 (+${process.env.SITE_URL})`;
   }
 
   const headers = {
