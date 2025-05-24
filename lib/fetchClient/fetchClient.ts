@@ -4,7 +4,9 @@ import { siteConfig } from "@/config/site";
 
 export interface FetchOptions extends RequestInit {
   timeout?: number;
-  schema?: z.ZodType<any>; // data verification
+  signal?: AbortSignal;
+  // TODO data verification
+  schema?: z.ZodType<any>;
 }
 
 export class FetchError extends Error {
@@ -43,13 +45,18 @@ export async function fetchClient<T = any>(
     ...options.headers,
   };
 
-  // auto timeout
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  // abort
+  const internalController = new AbortController();
+  const timeoutId = setTimeout(() => internalController.abort(), timeout);
+  const userSignal = options.signal;
+  const signal = userSignal
+    ? composeSignal(userSignal, internalController.signal)
+    : internalController.signal;
+
+  let url: string = "";
 
   try {
-    let url: string;
-
+    // convert endpoint to URL
     if (endpoint.startsWith("http") || endpoint.startsWith("https")) {
       // complete URL
       url = endpoint;
@@ -64,7 +71,7 @@ export async function fetchClient<T = any>(
     const response = await fetch(url, {
       ...fetchOptions,
       headers,
-      signal: options.signal || controller.signal,
+      signal,
     });
 
     clearTimeout(timeoutId);
@@ -104,7 +111,15 @@ export async function fetchClient<T = any>(
     clearTimeout(timeoutId);
 
     if (error instanceof Error && error.name === "AbortError") {
-      throw new FetchError(`Request timeout after ${timeout}ms`);
+      if (!userSignal?.aborted) {
+        // timeout aborted
+        throw new FetchError(`Request timeout after ${timeout}ms. URL: ${url}`);
+      } else {
+        // user aborted
+        throw new FetchError(
+          `Request aborted by user(You should catch it). Reason: ${userSignal.reason}`,
+        );
+      }
     }
 
     throw new FetchError(
@@ -115,6 +130,28 @@ export async function fetchClient<T = any>(
 
 /**
  * Enhanced version fetch API
+ *
+ * endpoint:
+ * - if it starts with http or https, it will be used as is
+ * - if it starts with /api, it will use the frontend URL. such as: http://you-frontend.com/api/test
+ * - if it starts with /, it will use the backend URL. such as: http://you-backend.com/api/test
+ *
+ * If use abort signal, put the signal in the options
+ * such as:
+ * ```ts
+ * const controller = new AbortController();
+ * const res = fc.get("/api/test", {
+ *  signal: controller.signal,
+ * });
+ *
+ * controller.abort();
+ *
+ * try {
+ *  await res;
+ * } catch (error) {
+ * console.log(error);
+ * }
+ * ```
  */
 export const fc = {
   get: <T = any>(endpoint: string, options?: FetchOptions) =>
@@ -152,3 +189,26 @@ export const fc = {
       body: formData,
     }),
 };
+
+function composeSignal(...signals: AbortSignal[]): AbortSignal {
+  const controller = new AbortController();
+
+  signals.forEach((signal) => {
+    // if any signal is aborted, abort the controller
+    if (signal.aborted) {
+      controller.abort(signal.reason);
+
+      return;
+    }
+
+    signal.addEventListener(
+      "abort",
+      () => {
+        controller.abort(signal.reason);
+      },
+      { once: true },
+    );
+  });
+
+  return controller.signal;
+}
