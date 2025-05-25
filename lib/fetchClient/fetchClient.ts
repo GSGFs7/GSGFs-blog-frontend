@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 export interface FetchOptions extends RequestInit {
   timeout?: number;
   signal?: AbortSignal;
-  // TODO data verification
+  // TODO: data verification
   schema?: z.ZodType<any>;
 }
 

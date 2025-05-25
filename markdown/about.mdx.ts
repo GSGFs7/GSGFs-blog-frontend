@@ -1,6 +1,6 @@
 export default `## 关于我
 
-本人现在的身份是在校大学生, *前*▇▇▇队员, 算竟败犬, [GNU/Linux](https://www.gnu.org/gnu/why-gnu-linux.html)爱好者(大概?), 阴暗爬行的社恐.
+本人现在的身份是在校大学生, 算竟败犬, [GNU/Linux](https://www.gnu.org/gnu/why-gnu-linux.html)爱好者(大概?), 阴暗爬行的社恐.
 
 "ACGN"爱好者:
 
