@@ -16,25 +16,25 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: siteConfig.siteName,
+    template: `%s - ${siteConfig.siteName}`,
   },
   description: siteConfig.description,
-  applicationName: siteConfig.name,
+  applicationName: siteConfig.siteName,
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: siteConfig.name,
+    title: siteConfig.siteName,
   },
   formatDetection: {
     telephone: false,
   },
   openGraph: {
     type: "website",
-    siteName: siteConfig.name,
+    siteName: siteConfig.siteName,
     title: {
-      default: siteConfig.name,
-      template: `%s - ${siteConfig.name}`,
+      default: siteConfig.siteName,
+      template: `%s - ${siteConfig.siteName}`,
     },
     description: siteConfig.description,
     images: {
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: {
-      default: siteConfig.name,
-      template: `%s - ${siteConfig.name}`,
+      default: siteConfig.siteName,
+      template: `%s - ${siteConfig.siteName}`,
     },
     description: siteConfig.description,
     images: {

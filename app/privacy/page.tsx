@@ -12,7 +12,7 @@ export default function Page() {
 
         <h2 className="mt-8">概述</h2>
         <p>
-          本网站 ({siteConfig.name})
+          本网站 ({siteConfig.siteName})
           高度重视您的隐私.我们采取最小化数据收集原则, 仅在必要情况下收集信息.
           本隐私协议旨在向您说明我们如何收集、使用和保护您的个人信息.
         </p>

@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 export interface FetchOptions extends RequestInit {
   timeout?: number;
   signal?: AbortSignal;
-  // TODO data verification
+  // TODO: data verification
   schema?: z.ZodType<any>;
 }
 
@@ -35,7 +35,7 @@ export async function fetchClient<T = any>(
   if (typeof window !== "undefined") {
     userAgent = window.navigator.userAgent || "unknown";
   } else {
-    userAgent = `${siteConfig.name} NextJS/15 (+${process.env.SITE_URL})`;
+    userAgent = `${siteConfig.siteName} NextJS/15 (+${process.env.SITE_URL})`;
   }
 
   const headers = {

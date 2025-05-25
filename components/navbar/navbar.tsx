@@ -6,6 +6,7 @@ import NavAvatar from "./avatar";
 import { NavItems } from "./nav-items";
 
 import { getSession } from "@/lib/auth";
+import { siteConfig } from "@/config/site";
 
 export async function Navbar() {
   const session = await getSession();
@@ -19,7 +20,7 @@ export async function Navbar() {
           <div className="flex items-center gap-3 opacity-90">
             <Link className="flex items-center justify-start gap-1" href="/">
               <HiOutlineHome className="relative -translate-y-[0.15rem] text-2xl" />
-              <p className="text-2xl font-bold">GSGFs</p>
+              <p className="text-2xl font-bold">{siteConfig.author}</p>
             </Link>
           </div>
 
