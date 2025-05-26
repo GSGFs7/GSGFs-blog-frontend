@@ -16,6 +16,7 @@ export function GalTableBody() {
     {},
   );
 
+  // TODO: SEO optimization
   const processMarkdown = async (id: number, markdown: string) => {
     if (processedHtml[id]) return;
 
