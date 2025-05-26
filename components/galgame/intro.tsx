@@ -6,17 +6,17 @@ import { TiInfoLargeOutline } from "react-icons/ti";
 
 import IntroContent from "./intro-content";
 
-export default function Intro({}: {}) {
+export default function Intro() {
   const [show, setShow] = useState<boolean>(false);
 
   return (
     <div className="relative mb-6 flex w-full flex-col items-end">
       <button
-        className="flex flex-row gap-2"
+        className="mt-2 flex cursor-pointer flex-row gap-2 hover:text-gray-300 hover:underline"
         onClick={() => setShow((prev) => !prev)}
       >
         <TiInfoLargeOutline />
-        <span className="-translate-y-1 cursor-pointer">说明</span>
+        <span className="-translate-y-1">说明</span>
       </button>
 
       <AnimatePresence>
