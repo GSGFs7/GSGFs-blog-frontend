@@ -2,9 +2,6 @@ import { fc } from "../fetchClient";
 
 import { GalData, GalResponse, Pagination } from "@/types";
 
-// How many days it takes to re-fetch data from VNDB
-// const GAL_DATA_OUTDATED_DAYS = 7;
-
 export async function getAllGal(): Promise<{
   data: GalData[];
   pagination: Pagination;
@@ -13,11 +10,7 @@ export async function getAllGal(): Promise<{
     const data = await fc.get<GalResponse>("/gal/gals");
 
     // update logic has been moved to the backend
-    const galPromises = (data.gals || []).map(async (gal) => {
-      // const isNeedUpdate =
-      //   getTimeDiffDays(gal.update_at) > GAL_DATA_OUTDATED_DAYS || !gal.title;
-      // const vn = isNeedUpdate ? await queryVN(gal.vndb_id) : null;
-
+    const gals = (data.gals || []).map((gal) => {
       const newVN = {
         id: gal.id,
         vndb_id: gal.vndb_id,
@@ -32,16 +25,8 @@ export async function getAllGal(): Promise<{
         review: gal.review,
       } as GalData;
 
-      // if (isNeedUpdate) {
-      //   // Execute in the background, don't care about the results
-      //   apiUpdateGal(newVN);
-      // }
-
       return newVN;
     });
-
-    // concurrent
-    const gals: GalData[] = await Promise.all(galPromises);
 
     const pagination: Pagination = {
       total: data.pagination.total,
