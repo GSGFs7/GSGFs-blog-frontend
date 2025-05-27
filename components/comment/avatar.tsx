@@ -16,8 +16,8 @@ export default function CommentAvatar({
   const defaultAvatar = "/default-avatar.png";
   const { session } = useAuth();
 
-  avatar = avatar ?? session?.avatar_url;
-  name = name ?? session?.name;
+  avatar = avatar ?? session?.avatar_url ?? defaultAvatar;
+  name = name ?? session?.name ?? "未登录";
 
   return (
     <div
@@ -27,10 +27,10 @@ export default function CommentAvatar({
         alt={name ?? "avatar"}
         className="m-2 h-9 w-fit rounded-full"
         height={"40"}
-        src={avatar ? avatar : defaultAvatar}
+        src={avatar}
         width={"40"}
       />
-      <span>{name ? name : "未登录"}</span>
+      <span>{name}</span>
     </div>
   );
 }
