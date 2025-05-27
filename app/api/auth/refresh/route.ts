@@ -19,7 +19,15 @@ export async function GET(_request: NextRequest) {
   }
 
   try {
-    const { payload } = await jwtVerify(refreshToken, JWT_REFRESH_SECRET);
+    const { payload } = (await jwtVerify(refreshToken, JWT_REFRESH_SECRET)) as {
+      payload: {
+        id: number;
+        name: string;
+        avatar_url: string;
+        provider: string;
+        type: string;
+      };
+    };
 
     if (payload.type !== "refresh") {
       return NextResponse.json(
@@ -28,16 +36,8 @@ export async function GET(_request: NextRequest) {
       );
     }
 
-    let show_name = "";
-
-    if (payload.provider === "github") {
-      // if user set name, show 'name(Github ID)'
-      show_name = payload.show_name
-        ? `${payload.show_name}(${payload.username})`
-        : (payload.username as string);
-    } else {
-      show_name = payload.username as string;
-    }
+    // Use the name attribute stored directly in the refresh token
+    const show_name = payload.name || "";
 
     const accessToken = await new SignJWT({
       id: payload.id,
