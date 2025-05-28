@@ -49,3 +49,6 @@ certificates
 # Serwist
 public/sw*
 public/swe-worker*
+
+# other
+git.md
