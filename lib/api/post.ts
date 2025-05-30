@@ -17,8 +17,8 @@ export async function getPost(postId: string): Promise<Post | null> {
 }
 
 export async function getPostList(
-  page: number,
-  size: number,
+  page: number = 1,
+  size: number = 10,
 ): Promise<PostWithPagination | null> {
   try {
     const res = await fc.get<PostWithPagination>(

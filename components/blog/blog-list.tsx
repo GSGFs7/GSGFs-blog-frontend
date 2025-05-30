@@ -45,18 +45,4 @@ export default async function BlogList({
       <Pagination size={pagination.size} total={pagination.total} />
     </>
   );
-
-  // 原型
-  // return (
-  //   <div className="flex flex-col gap-10">
-  //     <div className="flex gap-10">
-  //       <div className="flex-1 border border-blue-500 h-64">Post1</div>
-  //       <div className="flex-1 border border-red-600">Post2</div>
-  //     </div>
-  //     <div className="flex gap-10">
-  //       <div className="flex-1 border border-blue-500 h-64">Post3</div>
-  //       <div className="flex-1 border border-red-600">Post4</div>
-  //     </div>
-  //   </div>
-  // );
 }

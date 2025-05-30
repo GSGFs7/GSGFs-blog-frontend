@@ -16,8 +16,9 @@ const nextConfig: NextConfig = {
       { hostname: "avatars.githubusercontent.com" },
       { hostname: "a.ppy.sh" },
     ],
-    // loader: "custom",
-    // loaderFile: "./image-loader.ts",
+    // use Cloudflare Image
+    loader: process.env.CF ? "custom" : "default",
+    loaderFile: process.env.CF ? "./image-loader.ts" : undefined,
   },
   turbopack: {
     resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
@@ -82,8 +83,8 @@ const withSerwist = withSerwistInit({
 export default withSerwist(nextConfig);
 
 // open next in dev env
-if (process.env.NODE_ENV === "development") {
-  import("@opennextjs/cloudflare").then((openNext) =>
-    openNext.initOpenNextCloudflareForDev(),
-  );
-}
+// if (process.env.NODE_ENV === "development") {
+//   import("@opennextjs/cloudflare").then((openNext) =>
+//     openNext.initOpenNextCloudflareForDev(),
+//   );
+// }

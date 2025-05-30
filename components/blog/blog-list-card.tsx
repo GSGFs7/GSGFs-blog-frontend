@@ -34,16 +34,22 @@ export default function BlogListCard({
     <motion.article
       ref={ref}
       className="group mt-4 h-64 overflow-hidden rounded-lg border border-gray-500/70 md:mt-4 md:h-72"
-      style={{ scale: scaleProgress, opacity: opacityProgress }}
+      style={{
+        scale: scaleProgress,
+        opacity: opacityProgress,
+        willChange: "transform, opacity", // tell the browser in advance
+      }}
     >
       <Link href={`/blog/${id}`}>
         <div className="relative z-10 h-44 w-full overflow-hidden transition-all duration-500 group-hover:scale-[1.65] md:h-56">
           <Image
             fill
             alt="postImage"
+            blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='100%25' height='100%25' fill='%23cccccc'/%3E%3C/svg%3E"
             className="scale-100 object-cover object-center"
             loading="lazy"
-            quality={90}
+            placeholder="blur"
+            quality={75}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             src={cover_image ? cover_image : default_cover}
           />

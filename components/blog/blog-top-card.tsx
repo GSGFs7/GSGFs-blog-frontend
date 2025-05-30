@@ -5,11 +5,12 @@ import { useRouter } from "nextjs-toploader/app";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
+import { randomPost } from "@/app/actions";
 import cardImageR from "@/public/0.png";
 import cardImageL from "@/public/2_cut.jpg";
 import { getMousePosition } from "@/utils";
 
-export default function BlogTopCard({ postIds }: { postIds: number[] }) {
+export default function BlogTopCard() {
   const router = useRouter();
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -18,25 +19,20 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
     setMousePosition(getMousePosition(e));
   }
 
-  function handleRandomPost() {
-    if (!postIds || postIds.length < 1) {
+  async function handleRandomPost() {
+    let randomPostId = await randomPost();
+
+    if (randomPostId === null) {
       toast.error("出了点小问题");
 
       return;
     }
 
-    const randomIndex = Math.floor(Math.random() * postIds.length);
-    const randomPostId = postIds[randomIndex];
-
-    if (randomPostId !== undefined) {
-      router.push(`/blog/${randomPostId}`);
-    } else {
-      toast.error("出了点小问题");
-    }
+    router.push(`/blog/${randomPostId}`);
   }
 
   return (
-    <>
+    <div className="mb-4 flex w-full flex-wrap gap-6 sm:h-52 md:h-80">
       <div
         className="group sm:52 relative flex h-52 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:flex-[9] md:h-80"
         onMouseMove={handleMouseMove}
@@ -83,6 +79,6 @@ export default function BlogTopCard({ postIds }: { postIds: number[] }) {
           />
         </button>
       </div>
-    </>
+    </div>
   );
 }
