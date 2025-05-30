@@ -88,6 +88,7 @@ export function NavItems() {
             <Link
               className={`transition-colors duration-200 ${isHighlightedItem ? "text-outline-blue text-outline-thin text-blue-500" : ""}`}
               href={item.href}
+              prefetch={true}
             >
               {item.label}
             </Link>

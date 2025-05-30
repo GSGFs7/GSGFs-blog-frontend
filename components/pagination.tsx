@@ -20,6 +20,14 @@ export default function Pagination({
     ? 1
     : Number(searchParams.get("page"));
 
+  // prefetch
+  if (currentPage > 1) {
+    router.prefetch(`${pathname}?page=${currentPage - 1}`);
+  }
+  if (currentPage < pageCount) {
+    router.prefetch(`${pathname}?page=${currentPage + 1}`);
+  }
+
   function prevPage() {
     const prev = currentPage === 1 ? currentPage : currentPage - 1;
 
