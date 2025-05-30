@@ -30,7 +30,9 @@
     "edge-runtime": "node scripts/convert-to-edge-runtime.cjs",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "build:cloudflare": "opennextjs-cloudflare build",
+    "deploy:cloudflare": "opennextjs-cloudflare deploy"
   },
   "dependencies": {
     "@fontsource/maple-mono": "^5.2.5",
