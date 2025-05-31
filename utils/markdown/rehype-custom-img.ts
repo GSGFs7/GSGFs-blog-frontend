@@ -1,5 +1,7 @@
-import { visit, SKIP } from "unist-util-visit";
 import { Element } from "hast";
+import { SKIP, visit } from "unist-util-visit";
+
+import cloudflareLoader from "@/image-loader";
 
 export default function rehypeCustomImg(
   options = { width: 1080, quality: 90 },
@@ -13,13 +15,21 @@ export default function rehypeCustomImg(
           const alt = node.properties?.alt?.toString() || "";
           const src = node.properties?.src?.toString() || "";
 
+          // optimize the image source
           if (src && !src.startsWith("/")) {
             const encodedSrc = encodeURIComponent(src);
-            const optimizedSrc = `/_next/image?url=${encodedSrc}&w=${options.width}&q=${options.quality}`;
+            const optimizedSrc = process.env.CF
+              ? cloudflareLoader({
+                  src: src,
+                  width: options.width,
+                  quality: options.quality,
+                }) // Use Cloudflare image
+              : `/_next/image?url=${encodedSrc}&w=${options.width}&q=${options.quality}`;
 
             node.properties.src = optimizedSrc;
           }
 
+          // add a wrapper to show the alt text
           const wrapper = {
             type: "element",
             tagName: "div",
