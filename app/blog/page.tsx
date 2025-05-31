@@ -1,20 +1,22 @@
 import { Suspense } from "react";
 
-import { BlogList, BlogTopCards } from "@/components/blog";
+import { BlogList, BlogTopCard } from "@/components/blog";
 
 export default async function BlogPage({
   searchParams,
 }: {
   searchParams: Promise<{ page: string; size: string }>;
 }) {
+  let param = await searchParams;
+
   return (
     <div className="flex flex-col items-center justify-center">
-      <BlogTopCards />
+      <BlogTopCard />
 
       <Suspense fallback={<div className="spinner-big" />}>
         <BlogList
-          searchParamsPage={Number((await searchParams)?.page ?? 1)}
-          searchParamsSize={Number((await searchParams)?.size ?? 10)}
+          searchParamsPage={Number(param?.page ?? 1)}
+          searchParamsSize={Number(param?.size ?? 10)}
         />
       </Suspense>
     </div>

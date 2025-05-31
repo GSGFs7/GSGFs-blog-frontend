@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import AvatarImage from "../avatar-image";
 
 import NavAvatarLink from "./avatar-link";
 import LoginButton from "./login-button";
@@ -13,22 +13,16 @@ export default function NavAvatar({
 }: {
   initialSession: sessionType | null;
 }) {
-  const defaultAvatar = "/default-avatar.png";
   const { session, isLoading } = useFetchAuth();
 
   if (isLoading && initialSession) {
     return (
       <NavAvatarLink>
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <AvatarImage
           alt={`${initialSession.name}'s avatar`}
-          className="rounded-full"
-          height={"40"}
-          src={
-            initialSession.avatar_url
-              ? initialSession.avatar_url
-              : defaultAvatar
-          }
-          width={"40"}
+          size={40}
+          src={initialSession.avatar_url ?? "/default-avatar.png"}
         />
       </NavAvatarLink>
     );
@@ -38,12 +32,11 @@ export default function NavAvatar({
 
   return (
     <NavAvatarLink>
-      <Image
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <AvatarImage
         alt={`${session.name}'s avatar`}
-        className="rounded-full"
-        height={"40"}
-        src={session.avatar_url ? session.avatar_url : defaultAvatar}
-        width={"40"}
+        size={40}
+        src={session.avatar_url ?? "/default-avatar.png"}
       />
     </NavAvatarLink>
   );

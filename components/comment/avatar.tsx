@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import AvatarImage from "../avatar-image";
 
 import { useAuth } from "@/app/providers";
 
@@ -23,12 +23,11 @@ export default function CommentAvatar({
     <div
       className={`flex w-fit items-center ${col ? "flex-col" : "flex-row gap-3"}`}
     >
-      <Image
+      <AvatarImage
         alt={name ?? "avatar"}
         className="m-2 h-9 w-fit rounded-full"
-        height={"40"}
+        size={40}
         src={avatar}
-        width={"40"}
       />
       <span>{name}</span>
     </div>

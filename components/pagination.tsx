@@ -2,6 +2,7 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "nextjs-toploader/app";
+import { useEffect } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
 export default function Pagination({
@@ -20,11 +21,21 @@ export default function Pagination({
     ? 1
     : Number(searchParams.get("page"));
 
+  // prefetch
+  useEffect(() => {
+    if (currentPage > 1) {
+      router.prefetch(`${pathname}?page=${currentPage - 1}`);
+    }
+    if (currentPage < pageCount) {
+      router.prefetch(`${pathname}?page=${currentPage + 1}`);
+    }
+  });
+
   function prevPage() {
     const prev = currentPage === 1 ? currentPage : currentPage - 1;
 
     // searchParams.set() 已弃用
-    const params = new URLSearchParams("page");
+    const params = new URLSearchParams();
 
     params.set("page", prev.toString());
 
@@ -34,7 +45,7 @@ export default function Pagination({
   function nextPage() {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
 
-    const params = new URLSearchParams("page");
+    const params = new URLSearchParams();
 
     params.set("page", next.toString());
 
