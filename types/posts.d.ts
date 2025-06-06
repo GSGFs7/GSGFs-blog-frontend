@@ -30,6 +30,7 @@ export interface Post {
   header_image: string | null;
   id: number;
   meta_description: string;
+  keywords: string | null;
   order: number;
   slug: string;
   status: "draft" | "published";
