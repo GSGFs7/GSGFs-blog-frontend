@@ -16,7 +16,7 @@ export default function AvatarImage({
   ];
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 2 : 2;
 
-  let optimizationImageSize = Math.max(size * dpr * 2, 64);
+  let optimizationImageSize = Math.max(size * dpr, 64);
 
   optimizationImageSize =
     allowedSizes.find((s) => s >= optimizationImageSize) || 64;
