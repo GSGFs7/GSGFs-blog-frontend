@@ -13,7 +13,7 @@ export async function osuAuth(code: string): Promise<osuResponse | null> {
   let accessTokenData: tokenResponse;
 
   try {
-    accessTokenData = await fc.post(
+    accessTokenData = await fc.post<tokenResponse>(
       `https://osu.ppy.sh/oauth/token`,
       {
         client_id: OSU_CLIENT_ID,

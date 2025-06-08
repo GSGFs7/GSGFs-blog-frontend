@@ -104,3 +104,10 @@ export interface userData {
   avatar_url: string;
   provider: "github" | "osu";
 }
+
+export interface OAuthState {
+  callbackUrl?: string;
+  csrfToken?: string;
+  timestamp?: number;
+  [key: string]: any;
+}

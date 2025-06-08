@@ -30,6 +30,8 @@ export function SigninButton({
   }
 
   function handle() {
+    localStorage.removeItem("last_token_refresh");
+
     if (name === "github") {
       github();
     } else if (name === "osu") {
