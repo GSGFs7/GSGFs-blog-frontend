@@ -16,6 +16,8 @@ export function SignoutButton({ disabled = false }: { disabled?: boolean }) {
   }
 
   async function handleLogout() {
+    localStorage.removeItem("last_token_refresh");
+
     try {
       // 代替用户触发对应的函数
       const response = await fetch("/api/auth/logout", {

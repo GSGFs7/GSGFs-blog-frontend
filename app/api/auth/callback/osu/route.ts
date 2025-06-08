@@ -1,35 +1,76 @@
+import { NextResponse } from "next/server";
+
 import { osuAuth } from "@/lib/auth";
+import { cacheDelete, cacheGet } from "@/lib/cache";
+import { OAuthState } from "@/types";
 import { isValidRedirectUrl } from "@/utils";
 
 export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url); // 获取查询参数
   const code = searchParams.get("code"); // 从 osu 重定向回来后会携带一个 code
-  const state = searchParams.get("state");
-  let callbackUrl = JSON.parse(
-    Buffer.from(state || "", "base64").toString(),
-  ).callbackUrl;
+  const stateParam = searchParams.get("state");
 
-  if (!callbackUrl || !isValidRedirectUrl(callbackUrl)) {
-    callbackUrl = "/";
-  }
-
-  if (!code) {
-    return new Response("No code provided", { status: 400 });
+  if (!code || !stateParam) {
+    return new Response("No code or state provided", { status: 400 });
   }
 
   try {
+    const stateObj = JSON.parse(
+      Buffer.from(stateParam, "base64").toString("utf-8"),
+    );
+    const { csrfToken, timestamp } = stateObj;
+    let callbackUrl = stateObj.callbackUrl;
+
+    // validate URL
+    if (!callbackUrl || !isValidRedirectUrl(callbackUrl)) {
+      callbackUrl = "/";
+    }
+
+    // validate timestamp
+    const now = Date.now();
+
+    if (now - timestamp > 5 * 60 * 1000) {
+      return NextResponse.json(
+        {
+          error: "Authentication state has expired.",
+        },
+        { status: 400 },
+      );
+    }
+
+    // validate CSRF token
+    const userIP =
+      request.headers.get("x-real-ip") ||
+      request.headers.get("x-forwarded-for") ||
+      request.headers.get("x-cf-connecting-ip") ||
+      "unknown";
+    const cacheKey = `osu_auth:${userIP}:${csrfToken}`;
+    const cachedState = await cacheGet<OAuthState>(cacheKey);
+
+    if (!cachedState || cachedState.csrfToken !== csrfToken) {
+      return NextResponse.json(
+        {
+          error: "Invalid CSRF token.",
+        },
+        { status: 400 },
+      );
+    }
+
+    await cacheDelete(cacheKey);
+
+    // get user data and sign JWT
     await osuAuth(code);
 
     const redirectUrl = new URL(callbackUrl, request.url).toString();
 
     // 需要 return
-    return Response.redirect(redirectUrl);
+    return NextResponse.redirect(redirectUrl);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error("Authentication error:", error);
 
     const redirectUrl = new URL("/login", request.url).toString();
 
-    return Response.redirect(redirectUrl);
+    return NextResponse.redirect(redirectUrl);
   }
 };
