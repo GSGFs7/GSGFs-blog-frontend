@@ -8,9 +8,9 @@ import { FaGithub } from "react-icons/fa";
 import { HiInformationCircle } from "react-icons/hi";
 
 import Modal from "@/components/modal";
-import avatar_webp from "@/public/avatar-optimized.webp";
-import osu_svg from "@/public/osu.svg";
 import { siteConfig } from "@/config/site";
+import avatar_webp from "@/public/favicon.webp";
+import osu_svg from "@/public/osu.svg";
 
 export default function First({ gpg }: { gpg: string }) {
   const [show, setShow] = useState(false);

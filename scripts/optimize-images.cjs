@@ -2,11 +2,11 @@ const sharp = require("sharp");
 const path = require("path");
 const fs = require("fs");
 
-const inputPath = path.join(__dirname, "../public/avatar.png");
-const outputPath = path.join(__dirname, "../public/avatar-optimized.webp");
+const inputPath = path.join(__dirname, "../public/1.jpg");
+const outputPath = path.join(__dirname, "../public/1.webp");
 
 sharp(inputPath)
-  .resize({ width: 800 })
+  // .resize({ width: 800 })
   .webp({ quality: 100, compressionLevel: 9 })
   .toFile(outputPath)
   .then((info) => {
