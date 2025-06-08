@@ -5,11 +5,11 @@ import {
   Configurations,
 } from "@gomomento/sdk";
 
-const CACHE_NAME = "blog";
-const TTL = 60 * 30;
+const CACHE_NAME = "blog"; // Name of the cache to use
+const TTL = 60 * 30; // 30 minutes
 let momentoClient: CacheClient | null = null;
 
-export async function getCacheClient(): Promise<CacheClient> {
+export function getCacheClient(): CacheClient {
   if (momentoClient) return momentoClient;
 
   const MOMENTO_API_KEY = process.env.MOMENTO_API_KEY;
@@ -34,7 +34,7 @@ export async function getCacheClient(): Promise<CacheClient> {
 
 export async function cacheGet<T>(key: string): Promise<T | null> {
   try {
-    const client = await getCacheClient();
+    const client = getCacheClient();
     const response = await client.get(CACHE_NAME, key);
 
     if (response instanceof CacheGet.Hit) {
@@ -56,7 +56,7 @@ export async function cacheSet<T>(
   ttlSeconds?: number,
 ): Promise<boolean> {
   try {
-    const client = await getCacheClient();
+    const client = getCacheClient();
     const response = await client.set(CACHE_NAME, key, JSON.stringify(value), {
       ttl: ttlSeconds,
     });
@@ -72,7 +72,7 @@ export async function cacheSet<T>(
 
 export async function cacheDelete(key: string): Promise<boolean> {
   try {
-    const client = await getCacheClient();
+    const client = getCacheClient();
 
     await client.delete(CACHE_NAME, key);
 
@@ -87,7 +87,7 @@ export async function cacheDelete(key: string): Promise<boolean> {
 
 export async function flushCache(): Promise<boolean> {
   try {
-    const client = await getCacheClient();
+    const client = getCacheClient();
 
     await client.flushCache(CACHE_NAME);
 
