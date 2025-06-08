@@ -25,7 +25,7 @@ export default function manifest(): MetadataRoute.Manifest {
       },
       {
         src: "/favicon.webp",
-        type: "image/png",
+        type: "image/webp",
         sizes: "500x500",
       },
     ],
