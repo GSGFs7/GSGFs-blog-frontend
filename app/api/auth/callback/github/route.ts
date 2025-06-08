@@ -44,7 +44,7 @@ export const GET = async (request: Request) => {
       request.headers.get("x-forwarded-for") ||
       request.headers.get("x-cf-connecting-ip") ||
       "unknown";
-    const cacheKey = `osu_auth:${userIP}:${csrfToken}`;
+    const cacheKey = `github_auth:${userIP}:${csrfToken}`;
     const cachedState = await cacheGet<OAuthState>(cacheKey);
 
     if (!cachedState || cachedState.csrfToken !== csrfToken) {

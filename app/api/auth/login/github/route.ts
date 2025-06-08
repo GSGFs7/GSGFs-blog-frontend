@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     request.headers.get("x-forwarded-for") ||
     request.headers.get("x-cf-connecting-ip") ||
     "unknown";
-  const cacheKey = `osu_auth:${userIP}:${csrfToken}`;
+  const cacheKey = `github_auth:${userIP}:${csrfToken}`;
 
   // make sure all information has been set
   const cached = await cacheSet(cacheKey, stateObj, 60 * 5); // Cache for 5 minutes
