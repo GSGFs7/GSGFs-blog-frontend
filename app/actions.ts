@@ -1,6 +1,7 @@
 "use server";
 
 import { getAllPostIds } from "@/lib/api";
+import { cacheGet, cacheSet } from "@/lib/cache";
 
 /**
  * Fetch a random blog post ID.
@@ -17,4 +18,17 @@ export async function randomPost(): Promise<null | number> {
   const randomPostId = ids[randomIndex];
 
   return randomPostId;
+}
+
+export async function testCache() {
+  try {
+    await cacheSet("114514", "114514");
+
+    return await cacheGet("114514");
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+
+    return `${e}`;
+  }
 }
