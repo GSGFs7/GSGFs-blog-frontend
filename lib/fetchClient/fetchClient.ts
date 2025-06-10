@@ -56,6 +56,7 @@ export async function fetchClient<T = any>(
   let url: string = "";
 
   try {
+    // TODO: refactor this
     // convert endpoint to URL
     if (endpoint.startsWith("http") || endpoint.startsWith("https")) {
       // complete URL

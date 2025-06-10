@@ -24,9 +24,9 @@ const nextConfig: NextConfig = {
     resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
   },
   productionBrowserSourceMaps: true, // generate source map in dev environment
-  // CSP protection
-  // TODO
-  //! need fix: console 99+ errors
+  webpack: (config) => {
+    return config;
+  },
   async headers() {
     return [
       {
