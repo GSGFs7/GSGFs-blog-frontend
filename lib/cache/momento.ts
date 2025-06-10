@@ -3,6 +3,7 @@ import {
   CacheGet,
   CacheSet,
   Configurations,
+  CredentialProvider,
 } from "@gomomento/sdk";
 
 const CACHE_NAME = "blog"; // Name of the cache to use
@@ -21,6 +22,8 @@ export function getCacheClient(): CacheClient {
   try {
     momentoClient = new CacheClient({
       configuration: Configurations.Laptop.v1(),
+      credentialProvider:
+        CredentialProvider.fromEnvironmentVariable("MOMENTO_API_KEY"),
       defaultTtlSeconds: TTL,
     });
 
