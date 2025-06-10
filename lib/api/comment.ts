@@ -6,7 +6,7 @@ export async function getAllCommentIdFromPostId(
   postId: number,
 ): Promise<number[] | null> {
   try {
-    const data = await fc.get<{ ids: number[] }>(`/comment/post/${postId}`);
+    const data = await fc.get<{ ids: number[] }>(`comment/post/${postId}`);
 
     return data.ids;
   } catch (e) {
@@ -21,7 +21,7 @@ export async function getCommentFromId(
   commentId: number,
 ): Promise<commentType | null> {
   try {
-    const data = await fc.get<commentType>(`/comment/${commentId}`);
+    const data = await fc.get<commentType>(`comment/${commentId}`);
 
     return data;
   } catch (e) {

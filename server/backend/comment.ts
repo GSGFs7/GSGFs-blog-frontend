@@ -1,6 +1,6 @@
 "use server";
 
-import adapter from "./adapter";
+import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 import { apiGuestLogin } from "./login";
 
 import { getGuest } from "@/lib/api";
@@ -55,7 +55,7 @@ export async function apiAddComment(
     const res = await fetch(`${process.env.BACKEND_URL}/api/comment/new`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
+        Authorization: `Bearer ${await generateAuthToken()}`,
       },
       body,
     });

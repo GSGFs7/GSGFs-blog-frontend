@@ -5,7 +5,7 @@ import { guestLogin, Post, PostSitemapItem, PostWithPagination } from "@/types";
 
 export async function getPost(postId: string): Promise<Post | null> {
   try {
-    const res = await fc.get<Post>(`/post/${postId}`);
+    const res = await fc.get<Post>(`post/${postId}`);
 
     return res;
   } catch (e) {
@@ -22,7 +22,7 @@ export async function getPostList(
 ): Promise<PostWithPagination | null> {
   try {
     const res = await fc.get<PostWithPagination>(
-      `/post/posts?page=${page}&size=${size}`,
+      `post/posts?page=${page}&size=${size}`,
     );
 
     return res;
@@ -51,7 +51,7 @@ export async function getGuest(): Promise<guestLogin | null> {
 
 export async function getAllPostIds(): Promise<number[] | null> {
   try {
-    const res = await fc.get<{ ids: number[] }>("/post");
+    const res = await fc.get<{ ids: number[] }>("post");
 
     return res.ids;
   } catch (e) {
@@ -64,7 +64,7 @@ export async function getAllPostIds(): Promise<number[] | null> {
 
 export async function getPostSitemap(): Promise<PostSitemapItem[] | null> {
   try {
-    const res = await fc.get<PostSitemapItem[]>("/post/sitemap");
+    const res = await fc.get<PostSitemapItem[]>("post/sitemap");
 
     return res;
   } catch (e) {

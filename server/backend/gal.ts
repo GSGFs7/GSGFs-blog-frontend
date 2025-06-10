@@ -1,6 +1,6 @@
 "use server";
 
-import adapter from "./adapter";
+import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 
 import { GalData } from "@/types";
 import { fc } from "@/lib/fetchClient";
@@ -8,9 +8,9 @@ import { fc } from "@/lib/fetchClient";
 export async function apiUpdateGal(gal: GalData): Promise<() => void> {
   const updatePromise = (async () => {
     try {
-      const authToken = await (await adapter()).generateAuthToken();
+      const authToken = await generateAuthToken();
 
-      return await fc.post(`/gal/${gal.id}`, gal, {
+      return await fc.post(`gal/${gal.id}`, gal, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

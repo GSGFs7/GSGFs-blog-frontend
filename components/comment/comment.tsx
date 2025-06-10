@@ -21,15 +21,9 @@ export default async function Comment({ postId }: { postId: number }) {
         <CommentInput disabled={!session} postId={postId} />
         {/* <CommentMDEditor disabled={!session} postId={postId} /> */}
         <div className="flex items-center justify-between border-t border-gray-700">
-          {session ? (
-            <CommentAvatarLink type="user">
-              <CommentAvatar />
-            </CommentAvatarLink>
-          ) : (
-            <CommentAvatarLink type="login">
-              <CommentAvatar />
-            </CommentAvatarLink>
-          )}
+          <CommentAvatarLink type={session ? "user" : "login"}>
+            <CommentAvatar />
+          </CommentAvatarLink>
           <Button disabled={!session} />
         </div>
       </div>

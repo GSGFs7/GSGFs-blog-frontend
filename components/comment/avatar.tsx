@@ -16,20 +16,20 @@ export default function CommentAvatar({
   const defaultAvatar = "/default-avatar.png";
   const { session } = useAuth();
 
-  avatar = avatar ?? session?.avatar_url ?? defaultAvatar;
-  name = name ?? session?.name ?? "未登录";
+  const finalAvatar = avatar ?? session?.avatar_url ?? defaultAvatar;
+  const finalName = name ?? session?.name ?? "未登录";
 
   return (
     <div
       className={`flex w-fit items-center ${col ? "flex-col" : "flex-row gap-3"}`}
     >
       <AvatarImage
-        alt={name ?? "avatar"}
-        className="m-2 h-9 w-fit rounded-full"
+        alt={finalName}
+        className="m-2"
         size={40}
-        src={avatar}
+        src={finalAvatar}
       />
-      <span>{name}</span>
+      <span>{finalName}</span>
     </div>
   );
 }

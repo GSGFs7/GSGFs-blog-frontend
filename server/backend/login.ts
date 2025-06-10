@@ -1,8 +1,9 @@
 "use server";
 
-import adapter from "./adapter";
+import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 
 import { getSession } from "@/lib/auth";
+import { fc } from "@/lib/fetchClient";
 import { guestLogin, IDNumber } from "@/types";
 
 export async function apiGuestLogin(): Promise<{ id: number } | null> {
@@ -20,13 +21,15 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
       avatar_url: session.avatar_url!,
     };
 
-    const res = await fetch(`${process.env.BACKEND_URL}/api/guest/login`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
+    const res = await fc.post(
+      `${process.env.BACKEND_URL}/api/guest/login`,
+      JSON.stringify(loginDate),
+      {
+        headers: {
+          Authorization: `Bearer ${await generateAuthToken()}`,
+        },
       },
-      body: JSON.stringify(loginDate),
-    });
+    );
 
     // console.log(await res.json());
     if (!res.ok) {
