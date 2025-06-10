@@ -7,7 +7,7 @@ export async function getAllGal(): Promise<{
   pagination: Pagination;
 } | null> {
   try {
-    const data = await fc.get<GalResponse>("/gal/gals");
+    const data = await fc.get<GalResponse>("gal/gals");
 
     // update logic has been moved to the backend
     const gals = (data.gals || []).map((gal) => {

@@ -1,15 +1,14 @@
 "use server";
 
-import adapter from "./adapter";
+import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 
+import { fc } from "@/lib/fetchClient";
 import { Render } from "@/types";
 
 export async function apiSendRender(render: Render) {
-  await fetch(`${process.env.BACKEND_URL}/api/post/render`, {
-    method: "POST",
+  await fc.post(`post/render`, JSON.stringify(render), {
     headers: {
-      Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
+      Authorization: `Bearer ${await generateAuthToken()}`,
     },
-    body: JSON.stringify(render),
   });
 }

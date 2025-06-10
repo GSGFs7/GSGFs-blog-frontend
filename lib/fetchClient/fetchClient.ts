@@ -29,13 +29,35 @@ export async function fetchClient<T = any>(
   options: FetchOptions = {},
 ): Promise<T> {
   const { timeout = 5000, schema, ...fetchOptions } = options;
-
   let userAgent = "";
+  let url: string = "";
 
+  // set user agent
   if (typeof window !== "undefined") {
-    userAgent = window.navigator.userAgent || "unknown";
+    userAgent = window.navigator.userAgent;
   } else {
     userAgent = `${siteConfig.siteName} NextJS/15 (+${process.env.SITE_URL})`;
+  }
+
+  // convert endpoint to URL
+  if (endpoint.startsWith("http://") || endpoint.startsWith("https://")) {
+    // complete URL
+    url = endpoint;
+  } else if (endpoint.startsWith("/")) {
+    // frontend URL
+    if (typeof window !== "undefined") {
+      url = endpoint;
+    } else {
+      const baseUrl =
+        process.env.SITE_URL ||
+        process.env.NEXT_PUBLIC_SITE_URL ||
+        "http://localhost:3000";
+
+      url = `${baseUrl}${endpoint}`;
+    }
+  } else {
+    // backend URL
+    url = `${process.env.BACKEND_URL}/api/${endpoint}`;
   }
 
   const headers = {
@@ -53,22 +75,7 @@ export async function fetchClient<T = any>(
     ? composeSignal(userSignal, internalController.signal)
     : internalController.signal;
 
-  let url: string = "";
-
   try {
-    // TODO: refactor this
-    // convert endpoint to URL
-    if (endpoint.startsWith("http") || endpoint.startsWith("https")) {
-      // complete URL
-      url = endpoint;
-    } else if (endpoint.startsWith("/api")) {
-      // frontend URL
-      url = endpoint;
-    } else {
-      // backend URL
-      url = `${process.env.BACKEND_URL}/api${endpoint}`;
-    }
-
     const response = await fetch(url, {
       ...fetchOptions,
       headers,
@@ -134,8 +141,8 @@ export async function fetchClient<T = any>(
  *
  * endpoint:
  * - if it starts with http or https, it will be used as is
- * - if it starts with /api, it will use the frontend URL. such as: http://you-frontend.com/api/test
- * - if it starts with /, it will use the backend URL. such as: http://you-backend.com/api/test
+ * - if it starts with /, it will use the frontend URL. such as: /api/test -> http://you-frontend.com/api/test
+ * - if it starts not with /, it will use the backend URL. such as: test -> http://you-backend.com/api/test
  *
  * If use abort signal, put the signal in the options
  * such as:

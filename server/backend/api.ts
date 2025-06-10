@@ -1,13 +1,13 @@
 "use server";
 
-import adapter from "./adapter";
+import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 
 // 测试用的函数 不应该在生产环境使用
 export async function apiTest() {
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/api/test/auth`, {
       headers: {
-        Authorization: `Bearer ${await (await adapter()).generateAuthToken()}`,
+        Authorization: `Bearer ${await generateAuthToken()}`,
       },
     });
 
