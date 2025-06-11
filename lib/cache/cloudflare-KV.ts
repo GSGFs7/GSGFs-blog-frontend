@@ -1,3 +1,4 @@
+// have some problem
 import { env } from "cloudflare:workers";
 
 import { CacheTTL } from ".";
@@ -62,18 +63,10 @@ export async function cacheDelete(key: string): Promise<boolean> {
   }
 }
 
-export async function flushCache(): Promise<boolean> {
-  // eslint-disable-next-line no-console
-  console.warn("Cloudflare KV does not support flush operation");
-
-  return false;
-}
-
 const cloudflareKVCache: CacheInterface = {
   cacheGet,
   cacheSet,
   cacheDelete,
-  flushCache,
 };
 
 export default cloudflareKVCache;
