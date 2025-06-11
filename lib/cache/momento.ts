@@ -6,9 +6,28 @@ import {
   CredentialProvider,
 } from "@gomomento/sdk";
 
+import { CacheTTL } from ".";
+
+import { CacheError, CacheInterface } from "@/types/cache";
+
 const CACHE_NAME = "blog"; // Name of the cache to use
-const TTL = 60 * 30; // 30 minutes
 let momentoClient: CacheClient | null = null;
+
+function createCacheError(
+  operation: CacheError["operation"],
+  key: string | undefined,
+  originalError: unknown,
+): CacheError {
+  const error = new Error(
+    `Cache ${operation} operation failed${key ? ` for key '${key}'` : ""}`,
+  ) as CacheError;
+
+  error.operation = operation;
+  error.key = key;
+  error.originalError = originalError;
+
+  return error;
+}
 
 export function getCacheClient(): CacheClient {
   if (momentoClient) return momentoClient;
@@ -22,16 +41,15 @@ export function getCacheClient(): CacheClient {
   try {
     momentoClient = new CacheClient({
       configuration: Configurations.Laptop.v1(),
-      credentialProvider:
-        CredentialProvider.fromEnvironmentVariable("MOMENTO_API_KEY"),
-      defaultTtlSeconds: TTL,
+      credentialProvider: CredentialProvider.fromString(MOMENTO_API_KEY),
+      defaultTtlSeconds: CacheTTL,
     });
 
     return momentoClient;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error("Initialization momento failed:", e);
-    throw e;
+    throw createCacheError("get", undefined, e);
   }
 }
 
@@ -41,22 +59,30 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
     const response = await client.get(CACHE_NAME, key);
 
     if (response instanceof CacheGet.Hit) {
-      return JSON.parse(response.valueString()) as T;
+      try {
+        return JSON.parse(response.valueString()) as T;
+      } catch (parseError) {
+        // eslint-disable-next-line no-console
+        console.error(
+          `Failed to parse cached value for key '${key}': `,
+          parseError,
+        );
+        throw createCacheError("get", key, parseError);
+      }
     }
 
     return null;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(`get '${key}' from momento cache failed`, e);
-
-    throw e;
+    throw createCacheError("get", key, e);
   }
 }
 
 export async function cacheSet<T>(
   key: string,
   value: T,
-  ttlSeconds?: number,
+  ttlSeconds: number = CacheTTL,
 ): Promise<boolean> {
   try {
     const client = getCacheClient();
@@ -68,8 +94,7 @@ export async function cacheSet<T>(
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(`set '${key}' cache failed: `, e);
-
-    throw e;
+    throw createCacheError("set", key, e);
   }
 }
 
@@ -83,8 +108,7 @@ export async function cacheDelete(key: string): Promise<boolean> {
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(`delete '${key}' from momento cache failed:`, e);
-
-    throw e;
+    throw createCacheError("delete", key, e);
   }
 }
 
@@ -98,7 +122,15 @@ export async function flushCache(): Promise<boolean> {
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error("flush momento cache failed:", e);
-
-    throw e;
+    throw createCacheError("flush", undefined, e);
   }
 }
+
+const momentoCache: CacheInterface = {
+  cacheGet,
+  cacheSet,
+  cacheDelete,
+  flushCache,
+};
+
+export default momentoCache;
