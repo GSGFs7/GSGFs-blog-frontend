@@ -25,6 +25,11 @@ const nextConfig: NextConfig = {
   },
   productionBrowserSourceMaps: true, // generate source map in dev environment
   webpack: (config) => {
+    config.externals = config.externals || [];
+    config.externals.push({
+      "cloudflare:workers": "commonjs cloudflare:workers",
+    });
+
     return config;
   },
   async headers() {
