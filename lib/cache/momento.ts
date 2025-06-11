@@ -42,7 +42,7 @@ class CacheClient {
     ttl_seconds: number = 30,
   ) {
     const resp = await fetch(
-      `${this.baseurl}/${cacheName}?key=${key}&token=${this.apiKey}&&ttl_seconds=${ttl_seconds}`,
+      `${this.baseurl}/${cacheName}?key=${key}&token=${this.apiKey}&ttl_seconds=${ttl_seconds}`,
       {
         method: "PUT",
         body: value,
@@ -107,11 +107,11 @@ export function getCacheClient(): CacheClient {
   const MOMENTO_BASE_URL = process.env.MOMENTO_BASE_URL;
 
   if (!MOMENTO_API_KEY) {
-    throw new Error("MOMENTO_API_KEY environment variables not set");
+    throw new Error("MOMENTO_API_KEY environment variable not set");
   }
 
   if (!MOMENTO_BASE_URL) {
-    throw new Error("MOMENTO_BASE_URL environment variables not set");
+    throw new Error("MOMENTO_BASE_URL environment variable not set");
   }
 
   try {
