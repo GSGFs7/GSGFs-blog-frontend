@@ -28,9 +28,16 @@ export async function GET(request: NextRequest) {
   const cacheKey = `osu_auth:${userIP}:${csrfToken}`;
 
   // make sure all information has been set
-  const cached = await cacheSet(cacheKey, stateObj, 60 * 5); // Cache for 5 minutes
+  try {
+    const cached = await cacheSet(cacheKey, stateObj, 60 * 5); // Cache for 5 minutes
 
-  if (!cached) {
+    if (!cached) {
+      throw new Error("Failed to cache authentication state.");
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error("Failed to cache authentication state: ", e);
+
     return NextResponse.json(
       { error: "Failed to cache authentication state." },
       { status: 500 },

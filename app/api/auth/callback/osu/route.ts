@@ -5,13 +5,17 @@ import { cacheDelete, cacheGet } from "@/lib/cache";
 import { OAuthState } from "@/types";
 import { isValidRedirectUrl } from "@/utils";
 
+// TODO: Merge callback routes
 export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url); // 获取查询参数
   const code = searchParams.get("code"); // 从 osu 重定向回来后会携带一个 code
   const stateParam = searchParams.get("state");
 
   if (!code || !stateParam) {
-    return new Response("No code or state provided", { status: 400 });
+    return NextResponse.json(
+      { error: "No code or state provided" },
+      { status: 400 },
+    );
   }
 
   try {
@@ -45,7 +49,21 @@ export const GET = async (request: Request) => {
       request.headers.get("x-cf-connecting-ip") ||
       "unknown";
     const cacheKey = `osu_auth:${userIP}:${csrfToken}`;
-    const cachedState = await cacheGet<OAuthState>(cacheKey);
+    let cachedState: OAuthState | null = null;
+
+    try {
+      cachedState = await cacheGet<OAuthState>(cacheKey);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error("Get cache error: ", e);
+
+      return NextResponse.json(
+        {
+          error: "Failed to get cache authentication state",
+        },
+        { status: 500 },
+      );
+    }
 
     if (!cachedState || cachedState.csrfToken !== csrfToken) {
       return NextResponse.json(
@@ -56,7 +74,12 @@ export const GET = async (request: Request) => {
       );
     }
 
-    await cacheDelete(cacheKey);
+    try {
+      await cacheDelete(cacheKey);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error("Delete cache error: ", e);
+    }
 
     // get user data and sign JWT
     await osuAuth(code);

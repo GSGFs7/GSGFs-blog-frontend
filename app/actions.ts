@@ -20,11 +20,11 @@ export async function randomPost(): Promise<null | number> {
   return randomPostId;
 }
 
-export async function testCache() {
+export async function testCache(): Promise<string | null> {
   try {
     await cacheSet("114514", "114514");
 
-    return await cacheGet("114514");
+    return await cacheGet<string>("114514");
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);

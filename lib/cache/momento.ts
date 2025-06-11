@@ -49,7 +49,7 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
     // eslint-disable-next-line no-console
     console.error(`get '${key}' from momento cache failed`, e);
 
-    return null;
+    throw e;
   }
 }
 
@@ -69,7 +69,7 @@ export async function cacheSet<T>(
     // eslint-disable-next-line no-console
     console.error(`set '${key}' cache failed: `, e);
 
-    return false;
+    throw e;
   }
 }
 
@@ -84,7 +84,7 @@ export async function cacheDelete(key: string): Promise<boolean> {
     // eslint-disable-next-line no-console
     console.error(`delete '${key}' from momento cache failed:`, e);
 
-    return false;
+    throw e;
   }
 }
 
@@ -99,6 +99,6 @@ export async function flushCache(): Promise<boolean> {
     // eslint-disable-next-line no-console
     console.error("flush momento cache failed:", e);
 
-    return false;
+    throw e;
   }
 }
