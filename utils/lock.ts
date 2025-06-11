@@ -15,9 +15,17 @@ export async function withLock<T>(
   lockTTLSeconds: number = 60,
 ): Promise<T | null> {
   const lockKey = `lock:${lockName}`;
-  const hasLock = await cacheGet<string>(lockKey);
 
-  if (hasLock) {
+  try {
+    const hasLock = await cacheGet<string>(lockKey);
+
+    if (hasLock) {
+      return null;
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error("Get lock state error: ", e);
+
     return null;
   }
 
