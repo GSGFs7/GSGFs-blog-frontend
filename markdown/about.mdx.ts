@@ -4,10 +4,10 @@ export default `## 关于我
 
 "ACGN"爱好者:
 
-- A: \`ArchLinux\`, 操作系统原神!
-- C: \`Coding\`, 想要成为py高手!
-- G: \`rhythm Game\`, __click__!
-- N: \`visual Novel\`, 剧情党!
+- A: \`ArchLinux\`, 误入Arch邪教
+- C: \`Coding\`, 想要成为py糕手
+- G: \`rhythm Game\`, __click__
+- N: \`visual Novel\`, 剧情党
 
 联系方式:
 

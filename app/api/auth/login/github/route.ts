@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
 
   // When returning, the state will be returned
   const clientId = process.env.AUTH_GITHUB_ID;
-  const redirectUri = `${process.env.SITE_URL}/api/auth/callback/github`;
+  const redirectUri = `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/github`;
 
   const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&state=${state}&scope=user&redirect_uri=${redirectUri}`;
 

@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
 
   // When returning, the state will be returned
   const clientId = process.env.AUTH_OSU_ID;
-  // const redirectUri = `${process.env.SITE_URL}/api/auth/callback/osu`;
+  // const redirectUri = `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/osu`;
 
   const authUrl = `https://osu.ppy.sh/oauth/authorize?client_id=${clientId}&state=${state}&response_type=code`;
 

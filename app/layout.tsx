@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     },
     description: siteConfig.description,
     images: {
-      url: `${process.env.SITE_URL}/api/og`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/og`,
       width: 1200,
       height: 630,
     },
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     },
     description: siteConfig.description,
     images: {
-      url: `${process.env.SITE_URL}/api/og`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/og`,
       width: 1200,
       height: 630,
     },
