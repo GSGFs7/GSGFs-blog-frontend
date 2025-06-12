@@ -55,7 +55,7 @@ function getRoutes(dir: string, baseRoute: string = ""): string[] {
 export async function generateSitemap(): Promise<SitemapField[]> {
   "use server";
 
-  const baseUrl = process.env.SITE_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
   const appDir = join(process.cwd(), "app");
   const postIds = await getPostSitemap();
 

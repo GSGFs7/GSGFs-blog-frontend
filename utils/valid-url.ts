@@ -9,7 +9,7 @@ export function isValidRedirectUrl(url: string): boolean {
 
     const parsedUrl = new URL(url);
 
-    const allowedDomains = ["localhost", process.env.SITE_URL];
+    const allowedDomains = ["localhost", process.env.NEXT_PUBLIC_SITE_URL];
 
     return allowedDomains.some((domain) => parsedUrl.hostname === domain);
   } catch {

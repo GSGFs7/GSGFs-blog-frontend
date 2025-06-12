@@ -22,7 +22,7 @@ export async function githubOAuth(
         client_id: GITHUB_CLIENT_ID,
         client_secret: GITHUB_CLIENT_SECRET,
         code,
-        redirect_uri: `${process.env.SITE_URL}/api/auth/callback/github`,
+        redirect_uri: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/github`,
       },
       {
         headers: {

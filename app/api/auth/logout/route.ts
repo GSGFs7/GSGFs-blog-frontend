@@ -11,7 +11,7 @@ export const POST = async () => {
   //   callbackUrl = "/";
   // }
 
-  const redirectUrl = new URL("/", process.env.SITE_URL).toString();
+  const redirectUrl = new URL("/", process.env.NEXT_PUBLIC_SITE_URL).toString();
 
   return Response.redirect(redirectUrl);
 };

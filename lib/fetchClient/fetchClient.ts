@@ -36,7 +36,7 @@ export async function fetchClient<T = any>(
   if (typeof window !== "undefined") {
     userAgent = window.navigator.userAgent;
   } else {
-    userAgent = `${siteConfig.siteName} NextJS/15 (+${process.env.SITE_URL})`;
+    userAgent = `${siteConfig.siteName} NextJS/15 (+${process.env.NEXT_PUBLIC_SITE_URL})`;
   }
 
   // convert endpoint to URL
@@ -49,9 +49,7 @@ export async function fetchClient<T = any>(
       url = endpoint;
     } else {
       const baseUrl =
-        process.env.SITE_URL ||
-        process.env.NEXT_PUBLIC_SITE_URL ||
-        "http://localhost:3000";
+        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
       url = `${baseUrl}${endpoint}`;
     }

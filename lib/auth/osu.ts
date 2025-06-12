@@ -19,7 +19,7 @@ export async function osuAuth(code: string): Promise<osuResponse | null> {
         client_id: OSU_CLIENT_ID,
         client_secret: OSU_CLIENT_SECRET,
         code,
-        // redirect_uri: `${process.env.SITE_URL}/api/auth/callback/osu`, // 加上这个就不对了
+        // redirect_uri: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/osu`, // 加上这个就不对了
         grant_type: "authorization_code", // 比 github 多了这个必选项
       },
       {
