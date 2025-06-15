@@ -1,4 +1,6 @@
 # GSGFs-blog-frontend
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FGSGFs7%2FGSGFs-blog-frontend.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FGSGFs7%2FGSGFs-blog-frontend?ref=badge_shield)
+
 
 使用`Next.js`和`TailwindCSS`构建的个人网站前端
 
@@ -88,3 +90,7 @@
 ## 开源协议
 
 MIT
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FGSGFs7%2FGSGFs-blog-frontend.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FGSGFs7%2FGSGFs-blog-frontend?ref=badge_large)
