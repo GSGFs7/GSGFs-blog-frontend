@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "gsgfs",
-  "compatibility_date": "2024-12-30",
+  "compatibility_date": "2025-05-05",
   "compatibility_flags": [
     "nodejs_compat"
   ],
@@ -43,7 +43,7 @@
     "bindings": [
       {
         "name": "NEXT_CACHE_DO_QUEUE",
-        "class_name": "DurableObjectQueueHandler"
+        "class_name": "DOQueueHandler"
       },
       {
         "name": "NEXT_CACHE_DO_SHARDED",
@@ -61,8 +61,13 @@
   "migrations": [
     {
       "tag": "v2",
-      "new_sqlite_classes": [
-        "DurableObjectQueueHandler",
+      "new_classes": [
+        "DOQueueHandler"
+      ]
+    },
+    {
+      "tag": "v3",
+      "new_classes": [
         "DOShardedTagCache"
       ]
     }
