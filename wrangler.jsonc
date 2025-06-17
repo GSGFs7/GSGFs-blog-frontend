@@ -62,10 +62,19 @@
     {
       "tag": "v2",
       "new_classes": [
-        "DOQueueHandler",
+        "DurableObjectQueueHandler",
         "DOShardedTagCache"
       ]
     },
+    {
+      "tag": "v3",
+      "renamed_classes": [
+        {
+          "from": "DurableObjectQueueHandler",
+          "to": "DOQueueHandler"
+        }
+      ]
+    }
   ],
   "r2_buckets": [
     {
