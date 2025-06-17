@@ -62,15 +62,10 @@
     {
       "tag": "v2",
       "new_classes": [
-        "DOQueueHandler"
-      ]
-    },
-    {
-      "tag": "v3",
-      "new_classes": [
+        "DOQueueHandler",
         "DOShardedTagCache"
       ]
-    }
+    },
   ],
   "r2_buckets": [
     {
