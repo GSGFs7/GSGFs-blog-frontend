@@ -36,7 +36,7 @@
     }
   ],
   "limits": {
-    "cpu_ms": 20
+    "cpu_ms": 50
   },
   // run `pnpm run dev` need to comment out this
   "durable_objects": {
