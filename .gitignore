@@ -50,5 +50,8 @@ certificates
 public/sw*
 public/swe-worker*
 
+# lighthouse report
+*.report.html
+
 # other
 git.md
