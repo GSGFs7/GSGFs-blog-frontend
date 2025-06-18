@@ -1,14 +1,14 @@
 /* eslint-disable import/order */
 import withSerwistInit from "@serwist/next";
 import type { NextConfig } from "next";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
-/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   output: "standalone", // for docker
   reactStrictMode: true,
   experimental: {
-    optimizePackageImports: ["@/components"],
+    optimizePackageImports: ["@/components", "react-hot-toast", "react-icons"],
   },
   images: {
     remotePatterns: [
@@ -80,7 +80,11 @@ const withSerwist = withSerwistInit({
   swDest: "public/sw.js",
 });
 
-export default withSerwist(nextConfig);
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer(withSerwist(nextConfig));
 
 // open next in dev env
 // if (process.env.NODE_ENV === "development") {

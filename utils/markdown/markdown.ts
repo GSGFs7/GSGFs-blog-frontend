@@ -1,3 +1,9 @@
+"use server";
+// why use server? Because rehype-katex and rehype-raw is too big for client side.
+// Adding this makes the blog page's first load JS size drop from 401KB to 167KB.
+// A rehype-katex package will take up 500+KB of storage space!
+// As for the server side? Never mind.
+
 import { common } from "lowlight";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
