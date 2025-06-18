@@ -34,7 +34,7 @@ export default function BlogTopCard() {
   return (
     <div className="mb-4 flex w-full flex-wrap gap-6 sm:h-52 md:h-80">
       <div
-        className="sm:52 group relative flex h-52 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:flex-[9] md:h-80"
+        className="group relative flex h-52 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:h-52 sm:flex-[9] md:h-80"
         onMouseMove={handleMouseMove}
       >
         <div className="absolute z-20 flex -translate-y-4 flex-col flex-wrap items-center justify-center gap-4 text-white">
