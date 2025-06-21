@@ -62,7 +62,7 @@ export const siteConfig = {
     },
     {
       title: "Galgame",
-      description: "Galgame的推荐与评价",
+      description: "Galgame的评价与推荐",
       href: "/galgame",
       icon: "🎮",
     },
@@ -70,6 +70,7 @@ export const siteConfig = {
   // Random show a message in Entertainment page
   entertainmentMessage: [
     "突然发现 Entertainment 这个单词好像太长了...",
+    "人間は寂しさを永久になくすことはできない 人は一人だからね ただ忘れることができるから人は生きていけるのさ",
   ] as const,
   // The link in the homepage button is not the friend link
   links: [
