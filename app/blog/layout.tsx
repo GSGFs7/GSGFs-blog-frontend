@@ -14,10 +14,15 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 py-4 md:py-4">
-      <div className="inline-block w-full max-w-5xl justify-center text-left">
-        {children}
+    <>
+      <link as="image" href="/2_cut.jpg" rel="preload" />
+      <link as="image" href="/0.png" rel="preload" />
+
+      <div className="flex flex-col items-center justify-center gap-4 py-4 md:py-4">
+        <div className="inline-block w-full max-w-5xl justify-center text-left">
+          {children}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

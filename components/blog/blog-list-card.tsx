@@ -49,11 +49,12 @@ export default function BlogListCard({
             className="scale-100 object-cover object-center"
             loading="lazy"
             placeholder="blur"
-            quality={75}
+            quality={60}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             src={cover_image ? cover_image : default_cover}
           />
         </div>
+
         <h3 className="absolute z-20 translate-x-3 -translate-y-14 rounded-md bg-gray-500/30 px-4 py-1 text-white backdrop-blur-sm">
           {title}
         </h3>

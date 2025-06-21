@@ -1,6 +1,9 @@
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
-import { BlogList, BlogTopCard } from "@/components/blog";
+import { BlogTopCard } from "@/components/blog";
+
+const BlogList = dynamic(() => import("@/components/blog/blog-list"));
 
 export default async function BlogPage({
   searchParams,

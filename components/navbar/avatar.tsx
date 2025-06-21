@@ -18,7 +18,6 @@ export default function NavAvatar({
   if (isLoading && initialSession) {
     return (
       <NavAvatarLink>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <AvatarImage
           alt={`${initialSession.name}'s avatar`}
           size={40}
@@ -32,7 +31,6 @@ export default function NavAvatar({
 
   return (
     <NavAvatarLink>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <AvatarImage
         alt={`${session.name}'s avatar`}
         size={40}
