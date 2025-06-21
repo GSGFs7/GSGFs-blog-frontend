@@ -17,8 +17,8 @@ export const siteConfig = {
     //   href: "/pages",
     // },
     {
-      label: "Galgame",
-      href: "/galgame",
+      label: "Entertainment",
+      href: "/entertainment",
     },
     {
       label: "About",
@@ -39,13 +39,37 @@ export const siteConfig = {
     //   href: "/pages",
     // },
     {
-      label: "Galgame",
-      href: "/galgame",
+      label: "Entertainment",
+      href: "/entertainment",
     },
     {
       label: "About",
       href: "/about",
     },
+  ] as const,
+  entertainmentCategories: [
+    {
+      title: "Anime",
+      description: "动画番剧观看记录与推荐",
+      href: "/anime",
+      icon: "📺",
+    },
+    {
+      title: "Books",
+      description: "读书笔记与书籍推荐",
+      href: "/books",
+      icon: "📚",
+    },
+    {
+      title: "Galgame",
+      description: "Galgame的推荐与评价",
+      href: "/galgame",
+      icon: "🎮",
+    },
+  ] as const,
+  // Random show a message in Entertainment page
+  entertainmentMessage: [
+    "突然发现 Entertainment 这个单词好像太长了...",
   ] as const,
   // The link in the homepage button is not the friend link
   links: [
