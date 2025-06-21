@@ -18,7 +18,7 @@ export default async function Page() {
         </p>
       </div>
 
-      <div className="flex flex-col items-center gap-18">
+      <div className="flex flex-col items-center gap-16">
         {siteConfig.entertainmentCategories.map((category) => (
           <Link
             key={category.title}
@@ -26,15 +26,13 @@ export default async function Page() {
             href={category.href}
           >
             <div className="h-full w-2xl overflow-hidden rounded-lg border border-gray-500 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl">
-              <div
-                className={`flex h-32 items-center justify-between bg-transparent bg-gradient-to-br`}
-              >
+              <div className={`flex h-32 items-center justify-between`}>
                 <span className="pl-8 text-left text-6xl transition-transform duration-500 group-hover:scale-110">
                   {category.icon}
                 </span>
                 <Image
                   alt="乃愛"
-                  className="-z-10 translate-y-30 transition-transform duration-500 transform-fill group-hover:translate-y-0 group-hover:scale-110"
+                  className="-z-10 translate-y-32 transform transition-transform duration-500 group-hover:translate-y-0 group-hover:scale-110"
                   height={128}
                   src={"/4.png"}
                   width={128}
