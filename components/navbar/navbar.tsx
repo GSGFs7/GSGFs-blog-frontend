@@ -35,7 +35,9 @@ export async function Navbar() {
           </div>
 
           {/* 移动端菜单按钮 */}
-          <SmallScreenButton />
+          <div className="relative z-50">
+            <SmallScreenButton />
+          </div>
         </div>
       </div>
     </nav>

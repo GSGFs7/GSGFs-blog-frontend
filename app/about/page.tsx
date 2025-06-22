@@ -23,7 +23,7 @@ export default async function AboutPage() {
 
       <article
         dangerouslySetInnerHTML={{ __html: about }}
-        className="markdown-body about w-full rounded-lg px-6 py-8"
+        className="markdown-body about w-full rounded-lg sm:px-6 sm:py-8"
       />
     </div>
   );
