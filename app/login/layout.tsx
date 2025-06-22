@@ -7,6 +7,13 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "login",
   description: `登陆到${siteConfig.siteName}`,
+  alternates: {
+    canonical: "/login",
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

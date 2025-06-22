@@ -26,7 +26,7 @@ export default async function Page() {
             href={category.href}
             prefetch={true}
           >
-            <div className="h-full w-2xl overflow-hidden rounded-lg border border-gray-500 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl">
+            <section className="h-full w-2xl overflow-hidden rounded-lg border border-gray-500 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl">
               <div className={`flex h-32 items-center justify-between`}>
                 <span className="pl-8 text-left text-6xl transition-transform duration-500 group-hover:scale-110">
                   {category.icon}
@@ -67,7 +67,7 @@ export default async function Page() {
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
           </Link>
         ))}
       </div>

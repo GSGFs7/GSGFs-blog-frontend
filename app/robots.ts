@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api"],
+        disallow: ["/admin", "/api", "/user", "/login"],
       },
     ],
     host: `${process.env.NEXT_PUBLIC_SITE_URL}`,
