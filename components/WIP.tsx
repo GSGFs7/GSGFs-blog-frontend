@@ -104,16 +104,16 @@ export default function WIP({
         </span>
       </div>
 
-      <h1 className="mb-4 text-4xl font-bold text-gray-800 md:text-5xl dark:text-white">
+      <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
         {title}
       </h1>
-      <p className="mb-8 max-w-md text-center text-lg text-gray-600 dark:text-gray-300">
+      <p className="mb-8 max-w-md text-center text-lg text-gray-300">
         {message}
       </p>
 
       {/* Progress bar */}
       <div className="mb-8">
-        <div className="w-64 rounded-full bg-gray-200 dark:bg-gray-700">
+        <div className="w-64 rounded-full bg-gray-700">
           <div
             className={clsx(
               "h-2 animate-pulse rounded-full bg-gradient-to-r from-blue-500 to-purple-600",
