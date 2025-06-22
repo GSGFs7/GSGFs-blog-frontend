@@ -8,7 +8,7 @@ export default async function Page() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8 text-center">
         <h1 className="mb-4 text-4xl font-bold">娱乐</h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-gray-300">
           {
             // random choice a message
             siteConfig.entertainmentMessage[
@@ -24,6 +24,7 @@ export default async function Page() {
             key={category.title}
             className="group flex w-full justify-center px-4"
             href={category.href}
+            prefetch={true}
           >
             <div className="h-full w-2xl overflow-hidden rounded-lg border border-gray-500 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl">
               <div className={`flex h-32 items-center justify-between`}>
@@ -39,18 +40,16 @@ export default async function Page() {
                 />
               </div>
 
-              <div className="dark:border-gray-700 dark:bg-gray-800">
+              <div className="border-gray-700 bg-gray-800">
                 <div className="p-6 py-2">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-xl font-semibold text-white">
                     {category.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {category.description}
-                  </p>
+                  <p className="text-gray-300">{category.description}</p>
                 </div>
 
                 <div className="px-6 pb-6">
-                  <div className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400">
+                  <div className="inline-flex items-center text-sm font-medium text-blue-400 hover:text-blue-500">
                     查看更多
                     <svg
                       className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
