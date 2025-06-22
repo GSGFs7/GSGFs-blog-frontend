@@ -18,7 +18,7 @@ export default function First({ gpg }: { gpg: string }) {
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
-      toast.error("目前未适配小屏设备");
+      toast.error("暂未适配小屏设备");
     }
   }, []);
 

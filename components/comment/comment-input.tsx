@@ -108,7 +108,7 @@ export default function CommentInput({
       </label>
       <textarea
         required
-        className="peer min-h-48 w-full resize-none bg-transparent p-3 focus:outline-0"
+        className="peer min-h-36 w-full resize-none bg-transparent p-3 focus:outline-0 sm:min-h-48"
         disabled={disabled}
         id="content"
         name="content"

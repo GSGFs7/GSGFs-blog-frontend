@@ -24,7 +24,10 @@ export default async function GalList() {
   ];
 
   return (
-    <article className="gal-table markdown-body">
+    <article
+      className="gal-table markdown-body"
+      style={{ overflowX: "auto", width: "100%", maxWidth: "100vw" }}
+    >
       <GalTable data={data} tableColumns={tableColumns} />
     </article>
   );

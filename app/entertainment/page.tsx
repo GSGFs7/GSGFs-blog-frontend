@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 
 export default async function Page() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-2 py-4 sm:px-4 sm:py-8">
       <div className="mb-8 text-center">
         <h1 className="mb-4 text-4xl font-bold">娱乐</h1>
         <p className="text-gray-300">

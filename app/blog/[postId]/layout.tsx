@@ -21,19 +21,16 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.meta_description,
+      url: `${process.env.SITE_URL}/blog/${post.id}`,
       type: "article",
-      ...(post.cover_image
-        ? {
-            images: [
-              {
-                url: post.cover_image,
-                alt: post.title,
-                width: 1200,
-                height: 630,
-              },
-            ],
-          }
-        : {}),
+      images: [
+        {
+          url: post.cover_image,
+          alt: post.title,
+          width: 1200,
+          height: 630,
+        },
+      ],
     },
   };
 }
