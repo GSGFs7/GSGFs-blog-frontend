@@ -11,7 +11,7 @@ export default function LoginButton() {
   // 如果有就传递
   if (searchParams.get("callbackUrl")) {
     return (
-      <Link href={`/login?callbackRul=${searchParams.get("callbackUrl")}`}>
+      <Link href={`/login?callbackUrl=${searchParams.get("callbackUrl")}`}>
         <AiOutlineLogin />
       </Link>
     );
