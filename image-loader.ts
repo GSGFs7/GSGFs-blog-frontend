@@ -1,7 +1,12 @@
 import type { ImageLoaderProps } from "next/image";
 
 const normalizeSrc = (src: string) => {
-  return src.startsWith("/") ? src.slice(1) : src;
+  // Remove the leading slash
+  let normalized = src.startsWith("/") ? src.slice(1) : src;
+
+  normalized = encodeURIComponent(normalized);
+
+  return normalized;
 };
 
 export default function cloudflareLoader({
