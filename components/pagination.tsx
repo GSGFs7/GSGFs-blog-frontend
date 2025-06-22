@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "nextjs-toploader/app";
 import { useEffect } from "react";
@@ -31,57 +32,58 @@ export default function Pagination({
     }
   });
 
-  function prevPage() {
-    const prev = currentPage === 1 ? currentPage : currentPage - 1;
+  function createPageUrl(page: number) {
+    const params = new URLSearchParams(searchParams);
 
-    // searchParams.set() 已弃用
-    const params = new URLSearchParams();
+    params.set("page", page.toString());
 
-    params.set("page", prev.toString());
-
-    return params.toString();
+    return `${pathname}?${params.toString()}`;
   }
 
-  function nextPage() {
-    const next = currentPage === pageCount ? currentPage : currentPage + 1;
-
-    const params = new URLSearchParams();
-
-    params.set("page", next.toString());
-
-    return params.toString();
-  }
-
-  function handlePageChange(params: string) {
-    router.push(`${pathname}?${params}`);
-    window.scrollTo({ top: 0, behavior: "auto" });
-  }
+  const prevPage = currentPage > 1 ? currentPage - 1 : 1;
+  const nextPage = currentPage < pageCount ? currentPage + 1 : pageCount;
 
   return (
-    <div className="flex pt-8">
-      <button
-        aria-label="上一页"
-        className="enabled:cursor-pointer disabled:cursor-not-allowed disabled:text-gray-600"
-        disabled={currentPage === 1}
-        tabIndex={0}
-        title="上一页"
-        onClick={() => handlePageChange(prevPage())}
-      >
-        <HiChevronLeft className="text-xl" />
-      </button>
+    <div className="flex h-16 pt-8">
+      {currentPage !== 1 ? (
+        <Link
+          aria-label="上一页"
+          className="flex h-full cursor-pointer items-center justify-center"
+          href={createPageUrl(prevPage)}
+          prefetch={true}
+          scroll={false}
+          tabIndex={0}
+          title="上一页"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <HiChevronLeft className="text-xl" />
+        </Link>
+      ) : (
+        <div className="flex h-full cursor-not-allowed items-center justify-center text-gray-600">
+          <HiChevronLeft className="text-xl" />
+        </div>
+      )}
       <div className="mx-2 rounded-md border border-blue-700 px-3 py-1">
         {currentPage}
       </div>
-      <button
-        aria-label="下一页"
-        className="enabled:cursor-pointer disabled:cursor-not-allowed disabled:text-gray-600"
-        disabled={currentPage === pageCount}
-        tabIndex={0}
-        title="下一页"
-        onClick={() => handlePageChange(nextPage())}
-      >
-        <HiChevronRight className="text-xl" />
-      </button>
+      {currentPage !== pageCount ? (
+        <Link
+          aria-label="下一页"
+          className="flex h-full cursor-pointer items-center justify-center"
+          href={createPageUrl(nextPage)}
+          prefetch={true}
+          scroll={false}
+          tabIndex={0}
+          title="下一页"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <HiChevronRight className="text-xl" />
+        </Link>
+      ) : (
+        <div className="flex h-full cursor-not-allowed items-center justify-center text-gray-600">
+          <HiChevronRight className="text-xl" />
+        </div>
+      )}
     </div>
   );
 }
