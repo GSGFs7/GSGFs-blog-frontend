@@ -36,6 +36,7 @@ export default function CommentInput({
     }
   };
 
+  // Restore draft
   useEffect(() => {
     // comment draft
     if (typeof window !== "undefined") {
