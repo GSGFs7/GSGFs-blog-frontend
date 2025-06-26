@@ -1,17 +1,17 @@
-export default `## 关于我
+## 关于我
 
 本人现在的身份是在校大学生, 算竟败犬, [GNU/Linux](https://www.gnu.org/gnu/why-gnu-linux.html)爱好者(大概?), 阴暗爬行的社恐.
 
 "ACGN"爱好者:
 
-- A: \`ArchLinux\`, 误入Arch邪教
-- C: \`Coding\`, 想要成为py糕手
-- G: \`rhythm Game\`, __click__
-- N: \`visual Novel\`, 剧情党
+- A: `ArchLinux`, 误入Arch邪教
+- C: `Coding`, 想要成为py糕手
+- G: `rhythm Game`, __click__
+- N: `visual Novel`, 剧情党
 
 联系方式:
 
-- email: \`admin#gsgfs.moe\` (记得把#改为@)
+- email: `admin#gsgfs.moe` (记得把#改为@)
 
 ## 关于这个网站
 
@@ -35,4 +35,4 @@ export default `## 关于我
 网站中的图片内容大多来自网路, 如果存在侵权问题, 请使用上面的联系方式联系我, 我会尽快删除.
 
 本站暂时没有支持友链的打算.
-`;
+

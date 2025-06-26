@@ -25,6 +25,11 @@ const nextConfig: NextConfig = {
   },
   productionBrowserSourceMaps: true, // generate source map in dev environment
   webpack: (config) => {
+    config.module.rules.push({
+      test: /\.md$/,
+      use: "raw-loader",
+    });
+
     return config;
   },
   async headers() {
