@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "Books",
   description: ``,
   keywords: [],
+  robots: {
+    index: false, // WIP
+    follow: false,
+  },
 };
 
 export default function Layout({ children }: { children: ReactNode }) {

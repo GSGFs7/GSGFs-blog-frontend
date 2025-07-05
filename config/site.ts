@@ -1,8 +1,9 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  siteName: "GSGFs's blog",
-  description: "GSGFs's blog.",
+  siteName: "GSGFs's blog" as const,
+  description: "GSGFs's blog" as const,
+  keywords: ["GSGFs", "blog"] as const,
   navItems: [
     {
       label: "Home",

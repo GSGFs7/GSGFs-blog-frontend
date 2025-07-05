@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.siteName}`,
   },
   description: siteConfig.description,
+  keywords: siteConfig.keywords.slice(),
   applicationName: siteConfig.siteName,
   appleWebApp: {
     capable: true,
