@@ -1,11 +1,11 @@
-import aboutMdx from "@/markdown/about.mdx";
+import aboutMd from "@/markdown/about.md";
 import { markdownToHtml } from "@/utils";
 import { title } from "@/utils/primitives";
 import "@/styles/blog.css";
 import "github-markdown-css/github-markdown-dark.css";
 
 export default async function AboutPage() {
-  const about = await markdownToHtml(aboutMdx);
+  const about = await markdownToHtml(aboutMd);
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4">

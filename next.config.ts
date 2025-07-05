@@ -21,10 +21,30 @@ const nextConfig: NextConfig = {
     loaderFile: process.env.CF ? "./image-loader.ts" : undefined,
   },
   turbopack: {
-    resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
+    resolveExtensions: [
+      ".md",
+      ".mdx",
+      ".tsx",
+      ".ts",
+      ".jsx",
+      ".js",
+      ".mjs",
+      ".json",
+    ],
+    rules: {
+      "**/*.md": {
+        loaders: ["raw-loader"],
+        as: "*.js",
+      },
+    },
   },
   productionBrowserSourceMaps: true, // generate source map in dev environment
   webpack: (config) => {
+    config.module.rules.push({
+      test: /\.md$/,
+      use: "raw-loader",
+    });
+
     return config;
   },
   async headers() {

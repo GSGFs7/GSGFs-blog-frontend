@@ -4,6 +4,10 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Pages",
+  robots: {
+    index: false, // WIP
+    follow: false,
+  },
 };
 
 export default function AboutLayout({
