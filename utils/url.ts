@@ -73,9 +73,16 @@ export function createUrl(
 
   let url = base + path;
 
+  // If the path is empty after processing, use the root URL
+  if (url === "") {
+    url = "/";
+  }
+
   const queryString = buildQueryString(query);
 
-  url += queryString;
+  if (queryString) {
+    url += `?${queryString}`;
+  }
 
   if (hash) {
     url += `#${hash}`;
