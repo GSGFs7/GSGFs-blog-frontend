@@ -27,3 +27,6 @@ export const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 // momento cache
 export const MOMENTO_API_KEY = process.env.MOMENTO_API_KEY;
 export const MOMENTO_BASE_URL = process.env.MOMENTO_BASE_URL;
+
+// GOOGLE ANALYTICS
+export const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID;

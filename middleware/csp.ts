@@ -9,13 +9,18 @@ export async function middlewareCSP(
   const nonce =
     existingNonce ?? Buffer.from(crypto.randomUUID()).toString("base64");
   const isDev = process.env.NODE_ENV === "development";
+  const turnstile = "https://challenges.cloudflare.com";
+  const gaSrc = "https://*.googletagmanager.com";
+  const gaConnect =
+    "https://*.google-analytics.com https://*.analytics.google.com";
+
   const CSPHeader = [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}'${isDev && ` 'unsafe-eval'`} https://challenges.cloudflare.com`,
-    "frame-src https://challenges.cloudflare.com",
-    `connect-src 'self' https://challenges.cloudflare.com`,
+    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}'${isDev && ` 'unsafe-eval'`} ${turnstile} ${gaSrc}`,
+    `frame-src ${turnstile}`,
+    `connect-src 'self' ${turnstile} ${gaConnect}`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: https:",
+    `img-src 'self' data: https: ${gaConnect}`,
     "font-src 'self'",
     "object-src 'none'",
     "media-src 'self'",

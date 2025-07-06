@@ -1,3 +1,7 @@
+// find the value?
+// see `./private.mjs`
+// this file just export the env, make it easy to use.
+
 export * from "./public";
 
 // base
@@ -27,3 +31,6 @@ export const TURNSTILE_SECRET_KEY: string | undefined;
 // momento cache
 export const MOMENTO_API_KEY: string | undefined;
 export const MOMENTO_BASE_URL: string | undefined;
+
+// GOOGLE ANALYTICS
+export const GOOGLE_ANALYTICS_ID: string | undefined;

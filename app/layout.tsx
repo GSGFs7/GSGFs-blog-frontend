@@ -2,17 +2,19 @@ import "@/styles/globals.css";
 import "@fontsource/maple-mono";
 import "lxgw-wenkai-webfont";
 
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import NextTopLoader from "nextjs-toploader";
 import { Suspense } from "react";
 
 import { Providers } from "./providers";
 
-import BackgroundImage from "@/components/background-image";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { siteConfig } from "@/config/site";
+import { GOOGLE_ANALYTICS_ID } from "@/env/private";
 
 export const metadata: Metadata = {
   title: {
@@ -66,11 +68,13 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const nonce = (await headers()).get("x-nonce") || "";
+
   return (
     <html suppressHydrationWarning className="scroll-p-24" lang="zh">
       <head>
@@ -109,7 +113,12 @@ export default function RootLayout({
             <Footer />
           </div>
 
-          <BackgroundImage />
+          {
+            // Google Analytics
+            GOOGLE_ANALYTICS_ID && (
+              <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID} nonce={nonce} />
+            )
+          }
         </Providers>
       </body>
     </html>
