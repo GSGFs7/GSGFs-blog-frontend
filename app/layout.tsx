@@ -73,7 +73,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const nonce = (await headers()).get("x-nonce") || "";
+  const nonce = (await headers()).get("x-nonce");
 
   return (
     <html suppressHydrationWarning className="scroll-p-24" lang="zh">
@@ -116,7 +116,7 @@ export default async function RootLayout({
           {
             // Google Analytics
             GOOGLE_ANALYTICS_ID && (
-              <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID} nonce={nonce} />
+              <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID} nonce={nonce || ""} />
             )
           }
         </Providers>
