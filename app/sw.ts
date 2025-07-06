@@ -15,18 +15,27 @@ declare global {
 declare const self: ServiceWorkerGlobalScope;
 
 // the last rule will disable all cross site request
+// so, we need to change it
 const customCache: RuntimeCaching[] = defaultCache;
 const lastCache = customCache.at(-1);
 
 if (lastCache) {
-  lastCache.matcher = ({ url: { origin }, sameOrigin }) => {
-    if (origin === "https://challenges.cloudflare.com") {
+  // allow Turnstile and Google Analytics to pass through
+  lastCache.matcher = ({ url, sameOrigin }) => {
+    if (url.origin === "https://challenges.cloudflare.com") {
+      return false;
+    }
+    if (
+      url.hostname.includes("google-analytics.com") ||
+      url.hostname.includes("googletagmanager.com")
+    ) {
       return false;
     }
 
     return !sameOrigin;
   };
 
+  // use the new rule
   customCache.pop();
   customCache.push(lastCache);
 }

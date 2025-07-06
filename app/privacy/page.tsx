@@ -8,7 +8,7 @@ export default function Page() {
     <div className="container mx-auto max-w-3xl px-4 py-8">
       <h1 className="mb-6 text-3xl font-bold">隐私协议</h1>
       <div className="privacy max-w-none">
-        <p className="text-lg">最后更新日期: 2025年5月3日</p>
+        <p className="text-lg">最后更新日期: 2025年7月5日</p>
 
         <h2 className="mt-8">概述</h2>
         <p>
@@ -65,8 +65,14 @@ export default function Page() {
             <strong>Cookies</strong>: 仅用于维持您的登录状态,
             不会用于跟踪或分析行为
           </li>
+          <li>
+            <strong>Google Analytics</strong>: 我们使用 Google Analytics
+            来收集匿名的网站使用情况统计数据,
+            例如访问量、页面浏览次数和用户大致地理位置.
+            这些数据帮助我们了解网站的受欢迎程度并改进内容. Google Analytics
+            会使用 Cookie, 但我们已启用 IP 匿名化处理, 不会收集您的完整 IP 地址.
+          </li>
         </ul>
-        <p>同时, 我们未接入任何分析平台, 不会收集或分析您的行为数据.</p>
 
         <h2 className="mt-6">不收集的信息</h2>
         <p>除非您主动提供, 否则我们不会收集以下信息: </p>
