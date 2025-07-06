@@ -75,10 +75,6 @@ export default async function RootLayout({
 }) {
   const nonce = (await headers()).get("x-nonce");
 
-  // After debug for a long time, it turned out to be a problem with development cache...
-  // You can delete the .next folder and let it update
-  // console.log(nonce);
-
   return (
     <html suppressHydrationWarning className="scroll-p-24" lang="zh">
       <head>
