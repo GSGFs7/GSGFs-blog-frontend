@@ -10,11 +10,9 @@ import TurnstileWidget from "./turnstile-widget";
 import { apiAddComment } from "@/server/backend";
 
 export default function CommentInput({
-  nonce,
   disabled = false,
   postId,
 }: {
-  nonce: string;
   disabled?: boolean;
   postId: number;
 }) {
@@ -119,7 +117,7 @@ export default function CommentInput({
         onChange={(e) => saveDraft(e.target.value)}
       />
 
-      <TurnstileWidget nonce={nonce} setTokenAction={setTurnstileToken} />
+      <TurnstileWidget setTokenAction={setTurnstileToken} />
     </form>
   );
 }

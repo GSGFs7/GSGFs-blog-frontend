@@ -4,15 +4,16 @@ export async function middlewareCSP(
   request: NextRequest,
   response?: NextResponse,
 ) {
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+  // Abandoning nonce, too many errors
   const isDev = process.env.NODE_ENV === "development";
+
   const turnstileSrc = "https://challenges.cloudflare.com";
   const GTagSrc = "https://*.googletagmanager.com";
   const GASrc = "https://*.google-analytics.com https://*.analytics.google.com";
 
   const CSPHeader = [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} ${turnstileSrc} ${GTagSrc}`,
+    `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} ${turnstileSrc} ${GTagSrc}`,
     `frame-src ${turnstileSrc}`,
     `connect-src 'self' ${turnstileSrc} ${GTagSrc} ${GASrc}`,
     "style-src 'self' 'unsafe-inline'",
@@ -33,14 +34,5 @@ export async function middlewareCSP(
 
   finalResponse.headers.set("Content-Security-Policy", CSPHeader);
 
-  const requestHeaders = new Headers(request.headers);
-
-  requestHeaders.set("x-nonce", nonce);
-
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-    headers: finalResponse.headers,
-  });
+  return finalResponse;
 }
