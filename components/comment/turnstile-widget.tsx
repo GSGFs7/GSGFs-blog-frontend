@@ -1,16 +1,43 @@
-import Turnstile from "react-turnstile";
+"use client";
+
+import Script from "next/script";
+import { useEffect } from "react";
+
+import { TURNSTILE_SITE_KEY } from "@/env/public";
 
 export default function TurnstileWidget({
-  setToken,
+  nonce,
+  setTokenAction,
 }: {
-  setToken: (token: string) => void;
+  nonce: string;
+  setTokenAction: (token: string) => void;
 }) {
+  useEffect(() => {
+    window.javascriptCallback = (token: string) => {
+      setTokenAction(token);
+    };
+
+    return () => {
+      delete window.javascriptCallback;
+    };
+  }, [setTokenAction]);
+
   return (
-    <Turnstile
-      refreshExpired="auto"
-      sitekey={`${process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}`}
-      theme="dark"
-      onVerify={(token) => setToken(token)}
-    />
+    <>
+      <Script
+        async
+        defer
+        nonce={nonce}
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        strategy="afterInteractive"
+      />
+
+      <div
+        className="cf-turnstile"
+        data-callback="javascriptCallback"
+        data-sitekey={TURNSTILE_SITE_KEY}
+        data-theme="dark"
+      />
+    </>
   );
 }

@@ -73,7 +73,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const nonce = (await headers()).get("x-nonce") || "";
+  const nonce = (await headers()).get("x-nonce");
+
+  // After debug for a long time, it turned out to be a problem with development cache...
+  // You can delete the .next folder and let it update
+  // console.log(nonce);
 
   return (
     <html suppressHydrationWarning className="scroll-p-24" lang="zh">
@@ -116,7 +120,7 @@ export default async function RootLayout({
           {
             // Google Analytics
             GOOGLE_ANALYTICS_ID && (
-              <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID} nonce={nonce} />
+              <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID} nonce={nonce || ""} />
             )
           }
         </Providers>
