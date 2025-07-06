@@ -12,7 +12,7 @@ export async function middlewareCSP(
 
   const CSPHeader = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} ${turnstileSrc} ${GTagSrc}`,
+    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} ${turnstileSrc} ${GTagSrc}`,
     `frame-src ${turnstileSrc}`,
     `connect-src 'self' ${turnstileSrc} ${GTagSrc} ${GASrc}`,
     "style-src 'self' 'unsafe-inline'",
