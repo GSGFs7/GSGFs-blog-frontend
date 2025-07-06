@@ -6,10 +6,8 @@ import { useEffect } from "react";
 import { TURNSTILE_SITE_KEY } from "@/env/public";
 
 export default function TurnstileWidget({
-  nonce,
   setTokenAction,
 }: {
-  nonce: string;
   setTokenAction: (token: string) => void;
 }) {
   useEffect(() => {
@@ -27,7 +25,6 @@ export default function TurnstileWidget({
       <Script
         async
         defer
-        nonce={nonce}
         src="https://challenges.cloudflare.com/turnstile/v0/api.js"
         strategy="afterInteractive"
       />
