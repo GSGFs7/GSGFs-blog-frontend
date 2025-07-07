@@ -38,7 +38,8 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  productionBrowserSourceMaps: true, // generate source map in dev environment
+  // Generate source map in production. Your code will be displayed in the browser.
+  productionBrowserSourceMaps: false,
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
