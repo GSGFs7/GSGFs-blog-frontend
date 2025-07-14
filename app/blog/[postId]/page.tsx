@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { getPost } from "@/lib/api";
-import BlogBody from "@/components/blog/adapter/server-blog-wrapper";
+import BlogBody from "@/components/blog/server-blog-wrapper";
 
 const Comment = dynamic(() => import("@/components/comment"));
 

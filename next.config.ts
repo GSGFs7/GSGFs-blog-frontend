@@ -3,6 +3,12 @@ import withSerwistInit from "@serwist/next";
 import type { NextConfig } from "next";
 import bundleAnalyzer from "@next/bundle-analyzer";
 
+import { publicSchema, privateSchema } from "@/env/schema";
+
+// env validation
+privateSchema.parse(process.env);
+publicSchema.parse(process.env);
+
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   output: "standalone", // for docker
@@ -38,7 +44,8 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  productionBrowserSourceMaps: true, // generate source map in dev environment
+  // Source maps are disabled in production to prevent exposing code in the browser.
+  productionBrowserSourceMaps: false,
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
