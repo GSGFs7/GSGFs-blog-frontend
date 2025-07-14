@@ -12,7 +12,7 @@ import { Providers } from "./providers";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { siteConfig } from "@/config/site";
-import { GOOGLE_ANALYTICS_ID } from "@/env/private";
+import { NEXT_PUBLIC_GOOGLE_ANALYTICS_ID } from "@/env/public";
 
 export const metadata: Metadata = {
   title: {
@@ -108,8 +108,8 @@ export default async function RootLayout({
 
           {
             // Google Analytics
-            GOOGLE_ANALYTICS_ID && (
-              <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID} />
+            NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+              <GoogleAnalytics gaId={NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
             )
           }
         </Providers>

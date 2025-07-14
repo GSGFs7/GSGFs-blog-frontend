@@ -3,6 +3,7 @@ import { z } from "zod";
 export const publicSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.url(),
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().optional(),
+  NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: z.string().optional(),
 });
 
 export const privateSchema = publicSchema.extend({
@@ -14,7 +15,6 @@ export const privateSchema = publicSchema.extend({
   AUTH_OSU_ID: z.string().optional(),
   AUTH_OSU_SECRET: z.string().optional(),
   DEFAULT_FROM_EMAIL: z.email().optional(),
-  GOOGLE_ANALYTICS_ID: z.string().optional(),
   JWT_REFRESH_SECRET: z.string().min(32).optional(),
   JWT_SECRET: z.string().min(32).optional(),
   MOMENTO_API_KEY: z.string().optional(),
