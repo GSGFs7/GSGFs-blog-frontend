@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "nextjs-toploader/app";
-import { useEffect } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
 export default function Pagination({
@@ -15,22 +13,11 @@ export default function Pagination({
 }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const router = useRouter();
 
   const pageCount = Math.ceil(total / size);
   const currentPage = !searchParams.get("page")
     ? 1
     : Number(searchParams.get("page"));
-
-  // prefetch
-  useEffect(() => {
-    if (currentPage > 1) {
-      router.prefetch(`${pathname}?page=${currentPage - 1}`);
-    }
-    if (currentPage < pageCount) {
-      router.prefetch(`${pathname}?page=${currentPage + 1}`);
-    }
-  });
 
   function createPageUrl(page: number) {
     const params = new URLSearchParams(searchParams);

@@ -3,6 +3,12 @@ import withSerwistInit from "@serwist/next";
 import type { NextConfig } from "next";
 import bundleAnalyzer from "@next/bundle-analyzer";
 
+import { publicSchema, privateSchema } from "@/env/schema";
+
+// env validation
+privateSchema.parse(process.env);
+publicSchema.parse(process.env);
+
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   output: "standalone", // for docker

@@ -5,7 +5,6 @@ import "lxgw-wenkai-webfont";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
-import NextTopLoader from "nextjs-toploader";
 import { Suspense } from "react";
 
 import { Providers } from "./providers";
@@ -89,10 +88,8 @@ export default async function RootLayout({
           "bg-background min-h-screen scroll-smooth font-sans antialiased",
         )}
       >
-        {/* 客户端组件 */}
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative z-10 flex h-screen w-screen flex-col items-center">
-            <NextTopLoader zIndex={999} />
             <header
               className="fixed z-40 flex w-full justify-center"
               role="banner"
@@ -103,7 +100,6 @@ export default async function RootLayout({
             </header>
 
             <main className="dark container mx-auto max-w-7xl grow px-6 pt-24">
-              {/* 虽然在客户端组件之下 但是写在服务端组件内 依旧是服务端组件 */}
               {children}
             </main>
 

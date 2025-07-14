@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
-import { SITE_URL } from "@/env/public";
 import { siteConfig } from "@/config/site";
+import { SITE_URL } from "@/env/public";
 import { image } from "@/utils/image";
 
 export async function metadata(url: string): Promise<Metadata> {

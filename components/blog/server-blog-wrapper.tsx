@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 import { markdownToHtml } from "@/utils";
 
-const Blog = dynamic(() => import("../blog-body"));
+const Blog = dynamic(() => import("./blog-body"));
 
 export default async function ClientBlogWrapper({
   markdown,
