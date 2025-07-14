@@ -44,7 +44,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  // Generate source map in production. Your code will be displayed in the browser.
+  // Source maps are disabled in production to prevent exposing code in the browser.
   productionBrowserSourceMaps: false,
   webpack: (config) => {
     config.module.rules.push({

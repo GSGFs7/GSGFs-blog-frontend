@@ -6,7 +6,7 @@ export interface FetchOptions extends RequestInit {
   timeout?: number;
   signal?: AbortSignal;
   // TODO: data verification
-  // zod is to large (208k), do not use schema validation in client side
+  // zod is too large (208k), do not use schema validation in client side
   schema?: z.ZodType<any>;
 }
 
