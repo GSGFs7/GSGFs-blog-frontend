@@ -19,9 +19,9 @@ export async function fetchSession(): Promise<sessionType | null> {
     });
 
     return session;
-  } catch (e) {
+  } catch {
     // eslint-disable-next-line no-console
-    console.error("Failed to get session: ", e);
+    // console.log("Failed to get session: ", e);
 
     return null;
   }
@@ -45,14 +45,26 @@ export function useFetchAuth() {
   });
 
   const logoutMutation = useMutation({
-    mutationFn: async () => await fc.post("/api/auth/logout"),
+    mutationFn: async () => {
+      try {
+        return await fc.post("/api/auth/logout");
+      } catch {
+        return null;
+      }
+    },
     onSuccess: () => {
       queryClient.setQueryData(AUTH_QUERY_KEY, null);
     },
   });
 
   const refreshMutation = useMutation({
-    mutationFn: async () => await fc.get("/api/auth/refresh"),
+    mutationFn: async () => {
+      try {
+        return await fc.get("/api/auth/refresh");
+      } catch {
+        return null;
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
     },
