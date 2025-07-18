@@ -40,7 +40,8 @@ export function useFetchAuth() {
   } = useQuery({
     queryKey: AUTH_QUERY_KEY,
     queryFn: fetchSession,
-    refetchInterval: 1000 * 60, // 1 mins
+    staleTime: 1000 * 60, // 1 mins
+    refetchInterval: 1000 * 60 * 5, // 5 mins
     refetchOnWindowFocus: true,
   });
 
@@ -66,8 +67,11 @@ export function useFetchAuth() {
       }
     },
     onSuccess: () => {
+      localStorage.setItem("last_token_refresh", Date.now().toString());
       queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
     },
+    retry: 3,
+    retryDelay: 1000 * 2,
   });
 
   const refreshSession = () => {
@@ -90,7 +94,6 @@ export function useFetchAuth() {
     }
 
     refreshMutation.mutate();
-    localStorage.setItem("last_token_refresh", now.toString());
   }, [refreshMutation, pathname, contextSession]);
 
   return {
