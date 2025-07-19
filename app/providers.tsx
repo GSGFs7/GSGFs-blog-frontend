@@ -62,17 +62,17 @@ function reducer(
   }
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 10 * 1000,
-        refetchOnWindowFocus: true,
-        retry: false,
-      },
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 10 * 1000,
+      refetchOnWindowFocus: true,
+      retry: false,
     },
-  });
+  },
+});
 
+export function Providers({ children, themeProps }: ProvidersProps) {
   const [{ session }, dispatch] = React.useReducer(reducer, { session: null });
   const authContextValue = React.useMemo(
     () => ({ session, dispatch }),
