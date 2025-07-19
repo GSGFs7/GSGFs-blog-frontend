@@ -77,7 +77,7 @@ export default function WIP({
           return newTask;
         });
 
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.03) {
           setIcon(0);
         }
       },
