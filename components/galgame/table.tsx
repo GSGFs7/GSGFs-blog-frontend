@@ -67,10 +67,25 @@ function Table({
       if (aValue === null || aValue === undefined) return 1;
       if (bValue === null || bValue === undefined) return -1;
 
-      const compareResult =
-        typeof aValue === "number" && typeof bValue === "number"
-          ? aValue - bValue
-          : String(aValue).localeCompare(String(bValue));
+      let compareResult: number;
+
+      // VNDB ID -> 'v' + number
+      // only sort the number part
+      if (sortField === "vndb_id") {
+        const aNum = parseInt(String(aValue).substring(1));
+        const bNum = parseInt(String(bValue).substring(1));
+
+        if (isNaN(aNum) || isNaN(bNum)) {
+          // if parse failed
+          compareResult = String(aValue).localeCompare(String(bValue));
+        } else {
+          compareResult = aNum - bNum;
+        }
+      } else if (typeof aValue === "number" && typeof bValue === "number") {
+        compareResult = aValue - bValue;
+      } else {
+        compareResult = String(aValue).localeCompare(String(bValue));
+      }
 
       return sortDirection === "asc" ? compareResult : -compareResult;
     });
