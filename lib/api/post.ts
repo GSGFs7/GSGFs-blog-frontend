@@ -1,3 +1,5 @@
+"use server";
+
 import { fc } from "../fetchClient";
 
 import { getSession } from "@/lib/auth";

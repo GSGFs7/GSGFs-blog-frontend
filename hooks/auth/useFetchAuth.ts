@@ -19,9 +19,9 @@ export async function fetchSession(): Promise<sessionType | null> {
     });
 
     return session;
-  } catch (e) {
+  } catch {
     // eslint-disable-next-line no-console
-    console.error("Failed to get session: ", e);
+    // console.log("Failed to get session: ", e);
 
     return null;
   }
@@ -40,22 +40,38 @@ export function useFetchAuth() {
   } = useQuery({
     queryKey: AUTH_QUERY_KEY,
     queryFn: fetchSession,
-    refetchInterval: 1000 * 60, // 1 mins
+    staleTime: 1000 * 60, // 1 mins
+    refetchInterval: 1000 * 60 * 5, // 5 mins
     refetchOnWindowFocus: true,
   });
 
   const logoutMutation = useMutation({
-    mutationFn: async () => await fc.post("/api/auth/logout"),
+    mutationFn: async () => {
+      try {
+        return await fc.post("/api/auth/logout");
+      } catch {
+        return null;
+      }
+    },
     onSuccess: () => {
       queryClient.setQueryData(AUTH_QUERY_KEY, null);
     },
   });
 
   const refreshMutation = useMutation({
-    mutationFn: async () => await fc.get("/api/auth/refresh"),
+    mutationFn: async () => {
+      try {
+        return await fc.get("/api/auth/refresh");
+      } catch {
+        return null;
+      }
+    },
     onSuccess: () => {
+      localStorage.setItem("last_token_refresh", Date.now().toString());
       queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
     },
+    retry: 3,
+    retryDelay: 1000 * 2,
   });
 
   const refreshSession = () => {
@@ -78,7 +94,6 @@ export function useFetchAuth() {
     }
 
     refreshMutation.mutate();
-    localStorage.setItem("last_token_refresh", now.toString());
   }, [refreshMutation, pathname, contextSession]);
 
   return {

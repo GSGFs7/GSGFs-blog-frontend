@@ -1,34 +1,79 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-import { randomPost } from "@/app/actions";
+import { getAllPostIds } from "@/lib/api";
 import cardImageR from "@/public/0.png";
 import cardImageL from "@/public/2_cut.jpg";
 import { getMousePosition } from "@/utils";
 
 export default function BlogTopCard() {
   const router = useRouter();
-
+  const pathname = usePathname();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [randomId, setRandomId] = useState<number | null>(null);
+
+  // prefetch all of the post ids
+  const {
+    data: ids,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["post-ids"],
+    queryFn: getAllPostIds,
+    staleTime: 1000 * 60 * 10, // 10 mins
+    gcTime: 1000 * 60 * 15, // 15 mins, delete from memory
+    refetchOnWindowFocus: false, // no need
+    refetchOnMount: false, // no need
+  });
+
+  useEffect(() => {
+    setRandomId(null);
+
+    if (isLoading || !ids) {
+      return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * ids.length);
+    const randomPostId = ids[randomIndex];
+
+    setRandomId(randomPostId);
+
+    // prefetch, maybe unnecessary?
+    router.prefetch(`/blog/${randomPostId}`);
+  }, [isLoading, pathname, ids]); // reset it when pathname changed
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     setMousePosition(getMousePosition(e));
   }
 
   async function handleRandomPost() {
-    let randomPostId = await randomPost();
-
-    if (randomPostId === null) {
-      toast.error("出了点小问题");
+    if (isLoading) {
+      toast("正在加载中...");
 
       return;
     }
 
-    router.push(`/blog/${randomPostId}`);
+    if (error || ids === undefined || ids === null) {
+      toast.error("文章列表加载失败");
+
+      // eslint-disable-next-line no-console
+      console.error(error);
+
+      return;
+    }
+
+    if (ids.length === 0) {
+      toast.error("一篇文章都没有哦");
+
+      return;
+    }
+
+    router.push(`/blog/${randomId}`);
   }
 
   return (
