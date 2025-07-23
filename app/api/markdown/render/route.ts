@@ -1,5 +1,5 @@
 import matter from "gray-matter";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { commentMarkdownToHtml, markdownToHtml } from "@/utils/markdown";
@@ -27,7 +27,7 @@ function createErrorResponse(status: number, message: string, details?: any) {
   );
 }
 
-export async function POST(request: NextResponse) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     let body: unknown;
 
