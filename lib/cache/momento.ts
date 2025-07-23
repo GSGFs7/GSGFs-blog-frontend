@@ -56,11 +56,17 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
   }
 }
 
-export async function cacheSet<T>(key: string, value: T): Promise<boolean> {
+export async function cacheSet<T>(
+  key: string,
+  value: T,
+  ttlSeconds: number,
+): Promise<boolean> {
   try {
     const client = getCacheClient();
 
-    const response = await client.set(CACHE_NAME, key, JSON.stringify(value));
+    const response = await client.set(CACHE_NAME, key, JSON.stringify(value), {
+      ttl: ttlSeconds,
+    });
 
     if (response.type === CacheSetResponse.Error) {
       throw new Error(`${response.errorCode()} ${response.toString()}`);
