@@ -1,6 +1,8 @@
+import { CacheError } from "./error";
+
 import { CacheTTL } from ".";
 
-import { CacheError, CacheInterface } from "@/types/cache";
+import { CacheInterface } from "@/types/cache";
 
 const CACHE_NAME = "blog"; // Name of the cache to use
 let momentoClient: CacheClient | null = null;
@@ -89,13 +91,7 @@ function createCacheError(
   key: string | undefined,
   originalError: unknown,
 ): CacheError {
-  const error = new Error(
-    `Cache ${operation} operation failed${key ? ` for key '${key}'` : ""}`,
-  ) as CacheError;
-
-  error.operation = operation;
-  error.key = key;
-  error.originalError = originalError;
+  const error = new CacheError(operation, key, originalError);
 
   return error;
 }
