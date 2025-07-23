@@ -1,5 +1,5 @@
 import matter from "gray-matter";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { commentMarkdownToHtml, markdownToHtml } from "@/utils/markdown";
@@ -8,7 +8,7 @@ const markdownSchema = z.object({
   content: z.string(),
   options: z
     .object({
-      allowUnsafe: z.boolean().optional().default(false),
+      allowUnsafe: z.boolean().optional(),
     })
     .optional(),
 });
@@ -27,7 +27,7 @@ function createErrorResponse(status: number, message: string, details?: any) {
   );
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     let body: unknown;
 
@@ -46,7 +46,9 @@ export async function POST(request: Request) {
 
     // ===get data===
     const { content, options } = result.data;
-    const unsafe = options?.allowUnsafe || request.headers.get("unsafe");
+    const allowUnsafe =
+      options?.allowUnsafe ||
+      request.headers.get("allow-unsafe")?.toLowerCase() === "true";
     const contentLength = request.headers.get("content-length");
 
     // ===limit length===
@@ -60,9 +62,9 @@ export async function POST(request: Request) {
     // ===return html===
     try {
       const { data: frontmatter, content: markdownContent } = matter(content);
-      const html = unsafe
-        ? await commentMarkdownToHtml(markdownContent)
-        : await markdownToHtml(markdownContent);
+      const html = allowUnsafe
+        ? await markdownToHtml(markdownContent)
+        : await commentMarkdownToHtml(markdownContent);
 
       return NextResponse.json({ frontmatter, html });
     } catch (error) {

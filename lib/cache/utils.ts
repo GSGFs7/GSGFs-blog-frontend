@@ -17,10 +17,9 @@ export async function safeCacheGet<T>(
 export async function safeCacheSet<T>(
   key: string,
   value: T,
-  ttlSeconds?: number,
 ): Promise<CacheResult<boolean>> {
   try {
-    const data = await cacheSet(key, value, ttlSeconds);
+    const data = await cacheSet(key, value);
 
     return { success: true, data };
   } catch (e) {
