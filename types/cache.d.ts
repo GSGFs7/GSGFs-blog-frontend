@@ -4,12 +4,6 @@ export interface CacheInterface {
   cacheDelete(key: string): Promise<boolean>;
 }
 
-export interface CacheError extends Error {
-  operation: "get" | "set" | "delete";
-  key?: string;
-  originalError?: unknown;
-}
-
 export type CacheResult<T> =
   | {
       success: true;

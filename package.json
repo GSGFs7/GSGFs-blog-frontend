@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@fontsource/maple-mono": "^5.2.5",
+    "@gomomento/sdk": "^1.111.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@milkdown/kit": "^7.15.1",
