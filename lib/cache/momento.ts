@@ -59,7 +59,7 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
 export async function cacheSet<T>(
   key: string,
   value: T,
-  ttlSeconds: number,
+  ttlSeconds?: number,
 ): Promise<boolean> {
   try {
     const client = getCacheClient();
