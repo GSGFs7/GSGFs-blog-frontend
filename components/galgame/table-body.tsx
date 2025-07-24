@@ -159,7 +159,7 @@ export function GalTableBody() {
                   <td colSpan={Object.keys(data[0]).length}>
                     <div
                       dangerouslySetInnerHTML={{
-                        __html: processedHtml[row.id],
+                        __html: row.review_html ?? processedHtml[row.id],
                       }}
                       className="min-h-12 px-4 py-2"
                     />

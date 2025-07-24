@@ -15,7 +15,7 @@ export interface PostsCard {
     },
   ];
   title: string;
-  update_at: string;
+  updated_at: string;
 }
 
 export interface Post {
@@ -36,7 +36,7 @@ export interface Post {
   status: "draft" | "published";
   tags: [{ id: number; name: string }];
   title: string;
-  update_at: string;
+  updated_at: string;
   view_count: number;
 }
 
@@ -82,5 +82,5 @@ export interface CategoryResponse {
 
 export interface PostSitemapItem {
   id: number;
-  update_at: string;
+  updated_at: string;
 }

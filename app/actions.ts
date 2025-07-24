@@ -15,9 +15,8 @@ export async function randomPost(): Promise<null | number> {
   }
 
   const randomIndex = Math.floor(Math.random() * ids.length);
-  const randomPostId = ids[randomIndex];
 
-  return randomPostId;
+  return ids[randomIndex];
 }
 
 export async function testCache(): Promise<string | null> {
