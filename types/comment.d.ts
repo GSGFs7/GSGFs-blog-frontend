@@ -5,7 +5,7 @@ export interface commentType {
   guest_id: string;
   guest_name: string;
   created_at: string;
-  update_at: string;
+  updated_at: string;
   avatar?: string;
 }
 

@@ -22,7 +22,7 @@ export default async function Page({
 
   return (
     <div className="">
-      <BlogBody markdown={post.content} />
+      <BlogBody html={post.content_html ?? undefined} markdown={post.content} />
       <Suspense fallback={<div className="spinner-big" />}>
         <Comment postId={postId} />
       </Suspense>

@@ -30,8 +30,8 @@ export async function fetchClient<T = any>(
   options: FetchOptions = {},
 ): Promise<T> {
   const { timeout = 5000, schema, ...fetchOptions } = options;
-  let userAgent = "";
-  let url: string = "";
+  let userAgent: string;
+  let url: string;
 
   // set user agent
   if (typeof window !== "undefined") {

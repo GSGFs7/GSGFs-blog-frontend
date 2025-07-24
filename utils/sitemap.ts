@@ -73,11 +73,11 @@ export async function generateSitemap(): Promise<SitemapField[]> {
 
   const postRoutes =
     postIds?.map(
-      ({ id, update_at }) =>
+      ({ id, updated_at }) =>
         ({
           url: `${baseUrl}/blog/${id}`,
           changeFrequency: "weekly",
-          lastModified: `${update_at}`,
+          lastModified: `${updated_at}`,
           priority: 0.8,
         }) as SitemapField,
     ) ?? [];

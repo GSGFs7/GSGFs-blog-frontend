@@ -10,6 +10,9 @@ export interface GalData {
   comprehensive_score?: number;
   summary?: string; // No spoilers
   review?: string;
+  review_html?: string;
+  created_at: string;
+  updated_at: string;
 }
 
 interface gal {
@@ -24,10 +27,11 @@ interface gal {
   vndb_rating?: number;
 
   created_at: string;
-  update_at: string;
+  updated_at: string;
 
   summary?: string;
   review?: string;
+  review_html?: string;
 
   cover_image?: string;
 }
