@@ -4,7 +4,6 @@ export interface PostsCard {
     name: string;
   };
   cover_image: string | null;
-  created_at: string;
   id: number;
   meta_description: string | null;
   slug: string | null;
@@ -15,6 +14,7 @@ export interface PostsCard {
     },
   ];
   title: string;
+  created_at: string;
   updated_at: string;
 }
 

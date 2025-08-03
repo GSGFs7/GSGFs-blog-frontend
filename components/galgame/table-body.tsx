@@ -16,6 +16,24 @@ export function GalTableBody() {
     {},
   );
 
+  useEffect(() => {
+    if (!data) return;
+
+    setProcessedHtml((prev) => {
+      const updated = { ...prev };
+
+      for (const gal of data) {
+        const html = gal.review_html;
+
+        if (html !== undefined && updated[gal.id] === undefined) {
+          updated[gal.id] = html;
+        }
+      }
+
+      return updated;
+    });
+  }, [data]);
+
   // TODO: SEO optimization
   const processMarkdown = async (id: number, markdown: string) => {
     if (processedHtml[id]) return;
@@ -49,7 +67,7 @@ export function GalTableBody() {
       if (expandedRows[id]) {
         const row = data.find((r) => r.id === id);
 
-        if (row?.review) {
+        if (row?.review && row.review_html === undefined) {
           processMarkdown(id, row.review);
         }
       }
