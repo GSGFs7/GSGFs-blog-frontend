@@ -20,7 +20,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "dev:clean": "rm -rf .next && rm -rf node_modules && pnpm i && pnpm dev",
+    "dev:clean": "rm -rf .next && pnpm dev",
     "dev:https": "next dev --experimental-https --turbopack",
     "build": "next build",
     "start": "next start",
