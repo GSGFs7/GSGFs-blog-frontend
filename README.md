@@ -38,7 +38,6 @@
 ## 部署
 
 1. 直接构建并部署
-
    1. 构建
 
       ```bash
@@ -54,7 +53,6 @@
    _如果需要更小的文件, 可以参考`dockerfile`中的方式部署._
 
 2. docker 部署
-
    1. 构建镜像
 
       ```bash
@@ -81,7 +79,7 @@
 - `dev`: 开发分支
 - `edge-runtime`: 使用`edge`运行时的分支, 可以部署在`Cloudflare Pages`上 (这个分支正准备废弃, 改为使用`OpenNext`提供的方案, 部署至`Cloudflare Workers`)
 
-## 提交commit
+## commit
 
 因为配置了`commitlint`和`husky`, 所以提交时需要遵守[conventional commit](https://www.conventionalcommits.org/zh-hans/v1.0.0/)规范
 

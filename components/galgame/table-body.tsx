@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
-import { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { useGalTable } from "./table";
 
@@ -67,7 +67,7 @@ export function GalTableBody() {
       if (expandedRows[id]) {
         const row = data.find((r) => r.id === id);
 
-        if (row?.review && row.review_html === undefined) {
+        if (row?.review && !row.review_html) {
           processMarkdown(id, row.review);
         }
       }
