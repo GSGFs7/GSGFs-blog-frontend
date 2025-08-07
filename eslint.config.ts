@@ -8,6 +8,7 @@ import prettier from "eslint-plugin-prettier";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import unusedImports from "eslint-plugin-unused-imports";
+import globals from "globals";
 
 export default [
   js.configs.recommended,
@@ -42,9 +43,51 @@ export default [
       "tests/*",
     ],
   },
-  // custom
+  // env rules
+  {
+    files: ["env/**/*.{js,mjs,ts}"],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 12,
+        sourceType: "module",
+      },
+      globals: {
+        ...globals.node,
+        ...globals.es2025,
+        process: "readonly",
+        global: "readonly",
+        console: "readonly",
+      },
+    },
+    plugins: {
+      "@typescript-eslint": typescript,
+      import: importPlugin,
+      prettier: prettier,
+      "unused-imports": unusedImports,
+    },
+    rules: {
+      "no-console": "off",
+      "prettier/prettier": "warn",
+      "no-unused-vars": "off",
+      "unused-imports/no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          args: "after-used",
+          ignoreRestSiblings: false,
+          argsIgnorePattern: "^_.*?$",
+        },
+      ],
+      "no-empty-pattern": "off",
+      "no-undef": "off",
+    },
+  },
+  // main rules
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
+    ignores: ["app/api/**", "lib/api/**", "app/sw.ts"], // exclude API & Service Worker
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -55,16 +98,23 @@ export default [
         },
       },
       globals: {
-        // env rule
-        console: "readonly",
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2025,
+        React: "readonly",
+        JSX: "readonly",
+        // Next.js & Node.js
         process: "readonly",
-        Buffer: "readonly",
         global: "readonly",
-        __dirname: "readonly",
-        __filename: "readonly",
-        module: "readonly",
-        require: "readonly",
-        exports: "readonly",
+        NodeJS: "readonly",
+        // Web APIs
+        RequestInit: "readonly",
+        Response: "readonly",
+        Request: "readonly",
+        Headers: "readonly",
+        FormData: "readonly",
+        URLSearchParams: "readonly",
+        URL: "readonly",
       },
     },
     plugins: {
@@ -79,7 +129,7 @@ export default [
     },
     rules: {
       "no-console": "warn",
-      // React rule
+      // React rules
       "react/prop-types": "off",
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
@@ -93,15 +143,15 @@ export default [
           reservedFirst: true,
         },
       ],
-      // React Hooks rule
+      // React Hooks rules
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "off",
-      // JSX A11y rule
+      // JSX A11y rules
       "jsx-a11y/click-events-have-key-events": "warn",
       "jsx-a11y/interactive-supports-focus": "warn",
-      // Prettier rule
+      // Prettier rules
       "prettier/prettier": "warn",
-      // unused vars rule
+      // Unused vars rules
       "no-unused-vars": "off",
       "unused-imports/no-unused-vars": "off",
       "unused-imports/no-unused-imports": "warn",
@@ -113,7 +163,7 @@ export default [
           argsIgnorePattern: "^_.*?$",
         },
       ],
-      // Import rule
+      // Import rules
       "import/order": [
         "warn",
         {
@@ -137,7 +187,7 @@ export default [
           "newlines-between": "always",
         },
       ],
-      // code style rule
+      // Code style rules
       "padding-line-between-statements": [
         "warn",
         { blankLine: "always", prev: "*", next: "return" },
@@ -148,6 +198,8 @@ export default [
           next: ["const", "let", "var"],
         },
       ],
+      "no-empty-pattern": "off",
+      "no-undef": "off", // TypeScript will handle it
     },
     settings: {
       react: {
@@ -155,14 +207,60 @@ export default [
       },
     },
   },
-  // Next.js rule
+  // API & server worker
   {
-    files: ["**/*.{js,jsx,ts,tsx}"],
+    files: ["app/api/**/*.{js,ts}", "lib/api/**/*.{js,ts}", "app/sw.ts"],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 12,
+        sourceType: "module",
+      },
+      globals: {
+        ...globals.node,
+        ...globals.es2025,
+        // Web APIs that are available in Node.js runtime
+        URL: "readonly",
+        URLSearchParams: "readonly",
+        fetch: "readonly",
+        Request: "readonly",
+        Response: "readonly",
+        Headers: "readonly",
+        FormData: "readonly",
+        File: "readonly",
+        Blob: "readonly",
+        TextEncoder: "readonly",
+        TextDecoder: "readonly",
+        crypto: "readonly",
+        // Service Worker specific globals
+        ServiceWorkerGlobalScope: "readonly",
+        self: "readonly",
+      },
+    },
     plugins: {
-      "@next/next": nextPlugin,
+      "@typescript-eslint": typescript,
+      import: importPlugin,
+      prettier: prettier,
+      "unused-imports": unusedImports,
     },
     rules: {
-      ...nextPlugin.configs.recommended.rules,
+      "no-console": "off", // allow console in server
+      // Prettier rules
+      "prettier/prettier": "warn",
+      // Unused vars rules
+      "no-unused-vars": "off",
+      "unused-imports/no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          args: "after-used",
+          ignoreRestSiblings: false,
+          argsIgnorePattern: "^_.*?$",
+        },
+      ],
+      "no-empty-pattern": "off",
+      "no-undef": "off",
     },
   },
 ];

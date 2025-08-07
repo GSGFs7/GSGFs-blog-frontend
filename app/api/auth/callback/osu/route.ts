@@ -54,7 +54,6 @@ export const GET = async (request: Request) => {
     try {
       cachedState = await cacheGet<OAuthState>(cacheKey);
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error("Get cache error: ", e);
 
       return NextResponse.json(
@@ -77,7 +76,6 @@ export const GET = async (request: Request) => {
     try {
       await cacheDelete(cacheKey);
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error("Delete cache error: ", e);
     }
 
@@ -89,7 +87,6 @@ export const GET = async (request: Request) => {
     // 需要 return
     return NextResponse.redirect(redirectUrl);
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error("Authentication error:", error);
 
     const redirectUrl = new URL("/login", request.url).toString();

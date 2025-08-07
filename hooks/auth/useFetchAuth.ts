@@ -20,7 +20,6 @@ export async function fetchSession(): Promise<sessionType | null> {
 
     return session;
   } catch {
-    // eslint-disable-next-line no-console
     // console.log("Failed to get session: ", e);
 
     return null;

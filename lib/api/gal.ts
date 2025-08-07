@@ -22,7 +22,6 @@ export async function getAllGal(): Promise<{
 
     return { data: gals, pagination };
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error("Get paginated Gal failed: ", e);
 
     return null;
