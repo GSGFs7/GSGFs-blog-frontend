@@ -1,4 +1,8 @@
-export function formatDate(dateString: string) {
+export function formatDate(dateString: string): string {
+  if (!dateString || isNaN(Date.parse(dateString))) {
+    return "unknown";
+  }
+
   const date = new Date(dateString);
 
   return new Intl.DateTimeFormat("zh-CN", {
