@@ -67,7 +67,7 @@ export default [
       "unused-imports": unusedImports,
     },
     rules: {
-      "no-console": "off",
+      "no-console": "warn",
       "prettier/prettier": "warn",
       "no-unused-vars": "off",
       "unused-imports/no-unused-vars": "off",
@@ -244,7 +244,7 @@ export default [
       "unused-imports": unusedImports,
     },
     rules: {
-      "no-console": "off", // allow console in server
+      "no-console": "warn", // allow console in server
       // Prettier rules
       "prettier/prettier": "warn",
       // Unused vars rules

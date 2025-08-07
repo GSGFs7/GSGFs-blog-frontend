@@ -11,6 +11,7 @@ export async function getPost(postId: string): Promise<Post | null> {
 
     return res;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
 
     return null;
@@ -28,6 +29,7 @@ export async function getPostList(
 
     return res;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error("get post list error: ", e);
 
     return null;
@@ -55,6 +57,7 @@ export async function getAllPostIds(): Promise<number[] | null> {
 
     return res.ids;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(`getAllPosts error: ${e}`);
 
     return null;
@@ -67,6 +70,7 @@ export async function getPostSitemap(): Promise<PostSitemapItem[] | null> {
 
     return res;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(`getAllPosts error: ${e}`);
 
     return null;

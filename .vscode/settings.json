@@ -1,7 +1,7 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.tabSize": 2,
-  "eslint.useFlatConfig": false,
+  "eslint.useFlatConfig": true,
   "prettier.bracketSameLine": false,
   "prettier.singleAttributePerLine": false,
   "prettier.trailingComma": "all",
@@ -38,6 +38,6 @@
     "wenkai"
   ],
   "files.associations": {
-    "*.css": "tailwindcss",
-  },
+    "*.css": "tailwindcss"
+  }
 }

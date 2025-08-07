@@ -35,6 +35,7 @@ export async function GET(request: NextRequest) {
       throw new Error("Failed to cache authentication state.");
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error("Failed to cache authentication state: ", e);
 
     return NextResponse.json(
