@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { BsFingerprint } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa";
@@ -13,14 +13,8 @@ import avatar_webp from "@/public/favicon.webp";
 import osu_svg from "@/public/osu.svg";
 
 export default function First({ gpg }: { gpg: string }) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
   const gpgRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (window.innerWidth < 1024) {
-      toast.error("暂未适配小屏设备");
-    }
-  }, []);
 
   async function handleCopyGPG() {
     await navigator.clipboard.writeText(gpgRef.current?.innerText || "");
@@ -61,33 +55,46 @@ export default function First({ gpg }: { gpg: string }) {
               </a>
             ))}
 
-            <Modal>
-              <Modal.Open opens="gpg-key">
-                <button
-                  aria-label="查看我的 GPG 公钥"
-                  className="flex cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
-                  title="查看我的 GPG 公钥"
-                >
-                  <BsFingerprint />
-                </button>
-              </Modal.Open>
-              <Modal.Window name="gpg-key">
-                <div className="relative mt-4 mb-2 flex w-xl flex-col items-center justify-center text-sm">
-                  <div
-                    dangerouslySetInnerHTML={{ __html: gpg }}
-                    ref={gpgRef}
-                    className="bg-gray-900/45 p-2"
-                  />
+            <div className="hidden md:block">
+              <Modal>
+                <Modal.Open opens="gpg-key">
                   <button
-                    aria-label="复制 GPG 公钥"
-                    className="mt-4 w-full cursor-pointer rounded-sm border text-center text-xl text-blue-600"
-                    onClick={handleCopyGPG}
+                    aria-label="查看我的 GPG 公钥"
+                    className="flex cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
+                    title="查看我的 GPG 公钥"
                   >
-                    复制
+                    <BsFingerprint />
                   </button>
-                </div>
-              </Modal.Window>
-            </Modal>
+                </Modal.Open>
+                <Modal.Window name="gpg-key">
+                  <div className="relative mt-4 mb-2 flex w-xl flex-col items-center justify-center text-sm">
+                    <div
+                      dangerouslySetInnerHTML={{ __html: gpg }}
+                      ref={gpgRef}
+                      className="bg-gray-900/45 p-2"
+                    />
+                    <button
+                      aria-label="复制 GPG 公钥"
+                      className="mt-4 w-full cursor-pointer rounded-sm border text-center text-xl text-blue-600"
+                      onClick={handleCopyGPG}
+                    >
+                      复制
+                    </button>
+                  </div>
+                </Modal.Window>
+              </Modal>
+            </div>
+
+            <div className="md:hidden">
+              <button
+                aria-label="复制我的 GPG 公钥"
+                className="flex cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
+                title="复制我的 GPG 公钥"
+                onClick={handleCopyGPG}
+              >
+                <BsFingerprint />
+              </button>
+            </div>
           </div>
         </div>
       </div>
