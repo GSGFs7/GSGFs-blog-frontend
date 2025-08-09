@@ -1,9 +1,9 @@
-/* eslint-disable import/order */
-import withSerwistInit from "@serwist/next";
 import type { NextConfig } from "next";
-import bundleAnalyzer from "@next/bundle-analyzer";
 
-import { publicSchema, privateSchema } from "@/env/schema";
+import bundleAnalyzer from "@next/bundle-analyzer";
+import withSerwistInit from "@serwist/next";
+
+import { privateSchema, publicSchema } from "@/env/schema";
 
 // env validation
 privateSchema.parse(process.env);
