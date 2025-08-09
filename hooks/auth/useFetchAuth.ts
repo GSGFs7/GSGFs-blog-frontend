@@ -39,9 +39,10 @@ export function useFetchAuth() {
   } = useQuery({
     queryKey: AUTH_QUERY_KEY,
     queryFn: fetchSession,
-    staleTime: 1000 * 60, // 1 mins
-    refetchInterval: 1000 * 60 * 5, // 5 mins
-    refetchOnWindowFocus: true,
+    staleTime: 1000 * 60, // 1 min
+    refetchInterval: 1000 * 60 * 5, // 5 min
+    refetchOnWindowFocus: false,
+    retry: 1,
   });
 
   const logoutMutation = useMutation({
@@ -54,6 +55,7 @@ export function useFetchAuth() {
     },
     onSuccess: () => {
       queryClient.setQueryData(AUTH_QUERY_KEY, null);
+      dispatch({ type: "update", payload: null });
     },
   });
 
@@ -69,22 +71,14 @@ export function useFetchAuth() {
       localStorage.setItem("last_token_refresh", Date.now().toString());
       queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
     },
-    retry: 3,
-    retryDelay: 1000 * 2,
+    retry: 1,
+    retryDelay: 2000,
   });
 
-  const refreshSession = () => {
-    queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
-  };
-
+  // Refresh access token on first load/route change (with state and time window debounce)
   useEffect(() => {
-    refetch();
+    if (refreshMutation.isPending) return;
 
-    dispatch({ type: "update", payload: session ?? null });
-  }, [session, pathname, dispatch]); // do not add refetch to the dependency array, otherwise it will cause an infinite loop
-
-  // refresh access token
-  useEffect(() => {
     const lastRefresh = localStorage.getItem("last_token_refresh");
     const now = Date.now();
 
@@ -93,7 +87,15 @@ export function useFetchAuth() {
     }
 
     refreshMutation.mutate();
-  }, [refreshMutation, pathname, contextSession]);
+  }, [pathname, contextSession, refreshMutation.isPending]);
+
+  useEffect(() => {
+    if (isLoading === true || session === undefined) {
+      return;
+    }
+
+    dispatch({ type: "update", payload: session });
+  }, [isLoading]);
 
   return {
     session,
@@ -104,6 +106,7 @@ export function useFetchAuth() {
     isAuthenticated: !!session,
     logout: logoutMutation.mutate,
     isLoggingOut: logoutMutation.isPending,
-    refreshSession,
+    refreshSession: () =>
+      queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY }),
   };
 }
