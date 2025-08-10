@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import "@fontsource/maple-mono";
-import "lxgw-wenkai-webfont";
+import "lxgw-wenkai-screen-web";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { clsx } from "clsx";
