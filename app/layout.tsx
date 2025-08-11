@@ -72,7 +72,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning className="scroll-p-24" lang="zh">
+    <html suppressHydrationWarning className="scroll-p-24" lang="zh-CN">
       <head>
         <style
           dangerouslySetInnerHTML={{
@@ -106,12 +106,10 @@ export default async function RootLayout({
             <Footer />
           </div>
 
-          {
-            // Google Analytics
-            NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
-              <GoogleAnalytics gaId={NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
-            )
-          }
+          {/* Google Analytics */}
+          {NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+            <GoogleAnalytics gaId={NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
+          )}
         </Providers>
       </body>
     </html>
