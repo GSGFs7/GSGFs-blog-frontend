@@ -91,6 +91,9 @@ importers:
       lxgw-wenkai-screen-web:
         specifier: ^1.520.0
         version: 1.520.0
+      material-icons:
+        specifier: ^1.13.14
+        version: 1.13.14
       motion:
         specifier: ^12.23.12
         version: 12.23.12(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -7856,6 +7859,12 @@ packages:
     resolution:
       {
         integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==,
+      }
+
+  material-icons@1.13.14:
+    resolution:
+      {
+        integrity: sha512-kZOfc7xCC0rAT8Q3DQixYAeT+tBqZnxkseQtp2bxBxz7q5pMAC+wmit7vJn1g/l7wRU+HEPq23gER4iPjGs5Cg==,
       }
 
   math-intrinsics@1.1.0:
@@ -16987,6 +16996,8 @@ snapshots:
   markdown-extensions@2.0.0: {}
 
   markdown-table@3.0.4: {}
+
+  material-icons@1.13.14: {}
 
   math-intrinsics@1.1.0: {}
 
