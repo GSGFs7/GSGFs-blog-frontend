@@ -145,18 +145,6 @@ export default function WIP({
           <p className="">返回首页</p>
         </Link>
       )}
-
-      {/* <div className="mt-12 flex gap-4 opacity-50">
-        <div className="h-2 min-h-[0.5rem] w-2 min-w-[0.5rem] animate-ping rounded-full bg-blue-500" />
-        <div
-          className="h-2 min-h-[0.5rem] w-2 min-w-[0.5rem] animate-ping rounded-full bg-purple-500"
-          style={{ animationDelay: "0.2s" }}
-        />
-        <div
-          className="h-2 min-h-[0.5rem] w-2 min-w-[0.5rem] animate-ping rounded-full bg-pink-500"
-          style={{ animationDelay: "0.4s" }}
-        />
-      </div> */}
     </div>
   );
 }
