@@ -1,23 +1,9 @@
 @import "tailwindcss";
 
-:root {
-  --font-family:
-    "Inter-Local", "Inter", "Noto Sans", "noto sans cjk sc", "Noto Sans SC",
-    "source han sans cn", "WenQuanYi Micro Hei", sans-serif;
-  --font-serif:
-    "Noto Serif SC-Local", "Noto Serif SC", "华文中宋", "Times New Roman", serif;
-  --font-creative:
-    "Inter-Local", "Inter", "Noto Sans SC-Local", "Noto Sans SC", sans-serif;
-  --font-monospace:
-    "JetBrains Mono-Local", "Maple Mono", "JetBrains Mono", "SFMono-Regular",
-    "Cascadia Code", "Fira Code", "Menlo", "Monaco", "Consolas",
-    "Noto Sans Mono", "monospace", sans-serif, monospace;
-}
-
 @layer components {
   .markdown-body {
     /* ===== 1. 基础样式 ===== */
-    font-family: var(--font-family) !important;
+    font-family: inherit !important;
     background: inherit !important;
     background-color: #1a1c25 !important;
 
