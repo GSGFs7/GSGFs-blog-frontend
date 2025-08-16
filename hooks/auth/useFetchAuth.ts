@@ -59,7 +59,7 @@ export function useFetchAuth() {
     },
   });
 
-  const refreshMutation = useMutation({
+  const { mutate: refreshMutate, isPending: isRefreshPending } = useMutation({
     mutationFn: async () => {
       try {
         return await fc.get("/api/auth/refresh");
@@ -77,7 +77,7 @@ export function useFetchAuth() {
 
   // Refresh access token on first load/route change (with state and time window debounce)
   useEffect(() => {
-    if (refreshMutation.isPending) return;
+    if (isRefreshPending) return;
 
     const lastRefresh = localStorage.getItem("last_token_refresh");
     const now = Date.now();
@@ -86,8 +86,8 @@ export function useFetchAuth() {
       return;
     }
 
-    refreshMutation.mutate();
-  }, [pathname, contextSession, refreshMutation.isPending]);
+    refreshMutate();
+  }, [pathname, contextSession, isRefreshPending, refreshMutate]);
 
   useEffect(() => {
     if (isLoading === true || session === undefined) {
@@ -95,7 +95,7 @@ export function useFetchAuth() {
     }
 
     dispatch({ type: "update", payload: session });
-  }, [isLoading]);
+  }, [dispatch, isLoading, session]);
 
   return {
     session,

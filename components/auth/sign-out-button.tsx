@@ -30,7 +30,6 @@ export function SignoutButton({ disabled = false }: { disabled?: boolean }) {
         router.refresh();
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error("Logout failed:", error);
     }
   }

@@ -35,28 +35,30 @@ export function GalTableBody() {
   }, [data]);
 
   // TODO: SEO optimization
-  const processMarkdown = async (id: number, markdown: string) => {
-    if (processedHtml[id]) return;
+  const processMarkdown = React.useCallback(
+    async (id: number, markdown: string) => {
+      if (processedHtml[id]) return;
 
-    setLoadingRows((prev) => ({ ...prev, [id]: true }));
+      setLoadingRows((prev) => ({ ...prev, [id]: true }));
 
-    try {
-      if (!processedHtml[id]) {
-        const html = await markdownToHtml(markdown);
+      try {
+        if (!processedHtml[id]) {
+          const html = await markdownToHtml(markdown);
 
-        setProcessedHtml((prev) => ({
-          ...prev,
-          [id]: html,
-        }));
+          setProcessedHtml((prev) => ({
+            ...prev,
+            [id]: html,
+          }));
+        }
+      } catch (e) {
+        console.error(`render markdown error: ${e}`);
+        setProcessedHtml((prev) => ({ ...prev, [id]: markdown }));
+      } finally {
+        setLoadingRows((prev) => ({ ...prev, [id]: false }));
       }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(`render markdown error: ${e}`);
-      setProcessedHtml((prev) => ({ ...prev, [id]: markdown }));
-    } finally {
-      setLoadingRows((prev) => ({ ...prev, [id]: false }));
-    }
-  };
+    },
+    [processedHtml],
+  );
 
   useEffect(() => {
     if (!data) return;
@@ -72,7 +74,7 @@ export function GalTableBody() {
         }
       }
     });
-  }, [expandedRows, data]);
+  }, [expandedRows, data, processMarkdown]);
 
   if (!data || data.length === 0) {
     return (

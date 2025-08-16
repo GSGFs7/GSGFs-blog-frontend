@@ -12,7 +12,7 @@ export default async function Page({
 }: {
   params: Promise<{ postId: number }>;
 }) {
-  const postId = (await params).postId;
+  const { postId } = await params;
   const post = await getPost(postId.toString());
 
   // if not found

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { siteConfig } from "@/config/site";
+import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 
 export interface FetchOptions extends RequestInit {
   timeout?: number;
@@ -37,7 +38,7 @@ export async function fetchClient<T = any>(
   if (typeof window !== "undefined") {
     userAgent = window.navigator.userAgent;
   } else {
-    userAgent = `${siteConfig.siteName} NextJS/15 (+${process.env.NEXT_PUBLIC_SITE_URL})`;
+    userAgent = `${siteConfig.siteName} NextJS/15 (+${NEXT_PUBLIC_SITE_URL})`;
   }
 
   // convert endpoint to URL
@@ -49,8 +50,7 @@ export async function fetchClient<T = any>(
     if (typeof window !== "undefined") {
       url = endpoint;
     } else {
-      const baseUrl =
-        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+      const baseUrl = NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
       url = `${baseUrl}${endpoint}`;
     }
@@ -100,7 +100,6 @@ export async function fetchClient<T = any>(
         try {
           data = schema.parse(data);
         } catch (validationError) {
-          // eslint-disable-next-line no-console
           console.error("API response validation error: ", validationError);
 
           throw new FetchError("API response validation error", {

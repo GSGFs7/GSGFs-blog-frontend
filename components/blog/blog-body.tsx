@@ -11,7 +11,7 @@ export default function BlogBody({
   html,
 }: {
   html: string;
-  action?: () => {};
+  action?: () => void;
   markdown?: string;
 }) {
   useBlog(html);

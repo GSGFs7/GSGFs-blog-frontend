@@ -10,7 +10,6 @@ export async function vndbTest() {
 
     return data;
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error("Test VNDB failed: ", e);
   }
 }

@@ -22,7 +22,6 @@ export async function apiGetBackendStatus(): Promise<MessageResponse | null> {
 
     return res;
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(`getBackendStatus error: ${e}`);
 
     const mailBody = `
@@ -119,7 +118,6 @@ export async function apiGetBackendStatus(): Promise<MessageResponse | null> {
             await cacheSet("mail_status", 1);
           }
         } catch (mailError) {
-          // eslint-disable-next-line no-console
           console.error("Failed to send alert email:", mailError);
         }
       },

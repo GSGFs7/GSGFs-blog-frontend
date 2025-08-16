@@ -31,7 +31,7 @@ function Modal({
   const open = setOpenModal;
   const close = compulsion
     ? () => {
-        compulsionAction ? compulsionAction() : null;
+        if (compulsionAction) compulsionAction();
       }
     : () => setOpenModal("");
 

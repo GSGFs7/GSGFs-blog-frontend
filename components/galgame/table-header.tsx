@@ -16,9 +16,11 @@ export function GalTableHeader({
     if (sortField !== value) {
       setSortField(value);
     } else {
-      sortDirection === "asc"
-        ? setSortDirection("desc")
-        : setSortDirection("asc");
+      if (sortDirection === "asc") {
+        setSortDirection("desc");
+      } else {
+        setSortDirection("asc");
+      }
     }
   }
 

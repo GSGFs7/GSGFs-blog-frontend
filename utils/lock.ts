@@ -23,7 +23,6 @@ export async function withLock<T>(
       return null;
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error("Get lock state error: ", e);
 
     return null;

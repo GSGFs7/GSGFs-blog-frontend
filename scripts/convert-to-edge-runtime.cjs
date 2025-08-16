@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Convert runtime to edge runtime to delay the project to cloudflare page
 
 const fs = require("fs");

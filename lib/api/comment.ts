@@ -10,7 +10,6 @@ export async function getAllCommentIdFromPostId(
 
     return data.ids;
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(`getAllCommentIdFromPostId: ${e}`);
 
     return null;
@@ -25,7 +24,6 @@ export async function getCommentFromId(
 
     return data;
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(`getCommentFromId: ${e}`);
 
     return null;

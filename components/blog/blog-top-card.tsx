@@ -45,7 +45,7 @@ export default function BlogTopCard() {
 
     // prefetch, maybe unnecessary?
     router.prefetch(`/blog/${randomPostId}`);
-  }, [isLoading, pathname, ids]); // reset it when pathname changed
+  }, [isLoading, pathname, ids, router]); // reset it when pathname changed
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     setMousePosition(getMousePosition(e));
@@ -61,7 +61,6 @@ export default function BlogTopCard() {
     if (error || ids === undefined || ids === null) {
       toast.error("文章列表加载失败");
 
-      // eslint-disable-next-line no-console
       console.error(error);
 
       return;

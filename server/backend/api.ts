@@ -11,10 +11,8 @@ export async function apiTest() {
       },
     });
 
-    // eslint-disable-next-line no-console
     console.log(await res.json());
   } catch {
-    // eslint-disable-next-line no-console
     console.error("Encrypted connection establishment failed");
   }
 }
