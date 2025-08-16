@@ -270,7 +270,6 @@ import pluginQuery from "@tanstack/eslint-plugin-query";
 import importPlugin from "eslint-plugin-import";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import unusedImports from "eslint-plugin-unused-imports";
-import { globalIgnores } from "eslint/config";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -287,13 +286,23 @@ const eslintConfig = [
   }),
   ...pluginQuery.configs["flat/recommended"],
   eslintPluginPrettierRecommended,
-  globalIgnores([".next", ".open-next", "node_modules", "public"]),
+  {
+    ignores: [
+      ".next/",
+      ".open-next/",
+      "node_modules/",
+      "public/",
+      "*.config.js",
+      "*.config.cjs",
+      "*.config.mjs",
+      "*.config.ts",
+    ],
+  },
   {
     plugins: {
       "unused-imports": unusedImports,
       import: importPlugin,
     },
-    ignores: ["*.config.js", "*.config.mjs", "*.config.ts"],
     rules: {
       "@typescript-eslint/no-unused-vars": "off",
       "unused-imports/no-unused-imports": "warn",

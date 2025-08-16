@@ -7,7 +7,6 @@ const JWT_REFRESH_SECRET = new TextEncoder().encode(
   process.env.JWT_REFRESH_SECRET!,
 );
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(_request: NextRequest) {
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get("refresh_token")?.value;
