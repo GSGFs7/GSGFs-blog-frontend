@@ -25,7 +25,6 @@ export async function testCache(): Promise<string | null> {
 
     return await cacheGet<string>("114514");
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e);
 
     return `${e}`;

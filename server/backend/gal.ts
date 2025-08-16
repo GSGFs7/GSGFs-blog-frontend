@@ -16,7 +16,6 @@ export async function apiUpdateGal(gal: GalData): Promise<() => void> {
         },
       });
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error(`update gal error: ${e}`);
       throw e;
     }
@@ -25,7 +24,7 @@ export async function apiUpdateGal(gal: GalData): Promise<() => void> {
   // Add default error handling to prevent uncaught Promise rejections
   updatePromise.catch((e) => {
     // This error handling only occurs if the caller does not use await or .catch()
-    // eslint-disable-next-line no-console
+
     console.error(`Unhandled gal update error for ID ${gal.id}:`, e);
   });
 

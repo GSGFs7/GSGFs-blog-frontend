@@ -4,7 +4,7 @@ import { SigninButton } from "@/components/auth";
 import githubIcon from "@/public/github.svg";
 import osuIcon from "@/public/osu.svg";
 
-export default async function Page({}: {}) {
+export default async function Page() {
   return (
     <div className="">
       {/* useSearchParams() 需要包裹在 Suspense 中 */}

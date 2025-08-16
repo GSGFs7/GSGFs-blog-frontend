@@ -4,7 +4,6 @@
 // A rehype-katex package will take up 500+KB of storage space!
 // As for the server side? Never mind.
 
-import { common } from "lowlight";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
 import rehypeHighlightCodeLines from "rehype-highlight-code-lines";
@@ -49,7 +48,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
       properties: { className: ["anchor-link"] },
     }) // 添加锚点链接
     .use(rehypeKatex, { strict: false }) // 数学公式渲染为 HTML
-    .use(rehypeHighlight, { languages: { ...common } }) // 代码语法高亮
+    .use(rehypeHighlight) // 代码语法高亮
     .use(rehypeHighlightCodeLines, { showLineNumbers: true }) // 代码段添加行号
     .use(rehypeStringify) // 将 HTML AST 转换为HTML
     .process(markdown);

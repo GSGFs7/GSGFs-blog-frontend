@@ -48,7 +48,7 @@ export default function CommentInput({
     }
 
     setUserAgent(window.navigator.userAgent);
-  }, []);
+  }, [postId]);
 
   async function handleSubmit(formData: FormData) {
     if (disabled) return;

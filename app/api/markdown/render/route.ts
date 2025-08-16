@@ -68,13 +68,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       return NextResponse.json({ frontmatter, html });
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error(error);
 
       return createErrorResponse(500, "Rendering failed");
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error("An error occurred while processing the request: ", error);
 
     return createErrorResponse(

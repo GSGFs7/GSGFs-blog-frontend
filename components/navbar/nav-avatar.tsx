@@ -9,12 +9,12 @@ export default function NavAvatar({
 }: {
   img: string | null | undefined;
   isAdmin: boolean;
-  signOutAction: () => {};
+  signOutAction: () => void;
 }) {
   // TODO
   // 控制悬浮菜单
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isOpen, setIsOpen] = useState(false);
+
+  const [_isOpen, setIsOpen] = useState(false);
   let timeoutId: NodeJS.Timeout;
 
   const handleMouseEnter = () => {

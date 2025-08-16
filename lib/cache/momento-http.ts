@@ -115,7 +115,6 @@ export function getCacheClient(): CacheClient {
 
     return momentoClient;
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error("Initialization momento failed:", e);
     throw createCacheError("get", undefined, e);
   }
@@ -133,7 +132,6 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
     try {
       return JSON.parse(response) as T;
     } catch (parseError) {
-      // eslint-disable-next-line no-console
       console.error(
         `Failed to parse cached value for key '${key}': `,
         parseError,
@@ -141,7 +139,6 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
       throw createCacheError("get", key, parseError);
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(`get '${key}' from momento cache failed`, e);
     throw createCacheError("get", key, e);
   }
@@ -159,7 +156,6 @@ export async function cacheSet<T>(
 
     return true;
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(`set '${key}' cache failed: `, e);
     throw createCacheError("set", key, e);
   }
@@ -173,7 +169,6 @@ export async function cacheDelete(key: string): Promise<boolean> {
 
     return true;
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(`delete '${key}' from momento cache failed:`, e);
     throw createCacheError("delete", key, e);
   }

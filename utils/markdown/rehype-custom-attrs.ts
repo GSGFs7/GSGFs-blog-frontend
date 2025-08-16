@@ -1,4 +1,4 @@
-import { Element } from "mdx/types";
+import { Element } from "hast";
 import { visit } from "unist-util-visit";
 
 export function rehypeCustomAttrs() {

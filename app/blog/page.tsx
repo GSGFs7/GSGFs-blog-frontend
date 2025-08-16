@@ -10,7 +10,7 @@ export default async function BlogPage({
 }: {
   searchParams: Promise<{ page: string; size: string }>;
 }) {
-  let param = await searchParams;
+  const param = await searchParams;
 
   return (
     <div className="flex flex-col items-center justify-center">

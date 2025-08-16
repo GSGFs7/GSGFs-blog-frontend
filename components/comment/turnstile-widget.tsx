@@ -3,7 +3,7 @@
 import Script from "next/script";
 import { useEffect } from "react";
 
-import { TURNSTILE_SITE_KEY } from "@/env/public";
+import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
 
 export default function TurnstileWidget({
   setTokenAction,
@@ -32,7 +32,7 @@ export default function TurnstileWidget({
       <div
         className="cf-turnstile"
         data-callback="javascriptCallback"
-        data-sitekey={TURNSTILE_SITE_KEY}
+        data-sitekey={NEXT_PUBLIC_TURNSTILE_SITE_KEY}
         data-theme="dark"
       />
     </>

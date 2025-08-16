@@ -15,8 +15,7 @@ export default async function ClientBlogWrapper({
   html?: string;
 }) {
   if (!html) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data: frontmatter, content: markdownContent } = matter(markdown); // this function use DOMParser
+    const { data: _frontmatter, content: markdownContent } = matter(markdown); // this function use DOMParser
 
     html = await markdownToHtml(markdownContent);
   }

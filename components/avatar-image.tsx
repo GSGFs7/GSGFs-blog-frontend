@@ -22,6 +22,7 @@ export default function AvatarImage({
 
   // case cloudflare image forbidden hotlink
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       alt={alt}
       className={clsx("rounded-full", className)}

@@ -36,7 +36,6 @@ export async function generateAuthToken(): Promise<string> {
   const message = (await randomBytes(8)).toString("hex");
 
   if (!process.env.SERVER_SECRET_KEY) {
-    // eslint-disable-next-line no-console
     console.error("SERVER_SECRET_KEY not found");
 
     return "";

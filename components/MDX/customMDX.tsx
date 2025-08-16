@@ -1,4 +1,3 @@
-import { common } from "lowlight";
 import { Element } from "mdx/types";
 import { MDXRemote, MDXRemoteOptions } from "next-mdx-remote-client/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -62,7 +61,7 @@ export function CustomMDX({ source }: { source: string }) {
         rehypeSlug,
         rehypeAutolinkHeadings,
         [rehypeKatex, { strict: false }],
-        [rehypeHighlight, { languages: { ...common } }],
+        [rehypeHighlight],
         [rehypeHighlightCodeLines, { showLineNumbers: true }],
       ],
       format: "mdx",

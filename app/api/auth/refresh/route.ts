@@ -60,7 +60,6 @@ export async function GET(_request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error("Token refresh error:", e);
 
     // clean invalid tokens
