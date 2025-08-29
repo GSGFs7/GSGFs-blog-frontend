@@ -1,7 +1,7 @@
 # 多阶段构建(Multi-stage builds)
 
 # 构建阶段
-FROM node:23-alpine AS builder
+FROM node:24-alpine AS builder
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
@@ -27,7 +27,7 @@ ENV NODE_OPTIONS="--max_old_space_size=4096"
 RUN pnpm build
 
 # 运行阶段 只包含运行所需文件和构建产物
-FROM node:23-alpine AS runner
+FROM node:24-alpine AS runner
 WORKDIR /app
 
 # 普通用户

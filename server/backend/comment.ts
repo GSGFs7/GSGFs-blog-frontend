@@ -52,14 +52,11 @@ export async function apiAddComment(
   });
 
   try {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/comment/new`, {
-      method: "POST",
+    const data = await fc.post<IDNumber>(`comment/new`, body, {
       headers: {
         Authorization: `Bearer ${await generateAuthToken()}`,
       },
-      body,
     });
-    const data = (await res.json()) as IDNumber;
 
     return data.id;
   } catch {
