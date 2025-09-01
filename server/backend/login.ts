@@ -21,15 +21,11 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
       avatar_url: session.avatar_url!,
     };
 
-    const res = await fc.post(
-      `${process.env.BACKEND_URL}/api/guest/login`,
-      JSON.stringify(loginDate),
-      {
-        headers: {
-          Authorization: `Bearer ${await generateAuthToken()}`,
-        },
+    const res = await fc.post(`guest/login`, loginDate, {
+      headers: {
+        Authorization: `Bearer ${await generateAuthToken()}`,
       },
-    );
+    });
 
     // console.log(await res.json());
     if (!res.ok) {

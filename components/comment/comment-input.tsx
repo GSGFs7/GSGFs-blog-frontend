@@ -7,7 +7,9 @@ import toast from "react-hot-toast";
 
 import TurnstileWidget from "./turnstile-widget";
 
+import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
 import { apiAddComment } from "@/server/backend";
+import { useTurnstile } from "react-turnstile";
 
 export default function CommentInput({
   disabled = false,
@@ -17,6 +19,7 @@ export default function CommentInput({
   postId: number;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
+  const turnstile = useTurnstile();
   const router = useRouter();
   const [userAgent, setUserAgent] = useState<string>("");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
@@ -51,6 +54,8 @@ export default function CommentInput({
   }, [postId]);
 
   async function handleSubmit(formData: FormData) {
+    turnstile.reset();
+
     if (disabled) return;
 
     if (!turnstileToken) {
@@ -117,7 +122,9 @@ export default function CommentInput({
         onChange={(e) => saveDraft(e.target.value)}
       />
 
-      <TurnstileWidget setTokenAction={setTurnstileToken} />
+      {NEXT_PUBLIC_TURNSTILE_SITE_KEY && (
+        <TurnstileWidget setTokenAction={setTurnstileToken} />
+      )}
     </form>
   );
 }

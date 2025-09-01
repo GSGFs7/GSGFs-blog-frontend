@@ -1,9 +1,0 @@
-{
-  "servers": {
-    "ESLint": {
-      "type": "stdio",
-      "command": "pnpx",
-      "args": ["@eslint/mcp@latest"]
-    }
-  }
-}

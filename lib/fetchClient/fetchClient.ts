@@ -139,8 +139,8 @@ export async function fetchClient<T = any>(
  *
  * endpoint:
  * - if it starts with http or https, it will be used as is
- * - if it starts with /, it will use the frontend URL. such as: /api/test -> http://you-frontend.com/api/test
- * - if it starts not with /, it will use the backend URL. such as: test -> http://you-backend.com/api/test
+ * - if it starts with /, it will use the frontend URL. such as: /api/test -> http://your-frontend.com/api/test
+ * - if it starts not with /, it will use the backend URL. such as: test -> http://your-backend.com/api/test
  *
  * If use abort signal, put the signal in the options
  * such as:
@@ -155,7 +155,7 @@ export async function fetchClient<T = any>(
  * try {
  *  await res;
  * } catch (error) {
- * console.log(error);
+ *  console.log(error);
  * }
  * ```
  */
@@ -167,14 +167,22 @@ export const fc = {
     fetchClient<T>(endpoint, {
       ...options,
       method: "POST",
-      body: data ? JSON.stringify(data) : undefined,
+      body: data
+        ? typeof data === "string"
+          ? data
+          : JSON.stringify(data)
+        : undefined,
     }),
 
   put: <T = any>(endpoint: string, data?: any, options?: FetchOptions) =>
     fetchClient<T>(endpoint, {
       ...options,
       method: "PUT",
-      body: data ? JSON.stringify(data) : undefined,
+      body: data
+        ? typeof data === "string"
+          ? data
+          : JSON.stringify(data)
+        : undefined,
     }),
 
   delete: <T = any>(endpoint: string, options?: FetchOptions) =>
