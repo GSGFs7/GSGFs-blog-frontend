@@ -5,7 +5,6 @@ import "lxgw-wenkai-screen-web";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
-import { Suspense } from "react";
 
 import { Providers } from "./providers";
 
@@ -89,16 +88,13 @@ export default async function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative z-10 flex h-screen w-screen flex-col items-center">
-            <header
-              className="fixed z-40 flex w-full justify-center"
-              role="banner"
-            >
-              <Suspense>
-                <Navbar />
-              </Suspense>
-            </header>
-
+          <header
+            className="fixed z-40 flex w-full justify-center"
+            role="banner"
+          >
+            <Navbar />
+          </header>
+          <div className="relative flex h-screen w-screen flex-col items-center">
             <main className="dark container mx-auto max-w-7xl grow px-6 pt-24">
               {children}
             </main>

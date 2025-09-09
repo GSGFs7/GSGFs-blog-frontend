@@ -1,14 +1,9 @@
-import dynamic from "next/dynamic";
-
 import "@/styles/gal-table.css";
 import "github-markdown-css/github-markdown-dark.css";
 import "@/styles/blog.css";
 
 import { getAllGal } from "@/lib/api";
-
-const GalTable = dynamic(() => import("./table-wrap"), {
-  ssr: true,
-});
+import GalTable from "./table-wrap";
 
 export default async function GalList() {
   const data = (await getAllGal())?.data;
