@@ -22,7 +22,7 @@ export default function First({ gpg }: { gpg: string }) {
   }
 
   return (
-    <div className="flex h-full w-full max-w-5xl flex-col sm:translate-y-[10%] md:flex-row">
+    <div className="flex h-full w-full max-w-5xl flex-col md:translate-y-[20%] md:flex-row lg:translate-y-[30%]">
       <div className="flex-[8]">
         <div className="flex max-w-xl flex-col justify-center gap-y-6 text-left text-[#dadada] sm:pt-20">
           <h1 className="text-7xl drop-shadow-lg sm:text-8xl">Hi!</h1>
@@ -40,7 +40,7 @@ export default function First({ gpg }: { gpg: string }) {
             {siteConfig.links.map(({ label, url }) => (
               <a
                 key={label}
-                aria-label={`访问我的 ${label} 主页`}
+                aria-label={`访问 ${label} 主页`}
                 className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
                 href={url}
                 rel="noopener noreferrer"
@@ -59,9 +59,9 @@ export default function First({ gpg }: { gpg: string }) {
               <Modal>
                 <Modal.Open opens="gpg-key">
                   <button
-                    aria-label="查看我的 GPG 公钥"
+                    aria-label="查看 GPG 公钥"
                     className="flex cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
-                    title="查看我的 GPG 公钥"
+                    title="查看 GPG 公钥"
                   >
                     <BsFingerprint />
                   </button>
@@ -87,9 +87,9 @@ export default function First({ gpg }: { gpg: string }) {
 
             <div className="md:hidden">
               <button
-                aria-label="复制我的 GPG 公钥"
+                aria-label="复制 GPG 公钥"
                 className="flex cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
-                title="复制我的 GPG 公钥"
+                title="复制 GPG 公钥"
                 onClick={handleCopyGPG}
               >
                 <BsFingerprint />

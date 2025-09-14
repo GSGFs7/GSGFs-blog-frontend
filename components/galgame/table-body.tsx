@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 
 import { useGalTable } from "./table";
 
@@ -15,6 +15,11 @@ export function GalTableBody() {
   const [processedHtml, setProcessedHtml] = useState<Record<number, string>>(
     {},
   );
+
+  const tableBodyRef = useRef<HTMLTableSectionElement>(null);
+  // TODO
+  // fix: image zoom not work
+  // useGal(tableBodyRef, [processedHtml]);
 
   useEffect(() => {
     if (!data) return;
@@ -101,7 +106,7 @@ export function GalTableBody() {
   }
 
   return (
-    <tbody>
+    <tbody ref={tableBodyRef}>
       {data.map((row) => {
         const isLoading = !!loadingRows[row.id];
         const isExpanded = !!expandedRows[row.id];

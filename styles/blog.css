@@ -300,4 +300,13 @@
     background: inherit !important;
     background-color: inherit !important;
   }
+
+  /* image zoom */
+  .medium-zoom-overlay {
+    z-index: 51;
+  }
+
+  .medium-zoom-image--opened {
+    z-index: 52;
+  }
 }
