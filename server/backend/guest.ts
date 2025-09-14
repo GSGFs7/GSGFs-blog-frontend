@@ -18,7 +18,7 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
       name: session.name!,
       provider: session.provider!,
       provider_id: session.id!,
-      avatar_url: session.avatar_url!,
+      avatar: session.avatar_url!,
     };
 
     const res = await fc.post(`guest/login`, loginDate, {

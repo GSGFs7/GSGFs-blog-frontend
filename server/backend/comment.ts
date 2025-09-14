@@ -1,7 +1,7 @@
 "use server";
 
 import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
-import { apiGuestLogin } from "./login";
+import { apiGuestLogin } from "./guest";
 
 import { getGuest } from "@/lib/api";
 import { fc } from "@/lib/fetchClient";
