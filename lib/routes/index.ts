@@ -26,12 +26,41 @@ function createBlogRoutes(): BlogRoutes {
 // Get routes string
 export const routes = {
   home: () => createUrl("/"),
-  blog: createBlogRoutes(),
   about: () => createUrl("about"),
-  entertainment: () => createUrl("entertainment"),
+  admin: () => createUrl("admin"),
   anime: () => createUrl("anime"),
+  blog: createBlogRoutes(),
   books: () => createUrl("books"),
+  entertainment: () => createUrl("entertainment"),
   galgame: () => createUrl("galgame"),
+  login: () => createUrl("login"),
+  pages: () => createUrl("pages"),
   privacy: () => createUrl("privacy"),
+  robots: () => createUrl("robots"),
+  sitemap: () => createUrl("sitemap"),
   strange: () => createUrl("strange"),
+  user: () => createUrl("user"),
 };
+
+export function getAllStaticRoutes(routeObject: object = routes): string[] {
+  const staticRoutes: string[] = [];
+
+  for (const key in routeObject) {
+    if (Object.prototype.hasOwnProperty.call(routeObject, key)) {
+      const value = routeObject[key as keyof typeof routeObject];
+      if (typeof value === "function") {
+        staticRoutes.push((value as () => string)());
+
+        const subRoutes = Object.keys(value);
+        for (const subKey of subRoutes) {
+          const subValue = value[subKey];
+          if (typeof subValue === "function") {
+            staticRoutes.push(...getAllStaticRoutes(value));
+          }
+        }
+      }
+    }
+  }
+
+  return [...new Set(staticRoutes)];
+}
