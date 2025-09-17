@@ -18,7 +18,7 @@ export default function BlogListCard({
   id,
   tags,
   title,
-  updated_at,
+  content_update_at,
 }: PostsCard) {
   const default_cover = "/default-cover.jpg";
 
@@ -67,7 +67,7 @@ export default function BlogListCard({
           <p className="flex items-center px-1">
             <MdDateRange />
             <span>更新于: </span>
-            <span>{formatDate(updated_at).split(" ").at(0)}</span>
+            <span>{formatDate(content_update_at).split(" ").at(0)}</span>
           </p>
           <p className="flex items-center px-1">
             <IoFileTrayFullSharp />

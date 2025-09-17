@@ -1,12 +1,12 @@
 import { fc } from "../fetchClient";
 
-import { commentType } from "@/types";
+import { commentType, IDsNumber } from "@/types";
 
 export async function getAllCommentIdFromPostId(
   postId: number,
 ): Promise<number[] | null> {
   try {
-    const data = await fc.get<{ ids: number[] }>(`comment/post/${postId}`);
+    const data = await fc.get<IDsNumber>(`comment/post/${postId}`);
 
     return data.ids;
   } catch (e) {

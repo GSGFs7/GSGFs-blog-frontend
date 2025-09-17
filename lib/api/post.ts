@@ -3,11 +3,19 @@
 import { fc } from "../fetchClient";
 
 import { getSession } from "@/lib/auth";
-import { guestLogin, Post, PostSitemapItem, PostWithPagination } from "@/types";
+import {
+  guestLogin,
+  Post,
+  PostCardWithSimilarityResponse,
+  PostSitemapItem,
+  PostWithPagination,
+} from "@/types";
 
-export async function getPost(postId: string): Promise<Post | null> {
+export async function getPost(
+  postIdOrSlug: number | string,
+): Promise<Post | null> {
   try {
-    const res = await fc.get<Post>(`post/${postId}`);
+    const res = await fc.get<Post>(`post/${postIdOrSlug}`);
 
     return res;
   } catch (e) {
@@ -68,6 +76,22 @@ export async function getPostSitemap(): Promise<PostSitemapItem[] | null> {
     return res;
   } catch (e) {
     console.error(`getAllPosts error: ${e}`);
+
+    return null;
+  }
+}
+
+export async function getPostBySearch(
+  searchString: string,
+): Promise<PostCardWithSimilarityResponse | null> {
+  try {
+    const res = await fc.get<PostCardWithSimilarityResponse>("post/search", {
+      params: { q: searchString },
+    });
+
+    return res;
+  } catch (e) {
+    console.error(e);
 
     return null;
   }
