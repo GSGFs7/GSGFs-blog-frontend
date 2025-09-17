@@ -16,6 +16,7 @@ export interface PostsCard {
   title: string;
   created_at: string;
   updated_at: string;
+  content_update_at: string;
 }
 
 export interface Post {
@@ -38,6 +39,7 @@ export interface Post {
   title: string;
   updated_at: string;
   view_count: number;
+  content_update_at: string;
 }
 
 export interface Render {
@@ -63,12 +65,6 @@ export interface PostIdsResponse {
   ids: number[];
 }
 
-export interface PaginationResponse {
-  total: number;
-  page: number;
-  size: number;
-}
-
 export interface PostWithPagination {
   posts: PostsCard[];
   pagination: PaginationType;
@@ -83,4 +79,14 @@ export interface CategoryResponse {
 export interface PostSitemapItem {
   id: number;
   updated_at: string;
+}
+
+export interface PostCardWithSimilarity {
+  post: PostsCard;
+  similarity: number;
+}
+
+export interface PostCardWithSimilarityResponse {
+  posts_with_similarity: PostCardWithSimilarity[];
+  pagination: PaginationType;
 }

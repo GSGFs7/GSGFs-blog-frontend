@@ -6,6 +6,7 @@ import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 export interface FetchOptions extends RequestInit {
   timeout?: number;
   signal?: AbortSignal;
+  params?: Record<string, string | number | undefined | null>;
   // TODO: data verification
   // zod is too large (208k), do not use schema validation in client side
   schema?: z.ZodType<any>;
@@ -30,7 +31,7 @@ export async function fetchClient<T = any>(
   endpoint: string,
   options: FetchOptions = {},
 ): Promise<T> {
-  const { timeout = 5000, schema, ...fetchOptions } = options;
+  const { timeout = 5000, schema, params, ...fetchOptions } = options;
   let userAgent: string;
   let url: string;
 
@@ -58,6 +59,23 @@ export async function fetchClient<T = any>(
     // backend URL
     url = `${process.env.BACKEND_URL}/api/${endpoint}`;
   }
+
+  // Process URL query parameters
+  if (params) {
+    const searchParams = new URLSearchParams();
+    for (const [key, value] of Object.entries(params)) {
+      if (value !== null && value !== undefined) {
+        searchParams.append(key, String(value));
+      }
+    }
+
+    const queryParamsString = searchParams.toString();
+    if (queryParamsString) {
+      url += (url.includes("?") ? "&" : "?") + queryParamsString;
+    }
+  }
+
+  console.log(url);
 
   const headers = {
     Accept: "application/json",
