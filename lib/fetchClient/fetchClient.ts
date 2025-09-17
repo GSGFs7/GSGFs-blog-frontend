@@ -75,8 +75,6 @@ export async function fetchClient<T = any>(
     }
   }
 
-  console.log(url);
-
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
