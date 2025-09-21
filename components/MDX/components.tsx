@@ -1,6 +1,6 @@
-import { MDXComponents } from "next-mdx-remote-client";
-import NextLink from "next/link";
 import NextImage from "next/image";
+import NextLink from "next/link";
+import { MDXComponents } from "next-mdx-remote-client";
 
 const Link = (props: any) => {
   const { href, children, ...rest } = props;

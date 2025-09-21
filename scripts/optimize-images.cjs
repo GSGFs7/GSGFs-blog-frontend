@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-const sharp = require("sharp");
-const path = require("path");
 const fs = require("fs");
+const path = require("path");
+
+const sharp = require("sharp");
 
 const inputPath = path.join(__dirname, "../public/1.jpg");
 const outputPath = path.join(__dirname, "../public/1.webp");

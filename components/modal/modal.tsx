@@ -2,8 +2,8 @@
 
 import { createContext, ReactNode, useState } from "react";
 
-import { Window } from "./window";
 import { Open } from "./open";
+import { Window } from "./window";
 
 interface ModalContextType {
   openModal: string;

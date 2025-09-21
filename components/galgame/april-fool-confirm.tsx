@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useAnimationControls } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-import Modal from "../modal";
+import Modal from "@/components/modal";
 
 export default function AprilFoolConfirm() {
   const controls = useAnimationControls();

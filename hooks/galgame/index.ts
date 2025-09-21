@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 
-import { useImageZoom } from "../useImageZoom";
+import { useImageZoom } from "@/hooks/useImageZoom";
 
 export function useGal(
   ref: RefObject<HTMLElement | null>,

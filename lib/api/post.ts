@@ -1,7 +1,5 @@
 "use server";
 
-import { fc } from "../fetchClient";
-
 import { getSession } from "@/lib/auth";
 import {
   guestLogin,
@@ -10,6 +8,8 @@ import {
   PostSitemapItem,
   PostWithPagination,
 } from "@/types";
+
+import { fc } from "../fetchClient";
 
 export async function getPost(
   postIdOrSlug: number | string,

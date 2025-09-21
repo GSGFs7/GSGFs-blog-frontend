@@ -1,10 +1,10 @@
+import { getSession } from "@/lib/auth";
+
 import CommentAvatar from "./avatar";
 import CommentAvatarLink from "./avatar-link";
 import Button from "./button";
 import CommentInput from "./comment-input";
 import CommentList from "./comment-list";
-
-import { getSession } from "@/lib/auth";
 
 export default async function Comment({ postId }: { postId: number }) {
   const session = await getSession();

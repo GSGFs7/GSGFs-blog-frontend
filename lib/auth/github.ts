@@ -1,10 +1,9 @@
 "use server";
 
-import { fc } from "../fetchClient";
+import { fc } from "@/lib/fetchClient";
+import { githubResponse, tokenResponse } from "@/types";
 
 import { createJWT } from "./jwt";
-
-import { githubResponse, tokenResponse } from "@/types";
 
 export async function githubOAuth(
   code: string,

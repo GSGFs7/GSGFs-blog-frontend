@@ -1,6 +1,7 @@
+import { getCommentFromId } from "@/lib/api";
+
 import CommentAvatar from "./avatar";
 
-import { getCommentFromId } from "@/lib/api";
 import "github-markdown-css/github-markdown-dark.css";
 
 export default async function CommentCard({ id }: { id: number }) {

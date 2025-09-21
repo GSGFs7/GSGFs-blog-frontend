@@ -5,12 +5,11 @@ import {
   CacheSetResponse,
 } from "@gomomento/sdk";
 
-import { CacheError } from "./error";
-
-import { CacheTTL } from "./index";
-
 import { MOMENTO_API_KEY } from "@/env/private";
 import { CacheInterface } from "@/types/cache";
+
+import { CacheError } from "./error";
+import { CacheTTL } from "./index";
 
 const CACHE_NAME = "blog"; // Name of the cache to use
 let momentoClient: CacheClient | null;

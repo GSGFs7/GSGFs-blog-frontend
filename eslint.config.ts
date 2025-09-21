@@ -87,8 +87,8 @@
 //   // main rules
 //   {
 //     files: ["**/*.{js,jsx,ts,tsx}"],
-//     ignores: ["app/api/**", "lib/api/**", "app/sw.ts"], // exclude API & Service Worker
-//     languageOptions: {
+//     ignores: ["app/api/**", "lib/api/**", "app/sw.ts"], // exclude API &
+//     Service Worker languageOptions: {
 //       parser: typescriptParser,
 //       parserOptions: {
 //         ecmaVersion: 12,
@@ -287,7 +287,13 @@ const eslintConfig = [
   }),
   ...pluginQuery.configs["flat/recommended"],
   eslintPluginPrettierRecommended,
-  globalIgnores([".next", ".open-next", "node_modules", "public"]),
+  globalIgnores([
+    ".next",
+    ".open-next",
+    "node_modules",
+    "public",
+    "next-env.d.ts",
+  ]),
   {
     plugins: {
       "unused-imports": unusedImports,
@@ -311,6 +317,32 @@ const eslintConfig = [
       "prefer-const": "warn",
       "prettier/prettier": ["warn", {}, { usePrettierrc: true }],
       "import/no-empty-named-blocks": "warn",
+      "import/order": [
+        "warn",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            ["sibling", "index"],
+            "object",
+            "unknown",
+          ],
+          pathGroups: [
+            {
+              pattern: "@/**",
+              group: "internal",
+            },
+          ],
+          pathGroupsExcludedImportTypes: ["react"],
+          "newlines-between": "always",
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
     },
   },
 ];

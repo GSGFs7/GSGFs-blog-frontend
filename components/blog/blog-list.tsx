@@ -1,7 +1,7 @@
-import BlogListCard from "./blog-list-card";
-
 import Pagination from "@/components/pagination";
 import { getPostList } from "@/lib/api";
+
+import BlogListCard from "./blog-list-card";
 
 export default async function BlogList({
   searchParamsPage,

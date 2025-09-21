@@ -1,6 +1,7 @@
 import { RefObject } from "react";
 
-import { useImageZoom } from "../useImageZoom";
+import { useImageZoom } from "@/hooks/useImageZoom";
+
 import { useBlogAddCopyButton } from "./useBlogAddCopyButton";
 import { useBlogShowCodeLanguage } from "./useBlogShowCodeLanguage";
 

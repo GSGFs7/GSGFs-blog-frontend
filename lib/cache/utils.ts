@@ -1,6 +1,6 @@
-import { cacheDelete, cacheGet, cacheSet } from ".";
-
 import { CacheResult } from "@/types/cache";
+
+import { cacheDelete, cacheGet, cacheSet } from ".";
 
 export async function safeCacheGet<T>(
   key: string,

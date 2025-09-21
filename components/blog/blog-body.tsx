@@ -5,8 +5,9 @@ import "github-markdown-css/github-markdown-dark.css";
 import "highlight.js/styles/github-dark.css";
 import "katex/dist/katex.min.css";
 
-import { useBlog } from "@/hooks/blog";
 import { useRef } from "react";
+
+import { useBlog } from "@/hooks/blog";
 
 export default function BlogBody({
   html,

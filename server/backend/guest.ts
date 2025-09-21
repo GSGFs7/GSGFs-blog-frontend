@@ -1,10 +1,10 @@
 "use server";
 
-import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
-
 import { getSession } from "@/lib/auth";
 import { fc } from "@/lib/fetchClient";
 import { guestLogin, IDNumber } from "@/types";
+
+import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 
 export async function apiGuestLogin(): Promise<{ id: number } | null> {
   try {

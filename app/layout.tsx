@@ -6,12 +6,12 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 
-import { Providers } from "./providers";
-
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_GOOGLE_ANALYTICS_ID } from "@/env/public";
+
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: {

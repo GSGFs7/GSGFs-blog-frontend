@@ -1,6 +1,6 @@
-import { fc } from "../fetchClient";
-
 import { vndbVNQuery } from "@/types/vndb";
+
+import { fc } from "../fetchClient";
 
 export async function queryVN(id: string): Promise<vndbVNQuery | null> {
   try {

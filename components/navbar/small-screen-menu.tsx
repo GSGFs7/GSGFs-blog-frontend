@@ -2,9 +2,9 @@
 
 import { motion } from "motion/react";
 
-import SmallScreenLink from "./small-screen-link";
-
 import { siteConfig } from "@/config/site";
+
+import SmallScreenLink from "./small-screen-link";
 
 export default function SmallScreenMenu() {
   return (

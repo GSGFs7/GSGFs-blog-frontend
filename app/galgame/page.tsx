@@ -2,8 +2,8 @@ import clsx from "clsx";
 import { Suspense } from "react";
 
 import { GalList } from "@/components/galgame";
-import { title } from "@/utils/primitives";
 import Intro from "@/components/galgame/intro";
+import { title } from "@/utils/primitives";
 
 export default async function Page() {
   return (

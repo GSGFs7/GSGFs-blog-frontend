@@ -49,9 +49,9 @@
   "dependencies": {
     "@fontsource/maple-mono": "^5.2.5",
     "@gomomento/sdk": "^1.116.0",
-    "@milkdown/kit": "^7.15.5",
-    "@milkdown/react": "^7.15.5",
-    "@milkdown/theme-nord": "^7.15.5",
+    "@milkdown/kit": "^7.16.0",
+    "@milkdown/react": "^7.16.0",
+    "@milkdown/theme-nord": "^7.16.0",
     "@next/third-parties": "^15.5.3",
     "@react-email/components": "0.5.3",
     "@serwist/next": "^9.2.1",
@@ -68,7 +68,7 @@
     "lxgw-wenkai-screen-web": "^1.520.0",
     "material-icons": "^1.13.14",
     "medium-zoom": "^1.1.0",
-    "motion": "^12.23.13",
+    "motion": "^12.23.16",
     "next": "^15.5.3",
     "next-mdx-remote-client": "^2.1.5",
     "next-themes": "^0.4.6",
@@ -93,7 +93,7 @@
     "resend": "^6.1.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
-    "zod": "^4.1.9",
+    "zod": "^4.1.11",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
@@ -106,10 +106,10 @@
     "@tanstack/eslint-plugin-query": "^5.89.0",
     "@types/hast": "^3.0.4",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^24.5.1",
+    "@types/node": "^24.5.2",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "eslint-config-next": "^15.5.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
@@ -123,7 +123,7 @@
     "prettier-plugin-tailwindcss": "^0.6.14",
     "raw-loader": "^4.0.2",
     "serwist": "^9.2.1",
-    "sharp": "^0.34.3",
+    "sharp": "^0.34.4",
     "tailwind-merge": "^3.3.1",
     "tailwind-variants": "^2.1.0",
     "tailwindcss": "^4.1.13",
@@ -133,8 +133,8 @@
     "typescript-eslint": "^8.44.0"
   },
   "optionalDependencies": {
-    "@cloudflare/workers-types": "^4.20250917.0",
-    "@opennextjs/cloudflare": "^1.8.2",
-    "wrangler": "^4.37.1"
+    "@cloudflare/workers-types": "^4.20250921.0",
+    "@opennextjs/cloudflare": "^1.8.3",
+    "wrangler": "^4.38.0"
   }
 }

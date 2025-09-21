@@ -2,11 +2,11 @@
 
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
-import { GalTableBody } from "./table-body";
-import { GalTableHeader } from "./table-header";
-import { GalTableControl } from "./table-control";
-
 import { GalData } from "@/types/gal";
+
+import { GalTableBody } from "./table-body";
+import { GalTableControl } from "./table-control";
+import { GalTableHeader } from "./table-header";
 
 interface galTableContext {
   data: GalData[];
