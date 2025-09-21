@@ -98,6 +98,35 @@ const nextConfig: NextConfig = {
         source: "/sitemap",
         destination: "/sitemap.xml",
       },
+      {
+        source: "/blog/feed",
+        destination: "/blog/feed.atom",
+      },
+      {
+        source: "/blog/rss",
+        destination: "/blog/feed.atom",
+      },
+      {
+        source: "/blog/feed.xml",
+        destination: "/blog/feed.atom",
+      },
+      {
+        source: "/blog/rss.xml",
+        destination: "/blog/feed.atom",
+      },
+      {
+        source: "/blog/rss.atom",
+        destination: "/blog/feed.atom",
+      },
+      {
+        source: "/blog/feed.atom",
+        destination: "/blog/feed.atom",
+      },
+      {
+        source: "/img/:path*",
+        destination:
+          "/_next/image?url=https://img.gsgfs.moe/img/:path*&w=1920&q=90",
+      },
     ];
   },
 };
