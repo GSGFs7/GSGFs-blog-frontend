@@ -1,8 +1,7 @@
-import { CacheError } from "./error";
+import { CacheInterface } from "@/types/cache";
 
 import { CacheTTL } from ".";
-
-import { CacheInterface } from "@/types/cache";
+import { CacheError } from "./error";
 
 const CACHE_NAME = "blog"; // Name of the cache to use
 let momentoClient: CacheClient | null = null;

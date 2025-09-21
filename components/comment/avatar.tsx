@@ -1,8 +1,7 @@
 "use client";
 
-import AvatarImage from "../avatar-image";
-
 import { useAuth } from "@/app/providers";
+import AvatarImage from "@/components/avatar-image";
 
 export default function CommentAvatar({
   col = false,

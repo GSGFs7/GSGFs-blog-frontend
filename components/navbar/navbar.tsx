@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { HiOutlineHome } from "react-icons/hi";
 
-import SmallScreenButton from "./small-screen-button";
+import { siteConfig } from "@/config/site";
+import { getSession } from "@/lib/auth";
+
 import NavAvatar from "./avatar";
 import { NavItems } from "./nav-items";
-
-import { getSession } from "@/lib/auth";
-import { siteConfig } from "@/config/site";
+import SmallScreenButton from "./small-screen-button";
 
 export async function Navbar() {
   const session = await getSession();

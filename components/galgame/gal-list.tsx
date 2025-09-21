@@ -3,6 +3,7 @@ import "github-markdown-css/github-markdown-dark.css";
 import "@/styles/blog.css";
 
 import { getAllGal } from "@/lib/api";
+
 import GalTable from "./table-wrap";
 
 export default async function GalList() {

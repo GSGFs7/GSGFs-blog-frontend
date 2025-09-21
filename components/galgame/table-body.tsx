@@ -4,9 +4,9 @@ import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 
-import { useGalTable } from "./table";
-
 import { markdownToHtml } from "@/utils";
+
+import { useGalTable } from "./table";
 
 export function GalTableBody() {
   const { data } = useGalTable();

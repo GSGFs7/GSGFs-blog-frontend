@@ -1,7 +1,5 @@
 "use server";
 
-import { fc } from "../fetchClient";
-
 import { getSession } from "@/lib/auth";
 import {
   guestLogin,
@@ -10,6 +8,8 @@ import {
   PostSitemapItem,
   PostWithPagination,
 } from "@/types";
+
+import { fc } from "../fetchClient";
 
 export async function getPost(
   postIdOrSlug: number | string,
@@ -65,6 +65,26 @@ export async function getAllPostIds(): Promise<number[] | null> {
   } catch (e) {
     console.error(`getAllPosts error: ${e}`);
 
+    return null;
+  }
+}
+
+// TODO: refactor this
+export async function getAllPostForFeed(): Promise<Post[] | null> {
+  try {
+    const ids = await getAllPostIds();
+    if (ids === null) {
+      return null;
+    }
+
+    const results = await Promise.allSettled(ids.map((id) => getPost(id)));
+    const posts: Post[] = results
+      .filter((res) => res.status === "fulfilled") // filter failed
+      .map((res) => res.value) // get results values
+      .filter((post) => post !== null); // filter null
+
+    return posts;
+  } catch {
     return null;
   }
 }

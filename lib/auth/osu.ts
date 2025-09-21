@@ -1,10 +1,10 @@
 "use server";
 
+import { osuResponse, tokenResponse } from "@/types";
+
 import { fc } from "../fetchClient";
 
 import { createJWT } from "./jwt";
-
-import { osuResponse, tokenResponse } from "@/types";
 
 export async function osuAuth(code: string): Promise<osuResponse | null> {
   const OSU_CLIENT_ID = process.env.AUTH_OSU_ID!;

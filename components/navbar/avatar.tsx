@@ -1,12 +1,11 @@
 "use client";
 
-import AvatarImage from "../avatar-image";
+import AvatarImage from "@/components/avatar-image";
+import { useFetchAuth } from "@/hooks/auth/useFetchAuth";
+import { sessionType } from "@/types";
 
 import NavAvatarLink from "./avatar-link";
 import LoginButton from "./login-button";
-
-import { useFetchAuth } from "@/hooks/auth/useFetchAuth";
-import { sessionType } from "@/types";
 
 export default function NavAvatar({
   initialSession,

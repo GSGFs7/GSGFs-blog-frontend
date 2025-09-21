@@ -1,9 +1,9 @@
 "use client";
 // must be a client component
 
-import Table from "./table";
-
 import { GalData } from "@/types/gal";
+
+import Table from "./table";
 
 import "github-markdown-css/github-markdown-dark.css";
 

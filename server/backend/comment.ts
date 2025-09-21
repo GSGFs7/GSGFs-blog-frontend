@@ -1,12 +1,12 @@
 "use server";
 
-import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
-import { apiGuestLogin } from "./guest";
-
 import { getGuest } from "@/lib/api";
 import { fc } from "@/lib/fetchClient";
 import { IDNumber } from "@/types";
 import { commentMarkdownToHtml } from "@/utils/markdown";
+
+import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
+import { apiGuestLogin } from "./guest";
 
 export async function apiAddComment(
   content: string,

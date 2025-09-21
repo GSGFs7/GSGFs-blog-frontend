@@ -5,9 +5,9 @@ import { useContext } from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 
-import { ModalContext } from "./modal";
-
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+
+import { ModalContext } from "./modal";
 
 interface WindowChildProps {
   onCloseModal?: () => void;

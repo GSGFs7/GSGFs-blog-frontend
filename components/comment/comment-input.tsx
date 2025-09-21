@@ -4,12 +4,12 @@ import bowser from "bowser";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-
-import TurnstileWidget from "./turnstile-widget";
+import { useTurnstile } from "react-turnstile";
 
 import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
 import { apiAddComment } from "@/server/backend";
-import { useTurnstile } from "react-turnstile";
+
+import TurnstileWidget from "./turnstile-widget";
 
 export default function CommentInput({
   disabled = false,

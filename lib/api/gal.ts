@@ -1,5 +1,4 @@
-import { fc } from "../fetchClient";
-
+import { fc } from "@/lib/fetchClient";
 import { GalData, GalResponse, Pagination } from "@/types";
 
 export async function getAllGal(): Promise<{

@@ -1,9 +1,9 @@
 "use server";
 
-import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
-
-import { GalData } from "@/types";
 import { fc } from "@/lib/fetchClient";
+import { GalData } from "@/types";
+
+import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 
 export async function apiUpdateGal(gal: GalData): Promise<() => void> {
   const updatePromise = (async () => {
