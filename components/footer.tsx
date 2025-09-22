@@ -51,6 +51,12 @@ export default function Footer() {
           sitemap
         </span>
       </Link>
+      <span>|</span>
+      <Link className="flex items-center text-current" href="/blog/feed.atom">
+        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+          rss
+        </span>
+      </Link>
     </footer>
   );
 }
