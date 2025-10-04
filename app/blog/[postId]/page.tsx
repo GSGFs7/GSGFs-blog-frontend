@@ -10,21 +10,28 @@ const Comment = dynamic(() => import("@/components/comment"));
 export default async function Page({
   params,
 }: {
-  params: Promise<{ postId: number }>;
+  params: Promise<{ postId: string }>;
 }) {
   const { postId } = await params;
-  const post = await getPost(postId.toString());
+  const res = await getPost(postId);
 
   // if not found
-  if (post === null) {
-    notFound();
+  if (res.ok === false) {
+    if (res.message === "404") {
+      notFound();
+    } else {
+      // TODO
+      notFound();
+    }
   }
+
+  const post = res.data;
 
   return (
     <div className="">
       <BlogBody html={post.content_html ?? undefined} markdown={post.content} />
       <Suspense fallback={<div className="spinner-big" />}>
-        <Comment postId={postId} />
+        <Comment postId={Number(postId)} />
       </Suspense>
     </div>
   );

@@ -8,12 +8,13 @@ import { cacheGet, cacheSet } from "@/lib/cache";
  * @returns A random post ID from the list of all post IDs, or null if the list is empty or an error occurs.
  */
 export async function randomPost(): Promise<null | number> {
-  const ids = await getAllPostIds();
+  const res = await getAllPostIds();
 
-  if (ids === null) {
+  if (!res.ok) {
     return null;
   }
 
+  const ids = res.data;
   const randomIndex = Math.floor(Math.random() * ids.length);
 
   return ids[randomIndex];

@@ -24,7 +24,13 @@ export default function BlogTopCard() {
     error,
   } = useQuery({
     queryKey: ["post-ids"],
-    queryFn: getAllPostIds,
+    queryFn: async () => {
+      const res = await getAllPostIds();
+      if (!res.ok) {
+        throw new Error(res.message);
+      }
+      return res.data;
+    },
     staleTime: 1000 * 60 * 10, // 10 mins
     gcTime: 1000 * 60 * 15, // 15 mins, delete from memory
     refetchOnWindowFocus: false, // no need

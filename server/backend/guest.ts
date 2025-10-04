@@ -3,10 +3,14 @@
 import { getSession } from "@/lib/auth";
 import { fc } from "@/lib/fetchClient";
 import { guestLogin, IDNumber } from "@/types";
+import { errorToString } from "@/utils/errorToString";
 
+import { BackendApiFunctionResult } from ".";
 import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 
-export async function apiGuestLogin(): Promise<{ id: number } | null> {
+export async function apiGuestLogin(): Promise<
+  BackendApiFunctionResult<{ id: number }>
+> {
   try {
     const session = await getSession();
 
@@ -34,8 +38,9 @@ export async function apiGuestLogin(): Promise<{ id: number } | null> {
 
     const data = (await res.json()) as IDNumber;
 
-    return { id: data.id };
-  } catch {
-    return null;
+    return { ok: true, data };
+  } catch (e) {
+    console.error(e);
+    return { ok: false, message: errorToString(e) };
   }
 }

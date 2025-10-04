@@ -9,9 +9,11 @@ export async function generateMetadata({
 }: {
   params: Promise<{ postId: string }>;
 }): Promise<Metadata> {
-  const post = await getPost((await params).postId);
+  const res = await getPost((await params).postId);
 
-  if (!post) return {};
+  if (!res.ok) return {};
+
+  const post = res.data;
 
   return {
     // inherit superior template, no site suffix

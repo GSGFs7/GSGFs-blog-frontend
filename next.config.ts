@@ -22,6 +22,7 @@ const nextConfig: NextConfig = {
       { hostname: "avatars.githubusercontent.com" },
       { hostname: "a.ppy.sh" },
     ],
+    qualities: [60, 75, 90],
     // use Cloudflare Image
     loader: process.env.CF ? "custom" : "default",
     loaderFile: process.env.CF ? "./image-loader.ts" : undefined,
@@ -97,6 +98,10 @@ const nextConfig: NextConfig = {
       {
         source: "/sitemap",
         destination: "/sitemap.xml",
+      },
+      {
+        source: "/robots",
+        destination: "/robots.txt",
       },
       {
         source: "/blog/feed",

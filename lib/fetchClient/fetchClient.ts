@@ -102,7 +102,7 @@ export async function fetchClient<T = any>(
     // report error when request failed
     if (!response.ok) {
       throw new FetchError(
-        `API error ${response.status}: ${response.statusText} when ${fetchOptions.method} ${endpoint}. Message: ${await response.text()}`,
+        `API error ${response.status}: ${response.statusText} when ${fetchOptions.method} ${url}. Response: ${await response.text()}`,
         { status: response.status },
       );
     }
@@ -132,10 +132,17 @@ export async function fetchClient<T = any>(
   } catch (error: unknown) {
     clearTimeout(timeoutId);
 
+    if (error instanceof FetchError) {
+      throw error;
+    }
+
     if (error instanceof Error && error.name === "AbortError") {
       if (!userSignal?.aborted) {
         // timeout aborted
-        throw new FetchError(`Request timeout after ${timeout}ms. URL: ${url}`);
+        throw new FetchError(
+          `Request timeout after ${timeout}ms. URL: ${url}`,
+          { status: 408 },
+        );
       } else {
         // user aborted
         throw new FetchError(
