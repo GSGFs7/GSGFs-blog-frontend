@@ -1,11 +1,8 @@
-import Link from "next/link";
-import { HiOutlineHome } from "react-icons/hi";
-
-import { siteConfig } from "@/config/site";
 import { getSession } from "@/lib/auth";
 
 import NavAvatar from "./avatar";
 import { NavItems } from "./nav-items";
+import { NavLogo } from "./nav-logo";
 import SmallScreenButton from "./small-screen-button";
 
 export async function Navbar() {
@@ -18,10 +15,7 @@ export async function Navbar() {
         <div className="flex h-full items-center justify-between px-4">
           {/* 左侧 Logo */}
           <div className="flex items-center gap-3 opacity-90">
-            <Link className="flex items-center justify-start gap-1" href="/">
-              <HiOutlineHome className="relative -translate-y-[0.15rem] text-2xl" />
-              <p className="text-2xl font-bold">{siteConfig.author}</p>
-            </Link>
+            <NavLogo />
           </div>
 
           {/* 中间导航链接 - 桌面端显示 */}
