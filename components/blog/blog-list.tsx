@@ -12,9 +12,9 @@ export default async function BlogList({
 }) {
   const page = Number(searchParamsPage ?? 1);
   const size = Number(searchParamsSize ?? 10);
-  const data = await getPostList(page, size);
+  const res = await getPostList(page, size);
 
-  if (data === null) {
+  if (!res.ok) {
     return (
       <div className="mt-12 text-2xl">
         <p>服务器挂了哦, 杂鱼~</p>
@@ -22,7 +22,7 @@ export default async function BlogList({
     );
   }
 
-  const { posts, pagination } = data;
+  const { posts, pagination } = res.data;
 
   if (!posts) {
     return (

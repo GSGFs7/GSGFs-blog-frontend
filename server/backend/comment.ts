@@ -2,7 +2,7 @@
 
 import { TURNSTILE_SECRET_KEY } from "@/env/private";
 import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
-import { getGuest } from "@/lib/api";
+import { getGuest } from "@/lib/auth";
 import { fc } from "@/lib/fetchClient";
 import { IDNumber } from "@/types";
 import { errorToString } from "@/utils/errorToString";

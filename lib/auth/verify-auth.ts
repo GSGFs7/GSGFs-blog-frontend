@@ -3,7 +3,7 @@
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-import { sessionType } from "@/types";
+import { guestLogin, sessionType } from "@/types";
 
 export async function getSession(): Promise<sessionType | null> {
   try {
@@ -22,4 +22,19 @@ export async function getSession(): Promise<sessionType | null> {
 
     return null;
   }
+}
+
+export async function getGuest(): Promise<guestLogin | null> {
+  const session = await getSession();
+
+  if (!session) {
+    return null;
+  }
+
+  return {
+    name: session.name!,
+    provider: session.provider!,
+    provider_id: session.id!,
+    avatar: session.avatar_url!,
+  };
 }

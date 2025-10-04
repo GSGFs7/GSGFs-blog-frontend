@@ -1,87 +1,89 @@
 "use server";
 
-import { getSession } from "@/lib/auth";
 import {
-  guestLogin,
   Post,
   PostCardWithSimilarityResponse,
   PostSitemapItem,
   PostWithPagination,
 } from "@/types";
+import { errorToString } from "@/utils/errorToString";
 
-import { fc } from "../fetchClient";
+import { fc, FetchError } from "../fetchClient";
+
+import { ApiResult } from ".";
 
 export async function getPost(
   postIdOrSlug: number | string,
-): Promise<Post | null> {
+): Promise<ApiResult<Post>> {
   try {
-    const res = await fc.get<Post>(`post/${postIdOrSlug}`);
+    const post = await fc.get<Post>(`post/${postIdOrSlug}`);
 
-    return res;
+    return { ok: true, data: post };
   } catch (e) {
-    console.error(e);
+    // Too many errors
+    // console.error(e);
 
-    return null;
+    // return a not found code
+    if (e instanceof FetchError) {
+      if (e.status) {
+        if (e.status === 404) {
+          return { ok: false, message: "404" };
+        }
+      }
+    }
+
+    return { ok: false, message: errorToString(e) };
   }
 }
 
 export async function getPostList(
   page: number = 1,
   size: number = 10,
-): Promise<PostWithPagination | null> {
+): Promise<ApiResult<PostWithPagination>> {
   try {
     const res = await fc.get<PostWithPagination>(
       `post/posts?page=${page}&size=${size}`,
     );
 
-    return res;
+    return { ok: true, data: res };
   } catch (e) {
     console.error("get post list error: ", e);
 
-    return null;
+    return { ok: false, message: errorToString(e) };
   }
 }
 
-export async function getGuest(): Promise<guestLogin | null> {
-  const session = await getSession();
-
-  if (!session) {
-    return null;
-  }
-
-  return {
-    name: session.name!,
-    provider: session.provider!,
-    provider_id: session.id!,
-    avatar: session.avatar_url!,
-  };
-}
-
-export async function getAllPostIds(): Promise<number[] | null> {
+export async function getAllPostIds(): Promise<ApiResult<number[]>> {
   try {
     const res = await fc.get<{ ids: number[] }>("post");
 
-    return res.ids;
+    return { ok: true, data: res.ids };
   } catch (e) {
     console.error(`getAllPosts error: ${e}`);
 
-    return null;
+    return { ok: false, message: errorToString(e) };
   }
 }
 
 // TODO: refactor this
 export async function getAllPostForFeed(): Promise<Post[] | null> {
   try {
-    const ids = await getAllPostIds();
-    if (ids === null) {
+    const idsResult = await getAllPostIds();
+    if (!idsResult.ok) {
       return null;
     }
 
+    const ids = idsResult.data;
     const results = await Promise.allSettled(ids.map((id) => getPost(id)));
     const posts: Post[] = results
-      .filter((res) => res.status === "fulfilled") // filter failed
-      .map((res) => res.value) // get results values
-      .filter((post) => post !== null); // filter null
+      .filter(
+        (res): res is PromiseFulfilledResult<ApiResult<Post>> =>
+          res.status === "fulfilled",
+      ) // keep only fulfilled promises
+      .map((res) => res.value)
+      .filter((res): res is { ok: true; data: Post } => res.ok === true) // keep only api success results
+      .map((res) => res.data) // extract post
+      .filter((post): post is Post => post !== null); // filter null
 
     return posts;
   } catch {
@@ -103,16 +105,16 @@ export async function getPostSitemap(): Promise<PostSitemapItem[] | null> {
 
 export async function getPostBySearch(
   searchString: string,
-): Promise<PostCardWithSimilarityResponse | null> {
+): Promise<ApiResult<PostCardWithSimilarityResponse>> {
   try {
     const res = await fc.get<PostCardWithSimilarityResponse>("post/search", {
       params: { q: searchString },
     });
 
-    return res;
+    return { ok: true, data: res };
   } catch (e) {
     console.error(e);
 
-    return null;
+    return { ok: false, message: errorToString(e) };
   }
 }
