@@ -100,6 +100,10 @@ const nextConfig: NextConfig = {
         destination: "/sitemap.xml",
       },
       {
+        source: "/robots",
+        destination: "/robots.txt",
+      },
+      {
         source: "/blog/feed",
         destination: "/blog/feed.atom",
       },

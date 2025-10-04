@@ -1,6 +1,7 @@
 import { readdirSync, statSync } from "fs";
 import { join } from "path";
 
+import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 import { getPostSitemap } from "@/lib/api/post";
 import { getAllStaticRoutes } from "@/lib/routes";
 
@@ -58,12 +59,26 @@ function _getRoutes(dir: string, baseRoute: string = ""): string[] {
 export async function generateSitemap(): Promise<SitemapField[]> {
   "use server";
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  const baseUrl = NEXT_PUBLIC_SITE_URL;
   // const appDir = join(process.cwd(), "app");
   const postIds = await getPostSitemap();
 
+  // TODO: refactor this
+  // exclude by robots index
+  const exclude = [
+    "/login",
+    "/admin",
+    "/anime",
+    "/books",
+    "/entertainment",
+    "/pages",
+    "/strange",
+    "/user",
+  ];
+
   const staticRoutes = getAllStaticRoutes()
     .filter((route) => route !== "/") // remove the root route
+    .filter((route) => !exclude.includes(route))
     .map(
       (route) =>
         ({
