@@ -1,10 +1,14 @@
 "use server";
 
+import { TURNSTILE_SECRET_KEY } from "@/env/private";
+import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
 import { getGuest } from "@/lib/api";
 import { fc } from "@/lib/fetchClient";
 import { IDNumber } from "@/types";
+import { errorToString } from "@/utils/errorToString";
 import { commentMarkdownToHtml } from "@/utils/markdown";
 
+import { BackendApiFunctionResult } from ".";
 import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 import { apiGuestLogin } from "./guest";
 
@@ -19,29 +23,44 @@ export async function apiAddComment(
     browser_version?: string;
     OS?: string;
   },
-): Promise<number | string | null> {
+): Promise<BackendApiFunctionResult<number>> {
   const guest = await getGuest();
 
-  await apiGuestLogin();
+  try {
+    // ensure guest record exist
+    await apiGuestLogin();
+  } catch (e) {
+    return {
+      ok: false,
+      message: errorToString(e),
+    };
+  }
 
   const htmlContent = (await commentMarkdownToHtml(content)).trim();
 
-  if (htmlContent.length < 1) return null;
+  if (htmlContent.length < 1) {
+    return {
+      ok: false,
+      message: "请输入内容",
+    };
+  }
 
-  try {
-    const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-    const formData = new URLSearchParams();
+  if (NEXT_PUBLIC_TURNSTILE_SITE_KEY && TURNSTILE_SECRET_KEY) {
+    try {
+      const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+      const formData = new URLSearchParams();
 
-    formData.append("secret", process.env.TURNSTILE_SECRET_KEY ?? "");
-    formData.append("response", token);
+      formData.append("secret", TURNSTILE_SECRET_KEY);
+      formData.append("response", token);
 
-    const res = await fc.postForm(url, formData);
+      const res = await fc.postForm(url, formData);
 
-    if (!res.success) {
-      throw new Error("Turnstile verification failed");
+      if (!res.success) {
+        throw new Error("Turnstile verification failed");
+      }
+    } catch {
+      return { ok: false, message: "Turnstile 验证失败" };
     }
-  } catch {
-    return "Turnstile 验证失败";
   }
 
   const body = JSON.stringify({
@@ -58,8 +77,9 @@ export async function apiAddComment(
       },
     });
 
-    return data.id;
-  } catch {
-    return null;
+    return { ok: true, data: data.id };
+  } catch (e) {
+    console.error(e);
+    return { ok: false, message: errorToString(e) };
   }
 }

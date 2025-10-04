@@ -80,15 +80,8 @@ export default function CommentInput({
       OS: bowser.getParser(userAgent).getOS().name,
     });
 
-    if (res === null) {
-      toast.error("评论失败! 不要干坏事哦~");
-
-      return;
-    }
-
-    if (typeof res === "string") {
-      toast.error(res);
-
+    if (res.ok === false) {
+      toast.error(res.message);
       return;
     }
 
