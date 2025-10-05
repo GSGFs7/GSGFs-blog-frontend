@@ -17,12 +17,16 @@ export default function First({ gpg }: { gpg: string }) {
   const gpgRef = useRef<HTMLDivElement>(null);
 
   async function handleCopyGPG() {
-    await navigator.clipboard.writeText(gpgRef.current?.innerText || "");
-    toast.success("GPG 公钥已复制到剪切板");
+    try {
+      await navigator.clipboard.writeText(gpgRef.current?.innerText || "");
+      toast.success("GPG 公钥已复制到剪切板");
+    } catch {
+      toast.error("GPG 复制失败, 无剪切板权限");
+    }
   }
 
   return (
-    <div className="flex h-full w-full max-w-5xl flex-col md:translate-y-[20%] md:flex-row lg:translate-y-[30%]">
+    <div className="flex h-full min-h-[700px] w-full max-w-5xl flex-col md:translate-y-[10%] md:flex-row lg:translate-y-[30%]">
       <div className="flex-[8]">
         <div className="flex max-w-xl flex-col justify-center gap-y-6 text-left text-[#dadada] sm:pt-20">
           <h1 className="text-7xl drop-shadow-lg sm:text-8xl">Hi!</h1>
@@ -113,7 +117,8 @@ export default function First({ gpg }: { gpg: string }) {
         />
         <div className="group relative flex items-center justify-end">
           <p
-            className={`absolute w-full -translate-x-1 translate-y-4 text-center text-gray-500 ${show ? "" : "hidden"}`}
+            id="image-description"
+            className={`mt-4 w-full text-center text-gray-500 ${show ? "" : "hidden"}`}
           >
             图片中的角色是《常轨脱离Creative》中的锦亚澄
           </p>
@@ -121,7 +126,7 @@ export default function First({ gpg }: { gpg: string }) {
             aria-controls="image-description"
             aria-expanded={show}
             aria-label="显示/隐藏图片信息"
-            className="translate-y-4 cursor-pointer text-xl text-[#cccccc] hover:text-[#c0c0c0]"
+            className="mt-5 cursor-pointer text-xl text-[#cccccc] hover:text-[#c0c0c0]"
             tabIndex={0}
             onClick={() => setShow((now) => !now)}
             onKeyDown={(e) => {
