@@ -25,20 +25,19 @@ export async function apiGuestLogin(): Promise<
       avatar: session.avatar_url!,
     };
 
-    const res = await fc.post(`guest/login`, loginDate, {
+    const res = await fc.post<IDNumber>(`guest/login`, loginDate, {
       headers: {
         Authorization: `Bearer ${await generateAuthToken()}`,
       },
     });
 
     // console.log(await res.json());
-    if (!res.ok) {
+    if (!res.id) {
+      console.error(res);
       throw new Error("apiGuestLogin error");
     }
 
-    const data = (await res.json()) as IDNumber;
-
-    return { ok: true, data };
+    return { ok: true, data: res };
   } catch (e) {
     console.error(e);
     return { ok: false, message: errorToString(e) };

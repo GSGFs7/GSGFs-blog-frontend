@@ -1,27 +1,46 @@
 import dynamic from "next/dynamic";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { BlogTopCard } from "@/components/blog";
+
+import BlogProvider from "./provider";
 
 const BlogList = dynamic(() => import("@/components/blog/blog-list"));
 
 export default async function BlogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page: string; size: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const param = await searchParams;
+  const params = await searchParams;
+  let page = params.page ?? "1";
+  // let size = params.page ?? "10";
+
+  if (page instanceof Array) {
+    page = page.at(0) ?? "1";
+  }
+  // if (size instanceof Array) {
+  //   size = size.at(0) ?? "10";
+  // }
+
+  // check is valid number
+  if (Number.isNaN(Number(page))) {
+    redirect("/blog?page=1");
+  }
+
+  // maybe not needs 'size'?
+  const size = 10;
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <BlogTopCard />
+    <BlogProvider>
+      <div className="flex flex-col items-center justify-center">
+        <BlogTopCard />
 
-      <Suspense fallback={<div className="spinner-big" />}>
-        <BlogList
-          searchParamsPage={Number(param?.page ?? 1)}
-          searchParamsSize={Number(param?.size ?? 10)}
-        />
-      </Suspense>
-    </div>
+        <Suspense fallback={<div className="spinner-big" />}>
+          <BlogList searchParamsPage={page} searchParamsSize={size} />
+        </Suspense>
+      </div>
+    </BlogProvider>
   );
 }

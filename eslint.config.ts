@@ -265,6 +265,8 @@
 //   },
 // ];
 
+// do not update 'eslint-plugin-react-hooks' to 6.1.1
+// https://github.com/facebook/react/issues/34733
 import { FlatCompat } from "@eslint/eslintrc";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import importPlugin from "eslint-plugin-import";

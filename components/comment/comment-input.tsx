@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useTurnstile } from "react-turnstile";
 
-import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
 import { apiAddComment } from "@/server/backend";
 
 import TurnstileWidget from "./turnstile-widget";
@@ -115,9 +114,7 @@ export default function CommentInput({
         onChange={(e) => saveDraft(e.target.value)}
       />
 
-      {NEXT_PUBLIC_TURNSTILE_SITE_KEY && (
-        <TurnstileWidget setTokenAction={setTurnstileToken} />
-      )}
+      <TurnstileWidget setTokenAction={setTurnstileToken} />
     </form>
   );
 }

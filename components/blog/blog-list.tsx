@@ -7,8 +7,8 @@ export default async function BlogList({
   searchParamsPage,
   searchParamsSize,
 }: {
-  searchParamsPage?: number;
-  searchParamsSize?: number;
+  searchParamsPage?: number | string;
+  searchParamsSize?: number | string;
 }) {
   const page = Number(searchParamsPage ?? 1);
   const size = Number(searchParamsSize ?? 10);
@@ -22,7 +22,10 @@ export default async function BlogList({
     );
   }
 
-  const { posts, pagination } = res.data;
+  const {
+    posts,
+    pagination: { size: paginationSize, total: paginationTotal },
+  } = res.data;
 
   if (!posts) {
     return (
@@ -42,7 +45,7 @@ export default async function BlogList({
         ))}
       </div>
 
-      <Pagination size={pagination.size} total={pagination.total} />
+      <Pagination page={page} size={paginationSize} total={paginationTotal} />
     </>
   );
 }

@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "gsgfs",
-  "compatibility_date": "2025-07-09",
+  "compatibility_date": "2025-10-05",
   "compatibility_flags": [
     "nodejs_compat"
   ],
