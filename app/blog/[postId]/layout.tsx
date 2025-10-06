@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import React, { ReactNode } from "react";
 
 import { siteConfig } from "@/config/site";
+import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 import { getPost } from "@/lib/api";
 
 export async function generateMetadata({
@@ -23,11 +24,14 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.meta_description,
-      url: `${process.env.SITE_URL}/blog/${post.id}`,
+      url: `${NEXT_PUBLIC_SITE_URL}/blog/${post.id}`,
       type: "article",
       images: [
         {
-          url: post.cover_image,
+          url:
+            post.header_image ??
+            post.cover_image ??
+            `${NEXT_PUBLIC_SITE_URL}/default-cover.jpg`,
           alt: post.title,
           width: 1200,
           height: 630,

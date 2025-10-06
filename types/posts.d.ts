@@ -26,7 +26,7 @@ export interface Post {
   } | null;
   content_html: string | null;
   content: string;
-  cover_image: string;
+  cover_image: string | null;
   created_at: string;
   header_image: string | null;
   id: number;
