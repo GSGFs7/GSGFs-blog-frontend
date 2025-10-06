@@ -45,7 +45,7 @@ export default async function BlogList({
         ))}
       </div>
 
-      <Pagination size={paginationSize} total={paginationTotal} />
+      <Pagination page={page} size={paginationSize} total={paginationTotal} />
     </>
   );
 }

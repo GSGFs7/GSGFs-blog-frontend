@@ -12,7 +12,14 @@ export default async function Page({
 }: {
   params: Promise<{ postId: string }>;
 }) {
-  const { postId } = await params;
+  const { postId: postIdStr } = await params;
+
+  // check is valid number
+  const postId: number = Number(postIdStr);
+  if (Number.isNaN(postId)) {
+    notFound();
+  }
+
   const res = await getPost(postId);
 
   // if not found
