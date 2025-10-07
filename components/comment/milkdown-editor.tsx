@@ -40,6 +40,7 @@ function MilkdownEditor({
   return <Milkdown />;
 }
 
+// TODO: comment markdown support
 export default function CommentMilkdownEditor({
   commentContent,
   disabled,

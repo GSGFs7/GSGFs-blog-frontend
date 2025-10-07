@@ -20,26 +20,23 @@ const initPagination: Pagination = {
   hasMore: true, // don't edit this
 };
 
+// columns
+const tableColumns = [
+  { label: "VNDB ID", value: "vndb_id" },
+  { label: "title", value: "title" },
+  { label: "character", value: "character_score" },
+  { label: "story", value: "story_score" },
+  { label: "comprehensive", value: "comprehensive_score" },
+  { label: "VNDB Rating", value: "vndb_rating" },
+  { label: "remark", value: "" },
+];
+
 // TODO: sort support in backend
 export default function GalList() {
   const [data, setData] = useState<GalData[]>([]);
   const [pagination, setPagination] = useState<Pagination>(initPagination);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  // columns
-  const tableColumns = useCallback(
-    () => [
-      { label: "VNDB ID", value: "vndb_id" },
-      { label: "title", value: "title" },
-      { label: "character", value: "character_score" },
-      { label: "story", value: "story_score" },
-      { label: "comprehensive", value: "comprehensive_score" },
-      { label: "VNDB Rating", value: "vndb_rating" },
-      { label: "remark", value: "" },
-    ],
-    [],
-  );
 
   const loadMoreData = useCallback(async () => {
     if (isLoading || !pagination.hasMore) {
@@ -73,7 +70,7 @@ export default function GalList() {
         className="gal-table markdown-body"
         style={{ overflowX: "auto", width: "100%", maxWidth: "100vw" }}
       >
-        <GalTable data={data} tableColumns={tableColumns()} />
+        <GalTable data={data} tableColumns={tableColumns} />
       </article>
 
       {errorMessage && (

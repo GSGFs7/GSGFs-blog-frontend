@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 export function useInfiniteScroll(callback: () => void, hasMore: boolean) {
-  const observerRef = useRef<IntersectionObserver>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const targetRef = useRef<HTMLDivElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
