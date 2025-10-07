@@ -84,9 +84,9 @@ export function GalTableBody() {
   if (!data || data.length === 0) {
     return (
       <tbody>
-        <tr>
+        {/* <tr>
           <td>暂无数据</td>
-        </tr>
+        </tr> */}
       </tbody>
     );
   }
