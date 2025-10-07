@@ -17,6 +17,7 @@ export default function First({ gpg }: { gpg: string }) {
   const gpgRef = useRef<HTMLDivElement>(null);
 
   async function handleCopyGPG() {
+    // TODO: enhance this
     try {
       await navigator.clipboard.writeText(gpgRef.current?.innerText || "");
       toast.success("GPG 公钥已复制到剪切板");

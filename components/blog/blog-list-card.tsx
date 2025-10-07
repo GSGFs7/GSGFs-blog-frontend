@@ -30,6 +30,7 @@ export default function BlogListCard({
   const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.75, 1]);
   const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.75, 1]);
 
+  // TODO: adapt keyboard navigating
   return (
     <motion.article
       ref={ref}
@@ -62,12 +63,12 @@ export default function BlogListCard({
           <p className="flex items-center px-1">
             <MdDateRange />
             <span>发布于: </span>
-            <span>{formatDate(created_at).split(" ").at(0)}</span>
+            <time>{formatDate(created_at).split(" ").at(0)}</time>
           </p>
           <p className="flex items-center px-1">
             <MdDateRange />
             <span>更新于: </span>
-            <span>{formatDate(content_update_at).split(" ").at(0)}</span>
+            <time>{formatDate(content_update_at).split(" ").at(0)}</time>
           </p>
           <p className="flex items-center px-1">
             <IoFileTrayFullSharp />
