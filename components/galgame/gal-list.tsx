@@ -79,13 +79,13 @@ export default function GalList() {
 
       {!errorMessage &&
         (pagination.hasMore ? (
-          <div style={{ width: "100%" }} className="mt-4" ref={observerTarget}>
-            <button onClick={() => loadMoreData()} className="cursor-pointer">
+          <div ref={observerTarget} className="mt-4" style={{ width: "100%" }}>
+            <button className="cursor-pointer" onClick={() => loadMoreData()}>
               继续滚动或点击此处以加载更多...
             </button>
           </div>
         ) : (
-          <div style={{ height: "10px", width: "100%" }} className="mt-4">
+          <div className="mt-4" style={{ height: "10px", width: "100%" }}>
             已加载全部 {pagination.total} 条数据
           </div>
         ))}
