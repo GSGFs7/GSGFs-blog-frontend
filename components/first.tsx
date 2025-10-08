@@ -118,8 +118,8 @@ export default function First({ gpg }: { gpg: string }) {
         />
         <div className="group relative flex items-center justify-end">
           <p
-            id="image-description"
             className={`mt-4 w-full text-center text-gray-500 ${show ? "" : "hidden"}`}
+            id="image-description"
           >
             图片中的角色是《常轨脱离Creative》中的锦亚澄
           </p>

@@ -24,9 +24,9 @@ export default function BlogBody({
     <>
       <article
         dangerouslySetInnerHTML={{ __html: html }}
+        ref={ref}
         className="markdown-body rounded-2xl backdrop-blur-lg md:border-2 md:border-gray-500/50 md:p-8"
         data-theme="dark"
-        ref={ref}
       />
     </>
   );

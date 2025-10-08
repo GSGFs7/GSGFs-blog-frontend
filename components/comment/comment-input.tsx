@@ -1,25 +1,23 @@
 "use client";
 
 import bowser from "bowser";
+import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useTurnstile } from "react-turnstile";
 
+import { useAuth } from "@/app/providers";
 import { apiAddComment } from "@/server/backend";
 
 import TurnstileWidget from "./turnstile-widget";
 
-export default function CommentInput({
-  disabled = false,
-  postId,
-}: {
-  disabled?: boolean;
-  postId: number;
-}) {
+export default function CommentInput({ postId }: { postId: number }) {
   const formRef = useRef<HTMLFormElement>(null);
   const turnstile = useTurnstile();
   const router = useRouter();
+  const { session } = useAuth();
+  const isDisabled = !session;
   const [userAgent, setUserAgent] = useState<string>("");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
   const [commentContent, setCommentContent] = useState<string>("");
@@ -55,7 +53,7 @@ export default function CommentInput({
   async function handleSubmit(formData: FormData) {
     turnstile.reset();
 
-    if (disabled) return;
+    if (isDisabled) return;
 
     if (!turnstileToken) {
       toast.error("请先通过人机验证");
@@ -64,19 +62,24 @@ export default function CommentInput({
     }
 
     const content = formData.get("content");
-
     if (String(content).trim().length < 1) {
       toast.error("请输入内容");
 
       return;
     }
+    if (String(content).trim().length > 5000) {
+      toast.error("内容过长");
 
+      return;
+    }
+
+    const parser = bowser.getParser(userAgent);
     const res = await apiAddComment(String(content), postId, turnstileToken, {
-      user_agent: bowser.getParser(userAgent).getUA(),
-      browser: bowser.getParser(userAgent).getBrowser().name,
-      browser_version: bowser.getParser(userAgent).getBrowserVersion(),
-      platform: bowser.getParser(userAgent).getPlatform().type,
-      OS: bowser.getParser(userAgent).getOS().name,
+      user_agent: parser.getUA(),
+      browser: parser.getBrowser().name,
+      browser_version: parser.getBrowserVersion(),
+      platform: parser.getPlatform().type,
+      OS: parser.getOS().name,
     });
 
     if (res.ok === false) {
@@ -94,25 +97,28 @@ export default function CommentInput({
       ref={formRef}
       action={handleSubmit}
       className="group relative"
-      // 用于让在同组件下的button可以提交表单
       id="comment-form"
     >
-      <label
-        // peer 失效, 用 group 代替 修复了记得改回来
-        className={`absolute m-3 transition-transform duration-200 ${disabled ? "text-gray-700" : "group-valid:-translate-y-9 group-focus-within:-translate-y-9"}`}
-        htmlFor="content"
-      >
-        {disabled ? "评论前请先登陆" : "留个评论..."}
-      </label>
       <textarea
         required
         className="peer min-h-36 w-full resize-none bg-transparent p-3 focus:outline-0 sm:min-h-48"
-        disabled={disabled}
+        disabled={isDisabled}
         id="content"
         name="content"
         value={commentContent}
         onChange={(e) => saveDraft(e.target.value)}
       />
+      <label
+        className={clsx(
+          `pointer-events-none absolute top-3 left-3 transform transition-transform duration-200 select-none`,
+          isDisabled
+            ? "text-gray-700"
+            : "peer-valid:-translate-y-10 peer-focus:-translate-y-10",
+        )}
+        htmlFor="content"
+      >
+        {isDisabled ? "评论前请先登陆" : "留个评论..."}
+      </label>
 
       <TurnstileWidget setTokenAction={setTurnstileToken} />
     </form>

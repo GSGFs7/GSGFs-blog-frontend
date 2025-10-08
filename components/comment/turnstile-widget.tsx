@@ -15,11 +15,11 @@ export default function TurnstileWidget({
 
   return (
     <Turnstile
+      refreshExpired="auto"
       sitekey={NEXT_PUBLIC_TURNSTILE_SITE_KEY}
       onSuccess={(token) => {
         setTokenAction(token);
       }}
-      refreshExpired="auto"
     />
   );
 }

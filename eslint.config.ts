@@ -347,6 +347,20 @@ const eslintConfig = [
       ],
     },
   },
+  {
+    files: ["**/*.{tsx,jsx}"],
+    rules: {
+      "react/jsx-sort-props": [
+        "warn",
+        {
+          callbacksLast: true,
+          shorthandFirst: true,
+          noSortAlphabetically: false,
+          reservedFirst: true,
+        },
+      ],
+    },
+  },
 ];
 
 export default eslintConfig;
