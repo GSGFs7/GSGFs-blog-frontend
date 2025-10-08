@@ -15,7 +15,7 @@ import GalTable from "./table-wrap";
 
 const initPagination: Pagination = {
   page: 0,
-  size: 10, // edit this, if needs to change the number in a load
+  size: 20, // edit this, if needs to change the number in a load
   total: 0,
   hasMore: true, // don't edit this
 };
@@ -79,12 +79,10 @@ export default function GalList() {
 
       {!errorMessage &&
         (pagination.hasMore ? (
-          <div
-            style={{ height: "10px", width: "100%" }}
-            className="mt-4"
-            ref={observerTarget}
-          >
-            继续滚动以加载更多...
+          <div style={{ width: "100%" }} className="mt-4" ref={observerTarget}>
+            <button onClick={() => loadMoreData()} className="cursor-pointer">
+              继续滚动或点击此处以加载更多...
+            </button>
           </div>
         ) : (
           <div style={{ height: "10px", width: "100%" }} className="mt-4">
