@@ -24,7 +24,19 @@ export async function apiAddComment(
     OS?: string;
   },
 ): Promise<BackendApiFunctionResult<number>> {
-  const guest = await getGuest();
+  if (typeof content !== "string") {
+    return {
+      ok: false,
+      message: "内容必须为字符串",
+    };
+  }
+
+  if (content.trim().length > 5000) {
+    return {
+      ok: false,
+      message: "内容过长",
+    };
+  }
 
   try {
     // ensure guest record exist
@@ -45,6 +57,7 @@ export async function apiAddComment(
     };
   }
 
+  // turnstile validation
   if (NEXT_PUBLIC_TURNSTILE_SITE_KEY && TURNSTILE_SECRET_KEY) {
     try {
       const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -61,14 +74,19 @@ export async function apiAddComment(
     } catch {
       return { ok: false, message: "Turnstile 验证失败" };
     }
+  } else if (NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
+    console.warn(
+      "'NEXT_PUBLIC_TURNSTILE_SITE_KEY' found but not 'TURNSTILE_SECRET_KEY'. Turnstile invalid",
+    );
   }
 
-  const body = JSON.stringify({
+  const guest = await getGuest();
+  const body = {
     unique_id: `${guest?.provider}-${guest?.provider_id}`,
     content: htmlContent,
     post_id: postId,
     metadata,
-  });
+  };
 
   try {
     const data = await fc.post<IDNumber>(`comment/new`, body, {
