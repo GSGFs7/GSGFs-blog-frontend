@@ -5,6 +5,9 @@ import React from "react";
 
 import { useLoading } from "@/app/providers";
 
+/**
+ * Custom Link commponent, provider global loading state
+ */
 export const Link = React.forwardRef<
   HTMLAnchorElement,
   Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps<any>> &

@@ -1,30 +1,33 @@
-import Link from "next/link";
-import { ComponentType } from "react";
-import {
-  LuAccessibility,
-  LuAmbulance,
-  LuAperture,
-  LuBugPlay,
-  LuLollipop,
-} from "react-icons/lu";
+"use client";
 
+import clsx from "clsx";
+import { useEffect } from "react";
+import { LuLollipop, LuRefreshCw } from "react-icons/lu";
+
+import { useLoading } from "@/app/providers";
 import { siteConfig } from "@/config/site";
 
-export async function NavLogo() {
-  const icons: ComponentType<{ className?: string }>[] = [
-    LuAccessibility,
-    LuAperture,
-    LuAmbulance,
-    LuBugPlay,
-    LuLollipop,
-  ];
+import Link from "../link";
 
-  const SelectedIcon =
-    icons[Math.floor(icons.length * Math.random())] ?? LuAccessibility;
+export function NavLogo() {
+  const { isLoading } = useLoading();
+
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
 
   return (
     <Link className="flex items-center justify-start gap-1" href="/">
-      <SelectedIcon className="relative -translate-y-[0.15rem] text-2xl" />
+      {isLoading ? (
+        <LuRefreshCw
+          className={clsx(
+            "relative -translate-y-[0.15rem] text-2xl",
+            "animate-spin",
+          )}
+        />
+      ) : (
+        <LuLollipop className="relative -translate-y-[0.15rem] text-2xl" />
+      )}
       <p className="inline-block text-lg font-bold">
         <span className="whitespace-nowrap">{siteConfig.siteName}</span>
       </p>

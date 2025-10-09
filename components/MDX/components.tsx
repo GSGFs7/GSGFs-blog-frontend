@@ -1,14 +1,15 @@
 import NextImage from "next/image";
-import NextLink from "next/link";
 import { MDXComponents } from "next-mdx-remote-client";
+
+import { Link as CustomLink } from "@/components/link";
 
 const Link = (props: any) => {
   const { href, children, ...rest } = props;
 
   return (
-    <NextLink href={href} rel="noopener noreferrer" target="_blank" {...rest}>
+    <CustomLink href={href} rel="noopener noreferrer" target="_blank" {...rest}>
       {children}
-    </NextLink>
+    </CustomLink>
   );
 };
 

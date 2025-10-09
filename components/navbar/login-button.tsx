@@ -1,14 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { AiOutlineLogin } from "react-icons/ai";
+
+import Link from "../link";
 
 export default function LoginButton() {
   const searchParams = useSearchParams();
   const path = usePathname();
 
-  // 如果有就传递
+  // pass params
   if (searchParams.get("callbackUrl")) {
     return (
       <Link href={`/login?callbackUrl=${searchParams.get("callbackUrl")}`}>
@@ -17,7 +18,6 @@ export default function LoginButton() {
     );
   }
 
-  // 没有就用当前的path
   return (
     <Link href={`/login?callbackUrl=${path}`} title="login">
       <AiOutlineLogin />

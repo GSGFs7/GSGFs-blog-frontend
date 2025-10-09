@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
 import { useBlogContext } from "@/app/blog/provider";
+
+import Link from "./link";
 
 export default function Pagination({
   page,

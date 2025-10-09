@@ -2,11 +2,12 @@
 
 import clsx from "clsx";
 import { motion } from "motion/react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { siteConfig } from "@/config/site";
+
+import Link from "../link";
 
 // path may be '/'
 const getPathId = (path: string): string => {

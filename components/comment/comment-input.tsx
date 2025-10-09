@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useTurnstile } from "react-turnstile";
 
-import { useAuth } from "@/app/providers";
+import { useAuth, useLoading } from "@/app/providers";
 import { apiAddComment } from "@/server/backend";
 
 import TurnstileWidget from "./turnstile-widget";
@@ -17,6 +17,7 @@ export default function CommentInput({ postId }: { postId: number }) {
   const turnstile = useTurnstile();
   const router = useRouter();
   const { session } = useAuth();
+  const { setIsLoading } = useLoading();
   const isDisabled = !session;
   const [userAgent, setUserAgent] = useState<string>("");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
@@ -89,6 +90,7 @@ export default function CommentInput({ postId }: { postId: number }) {
 
     clearDraft();
     formRef.current?.reset();
+    setIsLoading(true);
     router.refresh();
   }
 

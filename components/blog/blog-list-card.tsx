@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 import { IoFileTrayFullSharp } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
@@ -10,6 +9,8 @@ import { TbTagsFilled } from "react-icons/tb";
 
 import { PostsCard } from "@/types";
 import { formatDate } from "@/utils";
+
+import Link from "../link";
 
 export default function BlogListCard({
   category,

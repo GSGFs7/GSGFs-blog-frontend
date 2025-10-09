@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
+
+import Link from "../link";
 
 export default function NavAvatarLink({ children }: { children: ReactNode }) {
   const path = usePathname();
