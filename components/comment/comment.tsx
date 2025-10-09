@@ -1,5 +1,3 @@
-import { getSession } from "@/lib/auth";
-
 import CommentAvatar from "./avatar";
 import CommentAvatarLink from "./avatar-link";
 import Button from "./button";
@@ -7,8 +5,6 @@ import CommentInput from "./comment-input";
 import CommentList from "./comment-list";
 
 export default async function Comment({ postId }: { postId: number }) {
-  const session = await getSession();
-
   return (
     <>
       {/* 与上面内容的分割线 */}
@@ -19,12 +15,11 @@ export default async function Comment({ postId }: { postId: number }) {
       {/* 评论输入卡片 */}
       <div className="my-8 rounded-2xl border border-gray-600 bg-[#1a1c25]">
         <CommentInput postId={postId} />
-        {/* <CommentMDEditor disabled={!session} postId={postId} /> */}
         <div className="flex items-center justify-between border-t border-gray-700">
-          <CommentAvatarLink type={session ? "user" : "login"}>
+          <CommentAvatarLink>
             <CommentAvatar />
           </CommentAvatarLink>
-          <Button disabled={!session} />
+          <Button />
         </div>
       </div>
     </>

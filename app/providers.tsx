@@ -2,8 +2,11 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { type ThemeProviderProps } from "next-themes";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { usePathname } from "next/navigation";
+import {
+  ThemeProvider as NextThemesProvider,
+  type ThemeProviderProps,
+} from "next-themes";
 import * as React from "react";
 import { Toaster } from "react-hot-toast";
 
@@ -71,17 +74,37 @@ const queryClient = new QueryClient({
   },
 });
 
+// global loading indicator state
+const LoadingContext = React.createContext({
+  isLoading: false,
+  setIsLoading: (_: boolean) => {},
+});
+
+export const useLoading = () => {
+  return React.useContext(LoadingContext);
+};
+
 export function Providers({ children, themeProps }: ProvidersProps) {
   const [{ session }, dispatch] = React.useReducer(reducer, { session: null });
   const authContextValue = React.useMemo(
     () => ({ session, dispatch }),
     [session],
   );
+  const [isLoading, setIsLoading] = React.useState(false);
+  const pathname = usePathname();
+
+  // useSearchParams() should be wrapped in a suspense boundary
+  // So, put it in nav logo component
+  React.useEffect(() => {
+    setIsLoading(false);
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContext.Provider value={authContextValue}>
-        <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+        <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
+          <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+        </LoadingContext.Provider>
       </AuthContext.Provider>
       <ReactQueryDevtools initialIsOpen={false} />
       <Toaster

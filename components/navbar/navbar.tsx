@@ -1,8 +1,11 @@
+import { Suspense } from "react";
+
 import { getSession } from "@/lib/auth";
 
 import NavAvatar from "./avatar";
 import { NavItems } from "./nav-items";
 import { NavLogo } from "./nav-logo";
+import { NavLogoFallback } from "./nav-logo-fallback";
 import SmallScreenButton from "./small-screen-button";
 
 export async function Navbar() {
@@ -15,7 +18,9 @@ export async function Navbar() {
         <div className="flex h-full items-center justify-between px-4">
           {/* 左侧 Logo */}
           <div className="flex items-center gap-3 opacity-90">
-            <NavLogo />
+            <Suspense fallback={<NavLogoFallback />}>
+              <NavLogo />
+            </Suspense>
           </div>
 
           {/* 中间导航链接 - 桌面端显示 */}

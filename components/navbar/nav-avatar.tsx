@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
+
+import Link from "../link";
 
 export default function NavAvatar({
   img,
@@ -12,7 +13,6 @@ export default function NavAvatar({
   signOutAction: () => void;
 }) {
   // TODO
-  // 控制悬浮菜单
 
   const [_isOpen, setIsOpen] = useState(false);
   let timeoutId: NodeJS.Timeout;

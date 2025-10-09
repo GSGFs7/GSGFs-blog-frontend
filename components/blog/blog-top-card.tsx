@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+import { useLoading } from "@/app/providers";
 import { getAllPostIds } from "@/lib/api";
 import cardImageR from "@/public/0.png";
 import cardImageL from "@/public/2_cut.jpg";
@@ -14,6 +15,7 @@ import { getMousePosition } from "@/utils";
 export default function BlogTopCard() {
   const router = useRouter();
   const pathname = usePathname();
+  const { setIsLoading } = useLoading();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [randomId, setRandomId] = useState<number | null>(null);
 
@@ -78,6 +80,7 @@ export default function BlogTopCard() {
       return;
     }
 
+    setIsLoading(true);
     router.push(`/blog/${randomId}`);
   }
 
