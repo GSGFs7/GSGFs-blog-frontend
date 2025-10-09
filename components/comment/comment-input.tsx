@@ -74,6 +74,7 @@ export default function CommentInput({ postId }: { postId: number }) {
       return;
     }
 
+    setIsLoading(true);
     const parser = bowser.getParser(userAgent);
     const res = await apiAddComment(String(content), postId, turnstileToken, {
       user_agent: parser.getUA(),
@@ -90,7 +91,6 @@ export default function CommentInput({ postId }: { postId: number }) {
 
     clearDraft();
     formRef.current?.reset();
-    setIsLoading(true);
     router.refresh();
   }
 
