@@ -1,8 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import { LuLollipop, LuRefreshCw } from "react-icons/lu";
 
 import { useLoading } from "@/app/providers";
@@ -10,13 +8,8 @@ import { siteConfig } from "@/config/site";
 
 import Link from "../link";
 
-export function NavLogo() {
-  const searchparams = useSearchParams();
-  const { isLoading, setIsLoading } = useLoading();
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [searchparams, setIsLoading]);
+export function NavLogoFallback() {
+  const { isLoading } = useLoading();
 
   return (
     <Link className="flex items-center justify-start gap-1" href="/">

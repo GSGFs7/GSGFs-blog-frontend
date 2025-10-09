@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   ThemeProvider as NextThemesProvider,
   type ThemeProviderProps,
@@ -92,11 +92,12 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   );
   const [isLoading, setIsLoading] = React.useState(false);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
+  // useSearchParams() should be wrapped in a suspense boundary
+  // So, put it in nav logo component
   React.useEffect(() => {
     setIsLoading(false);
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
