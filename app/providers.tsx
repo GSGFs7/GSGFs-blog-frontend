@@ -74,6 +74,7 @@ const queryClient = new QueryClient({
   },
 });
 
+// global loading indicator state
 const LoadingContext = React.createContext({
   isLoading: false,
   setIsLoading: (_: boolean) => {},
