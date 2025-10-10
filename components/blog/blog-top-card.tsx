@@ -15,7 +15,7 @@ import { getMousePosition } from "@/utils";
 export default function BlogTopCard() {
   const router = useRouter();
   const pathname = usePathname();
-  const { setIsLoading } = useLoading();
+  const { setIsLoading: setPageIsLoading } = useLoading();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [randomId, setRandomId] = useState<number | null>(null);
 
@@ -25,7 +25,7 @@ export default function BlogTopCard() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["post-ids"],
+    queryKey: ["post", "ids"],
     queryFn: async () => {
       const res = await getAllPostIds();
       if (!res.ok) {
@@ -33,15 +33,13 @@ export default function BlogTopCard() {
       }
       return res.data;
     },
-    staleTime: 1000 * 60 * 10, // 10 mins
-    gcTime: 1000 * 60 * 15, // 15 mins, delete from memory
+    staleTime: 0,
+    gcTime: Infinity,
     refetchOnWindowFocus: false, // no need
     refetchOnMount: false, // no need
   });
 
   useEffect(() => {
-    setRandomId(null);
-
     if (isLoading || !ids) {
       return;
     }
@@ -80,7 +78,7 @@ export default function BlogTopCard() {
       return;
     }
 
-    setIsLoading(true);
+    setPageIsLoading(true);
     router.push(`/blog/${randomId}`);
   }
 

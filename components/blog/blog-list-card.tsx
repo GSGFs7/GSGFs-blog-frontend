@@ -39,7 +39,7 @@ export default function BlogListCard({
       style={{
         scale: scaleProgress,
         opacity: opacityProgress,
-        willChange: "transform, opacity", // tell the browser in advance
+        // willChange: "transform, opacity", // tell the browser in advance
       }}
     >
       <Link href={`/blog/${id}`}>
