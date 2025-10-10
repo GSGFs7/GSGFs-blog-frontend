@@ -7,21 +7,24 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useTurnstile } from "react-turnstile";
 
-import { useAuth, useLoading } from "@/app/providers";
+import { useAuth } from "@/app/providers";
 import { apiAddComment } from "@/server/backend";
 
+import { useComment } from "./provider";
 import TurnstileWidget from "./turnstile-widget";
 
+// TODO: Anonymous mode for comment
 export default function CommentInput({ postId }: { postId: number }) {
   const formRef = useRef<HTMLFormElement>(null);
   const turnstile = useTurnstile();
   const router = useRouter();
   const { session } = useAuth();
-  const { setIsLoading } = useLoading();
-  const isDisabled = !session;
+  const { setIsPending: setIsFormPending } = useComment();
   const [userAgent, setUserAgent] = useState<string>("");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
   const [commentContent, setCommentContent] = useState<string>("");
+
+  const isDisabled = !session;
 
   const getDraftKey = (postId: number) => `comment-draft-${postId}`;
   const saveDraft = (content: string) => {
@@ -54,7 +57,9 @@ export default function CommentInput({ postId }: { postId: number }) {
   async function handleSubmit(formData: FormData) {
     turnstile.reset();
 
-    if (isDisabled) return;
+    if (isDisabled) {
+      return;
+    }
 
     if (!turnstileToken) {
       toast.error("请先通过人机验证");
@@ -74,7 +79,9 @@ export default function CommentInput({ postId }: { postId: number }) {
       return;
     }
 
-    setIsLoading(true);
+    // disable form button
+    setIsFormPending(true);
+
     const parser = bowser.getParser(userAgent);
     const res = await apiAddComment(String(content), postId, turnstileToken, {
       user_agent: parser.getUA(),
@@ -83,6 +90,8 @@ export default function CommentInput({ postId }: { postId: number }) {
       platform: parser.getPlatform().type,
       OS: parser.getOS().name,
     });
+
+    setIsFormPending(false);
 
     if (res.ok === false) {
       toast.error(res.message);
