@@ -29,30 +29,42 @@ export default function Footer() {
       </Link>
       <span>|</span>
       <Link
-        className="text-primary transition-colors hover:text-[#aaaaaa]"
+        className="flex items-center text-current"
         href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans"
         rel="noopener noreferrer"
         target="_blank"
         title="Creative Commons Attribution 4.0 International License"
       >
-        CC BY 4.0
+        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+          CC BY 4.0
+        </span>
       </Link>
       <span>|</span>
       <Link
-        className="text-primary transition-colors hover:text-[#aaaaaa]"
-        href={"/privacy"}
+        className="flex items-center text-current"
+        href="/privacy"
         title="隐私协议"
       >
-        privacy
-      </Link>{" "}
+        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+          privacy
+        </span>
+      </Link>
       <span>|</span>
-      <Link className="flex items-center text-current" href="/sitemap.xml">
+      <Link
+        className="flex items-center text-current"
+        href="/sitemap.xml"
+        title="sitemap"
+      >
         <span className="text-primary transition-colors hover:text-[#aaaaaa]">
           sitemap
         </span>
       </Link>
       <span>|</span>
-      <Link className="flex items-center text-current" href="/blog/feed.atom">
+      <Link
+        className="flex items-center text-current"
+        href="/blog/feed.atom"
+        title="rss feed"
+      >
         <span className="text-primary transition-colors hover:text-[#aaaaaa]">
           rss
         </span>
