@@ -1,6 +1,6 @@
 import CommentAvatar from "./avatar";
 import CommentAvatarLink from "./avatar-link";
-import Button from "./button";
+import CommentButton from "./button";
 import CommentInput from "./comment-input";
 import CommentList from "./comment-list";
 import CommentProvider from "./provider";
@@ -19,7 +19,7 @@ export default async function Comment({ postId }: { postId: number }) {
           <CommentAvatarLink>
             <CommentAvatar />
           </CommentAvatarLink>
-          <Button />
+          <CommentButton />
         </div>
       </div>
     </CommentProvider>

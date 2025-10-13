@@ -6,21 +6,24 @@ import { useAuth } from "@/app/providers";
 
 import { useComment } from "./provider";
 
-export default function Button() {
+export default function CommentButton() {
   const { session } = useAuth();
   const { isPending } = useComment();
 
   if (!session) {
-    <button
-      className={clsx(
-        `mr-2 rounded-lg bg-blue-600 px-4 py-2 sm:px-5`,
-        "cursor-not-allowed bg-blue-800 text-gray-400",
-      )}
-      form="comment-form"
-      type="submit"
-    >
-      Submit
-    </button>;
+    return (
+      <button
+        disabled
+        className={clsx(
+          `mr-2 rounded-lg bg-blue-600 px-4 py-2 sm:px-5`,
+          "cursor-not-allowed bg-blue-800 text-gray-400",
+        )}
+        form="comment-form"
+        type="submit"
+      >
+        Submit
+      </button>
+    );
   }
 
   return (
@@ -31,10 +34,11 @@ export default function Button() {
           ? "cursor-pointer"
           : "cursor-not-allowed bg-blue-800 text-gray-400",
       )}
+      disabled={isPending ?? true}
       form="comment-form"
       type="submit"
     >
-      {isPending ? "Submitting" : "Submit"}
+      {isPending ? "Submitting..." : "Submit"}
     </button>
   );
 }
