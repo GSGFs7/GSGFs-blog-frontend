@@ -1,37 +1,24 @@
 import { z } from "zod";
 
 import { siteConfig } from "@/config/site";
+import { BACKEND_URL } from "@/env/private";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 
-export interface FetchOptions extends RequestInit {
-  timeout?: number;
-  signal?: AbortSignal;
-  params?: Record<string, string | number | undefined | null>;
-  // TODO: data verification
-  // zod is too large (208k), do not use schema validation in client side
-  schema?: z.ZodType<any>;
-}
-
-export class FetchError extends Error {
-  status?: number;
-  validationError?: z.ZodError;
-
-  constructor(
-    message: string,
-    options?: { status?: number; validationError?: z.ZodError },
-  ) {
-    super(message);
-    this.name = "FetchError";
-    this.status = options?.status;
-    this.validationError = options?.validationError;
-  }
-}
+import { FetchError } from "./error";
+import { interceptor } from "./interceptor";
+import { FetchOptions } from "./types";
 
 export async function fetchClient<T = any>(
   endpoint: string,
   options: FetchOptions = {},
 ): Promise<T> {
-  const { timeout = 5000, schema, params, ...fetchOptions } = options;
+  const {
+    timeout = 5000,
+    schema,
+    params,
+    skipInterceptors = false,
+    ...fetchOptions
+  } = options;
   let userAgent: string;
   let url: string;
 
@@ -57,7 +44,7 @@ export async function fetchClient<T = any>(
     }
   } else {
     // backend URL
-    url = `${process.env.BACKEND_URL}/api/${endpoint}`;
+    url = `${BACKEND_URL}/api/${endpoint}`;
   }
 
   // Process URL query parameters
@@ -75,12 +62,30 @@ export async function fetchClient<T = any>(
     }
   }
 
+  // TODO: maybe not JSON?
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
     "User-Agent": userAgent,
     ...options.headers,
   };
+
+  // request interceptor
+  let finalUrl = url;
+  let finalOptions: FetchOptions = { ...fetchOptions, headers };
+  if (!skipInterceptors) {
+    try {
+      const intercepted = await interceptor.executeRequestInterceptors(
+        finalUrl,
+        finalOptions,
+      );
+
+      finalUrl = intercepted.url;
+      finalOptions = intercepted.options;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   // abort
   const internalController = new AbortController();
@@ -91,9 +96,9 @@ export async function fetchClient<T = any>(
     : internalController.signal;
 
   try {
-    const response = await fetch(url, {
-      ...fetchOptions,
-      headers,
+    const response = await fetch(finalUrl, {
+      ...finalOptions,
+      headers: finalOptions.headers,
       signal,
     });
 
@@ -101,10 +106,22 @@ export async function fetchClient<T = any>(
 
     // report error when request failed
     if (!response.ok) {
-      throw new FetchError(
-        `API error ${response.status}: ${response.statusText} when ${fetchOptions.method} ${url}. Response: ${await response.text()}`,
-        { status: response.status },
+      const errorText = await response.text();
+      const fetchError = new FetchError(
+        `API error ${response.status}: ${response.statusText} when ` +
+          `${fetchOptions.method} ${finalUrl}. Response: ${errorText}`,
+        { status: response.status, response },
       );
+
+      // response interceptor, process error
+      if (!skipInterceptors) {
+        return await interceptor.executeResponseInterceptors<T>(
+          fetchError,
+          true,
+        );
+      }
+
+      throw fetchError;
     }
 
     const contentType = response.headers.get("content-type");
@@ -121,39 +138,77 @@ export async function fetchClient<T = any>(
           throw new FetchError("API response validation error", {
             status: response.status,
             validationError: validationError as z.ZodError,
+            response,
           });
         }
       }
 
+      // response interceptor
+      if (!skipInterceptors) {
+        return await interceptor.executeResponseInterceptors<T>(
+          data as T,
+          false,
+        );
+      }
+
       return data as T;
     } else {
-      return (await response.text()) as T;
+      const text = await response.text();
+
+      if (!skipInterceptors) {
+        return await interceptor.executeResponseInterceptors<T>(
+          text as T,
+          false,
+        );
+      }
+
+      return text as T;
     }
   } catch (error: unknown) {
     clearTimeout(timeoutId);
 
     if (error instanceof FetchError) {
+      if (!skipInterceptors) {
+        return await interceptor.executeResponseInterceptors<T>(error, true);
+      }
+
       throw error;
     }
 
     if (error instanceof Error && error.name === "AbortError") {
+      let fetchError: FetchError;
+
       if (!userSignal?.aborted) {
         // timeout aborted
-        throw new FetchError(
-          `Request timeout after ${timeout}ms. URL: ${url}`,
+        fetchError = new FetchError(
+          `Request timeout after ${timeout}ms. URL: ${finalUrl}`,
           { status: 408 },
         );
       } else {
         // user aborted
-        throw new FetchError(
+        fetchError = new FetchError(
           `Request aborted by user(You should catch it). Reason: ${userSignal.reason}`,
         );
       }
+
+      if (!skipInterceptors) {
+        return await interceptor.executeResponseInterceptors<T>(
+          fetchError,
+          true,
+        );
+      }
+
+      throw fetchError;
     }
 
-    throw new FetchError(
+    // other error
+    const fetchError = new FetchError(
       error instanceof Error ? error.message : String(error),
     );
+    if (!skipInterceptors) {
+      return await interceptor.executeResponseInterceptors<T>(fetchError, true);
+    }
+    throw fetchError;
   }
 }
 
@@ -162,8 +217,10 @@ export async function fetchClient<T = any>(
  *
  * endpoint:
  * - if it starts with http or https, it will be used as is
- * - if it starts with /, it will use the frontend URL. such as: /api/test -> http://your-frontend.com/api/test
- * - if it starts not with /, it will use the backend URL. such as: test -> http://your-backend.com/api/test
+ * - if it starts with /, it will use the frontend URL.
+ *    such as: /api/test -> http://your-frontend.com/api/test
+ * - if it starts not with /, it will use the backend URL.
+ *    such as: test -> http://your-backend.com/api/test
  *
  * If use abort signal, put the signal in the options
  * such as:
