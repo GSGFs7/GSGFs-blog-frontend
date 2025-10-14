@@ -72,6 +72,8 @@ export const siteConfig = {
   entertainmentMessage: [
     "突然发现 Entertainment 这个单词好像太长了...",
     "人間は寂しさを永久になくすことはできない 人は一人だからね ただ忘れることができるから人は生きていけるのさ",
+    "あなたを好きになりました 日记を买いました。花と散る日々を、つなぎあわせておくために",
+    "これから先、どんなことが待っていようとも わたしと出会えたこと、後悔しないでください",
   ] as const,
   // The link in the homepage button is not the friend link
   links: [
