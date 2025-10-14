@@ -8,6 +8,7 @@ import { Metadata, Viewport } from "next";
 
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import StructuredData from "@/components/structured-data";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_GOOGLE_ANALYTICS_ID } from "@/env/public";
 
@@ -81,6 +82,7 @@ export default async function RootLayout({
             .dark { background-color: #1c1b22; }`,
           }}
         />
+        <StructuredData />
       </head>
       <body
         className={clsx(

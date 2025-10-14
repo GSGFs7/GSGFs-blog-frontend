@@ -4,24 +4,29 @@ import bowser from "bowser";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import toast from "react-hot-toast";
 import { useTurnstile } from "react-turnstile";
 
-import { useAuth, useLoading } from "@/app/providers";
+import { useAuth } from "@/app/providers";
+import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
 import { apiAddComment } from "@/server/backend";
 
+import { useComment } from "./provider";
 import TurnstileWidget from "./turnstile-widget";
 
+// TODO: Anonymous mode for comment
 export default function CommentInput({ postId }: { postId: number }) {
   const formRef = useRef<HTMLFormElement>(null);
   const turnstile = useTurnstile();
   const router = useRouter();
   const { session } = useAuth();
-  const { setIsLoading } = useLoading();
-  const isDisabled = !session;
+  const { setIsPending } = useComment();
   const [userAgent, setUserAgent] = useState<string>("");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
   const [commentContent, setCommentContent] = useState<string>("");
+
+  const isDisabled = !session;
 
   const getDraftKey = (postId: number) => `comment-draft-${postId}`;
   const saveDraft = (content: string) => {
@@ -52,11 +57,15 @@ export default function CommentInput({ postId }: { postId: number }) {
   }, [postId]);
 
   async function handleSubmit(formData: FormData) {
-    turnstile.reset();
+    if (NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
+      turnstile.reset();
+    }
 
-    if (isDisabled) return;
+    if (isDisabled) {
+      return;
+    }
 
-    if (!turnstileToken) {
+    if (!turnstileToken && NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
       toast.error("请先通过人机验证");
 
       return;
@@ -74,7 +83,12 @@ export default function CommentInput({ postId }: { postId: number }) {
       return;
     }
 
-    setIsLoading(true);
+    // disable form button
+    // NOTE: it will update DOM immediately
+    // Because react will combine a series of state operations
+    // https://react.dev/learn/queueing-a-series-of-state-updates
+    flushSync(() => setIsPending(true));
+
     const parser = bowser.getParser(userAgent);
     const res = await apiAddComment(String(content), postId, turnstileToken, {
       user_agent: parser.getUA(),
@@ -83,6 +97,8 @@ export default function CommentInput({ postId }: { postId: number }) {
       platform: parser.getPlatform().type,
       OS: parser.getOS().name,
     });
+
+    setIsPending(false);
 
     if (res.ok === false) {
       toast.error(res.message);
@@ -98,13 +114,13 @@ export default function CommentInput({ postId }: { postId: number }) {
     <form
       ref={formRef}
       action={handleSubmit}
-      className="group relative"
+      className="relative"
       id="comment-form"
     >
       <textarea
         required
         className="peer min-h-36 w-full resize-none bg-transparent p-3 focus:outline-0 sm:min-h-48"
-        disabled={isDisabled}
+        disabled={isDisabled ?? true}
         id="content"
         name="content"
         value={commentContent}
