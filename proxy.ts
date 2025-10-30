@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 
-import { middlewareAuth } from "./middleware/auth";
-import { middlewareCSP } from "./middleware/csp";
+import { middlewareAuth } from "./proxy/auth";
+import { middlewareCSP } from "./proxy/csp";
 
 export const config = {
   matcher: [
@@ -22,7 +22,7 @@ export const config = {
   ],
 };
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const authResponse = await middlewareAuth(request);
 
   return await middlewareCSP(request, authResponse);

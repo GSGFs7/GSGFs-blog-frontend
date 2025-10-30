@@ -11,7 +11,7 @@
 - `hooks`: React hooks
 - `lib`: 服务端功能函数
 - `markdown`: markdown 文件
-- `middleware`: Next.js 中间件
+- `proxy`: Next.js proxy
 - `public`: 静态文件
 - `scripts`: 辅助脚本
 - `server/backend`: 后端数据交换函数
