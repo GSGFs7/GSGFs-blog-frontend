@@ -10,8 +10,13 @@ export default function SmallScreenButton() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Close menu when pathname changes
   useEffect(() => {
-    setIsMenuOpen(false);
+    const timeoutId = setTimeout(() => {
+      setIsMenuOpen(false);
+    }, 0);
+
+    return () => clearTimeout(timeoutId);
   }, [pathname]);
 
   // Disable scroll when menu is opened

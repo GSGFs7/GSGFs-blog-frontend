@@ -1,7 +1,6 @@
-import type { NextConfig } from "next";
-
 import bundleAnalyzer from "@next/bundle-analyzer";
 import withSerwistInit from "@serwist/next";
+import type { NextConfig } from "next";
 
 import { privateSchema, publicSchema } from "@/env/schema";
 
@@ -56,6 +55,32 @@ const nextConfig: NextConfig = {
     return config;
   },
   async headers() {
+    const isDev = process.env.NODE_ENV === "development";
+
+    const turnstileSrc = "https://challenges.cloudflare.com";
+    const GTagSrc = "https://*.googletagmanager.com";
+    const GASrc =
+      "https://*.google-analytics.com https://*.analytics.google.com";
+
+    const CSPHeader = [
+      "default-src 'self'",
+      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} ${turnstileSrc} ${GTagSrc}`,
+      `frame-src ${turnstileSrc}`,
+      `connect-src 'self' ${turnstileSrc} ${GTagSrc} ${GASrc}`,
+      "style-src 'self' 'unsafe-inline'",
+      `img-src 'self' data: https: ${GTagSrc} ${GASrc}`,
+      "font-src 'self'",
+      "object-src 'none'",
+      "media-src 'self'",
+      "child-src 'none'",
+      "worker-src 'self'",
+      "manifest-src 'self'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'none'",
+      "upgrade-insecure-requests",
+    ].join("; ");
+
     return [
       {
         source: "/(.*)",
@@ -71,6 +96,10 @@ const nextConfig: NextConfig = {
           {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: CSPHeader,
           },
         ],
       },
@@ -136,7 +165,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withSerwist = withSerwistInit({
+const _withSerwist = withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
 });
@@ -145,7 +174,7 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-export default withBundleAnalyzer(withSerwist(nextConfig));
+export default withBundleAnalyzer(nextConfig);
 
 // open next in dev env
 // if (process.env.NODE_ENV === "development") {

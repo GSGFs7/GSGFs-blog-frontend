@@ -3,19 +3,22 @@ import Image from "next/image";
 import Link from "@/components/link";
 import { siteConfig } from "@/config/site";
 
+// Generate random message outside of component to satisfy purity rules
+function getRandomMessage() {
+  const randomIndex = Math.floor(
+    Math.random() * siteConfig.entertainmentMessage.length,
+  );
+  return siteConfig.entertainmentMessage[randomIndex];
+}
+
 export default async function Page() {
+  const randomMessage = getRandomMessage();
+
   return (
     <div className="container mx-auto px-2 py-4 sm:px-4 sm:py-8">
       <div className="mb-8 text-center">
         <h1 className="mb-4 text-4xl font-bold">娱乐</h1>
-        <p className="text-gray-300">
-          {
-            // random choice a message
-            siteConfig.entertainmentMessage[
-              Math.floor(Math.random() * siteConfig.entertainmentMessage.length)
-            ]
-          }
-        </p>
+        <p className="text-gray-300">{randomMessage}</p>
       </div>
 
       <div className="space-y-8 sm:space-y-12">

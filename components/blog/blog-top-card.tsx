@@ -17,7 +17,6 @@ export default function BlogTopCard() {
   const pathname = usePathname();
   const { setIsLoading: setPageIsLoading } = useLoading();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [randomId, setRandomId] = useState<number | null>(null);
 
   // prefetch all of the post ids
   const {
@@ -39,19 +38,31 @@ export default function BlogTopCard() {
     refetchOnMount: false, // no need
   });
 
+  // State for random ID
+  const [randomId, setRandomId] = useState<number | null>(null);
+
+  // Generate random ID when data is available or pathname changes
   useEffect(() => {
-    if (isLoading || !ids) {
+    if (isLoading || !ids || ids.length === 0) {
       return;
     }
 
-    const randomIndex = Math.floor(Math.random() * ids.length);
-    const randomPostId = ids[randomIndex];
+    // Use a timeout to defer the state update and avoid synchronous setState in effect
+    const timeoutId = setTimeout(() => {
+      const randomIndex = Math.floor(Math.random() * ids.length);
+      const randomPostId = ids[randomIndex];
+      setRandomId(randomPostId);
+    }, 0);
 
-    setRandomId(randomPostId);
+    return () => clearTimeout(timeoutId);
+  }, [isLoading, pathname, ids]);
 
-    // prefetch, maybe unnecessary?
-    router.prefetch(`/blog/${randomPostId}`);
-  }, [isLoading, pathname, ids, router]); // reset it when pathname changed
+  // Separate effect for prefetching
+  useEffect(() => {
+    if (randomId) {
+      router.prefetch(`/blog/${randomId}`);
+    }
+  }, [randomId, router]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     setMousePosition(getMousePosition(e));
@@ -85,7 +96,7 @@ export default function BlogTopCard() {
   return (
     <div className="flex w-full flex-wrap gap-6 sm:mb-4 sm:h-52 md:h-80">
       <div
-        className="group relative flex h-52 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:h-52 sm:flex-[9] md:h-80"
+        className="group relative flex h-52 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:h-52 sm:flex-9 md:h-80"
         onMouseMove={handleMouseMove}
       >
         <div className="absolute z-20 flex -translate-y-4 flex-col flex-wrap items-center justify-center gap-4 text-white">
@@ -111,7 +122,7 @@ export default function BlogTopCard() {
         <div className="absolute z-10 h-full w-full bg-black/10" />
       </div>
 
-      <div className="group relative flex h-16 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:h-52 sm:flex-[4] md:h-80">
+      <div className="group relative flex h-16 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:h-52 sm:flex-4 md:h-80">
         <button
           className="relative flex h-full w-full cursor-pointer items-center justify-center"
           onClick={handleRandomPost}

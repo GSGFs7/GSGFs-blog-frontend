@@ -96,7 +96,7 @@ export default async function RootLayout({
           >
             <Navbar />
           </header>
-          <div className="relative flex h-screen w-screen flex-col items-center">
+          <div className="relative flex min-h-screen w-full flex-col items-center">
             <main className="dark container mx-auto max-w-7xl grow px-6 pt-24">
               {children}
             </main>

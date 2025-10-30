@@ -74,6 +74,8 @@ export async function generateSitemap(): Promise<SitemapField[]> {
     "/pages",
     "/strange",
     "/user",
+    "/blog/tag",
+    "/blog/category",
   ];
 
   const staticRoutes = getAllStaticRoutes()

@@ -1,14 +1,15 @@
+import "@/styles/blog.css";
+import "github-markdown-css/github-markdown-dark.css";
+
 import aboutMd from "@/markdown/about.md";
 import { markdownToHtml } from "@/utils";
 import { title } from "@/utils/primitives";
-import "@/styles/blog.css";
-import "github-markdown-css/github-markdown-dark.css";
 
 export default async function AboutPage() {
   const about = await markdownToHtml(aboutMd);
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4">
+    <div className="flex w-fit flex-col items-center justify-center gap-4">
       <div className="flex flex-col items-center justify-center">
         <h1 className={title()}>About</h1>
         <p className="text-gray-400">

@@ -1,9 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export function useInfiniteScroll(callback: () => void, hasMore: boolean) {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const targetRef = useRef<HTMLDivElement>(null);
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const callbackRef = useRef(callback);
+  const hasMoreRef = useRef(hasMore);
+
+  // Update refs when props change
+  useEffect(() => {
+    callbackRef.current = callback;
+    hasMoreRef.current = hasMore;
+  }, [callback, hasMore]);
 
   useEffect(() => {
     if (!hasMore) {
@@ -14,7 +21,11 @@ export function useInfiniteScroll(callback: () => void, hasMore: boolean) {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
-        setIsIntersecting(entry.isIntersecting);
+        // Directly handle intersection in the observer callback
+        if (entry.isIntersecting && hasMoreRef.current) {
+          // run callback function
+          callbackRef.current();
+        }
       },
       {
         root: null, // set viewport as root
@@ -35,16 +46,6 @@ export function useInfiniteScroll(callback: () => void, hasMore: boolean) {
       }
     };
   }, [hasMore]);
-
-  // call 'callback' function
-  useEffect(() => {
-    if (!isIntersecting || !hasMore) {
-      return;
-    }
-
-    callback();
-    setIsIntersecting(false);
-  }, [isIntersecting, hasMore, callback]);
 
   return targetRef;
 }

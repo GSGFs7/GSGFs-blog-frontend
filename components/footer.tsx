@@ -2,7 +2,7 @@ import Link from "./link";
 
 export default function Footer() {
   return (
-    <footer className="flex w-full flex-wrap items-center justify-center gap-1 px-4 py-3">
+    <footer className="flex w-fit flex-wrap items-center justify-center gap-1 px-4 py-3">
       <span className="text-default-600">Powered by</span>
       <Link
         className="flex items-center text-current"
