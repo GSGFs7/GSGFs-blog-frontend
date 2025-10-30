@@ -12,6 +12,7 @@ import { siteConfig } from "@/config/site";
 
 import { Providers } from "./providers";
 
+// TODO: canonical url
 export const metadata: Metadata = {
   title: {
     default: siteConfig.siteName,
