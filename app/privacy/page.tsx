@@ -72,14 +72,6 @@ export default function Page() {
           </li>
         </ul>
 
-        <h2 className="mt-6">不收集的信息</h2>
-        <p>除非您主动提供, 否则我们不会收集以下信息: </p>
-        <ul>
-          <li>您的电子邮件地址</li>
-          <li>您的详细浏览历史或行为模式</li>
-          <li>您的设备详细信息</li>
-        </ul>
-
         <h2 className="mt-6">信息使用</h2>
         <p>收集的有限信息仅用于: </p>
         <ul>
@@ -147,7 +139,7 @@ export default function Page() {
           <li>访问您提供给我们的个人数据</li>
           <li>要求更正不准确的数据</li>
           <li>要求删除您的账户数据和评论</li>
-          <li>拒绝使用 Cookie (这可能影响某些功能的使用) </li>
+          <li>拒绝使用 Cookie</li>
         </ul>
 
         <h2 className="mt-6">联系方式</h2>
