@@ -2,7 +2,6 @@ import "@/styles/globals.css";
 import "@fontsource/maple-mono";
 import "lxgw-wenkai-screen-web";
 
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 
@@ -10,7 +9,6 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import StructuredData from "@/components/structured-data";
 import { siteConfig } from "@/config/site";
-import { NEXT_PUBLIC_GOOGLE_ANALYTICS_ID } from "@/env/public";
 
 import { Providers } from "./providers";
 
@@ -103,11 +101,6 @@ export default async function RootLayout({
 
             <Footer />
           </div>
-
-          {/* Google Analytics */}
-          {NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
-            <GoogleAnalytics gaId={NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
-          )}
         </Providers>
       </body>
     </html>

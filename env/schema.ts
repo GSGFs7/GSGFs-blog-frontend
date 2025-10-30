@@ -3,7 +3,6 @@ import { z } from "zod";
 export const publicSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.url(),
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().optional(),
-  NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: z.string().optional(),
 });
 
 export const privateSchema = publicSchema.extend({

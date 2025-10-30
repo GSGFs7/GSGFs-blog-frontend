@@ -20,15 +20,9 @@ const customCache: RuntimeCaching[] = defaultCache;
 const lastCache = customCache.at(-1);
 
 if (lastCache) {
-  // allow Turnstile and Google Analytics to pass through
+  // allow Turnstile to pass through
   lastCache.matcher = ({ url, sameOrigin }) => {
     if (url.origin === "https://challenges.cloudflare.com") {
-      return false;
-    }
-    if (
-      url.hostname.includes("google-analytics.com") ||
-      url.hostname.includes("googletagmanager.com")
-    ) {
       return false;
     }
 

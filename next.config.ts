@@ -58,17 +58,14 @@ const nextConfig: NextConfig = {
     const isDev = process.env.NODE_ENV === "development";
 
     const turnstileSrc = "https://challenges.cloudflare.com";
-    const GTagSrc = "https://*.googletagmanager.com";
-    const GASrc =
-      "https://*.google-analytics.com https://*.analytics.google.com";
 
     const CSPHeader = [
       "default-src 'self'",
-      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} ${turnstileSrc} ${GTagSrc}`,
+      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} ${turnstileSrc}`,
       `frame-src ${turnstileSrc}`,
-      `connect-src 'self' ${turnstileSrc} ${GTagSrc} ${GASrc}`,
+      `connect-src 'self' ${turnstileSrc}`,
       "style-src 'self' 'unsafe-inline'",
-      `img-src 'self' data: https: ${GTagSrc} ${GASrc}`,
+      `img-src 'self'`,
       "font-src 'self'",
       "object-src 'none'",
       "media-src 'self'",

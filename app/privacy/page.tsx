@@ -8,7 +8,7 @@ export default function Page() {
     <div className="container mx-auto max-w-3xl px-4 py-8">
       <h1 className="mb-6 text-3xl font-bold">隐私协议</h1>
       <div className="privacy max-w-none">
-        <p className="text-lg">最后更新日期: 2025年7月5日</p>
+        <p className="text-lg">最后更新日期: 2025年10月30日</p>
 
         <h2 className="mt-8">概述</h2>
         <p>
@@ -22,6 +22,7 @@ export default function Page() {
           本网站前端托管在 Vercel/Cloudflare Worker 平台上, 并使用 Cloudflare
           作为 CDN 服务提供商. 这意味着:
         </p>
+
         <ul>
           <li>
             基础的访问日志 (如 IP 地址、请求时间、访问页面等) 由 Vercel 和
@@ -49,6 +50,10 @@ export default function Page() {
             </a>
           </li>
         </ul>
+        <p>
+          此外，我们维护一台自有的 VPS 通过 Docker 部署与管理. 该 VPS
+          仅用于加速部分地区的访问速度, 不会记录访问日志或用于流量分析.
+        </p>
 
         <h2 className="mt-6">我们收集的信息</h2>
         <p>我们仅在以下情况下收集用户信息: </p>
@@ -64,13 +69,6 @@ export default function Page() {
           <li>
             <strong>Cookies</strong>: 仅用于维持您的登录状态,
             不会用于跟踪或分析行为
-          </li>
-          <li>
-            <strong>Google Analytics</strong>: 我们使用 Google Analytics
-            来收集匿名的网站使用情况统计数据,
-            例如访问量、页面浏览次数和用户大致地理位置.
-            这些数据帮助我们了解网站的受欢迎程度并改进内容. Google Analytics
-            会使用 Cookie, 但我们已启用 IP 匿名化处理, 不会收集您的完整 IP 地址.
           </li>
         </ul>
 
@@ -104,6 +102,28 @@ export default function Page() {
           <li>
             <strong>GitHub OAuth</strong> & <strong>OSU OAuth</strong>:
             用户认证服务
+          </li>
+          <li>
+            <strong>Cloudflare Turnstile</strong>: 用于防止机器人. 这些数据由
+            Cloudflare 根据其隐私政策处理与保存。详情请参阅{" "}
+            <a
+              className="text-blue-400 hover:underline"
+              href="https://developers.cloudflare.com/turnstile/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Turnstile 开发者文档
+            </a>{" "}
+            和{" "}
+            <a
+              className="text-blue-400 hover:underline"
+              href="https://www.cloudflare.com/privacypolicy/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Cloudflare 隐私政策
+            </a>
+            。
           </li>
         </ul>
         <p>我们不会将您的数据出售或共享给任何第三方用于营销或广告目的.</p>
