@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import Link from "../link";
 
@@ -15,15 +15,17 @@ export default function NavAvatar({
   // TODO
 
   const [_isOpen, setIsOpen] = useState(false);
-  let timeoutId: NodeJS.Timeout;
+  const timeoutIdRef = useRef<NodeJS.Timeout>(null);
 
   const handleMouseEnter = () => {
     setIsOpen(true);
-    clearTimeout(timeoutId);
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current);
+    }
   };
 
   const handleMouseLeave = () => {
-    timeoutId = setTimeout(() => {
+    timeoutIdRef.current = setTimeout(() => {
       setIsOpen(false);
     }, 300);
   };

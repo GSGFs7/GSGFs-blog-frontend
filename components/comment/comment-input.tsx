@@ -3,7 +3,7 @@
 import bowser from "bowser";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import toast from "react-hot-toast";
 import { useTurnstile } from "react-turnstile";
@@ -15,6 +15,8 @@ import { apiAddComment } from "@/server/backend";
 import { useComment } from "./provider";
 import TurnstileWidget from "./turnstile-widget";
 
+const getDraftKey = (postId: number) => `comment-draft-${postId}`;
+
 // TODO: Anonymous mode for comment
 export default function CommentInput({ postId }: { postId: number }) {
   const formRef = useRef<HTMLFormElement>(null);
@@ -22,13 +24,22 @@ export default function CommentInput({ postId }: { postId: number }) {
   const router = useRouter();
   const { session } = useAuth();
   const { setIsPending } = useComment();
-  const [userAgent, setUserAgent] = useState<string>("");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
-  const [commentContent, setCommentContent] = useState<string>("");
+  // Lazy initial state - get user agent on mount
+  const [userAgent, _setUserAgent] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      return window.navigator.userAgent;
+    }
+    return "";
+  });
+  const [commentContent, setCommentContent] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem(getDraftKey(postId)) || "";
+    }
+    return "";
+  });
 
   const isDisabled = !session;
-
-  const getDraftKey = (postId: number) => `comment-draft-${postId}`;
   const saveDraft = (content: string) => {
     if (typeof window !== "undefined") {
       setCommentContent(content);
@@ -41,20 +52,6 @@ export default function CommentInput({ postId }: { postId: number }) {
       localStorage.removeItem(getDraftKey(postId));
     }
   };
-
-  // Restore draft
-  useEffect(() => {
-    // comment draft
-    if (typeof window !== "undefined") {
-      const saveDraft = localStorage.getItem(getDraftKey(postId));
-
-      if (saveDraft) {
-        setCommentContent(saveDraft);
-      }
-    }
-
-    setUserAgent(window.navigator.userAgent);
-  }, [postId]);
 
   async function handleSubmit(formData: FormData) {
     if (NEXT_PUBLIC_TURNSTILE_SITE_KEY) {

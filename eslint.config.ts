@@ -265,29 +265,18 @@
 //   },
 // ];
 
-// do not update 'eslint-plugin-react-hooks' to 6.1.1
-// https://github.com/facebook/react/issues/34733
-import { FlatCompat } from "@eslint/eslintrc";
 import pluginQuery from "@tanstack/eslint-plugin-query";
+import { globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
 import importPlugin from "eslint-plugin-import";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import unusedImports from "eslint-plugin-unused-imports";
-import { globalIgnores } from "eslint/config";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import tseslint from "typescript-eslint";
 
 const eslintConfig = [
-  ...compat.config({
-    extends: ["next/core-web-vitals", "next/typescript"],
-  }),
+  ...nextVitals,
   ...pluginQuery.configs["flat/recommended"],
+  ...tseslint.configs.recommended,
   eslintPluginPrettierRecommended,
   globalIgnores([
     ".next",
@@ -301,11 +290,9 @@ const eslintConfig = [
       "unused-imports": unusedImports,
       import: importPlugin,
     },
-    ignores: ["*.config.js", "*.config.mjs", "*.config.ts"],
+    ignores: ["*.config.js", "*.config.mjs"],
     rules: {
-      "@typescript-eslint/no-unused-vars": "off",
-      "unused-imports/no-unused-imports": "warn",
-      "unused-imports/no-unused-vars": [
+      "@typescript-eslint/no-unused-vars": [
         "warn",
         {
           vars: "all",
@@ -315,6 +302,8 @@ const eslintConfig = [
           ignoreRestSiblings: true,
         },
       ],
+      "unused-imports/no-unused-imports": "warn",
+      "unused-imports/no-unused-vars": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "prefer-const": "warn",
       "prettier/prettier": ["warn", {}, { usePrettierrc: true }],
