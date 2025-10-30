@@ -10,6 +10,8 @@ import { siteConfig } from "@/config/site";
 import avatar_webp from "@/public/favicon.webp";
 import osu_svg from "@/public/osu.svg";
 
+import { HalloweenPumpkin } from "./festival";
+
 export default function First() {
   const [show, setShow] = useState<boolean>(false);
 
@@ -91,7 +93,7 @@ export default function First() {
         </div>
       </div>
 
-      <div className="mt-16 flex flex-5 flex-col">
+      <div className="relative mt-16 flex flex-5 flex-col">
         <Image
           alt="avatar"
           className="rounded-xl shadow-lg shadow-black/50 transition-all hover:scale-105"
@@ -105,10 +107,12 @@ export default function First() {
         />
         <div className="group relative flex items-center justify-end">
           <p
-            className={`mt-4 w-full text-center text-gray-500 ${show ? "" : "hidden"}`}
+            className={`mt-4 w-full text-center text-gray-500 select-none ${show ? "opacity-100" : "opacity-0"}`}
             id="image-description"
           >
-            图片中的角色是《常轨脱离Creative》中的锦亚澄
+            <span>图片中的角色是《常轨脱离Creative》中的锦亚澄</span>
+            <br />
+            <span className="text-orange-500 opacity-70">Happy Halloween!</span>
           </p>
           <button
             aria-controls="image-description"
@@ -127,6 +131,8 @@ export default function First() {
             <HiInformationCircle />
           </button>
         </div>
+
+        <HalloweenPumpkin />
       </div>
     </div>
   );

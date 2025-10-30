@@ -97,7 +97,7 @@ export async function getPostSitemap(): Promise<PostSitemapItem[] | null> {
 
     return res;
   } catch (e) {
-    console.error(`getAllPosts error: ${e}`);
+    console.error(`getAllPosts for sitemap error: ${e}`);
 
     return null;
   }

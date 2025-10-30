@@ -33,14 +33,18 @@ type AuthAction =
 interface AuthContextType {
   session: sessionType | null;
   dispatch: React.Dispatch<AuthAction>;
+  enableCookies: boolean;
+  setEnableCookies: (_: boolean) => void;
 }
 
 export const AuthContext = React.createContext<AuthContextType>({
   session: null,
   dispatch: () => {},
+  enableCookies: false,
+  setEnableCookies: () => {},
 });
 
-export function useAuth() {
+export function useAuth(): AuthContextType {
   return React.useContext(AuthContext);
 }
 
@@ -86,9 +90,10 @@ export const useLoading = () => {
 
 export function Providers({ children, themeProps }: ProvidersProps) {
   const [{ session }, dispatch] = React.useReducer(reducer, { session: null });
+  const [enableCookies, setEnableCookies] = React.useState(false);
   const authContextValue = React.useMemo(
-    () => ({ session, dispatch }),
-    [session],
+    () => ({ session, dispatch, enableCookies, setEnableCookies }),
+    [session, dispatch, enableCookies, setEnableCookies],
   );
   const [isLoading, setIsLoading] = React.useState(false);
   const pathname = usePathname();
