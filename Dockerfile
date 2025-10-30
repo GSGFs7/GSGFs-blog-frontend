@@ -47,8 +47,7 @@ COPY --from=builder /app/.next/standalone ./
 # static 客户端静态资源
 COPY --from=builder /app/.next/static ./.next/static
 # 复制环境
-COPY --from=builder /app/.env.local ./
-COPY --from=builder /app/.env.production.local ./
+COPY --from=builder /app/.env* ./
 
 RUN chown nextjs:nodejs .next
 
