@@ -1,39 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { useState } from "react";
 import { BsFingerprint } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa";
 import { HiInformationCircle } from "react-icons/hi";
 
-import Modal from "@/components/modal";
 import { siteConfig } from "@/config/site";
 import avatar_webp from "@/public/favicon.webp";
 import osu_svg from "@/public/osu.svg";
 
-export default function First({ gpg }: { gpg: string }) {
+export default function First() {
   const [show, setShow] = useState<boolean>(false);
-  const gpgRef = useRef<HTMLDivElement>(null);
-
-  async function handleCopyGPG() {
-    // TODO: enhance this
-    try {
-      await navigator.clipboard.writeText(gpgRef.current?.innerText || "");
-      toast.success("GPG 公钥已复制到剪切板");
-    } catch {
-      toast.error("GPG 复制失败, 无剪切板权限");
-    }
-  }
 
   return (
     <div className="flex h-full min-h-[700px] w-full max-w-5xl flex-col md:translate-y-[10%] md:flex-row lg:translate-y-[30%]">
-      <div className="flex-[8]">
+      <div className="flex-8">
         <div className="flex max-w-xl flex-col justify-center gap-y-6 text-left text-[#dadada] sm:pt-20">
           <h1 className="text-7xl drop-shadow-lg sm:text-8xl">Hi!</h1>
           <h2 className="inline-block text-6xl drop-shadow-lg sm:text-7xl">
             I&apos;m{" "}
-            <p className="inline-block bg-gradient-to-b from-blue-400 to-[#0072F5] bg-clip-text text-7xl text-transparent sm:text-8xl">
+            <p className="inline-block bg-linear-to-b from-blue-400 to-[#0072F5] bg-clip-text text-7xl text-transparent sm:text-8xl">
               {siteConfig.author}
             </p>
           </h2>
@@ -60,7 +47,7 @@ export default function First({ gpg }: { gpg: string }) {
               </a>
             ))}
 
-            <div className="hidden md:block">
+            {/* <div className="hidden md:block">
               <Modal>
                 <Modal.Open opens="gpg-key">
                   <button
@@ -88,23 +75,23 @@ export default function First({ gpg }: { gpg: string }) {
                   </div>
                 </Modal.Window>
               </Modal>
-            </div>
+            </div> */}
 
-            <div className="md:hidden">
-              <button
-                aria-label="复制 GPG 公钥"
+            <div className="">
+              <a
+                aria-label="查看 GPG 公钥"
                 className="flex cursor-pointer items-center gap-2 rounded-full border border-black/20 bg-[#f0f0f0e6] p-2 text-[2rem] text-black/80 transition outline-none hover:scale-105 hover:bg-[#c0c0c0] focus:scale-105 active:scale-105"
-                title="复制 GPG 公钥"
-                onClick={handleCopyGPG}
+                href="/gpg.asc"
+                title="查看 GPG 公钥"
               >
                 <BsFingerprint />
-              </button>
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-16 flex flex-[5] flex-col">
+      <div className="mt-16 flex flex-5 flex-col">
         <Image
           alt="avatar"
           className="rounded-xl shadow-lg shadow-black/50 transition-all hover:scale-105"
