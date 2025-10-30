@@ -3,11 +3,12 @@
 import { fc } from "@/lib/fetchClient";
 import { githubResponse, tokenResponse } from "@/types";
 
-import { createJWT } from "./jwt";
+import { createJWT, JWTResult } from "./jwt";
 
 export async function githubOAuth(
   code: string,
-): Promise<githubResponse | null> {
+  useCookies: boolean = false,
+): Promise<JWTResult> {
   const GITHUB_CLIENT_ID = process.env.AUTH_GITHUB_ID!;
   const GITHUB_CLIENT_SECRET = process.env.AUTH_GITHUB_SECRET!;
 
@@ -52,13 +53,16 @@ export async function githubOAuth(
   }
 
   // create JWT
-  await createJWT({
-    id: userData.id,
-    avatar_url: userData.avatar_url,
-    username: userData.login,
-    show_name: userData.name,
-    provider: "github",
-  });
+  const authResult = await createJWT(
+    {
+      id: userData.id,
+      avatar_url: userData.avatar_url,
+      username: userData.login,
+      show_name: userData.name,
+      provider: "github",
+    },
+    useCookies,
+  );
 
-  return userData;
+  return authResult;
 }

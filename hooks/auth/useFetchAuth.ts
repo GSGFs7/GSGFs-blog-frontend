@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 import { useAuth } from "@/app/providers";
@@ -9,7 +9,19 @@ import { fc } from "@/lib/fetchClient";
 import { sessionType } from "@/types";
 
 const AUTH_QUERY_KEY = ["auth", "session"];
-const REFRESH_TOKEN_INTERVAL = 1000 * 60 * 45;
+const REFRESH_TOKEN_INTERVAL = 1000 * 60 * 45; // 45mins
+
+function getStoredToken(key: string): string | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    return sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
 
 export async function fetchSession(): Promise<sessionType | null> {
   try {
@@ -18,7 +30,18 @@ export async function fetchSession(): Promise<sessionType | null> {
       headers: { "x-timestamp": Date.now().toString() },
     });
 
-    return session;
+    if (session) {
+      return session;
+    }
+
+    const accessToken = getStoredToken("access_token");
+    if (!accessToken) {
+      return null;
+    }
+
+    return await fc.post<sessionType>("/api/auth/verify", {
+      token: accessToken,
+    });
   } catch {
     // console.log("Failed to get session: ", e);
 
@@ -30,6 +53,7 @@ export function useFetchAuth() {
   const queryClient = useQueryClient();
   const { session: contextSession, dispatch } = useAuth();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const {
     data: session,
@@ -96,6 +120,30 @@ export function useFetchAuth() {
 
     dispatch({ type: "update", payload: session });
   }, [dispatch, isLoading, session]);
+
+  // find 'access_token' in api callback
+  useEffect(() => {
+    const accessToken = searchParams.get("access_token");
+    if (!accessToken) {
+      return;
+    }
+
+    try {
+      fc.post<sessionType>("/api/auth/verify", {
+        token: accessToken,
+      }).then((s) => {
+        if (s.type !== "access") {
+          throw new Error();
+        }
+      });
+    } catch {
+      sessionStorage.setItem("access_token", accessToken);
+      return;
+    }
+
+    sessionStorage.removeItem("access_token");
+    sessionStorage.setItem("access_token", accessToken);
+  }, [searchParams]);
 
   return {
     session,

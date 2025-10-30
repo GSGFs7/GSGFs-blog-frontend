@@ -1,14 +1,26 @@
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
+import {
+  JWT_SECRET as SECRET,
+  JWT_REFRESH_SECRET as REFRESH_SECRET,
+} from "@/env/private";
 import { userData } from "@/types";
 
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
-const JWT_REFRESH_SECRET = new TextEncoder().encode(
-  process.env.JWT_REFRESH_SECRET!,
-);
+const JWT_SECRET = new TextEncoder().encode(SECRET);
+const JWT_REFRESH_SECRET = new TextEncoder().encode(REFRESH_SECRET);
 
-export async function createJWT(userData: userData) {
+export interface JWTResult {
+  accessToken: string;
+  refreshToken: string;
+  userData: userData;
+  useCookies: boolean;
+}
+
+export async function createJWT(
+  userData: userData,
+  useCookies: boolean = false,
+): Promise<JWTResult> {
   let show_name = "";
 
   if (userData.provider === "github") {
@@ -45,21 +57,31 @@ export async function createJWT(userData: userData) {
     .setExpirationTime("14d")
     .sign(JWT_REFRESH_SECRET);
 
-  // set cookie
-  const cookieStore = await cookies();
+  // set cookie only if user consents
+  if (useCookies) {
+    const cookieStore = await cookies();
 
-  cookieStore.set("access_token", accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 60 * 60 * 1, // 1 hour
-  });
+    cookieStore.set("access_token", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 1, // 1 hour
+    });
 
-  cookieStore.set("refresh_token", refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/api/auth/refresh", // refresh only
-    maxAge: 60 * 60 * 24 * 14, // 2 weeks
-  });
+    cookieStore.set("refresh_token", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/api/auth/refresh", // refresh only
+      maxAge: 60 * 60 * 24 * 14, // 2 weeks
+    });
+  }
+
+  // return tokens for session storage use when cookies are disabled
+  return {
+    accessToken,
+    refreshToken,
+    userData,
+    useCookies,
+  };
 }

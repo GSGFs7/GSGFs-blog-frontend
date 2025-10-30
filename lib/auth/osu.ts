@@ -1,12 +1,14 @@
 "use server";
 
+import { fc } from "@/lib/fetchClient";
 import { osuResponse, tokenResponse } from "@/types";
 
-import { fc } from "../fetchClient";
+import { createJWT, JWTResult } from "./jwt";
 
-import { createJWT } from "./jwt";
-
-export async function osuAuth(code: string): Promise<osuResponse | null> {
+export async function osuAuth(
+  code: string,
+  useCookies: boolean = false,
+): Promise<JWTResult> {
   const OSU_CLIENT_ID = process.env.AUTH_OSU_ID!;
   const OSU_CLIENT_SECRET = process.env.AUTH_OSU_SECRET!;
 
@@ -42,9 +44,8 @@ export async function osuAuth(code: string): Promise<osuResponse | null> {
   try {
     userData = await fc.get<osuResponse>(`https://osu.ppy.sh/api/v2/me/osu`, {
       headers: {
-        Authorization: `${accessTokenType} ${accessToken}`,
-        "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `${accessTokenType} ${accessToken}`,
       },
     });
   } catch (e) {
@@ -52,12 +53,15 @@ export async function osuAuth(code: string): Promise<osuResponse | null> {
   }
 
   // create JWT
-  await createJWT({
-    id: userData.id,
-    username: userData.username,
-    avatar_url: userData.avatar_url,
-    provider: "osu",
-  });
+  const authResult = await createJWT(
+    {
+      id: userData.id,
+      username: userData.username,
+      avatar_url: userData.avatar_url,
+      provider: "osu",
+    },
+    useCookies,
+  );
 
-  return userData;
+  return authResult;
 }

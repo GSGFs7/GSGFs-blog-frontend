@@ -109,5 +109,6 @@ export interface OAuthState {
   callbackUrl?: string;
   csrfToken?: string;
   timestamp?: number;
+  useCookies?: boolean;
   [key: string]: any;
 }

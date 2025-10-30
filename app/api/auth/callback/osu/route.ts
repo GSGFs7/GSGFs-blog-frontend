@@ -4,6 +4,7 @@ import { osuAuth } from "@/lib/auth";
 import { cacheDelete, cacheGet } from "@/lib/cache";
 import { OAuthState } from "@/types";
 import { isValidRedirectUrl } from "@/utils";
+import { getIP } from "@/utils/ip";
 
 // TODO: Merge callback routes
 export const GET = async (request: Request) => {
@@ -21,8 +22,8 @@ export const GET = async (request: Request) => {
   try {
     const stateObj = JSON.parse(
       Buffer.from(stateParam, "base64").toString("utf-8"),
-    );
-    const { csrfToken, timestamp } = stateObj;
+    ) as OAuthState;
+    const { csrfToken, timestamp, useCookies } = stateObj;
     let callbackUrl = stateObj.callbackUrl;
 
     // validate URL
@@ -33,7 +34,7 @@ export const GET = async (request: Request) => {
     // validate timestamp
     const now = Date.now();
 
-    if (now - timestamp > 5 * 60 * 1000) {
+    if (now - (timestamp ?? 0) > 5 * 60 * 1000) {
       return NextResponse.json(
         {
           error: "Authentication state has expired.",
@@ -43,11 +44,7 @@ export const GET = async (request: Request) => {
     }
 
     // validate CSRF token
-    const userIP =
-      request.headers.get("x-real-ip") ||
-      request.headers.get("x-forwarded-for") ||
-      request.headers.get("x-cf-connecting-ip") ||
-      "unknown";
+    const userIP = getIP(request.headers);
     const cacheKey = `osu_auth:${userIP}:${csrfToken}`;
     let cachedState: OAuthState | null = null;
 
@@ -80,12 +77,16 @@ export const GET = async (request: Request) => {
     }
 
     // get user data and sign JWT
-    await osuAuth(code);
+    const authResult = await osuAuth(code, useCookies ?? false);
 
-    const redirectUrl = new URL(callbackUrl, request.url).toString();
+    const redirectUrl = new URL(callbackUrl, request.url);
+
+    if (!useCookies) {
+      redirectUrl.searchParams.set("access_token", authResult.accessToken);
+    }
 
     // 需要 return
-    return NextResponse.redirect(redirectUrl);
+    return NextResponse.redirect(redirectUrl.toString());
   } catch (error) {
     console.error("Authentication error:", error);
 
