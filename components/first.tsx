@@ -22,7 +22,10 @@ export default function First() {
           <h1 className="text-7xl drop-shadow-lg sm:text-8xl">Hi!</h1>
           <h2 className="inline-block text-6xl drop-shadow-lg sm:text-7xl">
             I&apos;m{" "}
-            <p className="inline-block bg-linear-to-b from-blue-400 to-[#0072F5] bg-clip-text text-7xl text-transparent sm:text-8xl">
+            {/* <p className="inline-block bg-linear-to-b from-blue-400 to-[#0072F5] bg-clip-text text-7xl text-transparent sm:text-8xl">
+              {siteConfig.author}
+            </p> */}
+            <p className="inline-block bg-linear-to-b from-orange-300 to-[#f7920e] bg-clip-text text-7xl text-transparent sm:text-8xl">
               {siteConfig.author}
             </p>
           </h2>
@@ -110,8 +113,8 @@ export default function First() {
             className={`mt-4 w-full text-center text-gray-500 select-none ${show ? "opacity-100" : "opacity-0"}`}
             id="image-description"
           >
-            <span>图片中的角色是《常轨脱离Creative》中的锦亚澄</span>
-            <br />
+            {/* <span>图片中的角色是《常轨脱离Creative》中的锦亚澄</span>
+            <br /> */}
             <span className="text-orange-500 opacity-70">Happy Halloween!</span>
           </p>
           <button
