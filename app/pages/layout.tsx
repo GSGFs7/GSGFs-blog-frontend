@@ -1,9 +1,14 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
+
+import { siteConfig } from "@/config/site";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Pages",
+  alternates: {
+    canonical: `${siteConfig.canonicalUrl}/pages`,
+  },
   robots: {
     index: false, // WIP
     follow: false,

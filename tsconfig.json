@@ -25,8 +25,7 @@
     "noImplicitAny": false,
     "noEmitOnError": true,
     "removeComments": false,
-    "sourceMap": true,
-    "types": ["@serwist/next/typings"]
+    "sourceMap": true
   },
   "include": [
     "next-env.d.ts",

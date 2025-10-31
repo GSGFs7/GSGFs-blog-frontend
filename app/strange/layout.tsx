@@ -1,5 +1,7 @@
-import { Metadata } from "next";
-import { ReactNode } from "react";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "strange",
@@ -8,6 +10,9 @@ export const metadata: Metadata = {
   robots: {
     index: false,
     follow: false,
+  },
+  alternates: {
+    canonical: `${siteConfig.canonicalUrl}/strange`,
   },
 };
 

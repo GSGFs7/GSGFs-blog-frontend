@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "login",
   description: `登陆到${siteConfig.siteName}`,
   alternates: {
-    canonical: "/login",
+    canonical: `${siteConfig.canonicalUrl}/login`,
   },
   robots: {
     index: false,

@@ -66,26 +66,26 @@ export default function GalList() {
 
   return (
     <>
-      <article
-        className="gal-table markdown-body"
-        style={{ overflowX: "auto", width: "100%", maxWidth: "100vw" }}
-      >
+      <article className="gal-table markdown-body w-full max-w-svw overflow-x-auto">
         <GalTable data={data} tableColumns={tableColumns} />
       </article>
 
       {errorMessage && (
-        <div className="mt-4">发生错误: &quot;{errorMessage}&quot;</div>
+        <div className="mt-4">
+          加载时发生了一个<span className="line-through">(也可能是很多)</span>
+          错误
+        </div>
       )}
 
       {!errorMessage &&
         (pagination.hasMore ? (
-          <div ref={observerTarget} className="mt-4" style={{ width: "100%" }}>
+          <div ref={observerTarget} className="mt-4 w-full">
             <button className="cursor-pointer" onClick={() => loadMoreData()}>
               继续滚动或点击此处以加载更多...
             </button>
           </div>
         ) : (
-          <div className="mt-4" style={{ height: "10px", width: "100%" }}>
+          <div className="mt-4 w-full select-none">
             已加载全部 {pagination.total} 条数据
           </div>
         ))}

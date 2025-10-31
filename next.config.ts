@@ -1,5 +1,4 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
-import withSerwistInit from "@serwist/next";
 import type { NextConfig } from "next";
 
 import { privateSchema, publicSchema } from "@/env/schema";
@@ -162,10 +161,10 @@ const nextConfig: NextConfig = {
   },
 };
 
-const _withSerwist = withSerwistInit({
-  swSrc: "app/sw.ts",
-  swDest: "public/sw.js",
-});
+// const _withSerwist = withSerwistInit({
+//   swSrc: "app/sw.ts",
+//   swDest: "public/sw.js",
+// });
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
