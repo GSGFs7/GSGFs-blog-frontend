@@ -3,16 +3,16 @@ import "@fontsource/maple-mono";
 import "lxgw-wenkai-screen-web";
 
 import { clsx } from "clsx";
-import { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import StructuredData from "@/components/structured-data";
 import { siteConfig } from "@/config/site";
+import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 
 import { Providers } from "./providers";
 
-// TODO: canonical url
 export const metadata: Metadata = {
   title: {
     default: siteConfig.siteName,
@@ -29,6 +29,13 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
+  alternates: {
+    canonical: siteConfig.canonicalUrl,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     type: "website",
     siteName: siteConfig.siteName,
@@ -36,9 +43,10 @@ export const metadata: Metadata = {
       default: siteConfig.siteName,
       template: `%s - ${siteConfig.siteName}`,
     },
+    url: siteConfig.canonicalUrl,
     description: siteConfig.description,
     images: {
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/og`,
+      url: `${NEXT_PUBLIC_SITE_URL}/api/og`,
       width: 1200,
       height: 630,
     },
@@ -51,7 +59,7 @@ export const metadata: Metadata = {
     },
     description: siteConfig.description,
     images: {
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/og`,
+      url: `${NEXT_PUBLIC_SITE_URL}/api/og`,
       width: 1200,
       height: 630,
     },

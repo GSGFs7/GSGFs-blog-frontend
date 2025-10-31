@@ -1,12 +1,59 @@
+import type { Metadata, ResolvingMetadata } from "next";
 import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { BlogTopCard } from "@/components/blog";
+import { siteConfig } from "@/config/site";
+import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
+import { getPostList } from "@/lib/api";
 
 import BlogProvider from "./provider";
 
 const BlogList = dynamic(() => import("@/components/blog/blog-list"));
+
+type Props = {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+// searchParams are only available in `page.js` segments!!!
+export async function generateMetadata(
+  { searchParams }: Props,
+  _parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const { page: pageParam } = await searchParams;
+
+  let currentPage: number = 1;
+  if (typeof pageParam === "string" && !Number.isNaN(Number(pageParam))) {
+    currentPage = Number(pageParam);
+  }
+
+  let nextPage: number | null = null;
+  let prevPage: number | null = null;
+  const res = await getPostList();
+  if (res.ok === true) {
+    const total = res.data.pagination.total;
+    const size = res.data.pagination.size;
+    const pageCount = Math.ceil(total / size);
+
+    prevPage = currentPage > 1 ? currentPage - 1 : 1;
+    nextPage = currentPage < pageCount ? currentPage + 1 : pageCount;
+  }
+
+  return {
+    title: "Blog",
+    description: "博客文章页面",
+    keywords: ["Blog", "编程", "日常"],
+    alternates: {
+      canonical: `${siteConfig.canonicalUrl}/blog?page=${currentPage}`,
+    },
+    pagination: {
+      next: `${NEXT_PUBLIC_SITE_URL}/blog?page=${nextPage}`,
+      previous: `${NEXT_PUBLIC_SITE_URL}/blog?page=${prevPage}`,
+    },
+  };
+}
 
 export default async function BlogPage({
   searchParams,
@@ -17,7 +64,7 @@ export default async function BlogPage({
   let page = params.page ?? "1";
   // let size = params.page ?? "10";
 
-  if (page instanceof Array) {
+  if (Array.isArray(page)) {
     page = page.at(0) ?? "1";
   }
   // if (size instanceof Array) {

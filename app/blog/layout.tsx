@@ -1,11 +1,3 @@
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Blog",
-  description: "博客文章页面",
-  keywords: ["Blog", "分享"],
-};
-
 export default function BlogLayout({
   children,
 }: {

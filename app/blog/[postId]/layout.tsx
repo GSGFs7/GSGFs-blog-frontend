@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import React, { ReactNode } from "react";
+import type { Metadata } from "next";
+import React, { type ReactNode } from "react";
 
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
@@ -12,7 +12,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const res = await getPost((await params).postId);
 
-  if (!res.ok) return {};
+  if (!res.ok) {
+    return {
+      alternates: {
+        canonical: `${siteConfig.canonicalUrl}/blog/${(await params).postId}`,
+      },
+    };
+  }
 
   const post = res.data;
 
@@ -21,6 +27,9 @@ export async function generateMetadata({
     title: `${post.title} - ${siteConfig.siteName}`,
     description: post.meta_description || post.title,
     keywords: post.keywords,
+    alternates: {
+      canonical: `${siteConfig.canonicalUrl}/blog/${post.id}`,
+    },
     openGraph: {
       title: post.title,
       description: post.meta_description,
