@@ -37,8 +37,8 @@ export async function generateMetadata(
     const size = res.data.pagination.size;
     const pageCount = Math.ceil(total / size);
 
-    prevPage = currentPage > 1 ? currentPage - 1 : 1;
-    nextPage = currentPage < pageCount ? currentPage + 1 : pageCount;
+    prevPage = currentPage > 1 ? currentPage - 1 : null;
+    nextPage = currentPage < pageCount ? currentPage + 1 : null;
   }
 
   return {
