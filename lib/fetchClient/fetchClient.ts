@@ -1,4 +1,4 @@
-import { z } from "zod";
+import type { z } from "zod";
 
 import { siteConfig } from "@/config/site";
 import { BACKEND_URL } from "@/env/private";
@@ -6,7 +6,7 @@ import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 
 import { FetchError } from "./error";
 import { interceptor } from "./interceptor";
-import { FetchOptions } from "./types";
+import type { FetchOptions } from "./types";
 
 export async function fetchClient<T = any>(
   endpoint: string,
@@ -26,7 +26,7 @@ export async function fetchClient<T = any>(
   if (typeof window !== "undefined") {
     userAgent = window.navigator.userAgent;
   } else {
-    userAgent = `${siteConfig.siteName} NextJS/15 (+${NEXT_PUBLIC_SITE_URL})`;
+    userAgent = `${siteConfig.siteName} NextJS/16 (+${NEXT_PUBLIC_SITE_URL})`;
   }
 
   // convert endpoint to URL
