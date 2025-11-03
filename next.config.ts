@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   output: "standalone", // for docker
   reactStrictMode: true,
+  reactCompiler: true,
   experimental: {
     optimizePackageImports: ["@/components", "react-hot-toast", "react-icons"],
   },
@@ -56,20 +57,22 @@ const nextConfig: NextConfig = {
   async headers() {
     const isDev = process.env.NODE_ENV === "development";
 
-    const turnstileSrc = "https://challenges.cloudflare.com";
+    const captchaSrc = [
+      // "https://challenges.cloudflare.com"
+    ].join(" ");
 
     const CSPHeader = [
       "default-src 'self'",
-      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} ${turnstileSrc}`,
-      `frame-src ${turnstileSrc}`,
-      `connect-src 'self' ${turnstileSrc}`,
+      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} ${captchaSrc}`,
+      `frame-src ${captchaSrc}`,
+      `connect-src 'self' ${captchaSrc}`,
       "style-src 'self' 'unsafe-inline'",
-      `img-src 'self'`,
+      `img-src 'self' data:`,
       "font-src 'self'",
       "object-src 'none'",
       "media-src 'self'",
       "child-src 'none'",
-      "worker-src 'self'",
+      "worker-src 'self' blob:", // Cap needs 'blob' for create workers
       "manifest-src 'self'",
       "base-uri 'self'",
       "form-action 'self'",

@@ -89,5 +89,6 @@ export const siteConfig = {
   fonts: { sans: [], italic: [], mono: [] } as const, // There is no point in changing it here. you need import it in layout
   author: "GSGFs" as const,
   adminEmail: "admin@gsgfs.moe" as const,
+  // https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
   canonicalUrl: "https://gsgfs.moe" as const,
 };

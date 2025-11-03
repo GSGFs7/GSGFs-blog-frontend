@@ -1,8 +1,8 @@
 import { jwtVerify } from "jose";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 import { JWT_SECRET as SECRET } from "@/env/private";
-import { sessionType } from "@/types";
+import type { sessionType } from "@/types";
 
 const JWT_SECRET = new TextEncoder().encode(SECRET);
 

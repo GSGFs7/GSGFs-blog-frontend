@@ -1,14 +1,13 @@
 "use server";
 
-import { TURNSTILE_SECRET_KEY } from "@/env/private";
-import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
+import { getCaptcha, isCaptchaEnabled } from "@/components/captcha/switch";
 import { getGuest } from "@/lib/auth";
+import { verifyCapToken, verifyTurnstileToken } from "@/lib/captcha/verify";
 import { fc } from "@/lib/fetchClient";
-import { IDNumber } from "@/types";
-import { errorToString } from "@/utils/errorToString";
+import type { IDNumber } from "@/types";
 import { commentMarkdownToHtml } from "@/utils/markdown";
 
-import { BackendApiFunctionResult } from ".";
+import type { BackendApiFunctionResult } from ".";
 import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 import { apiGuestLogin } from "./guest";
 
@@ -23,6 +22,7 @@ export async function apiAddComment(
     browser_version?: string;
     OS?: string;
   },
+  accessToken?: string,
 ): Promise<BackendApiFunctionResult<number>> {
   if (typeof content !== "string") {
     return {
@@ -40,11 +40,17 @@ export async function apiAddComment(
 
   try {
     // ensure guest record exist
-    await apiGuestLogin();
-  } catch (e) {
+    const res = await apiGuestLogin(accessToken);
+    if (!res.ok) {
+      return {
+        ok: false,
+        message: "用户验证失败",
+      };
+    }
+  } catch {
     return {
       ok: false,
-      message: errorToString(e),
+      message: "用户验证失败",
     };
   }
 
@@ -57,30 +63,38 @@ export async function apiAddComment(
     };
   }
 
-  // turnstile validation
-  if (NEXT_PUBLIC_TURNSTILE_SITE_KEY && TURNSTILE_SECRET_KEY) {
-    try {
-      const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-      const formData = new URLSearchParams();
+  // CAPTCHA validation
+  if (await isCaptchaEnabled()) {
+    const captchaType = await getCaptcha();
 
-      formData.append("secret", TURNSTILE_SECRET_KEY);
-      formData.append("response", token);
-
-      const res = await fc.postForm(url, formData);
-
-      if (!res.success) {
-        throw new Error("Turnstile verification failed");
-      }
-    } catch {
-      return { ok: false, message: "Turnstile 验证失败" };
+    let success: boolean;
+    if (captchaType === "Cap") {
+      success = await verifyCapToken(token);
+    } else if (captchaType === "Turnstile") {
+      success = await verifyTurnstileToken(token);
+    } else {
+      return {
+        ok: false,
+        message: "未知的 CAPTCHA",
+      };
     }
-  } else if (NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
-    console.warn(
-      "'NEXT_PUBLIC_TURNSTILE_SITE_KEY' found but not 'TURNSTILE_SECRET_KEY'. Turnstile invalid",
-    );
+
+    if (!success) {
+      return {
+        ok: false,
+        message: "CAPTCHA 验证失败",
+      };
+    }
   }
 
-  const guest = await getGuest();
+  const guest = await getGuest(accessToken);
+  if (!guest) {
+    return {
+      ok: false,
+      message: "用户验证失败",
+    };
+  }
+
   const body = {
     unique_id: `${guest?.provider}-${guest?.provider_id}`,
     content: htmlContent,
@@ -98,6 +112,6 @@ export async function apiAddComment(
     return { ok: true, data: data.id };
   } catch (e) {
     console.error(e);
-    return { ok: false, message: errorToString(e) };
+    return { ok: false, message: "创建失败" };
   }
 }
