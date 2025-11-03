@@ -68,6 +68,7 @@ export class Cap implements Captcha {
 // disable SSR
 const CapWidgetInner = dynamic(
   async () => {
+    window.CAP_CUSTOM_WASM_URL = `${NEXT_PUBLIC_SITE_URL}/cap/cap_wasm.js`;
     const { default: Cap } = await import("@cap.js/widget");
 
     return function CapWidgetComponent({ setTokenAction }: CaptchaWidget) {
@@ -76,8 +77,6 @@ const CapWidgetInner = dynamic(
       const [isCapInit, setIsCapInit] = useState(false);
 
       useEffect(() => {
-        window.CAP_CUSTOM_WASM_URL = `${window.location.origin}/cap/cap_wasm.js`;
-
         new Cap({
           apiEndpoint: endpoint,
           "data-cap-api-endpoint": endpoint,
@@ -141,6 +140,6 @@ const CapWidgetInner = dynamic(
   },
 );
 
-function CapWidget({ setTokenAction }: CaptchaWidget) {
+export function CapWidget({ setTokenAction }: CaptchaWidget) {
   return <CapWidgetInner setTokenAction={setTokenAction} />;
 }
