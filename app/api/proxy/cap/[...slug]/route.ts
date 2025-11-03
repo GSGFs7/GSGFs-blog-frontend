@@ -21,7 +21,6 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   // Double gzip encoding
   const skipHeaders = new Set([
-    "host",
     "content-length",
     "accept-encoding", // remove this
     "connection",
@@ -36,6 +35,13 @@ export async function POST(request: NextRequest, { params }: Params) {
         headers.set(key, value);
       }
     });
+
+    if (!headers.has("referer")) {
+      headers.set("referer", proxyURL.origin);
+    }
+    if (!headers.has("origin")) {
+      headers.set("origin", proxyURL.origin);
+    }
 
     const proxyRequest = new NextRequest(proxyURL, {
       method: request.method,
