@@ -49,8 +49,10 @@ export async function generateMetadata(
       canonical: `${siteConfig.canonicalUrl}/blog?page=${currentPage}`,
     },
     pagination: {
-      next: `${NEXT_PUBLIC_SITE_URL}/blog?page=${nextPage}`,
-      previous: `${NEXT_PUBLIC_SITE_URL}/blog?page=${prevPage}`,
+      next: nextPage ? `${NEXT_PUBLIC_SITE_URL}/blog?page=${nextPage}` : null,
+      previous: prevPage
+        ? `${NEXT_PUBLIC_SITE_URL}/blog?page=${prevPage}`
+        : null,
     },
   };
 }

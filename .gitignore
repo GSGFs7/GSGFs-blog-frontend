@@ -54,5 +54,9 @@ public/swe-worker*
 # lighthouse report
 *.report.html
 
+# automatically generated files
+# copied from '@cap.js/wasm'
+public/cap/
+
 # other
 git.md

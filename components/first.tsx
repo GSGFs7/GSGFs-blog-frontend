@@ -16,8 +16,8 @@ export default function First() {
   const [show, setShow] = useState<boolean>(false);
 
   return (
-    <div className="flex h-full min-h-[700px] w-full max-w-5xl flex-col md:translate-y-[10%] md:flex-row lg:translate-y-[30%]">
-      <div className="flex-8">
+    <div className="flex h-full min-h-[min(300px,40vh)] w-full max-w-5xl flex-col md:translate-y-[10%] md:flex-row lg:translate-y-[20%] xl:translate-y-[30%]">
+      <div className="h-fit flex-8">
         <div className="flex max-w-xl flex-col justify-center gap-y-6 text-left text-[#dadada] sm:pt-20">
           <h1 className="text-7xl drop-shadow-lg sm:text-8xl">Hi!</h1>
           <h2 className="inline-block text-6xl drop-shadow-lg sm:text-7xl">
@@ -96,7 +96,7 @@ export default function First() {
         </div>
       </div>
 
-      <div className="relative mt-16 flex flex-5 flex-col">
+      <div className="relative mt-16 flex h-fit flex-5 flex-col">
         <Image
           alt="avatar"
           className="rounded-xl shadow-lg shadow-black/50 transition-all hover:scale-105"
@@ -115,7 +115,7 @@ export default function First() {
           >
             {/* <span>图片中的角色是《常轨脱离Creative》中的锦亚澄</span>
             <br /> */}
-            <span className="text-orange-500 opacity-70">Happy Halloween!</span>
+            <span className="text-orange-400 opacity-70">Happy Halloween!</span>
           </p>
           <button
             aria-controls="image-description"
@@ -123,6 +123,7 @@ export default function First() {
             aria-label="显示/隐藏图片信息"
             className="mt-5 cursor-pointer text-xl text-[#cccccc] hover:text-[#c0c0c0]"
             tabIndex={0}
+            type="button"
             onClick={() => setShow((now) => !now)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {

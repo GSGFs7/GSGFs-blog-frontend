@@ -2,17 +2,17 @@
 
 import { getSession } from "@/lib/auth";
 import { fc } from "@/lib/fetchClient";
-import { guestLogin, IDNumber } from "@/types";
+import type { guestLogin, IDNumber } from "@/types";
 import { errorToString } from "@/utils/errorToString";
 
-import { BackendApiFunctionResult } from ".";
+import type { BackendApiFunctionResult } from ".";
 import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 
-export async function apiGuestLogin(): Promise<
-  BackendApiFunctionResult<{ id: number }>
-> {
+export async function apiGuestLogin(
+  accessToken?: string,
+): Promise<BackendApiFunctionResult<{ id: number }>> {
   try {
-    const session = await getSession();
+    const session = await getSession(accessToken);
 
     if (!session) {
       throw new Error("No guest provided");

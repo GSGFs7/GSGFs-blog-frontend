@@ -6,25 +6,24 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import toast from "react-hot-toast";
-import { useTurnstile } from "react-turnstile";
 
 import { useAuth } from "@/app/providers";
-import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
+import { useCaptcha } from "@/components/captcha/provider";
+import { isCaptchaEnabled } from "@/components/captcha/switch";
 import { apiAddComment } from "@/server/backend";
 
 import { useComment } from "./provider";
-import TurnstileWidget from "./turnstile-widget";
 
 const getDraftKey = (postId: number) => `comment-draft-${postId}`;
 
 // TODO: Anonymous mode for comment
 export default function CommentInput({ postId }: { postId: number }) {
   const formRef = useRef<HTMLFormElement>(null);
-  const turnstile = useTurnstile();
+  const captcha = useCaptcha();
+  const { enableCookies } = useAuth();
   const router = useRouter();
   const { session } = useAuth();
   const { setIsPending } = useComment();
-  const [turnstileToken, setTurnstileToken] = useState<string>("");
   // Lazy initial state - get user agent on mount
   const [userAgent, _setUserAgent] = useState<string>(() => {
     if (typeof window !== "undefined") {
@@ -54,15 +53,15 @@ export default function CommentInput({ postId }: { postId: number }) {
   };
 
   async function handleSubmit(formData: FormData) {
-    if (NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
-      turnstile.reset();
+    if (captcha) {
+      captcha.reset();
     }
 
     if (isDisabled) {
       return;
     }
 
-    if (!turnstileToken && NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
+    if (!captcha?.getToken() && (await isCaptchaEnabled())) {
       toast.error("请先通过人机验证");
 
       return;
@@ -87,13 +86,21 @@ export default function CommentInput({ postId }: { postId: number }) {
     flushSync(() => setIsPending(true));
 
     const parser = bowser.getParser(userAgent);
-    const res = await apiAddComment(String(content), postId, turnstileToken, {
-      user_agent: parser.getUA(),
-      browser: parser.getBrowser().name,
-      browser_version: parser.getBrowserVersion(),
-      platform: parser.getPlatform().type,
-      OS: parser.getOS().name,
-    });
+    const res = await apiAddComment(
+      String(content),
+      postId,
+      captcha?.getToken() ?? "",
+      {
+        user_agent: parser.getUA(),
+        browser: parser.getBrowser().name,
+        browser_version: parser.getBrowserVersion(),
+        platform: parser.getPlatform().type,
+        OS: parser.getOS().name,
+      },
+      enableCookies // if cookie disabled, send 'access_token'
+        ? undefined
+        : (sessionStorage.getItem("access_token") ?? undefined),
+    );
 
     setIsPending(false);
 
@@ -134,8 +141,6 @@ export default function CommentInput({ postId }: { postId: number }) {
       >
         {isDisabled ? "评论前请先登陆" : "留个评论..."}
       </label>
-
-      <TurnstileWidget setTokenAction={setTurnstileToken} />
     </form>
   );
 }

@@ -24,6 +24,7 @@
     "dev:https": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
+    "postinstall": "node scripts/copy-cap-wasm.cjs",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "prepare": "husky",
@@ -46,15 +47,18 @@
     ]
   },
   "dependencies": {
+    "@cap.js/wasm": "^0.0.6",
+    "@cap.js/widget": "^0.1.31",
     "@fontsource/maple-mono": "^5.2.6",
     "@gomomento/sdk": "^1.116.0",
     "@milkdown/kit": "^7.17.1",
     "@milkdown/react": "^7.17.1",
     "@milkdown/theme-nord": "^7.17.1",
     "@react-email/components": "^0.5.7",
-    "@supabase/supabase-js": "^2.77.0",
-    "@tanstack/react-query": "^5.90.5",
+    "@supabase/supabase-js": "^2.78.0",
+    "@tanstack/react-query": "^5.90.6",
     "@tanstack/react-query-devtools": "^5.90.2",
+    "babel-plugin-react-compiler": "^1.0.0",
     "bowser": "^2.12.1",
     "clsx": "^2.1.1",
     "github-markdown-css": "^5.8.1",
@@ -86,7 +90,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
     "remark-toc": "^9.0.0",
-    "resend": "^6.3.0",
+    "resend": "^6.4.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
     "zod": "^4.1.12",
@@ -102,10 +106,10 @@
     "@tanstack/eslint-plugin-query": "^5.91.2",
     "@types/hast": "^3.0.4",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^24.9.2",
+    "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.0",
     "eslint-config-next": "^16.0.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
@@ -129,6 +133,6 @@
   "optionalDependencies": {
     "@cloudflare/workers-types": "^4.20251014.0",
     "@opennextjs/cloudflare": "^1.11.0",
-    "wrangler": "^4.45.2"
+    "wrangler": "^4.45.3"
   }
 }

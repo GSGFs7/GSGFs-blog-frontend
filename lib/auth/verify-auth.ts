@@ -3,18 +3,22 @@
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-import { guestLogin, sessionType } from "@/types";
+import type { guestLogin, sessionType } from "@/types";
 
-export async function getSession(): Promise<sessionType | null> {
+export async function getSession(
+  accessToken?: string,
+): Promise<sessionType | null> {
   try {
-    const token = (await cookies()).get("access_token");
+    const token = accessToken
+      ? accessToken
+      : (await cookies()).get("access_token")?.value;
 
     if (!token) {
       return null;
     }
 
     const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
-    const verified = await jwtVerify(token.value, JWT_SECRET);
+    const verified = await jwtVerify(token, JWT_SECRET);
 
     return verified.payload as sessionType;
   } catch {
@@ -24,8 +28,10 @@ export async function getSession(): Promise<sessionType | null> {
   }
 }
 
-export async function getGuest(): Promise<guestLogin | null> {
-  const session = await getSession();
+export async function getGuest(
+  accessToken?: string,
+): Promise<guestLogin | null> {
+  const session = await getSession(accessToken);
 
   if (!session) {
     return null;

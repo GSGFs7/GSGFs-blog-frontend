@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 import { useAuth } from "@/app/providers";
 import { fc } from "@/lib/fetchClient";
-import { sessionType } from "@/types";
+import type { sessionType } from "@/types";
 
 const AUTH_QUERY_KEY = ["auth", "session"];
 const REFRESH_TOKEN_INTERVAL = 1000 * 60 * 45; // 45mins
@@ -51,7 +51,7 @@ export async function fetchSession(): Promise<sessionType | null> {
 
 export function useFetchAuth() {
   const queryClient = useQueryClient();
-  const { session: contextSession, dispatch } = useAuth();
+  const { dispatch } = useAuth();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -95,8 +95,7 @@ export function useFetchAuth() {
       localStorage.setItem("last_token_refresh", Date.now().toString());
       queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
     },
-    retry: 1,
-    retryDelay: 2000,
+    retry: false,
   });
 
   // Refresh access token on first load/route change (with state and time window debounce)
@@ -106,12 +105,15 @@ export function useFetchAuth() {
     const lastRefresh = localStorage.getItem("last_token_refresh");
     const now = Date.now();
 
-    if (lastRefresh && now - parseInt(lastRefresh) < REFRESH_TOKEN_INTERVAL) {
+    if (
+      lastRefresh &&
+      now - parseInt(lastRefresh, 10) < REFRESH_TOKEN_INTERVAL
+    ) {
       return;
     }
 
     refreshMutate();
-  }, [pathname, contextSession, isRefreshPending, refreshMutate]);
+  }, [isRefreshPending, refreshMutate]);
 
   useEffect(() => {
     if (isLoading === true || session === undefined) {

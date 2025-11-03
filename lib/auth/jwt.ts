@@ -5,10 +5,10 @@ import {
   JWT_SECRET as SECRET,
   JWT_REFRESH_SECRET as REFRESH_SECRET,
 } from "@/env/private";
-import { userData } from "@/types";
+import type { userData } from "@/types";
 
-const JWT_SECRET = new TextEncoder().encode(SECRET);
-const JWT_REFRESH_SECRET = new TextEncoder().encode(REFRESH_SECRET);
+const JWT_SECRET = new TextEncoder().encode(SECRET!);
+const JWT_REFRESH_SECRET = new TextEncoder().encode(REFRESH_SECRET!);
 
 export interface JWTResult {
   accessToken: string;
