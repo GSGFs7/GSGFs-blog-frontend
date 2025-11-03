@@ -4,7 +4,7 @@ import type { CapSolveEvent } from "@cap.js/widget";
 import dynamic from "next/dynamic";
 import { createElement, useEffect, useRef, useState } from "react";
 
-import { NEXT_PUBLIC_CAP_SITE_KEY, NEXT_PUBLIC_SITE_URL } from "@/env/public";
+import { NEXT_PUBLIC_CAP_SITE_KEY } from "@/env/public";
 import type { Captcha, Captchas, CaptchaWidget } from "@/types/captcha";
 
 declare global {
@@ -72,7 +72,7 @@ const CapWidgetInner = dynamic(
     const { default: Cap } = await import("@cap.js/widget");
 
     return function CapWidgetComponent({ setTokenAction }: CaptchaWidget) {
-      const endpoint = `${NEXT_PUBLIC_SITE_URL}/api/proxy/cap/${NEXT_PUBLIC_CAP_SITE_KEY}/`;
+      const endpoint = `${window.location.origin}/api/proxy/cap/${NEXT_PUBLIC_CAP_SITE_KEY}/`;
       const ref = useRef<any>(undefined);
       const [isCapInit, setIsCapInit] = useState(false);
 
