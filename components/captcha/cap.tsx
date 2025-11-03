@@ -68,7 +68,7 @@ export class Cap implements Captcha {
 // disable SSR
 const CapWidgetInner = dynamic(
   async () => {
-    window.CAP_CUSTOM_WASM_URL = `${NEXT_PUBLIC_SITE_URL}/cap/cap_wasm.js`;
+    window.CAP_CUSTOM_WASM_URL = `${window.location.origin}/cap/cap_wasm.js`;
     const { default: Cap } = await import("@cap.js/widget");
 
     return function CapWidgetComponent({ setTokenAction }: CaptchaWidget) {
