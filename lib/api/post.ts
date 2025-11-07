@@ -1,6 +1,6 @@
 "use server";
 
-import {
+import type {
   Post,
   PostCardWithSimilarityResponse,
   PostSitemapItem,
@@ -8,9 +8,9 @@ import {
 } from "@/types";
 import { errorToString } from "@/utils/errorToString";
 
-import { fc, FetchError } from "../fetchClient";
+import { FetchError, fc } from "../fetchClient";
 
-import { ApiResult } from ".";
+import type { ApiResult } from ".";
 
 export async function getPost(
   postIdOrSlug: number | string,
@@ -73,7 +73,7 @@ export async function getAllPostForFeed(): Promise<Post[] | null> {
       return null;
     }
 
-    const ids = idsResult.data;
+    const ids = idsResult.data.slice(0, 10); // first ten, it's decreasing
     const results = await Promise.allSettled(ids.map((id) => getPost(id)));
     const posts: Post[] = results
       .filter(

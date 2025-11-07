@@ -63,7 +63,8 @@ const nextConfig: NextConfig = {
 
     const CSPHeader = [
       "default-src 'self'",
-      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} ${captchaSrc}`,
+      // Cap needs 'wasm-unsafe-eval'
+      `script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' ${isDev ? "'unsafe-eval'" : ""} ${captchaSrc}`,
       `frame-src ${captchaSrc}`,
       `connect-src 'self' ${captchaSrc}`,
       "style-src 'self' 'unsafe-inline'",

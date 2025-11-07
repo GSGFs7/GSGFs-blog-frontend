@@ -77,10 +77,13 @@ const CapWidgetInner = dynamic(
       const [isCapInit, setIsCapInit] = useState(false);
 
       useEffect(() => {
-        new Cap({
-          apiEndpoint: endpoint,
-          "data-cap-api-endpoint": endpoint,
-        });
+        new Cap(
+          {
+            apiEndpoint: endpoint,
+            "data-cap-api-endpoint": endpoint,
+          },
+          ref.current,
+        );
         setIsCapInit(true);
       }, [endpoint]);
 
@@ -110,7 +113,7 @@ const CapWidgetInner = dynamic(
         "data-cap-i18n-solved-label": "U're a human",
         "data-cap-i18n-error-label": "Try again",
         "data-cap-i18n-wasm-disabled": "WASM pls",
-        onsolve: (e: CapSolveEvent) => handleSolve(e),
+        onSolve: (e: CapSolveEvent) => handleSolve(e),
         style: {
           "--cap-background": "#1a1c25",
           "--cap-border-color": "#ffffff00",
