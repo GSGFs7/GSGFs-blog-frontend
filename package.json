@@ -22,7 +22,7 @@
     "dev": "next dev",
     "dev:clean": "rm -rf .next && pnpm dev",
     "dev:https": "next dev --experimental-https",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "postinstall": "node scripts/copy-cap-wasm.cjs",
     "lint": "eslint . --fix",
@@ -131,7 +131,7 @@
     "typescript-eslint": "^8.46.3"
   },
   "optionalDependencies": {
-    "@cloudflare/workers-types": "^4.20251106.1",
+    "@cloudflare/workers-types": "^4.20251107.0",
     "@opennextjs/cloudflare": "^1.11.1",
     "wrangler": "^4.46.0"
   }
