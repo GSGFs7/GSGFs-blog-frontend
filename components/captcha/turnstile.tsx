@@ -7,7 +7,7 @@ import type { Captcha, Captchas, CaptchaWidget } from "@/types/captcha";
 
 export class Turnstile implements Captcha {
   private token: string | null = null;
-  type: Captchas = "Turnstile";
+  readonly type: Captchas = "Turnstile";
 
   private _setTokenAction(token: string) {
     this.token = token;

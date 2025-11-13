@@ -35,7 +35,7 @@ declare global {
 
 export class Cap implements Captcha {
   private token: string | null = null;
-  type: Captchas = "Cap";
+  readonly type: Captchas = "Cap";
 
   private _setTokenAction(token: string) {
     this.token = token;

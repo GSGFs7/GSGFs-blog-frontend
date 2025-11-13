@@ -1,5 +1,5 @@
 import { CaptchaProvider } from "@/components/captcha/provider";
-import { getCaptcha } from "@/components/captcha/switch";
+import { getCaptcha } from "@/lib/captcha";
 
 import CommentAvatar from "./avatar";
 import CommentAvatarLink from "./avatar-link";

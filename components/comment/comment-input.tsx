@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 import { useAuth } from "@/app/providers";
 import { useCaptcha } from "@/components/captcha/provider";
-import { isCaptchaEnabled } from "@/components/captcha/switch";
+import { isCaptchaEnabled } from "@/lib/captcha";
 import { apiAddComment } from "@/server/backend";
 
 import { useComment } from "./provider";
