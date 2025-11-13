@@ -18,7 +18,7 @@ export default function BlogTopCard() {
   const { setIsLoading: setPageIsLoading } = useLoading();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // prefetch all of the post ids
+  // prefetch all the post ids
   const {
     data: ids,
     isLoading,

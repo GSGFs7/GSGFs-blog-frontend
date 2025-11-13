@@ -81,7 +81,7 @@ export async function getAllPostForFeed(): Promise<Post[] | null> {
           res.status === "fulfilled",
       ) // keep only fulfilled promises
       .map((res) => res.value)
-      .filter((res): res is { ok: true; data: Post } => res.ok === true) // keep only api success results
+      .filter((res): res is { ok: true; data: Post } => res.ok) // keep only api success results
       .map((res) => res.data) // extract post
       .filter((post): post is Post => post !== null); // filter null
 

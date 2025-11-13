@@ -1,5 +1,6 @@
 "use client";
 
+import type React from "react";
 import { default as ReactTurnstile } from "react-turnstile";
 
 import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";

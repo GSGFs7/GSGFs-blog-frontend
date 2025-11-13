@@ -16,7 +16,7 @@ function findPageFiles(dir, fileList = []) {
     ) {
       findPageFiles(filePath, fileList);
     } else if (
-      file == "page.tsx" ||
+      file === "page.tsx" ||
       file === "not-found.tsx" ||
       file === "error.tsx" ||
       file === "route.ts" ||

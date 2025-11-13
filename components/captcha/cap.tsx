@@ -2,6 +2,7 @@
 
 import type { CapSolveEvent } from "@cap.js/widget";
 import dynamic from "next/dynamic";
+import type React from "react";
 import { createElement, useEffect, useRef, useState } from "react";
 
 import { NEXT_PUBLIC_CAP_SITE_KEY } from "@/env/public";

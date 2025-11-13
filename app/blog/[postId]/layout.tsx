@@ -24,7 +24,7 @@ export async function generateMetadata({
 
   return {
     // ~~inherit superior template, no site suffix~~
-    // it's a bug, next.js has fix it!
+    // it's a bug, next.js has fixed it!
     // title: `${post.title} - ${siteConfig.siteName}`,
     title: `${post.title}`,
     description: post.meta_description || post.title,

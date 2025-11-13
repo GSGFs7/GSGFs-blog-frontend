@@ -100,7 +100,7 @@ export function GalTableBody() {
   }
 
   function handleKeyDown(e: React.KeyboardEvent, id: number) {
-    if (e.key == "Enter" || e.key == " ") {
+    if (e.key === "Enter" || e.key === " ") {
       toggleRow(id);
     }
   }
@@ -108,14 +108,14 @@ export function GalTableBody() {
   return (
     <tbody ref={tableBodyRef}>
       {data.map((row) => {
-        const isLoading = !!loadingRows[row.id];
-        const isExpanded = !!expandedRows[row.id];
+        const isLoading = loadingRows[row.id];
+        const isExpanded = expandedRows[row.id];
 
         if (isLoading) {
           return (
             <tr key={`spinner-${row.id}`}>
               <td>
-                <div className="spinner-mini" />;
+                <div className="spinner-mini" />
               </td>
             </tr>
           );

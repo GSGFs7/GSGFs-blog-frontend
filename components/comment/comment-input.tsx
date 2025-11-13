@@ -81,7 +81,7 @@ export default function CommentInput({ postId }: { postId: number }) {
 
     // disable form button
     // NOTE: it will update DOM immediately
-    // Because react will combine a series of state operations
+    // Because React will combine a series of state operations
     // https://react.dev/learn/queueing-a-series-of-state-updates
     flushSync(() => setIsPending(true));
 
@@ -104,7 +104,7 @@ export default function CommentInput({ postId }: { postId: number }) {
 
     setIsPending(false);
 
-    if (res.ok === false) {
+    if (!res.ok) {
       toast.error(res.message);
       return;
     }

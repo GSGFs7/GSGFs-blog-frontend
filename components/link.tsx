@@ -1,6 +1,6 @@
 "use client";
 
-import { LinkProps, default as NextLink } from "next/link";
+import { type LinkProps, default as NextLink } from "next/link";
 import React from "react";
 
 import { useLoading } from "@/app/providers";
@@ -16,7 +16,7 @@ import { useLoading } from "@/app/providers";
  */
 export const Link = React.forwardRef<
   HTMLAnchorElement,
-  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps<any>> &
+  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> &
     LinkProps<any>
 >(({ href, children, onNavigate, ...rest }, ref) => {
   const { setIsLoading } = useLoading();

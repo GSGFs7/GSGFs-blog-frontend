@@ -23,7 +23,7 @@ export default async function Page({
   const res = await getPost(postId);
 
   // if not found
-  if (res.ok === false) {
+  if (!res.ok) {
     if (res.message === "404") {
       notFound();
     } else {
