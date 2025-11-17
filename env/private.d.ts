@@ -28,9 +28,6 @@ export const SUPABASE_KEY: string | null | undefined;
 // cloudflare turnstile
 export const TURNSTILE_SECRET_KEY: string | null | undefined;
 
-// cap
-export const CAP_SECRET_KEY: string | null | undefined;
-
 // momento cache
 export const MOMENTO_API_KEY: string | null | undefined;
 export const MOMENTO_BASE_URL: string | null | undefined;

@@ -91,4 +91,5 @@ export const siteConfig = {
   adminEmail: "admin@gsgfs.moe" as const,
   // https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
   canonicalUrl: "https://gsgfs.moe" as const,
+  enableCaptcha: true as const,
 };

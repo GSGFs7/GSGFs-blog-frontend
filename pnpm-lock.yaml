@@ -7,6 +7,9 @@ settings:
 importers:
   .:
     dependencies:
+      "@cap.js/server":
+        specifier: ^4.0.3
+        version: 4.0.3
       "@cap.js/wasm":
         specifier: ^0.0.6
         version: 0.0.6
@@ -970,6 +973,12 @@ packages:
         integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==,
       }
     engines: { node: ">=6.9.0" }
+
+  "@cap.js/server@4.0.3":
+    resolution:
+      {
+        integrity: sha512-CWZgqOoceBJU40KB2nu9XqGebU40nnZwjfQ0phY7F9mcghSImTDhQVonvhk52JDyRaCbzVTp6Bpb6G9DB+B1KA==,
+      }
 
   "@cap.js/wasm@0.0.6":
     resolution:
@@ -11567,6 +11576,11 @@ snapshots:
     dependencies:
       "@babel/helper-string-parser": 7.27.1
       "@babel/helper-validator-identifier": 7.28.5
+
+  "@cap.js/server@4.0.3":
+    dependencies:
+      "@types/node": 22.19.1
+      typescript: 5.9.3
 
   "@cap.js/wasm@0.0.6": {}
 

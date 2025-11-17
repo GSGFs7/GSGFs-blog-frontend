@@ -24,9 +24,6 @@ export const SUPABASE_KEY = process.env.SUPABASE_KEY;
 // cloudflare turnstile
 export const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
-// cap
-export const CAP_SECRET_KEY = process.env.CAP_SECRET_KEY;
-
 // momento cache
 export const MOMENTO_API_KEY = process.env.MOMENTO_API_KEY;
 export const MOMENTO_BASE_URL = process.env.MOMENTO_BASE_URL;

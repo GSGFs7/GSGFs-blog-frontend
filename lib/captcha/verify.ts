@@ -1,22 +1,13 @@
 "use server";
 
-import { CAP_SECRET_KEY, TURNSTILE_SECRET_KEY } from "@/env/private";
-import {
-  NEXT_PUBLIC_CAP_INSTANCE_URL,
-  NEXT_PUBLIC_CAP_SITE_KEY,
-} from "@/env/public";
+import { TURNSTILE_SECRET_KEY } from "@/env/private";
 import { fc } from "@/lib/fetchClient";
 
-export async function verifyCapToken(token: string): Promise<boolean> {
-  const url = `${NEXT_PUBLIC_CAP_INSTANCE_URL}/${NEXT_PUBLIC_CAP_SITE_KEY}/siteverify`;
-  const secret = CAP_SECRET_KEY!;
-  const payload = {
-    secret,
-    response: token,
-  };
+import { capServer } from "./cap";
 
+export async function verifyCapToken(token: string): Promise<boolean> {
   try {
-    const { success } = await fc.post<{ success: boolean }>(url, payload);
+    const { success } = await capServer.validateToken(token);
     return success;
   } catch (e) {
     console.error(e);
