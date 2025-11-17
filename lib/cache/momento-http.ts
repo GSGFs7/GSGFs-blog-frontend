@@ -1,4 +1,4 @@
-import { CacheInterface } from "@/types/cache";
+import type { CacheInterface } from "@/types/cache";
 
 import { CacheTTL } from ".";
 import { CacheError } from "./error";

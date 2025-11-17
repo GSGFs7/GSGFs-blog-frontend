@@ -1,6 +1,6 @@
 import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
 const JWT_REFRESH_SECRET = new TextEncoder().encode(
@@ -55,7 +55,7 @@ export async function GET(_request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 1, // 1 hours
+      maxAge: 60 * 60 * 1, // 1 hour
     });
 
     return NextResponse.json({ success: true });

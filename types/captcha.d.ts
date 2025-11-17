@@ -2,7 +2,7 @@ export type Captchas = "Cap" | "Turnstile";
 
 export interface Captcha {
   type: Captchas;
-  getToken(): string | null;
+  getToken: string | null;
   reset(): void;
   render(): React.ReactNode;
 }

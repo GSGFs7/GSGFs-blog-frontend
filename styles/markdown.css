@@ -149,7 +149,6 @@
     text-decoration: none;
     padding: 0 var(--space-md) 0 var(--space-xs);
     border-bottom: 2px dotted var(--link-underline);
-    border-radius: 0px;
     transition: all 0.3s;
     word-wrap: break-word;
     position: relative;
@@ -314,8 +313,7 @@
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-md);
-    transition: all;
-    transform: 0.3s;
+    transition: all 0.3s;
   }
 
   thead th {

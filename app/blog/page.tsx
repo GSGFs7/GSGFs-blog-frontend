@@ -32,7 +32,7 @@ export async function generateMetadata(
   let nextPage: number | null = null;
   let prevPage: number | null = null;
   const res = await getPostList();
-  if (res.ok === true) {
+  if (res.ok) {
     const total = res.data.pagination.total;
     const size = res.data.pagination.size;
     const pageCount = Math.ceil(total / size);

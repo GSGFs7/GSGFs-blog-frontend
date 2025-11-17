@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -14,11 +14,10 @@ import { getMousePosition } from "@/utils";
 
 export default function BlogTopCard() {
   const router = useRouter();
-  const pathname = usePathname();
   const { setIsLoading: setPageIsLoading } = useLoading();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // prefetch all of the post ids
+  // prefetch all the post ids
   const {
     data: ids,
     isLoading,
@@ -55,7 +54,7 @@ export default function BlogTopCard() {
     }, 0);
 
     return () => clearTimeout(timeoutId);
-  }, [isLoading, pathname, ids]);
+  }, [isLoading, ids]);
 
   // Separate effect for prefetching
   useEffect(() => {
@@ -111,8 +110,8 @@ export default function BlogTopCard() {
           fill
           alt="top card image"
           className="scale-110 object-cover"
-          loading="lazy"
           placeholder="blur"
+          preload={true}
           src={cardImageL}
           style={{
             height: "100%",
@@ -125,6 +124,7 @@ export default function BlogTopCard() {
       <div className="group relative flex h-16 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-white/30 sm:h-52 sm:flex-4 md:h-80">
         <button
           className="relative flex h-full w-full cursor-pointer items-center justify-center"
+          type="button"
           onClick={handleRandomPost}
         >
           <p className="absolute top-2 rounded-md px-2 py-1 text-3xl text-gray-300 transition-all">
@@ -133,8 +133,8 @@ export default function BlogTopCard() {
           <Image
             alt="top card image"
             className="absolute bottom-0 hidden translate-y-8 transition-all hover:translate-y-0 sm:block"
-            loading="lazy"
             placeholder="blur"
+            preload={true}
             sizes="100vw"
             src={cardImageR}
             style={{ width: "100%", height: "auto" }}

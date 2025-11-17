@@ -7,7 +7,7 @@ import { IoFileTrayFullSharp } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
 import { TbTagsFilled } from "react-icons/tb";
 
-import { PostsCard } from "@/types";
+import type { PostsCard } from "@/types";
 import { formatDate } from "@/utils";
 
 import Link from "../link";
@@ -21,7 +21,7 @@ export default function BlogListCard({
   title,
   content_update_at,
 }: PostsCard) {
-  const default_cover = "/default-cover.jpg";
+  const imageSrc = cover_image || "/default-cover.jpg";
 
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -39,7 +39,6 @@ export default function BlogListCard({
       style={{
         scale: scaleProgress,
         opacity: opacityProgress,
-        // willChange: "transform, opacity", // tell the browser in advance
       }}
     >
       <Link href={`/blog/${id}`}>
@@ -53,7 +52,8 @@ export default function BlogListCard({
             placeholder="blur"
             quality={60}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            src={cover_image ? cover_image : default_cover}
+            src={imageSrc}
+            unoptimized={false}
           />
         </div>
 

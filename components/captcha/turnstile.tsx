@@ -1,5 +1,6 @@
 "use client";
 
+import type React from "react";
 import { default as ReactTurnstile } from "react-turnstile";
 
 import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
@@ -7,13 +8,13 @@ import type { Captcha, Captchas, CaptchaWidget } from "@/types/captcha";
 
 export class Turnstile implements Captcha {
   private token: string | null = null;
-  type: Captchas = "Turnstile";
+  readonly type: Captchas = "Turnstile";
 
   private _setTokenAction(token: string) {
     this.token = token;
   }
 
-  getToken(): string | null {
+  get getToken(): string | null {
     return this.token;
   }
 

@@ -10,8 +10,6 @@ import { siteConfig } from "@/config/site";
 import avatar_webp from "@/public/favicon.webp";
 import osu_svg from "@/public/osu.svg";
 
-import { HalloweenPumpkin } from "./festival";
-
 export default function First() {
   const [show, setShow] = useState<boolean>(false);
 
@@ -22,10 +20,7 @@ export default function First() {
           <h1 className="text-7xl drop-shadow-lg sm:text-8xl">Hi!</h1>
           <h2 className="inline-block text-6xl drop-shadow-lg sm:text-7xl">
             I&apos;m{" "}
-            {/* <p className="inline-block bg-linear-to-b from-blue-400 to-[#0072F5] bg-clip-text text-7xl text-transparent sm:text-8xl">
-              {siteConfig.author}
-            </p> */}
-            <p className="inline-block bg-linear-to-b from-orange-300 to-[#f7920e] bg-clip-text text-7xl text-transparent sm:text-8xl">
+            <p className="inline-block bg-linear-to-b from-blue-400 to-[#0072F5] bg-clip-text text-7xl text-transparent sm:text-8xl">
               {siteConfig.author}
             </p>
           </h2>
@@ -113,9 +108,7 @@ export default function First() {
             className={`mt-4 w-full text-center text-gray-500 select-none ${show ? "opacity-100" : "opacity-0"}`}
             id="image-description"
           >
-            {/* <span>图片中的角色是《常轨脱离Creative》中的锦亚澄</span>
-            <br /> */}
-            <span className="text-orange-400 opacity-70">Happy Halloween!</span>
+            <span>图片中的角色是《常轨脱离Creative》中的锦亚澄</span>
           </p>
           <button
             aria-controls="image-description"
@@ -135,8 +128,6 @@ export default function First() {
             <HiInformationCircle />
           </button>
         </div>
-
-        <HalloweenPumpkin />
       </div>
     </div>
   );

@@ -3,6 +3,6 @@
     "streetsidesoftware.code-spell-checker",
     "dbaeumer.vscode-eslint",
     "bradlc.vscode-tailwindcss",
-    "editorconfig.editorconfig",
+    "editorconfig.editorconfig"
   ]
 }

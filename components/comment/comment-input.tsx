@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 import { useAuth } from "@/app/providers";
 import { useCaptcha } from "@/components/captcha/provider";
-import { isCaptchaEnabled } from "@/components/captcha/switch";
+import { isCaptchaEnabled } from "@/lib/captcha";
 import { apiAddComment } from "@/server/backend";
 
 import { useComment } from "./provider";
@@ -61,7 +61,7 @@ export default function CommentInput({ postId }: { postId: number }) {
       return;
     }
 
-    if (!captcha?.getToken() && (await isCaptchaEnabled())) {
+    if (!captcha?.getToken && (await isCaptchaEnabled())) {
       toast.error("请先通过人机验证");
 
       return;
@@ -81,7 +81,7 @@ export default function CommentInput({ postId }: { postId: number }) {
 
     // disable form button
     // NOTE: it will update DOM immediately
-    // Because react will combine a series of state operations
+    // Because React will combine a series of state operations
     // https://react.dev/learn/queueing-a-series-of-state-updates
     flushSync(() => setIsPending(true));
 
@@ -89,7 +89,7 @@ export default function CommentInput({ postId }: { postId: number }) {
     const res = await apiAddComment(
       String(content),
       postId,
-      captcha?.getToken() ?? "",
+      captcha?.getToken ?? "",
       {
         user_agent: parser.getUA(),
         browser: parser.getBrowser().name,
@@ -104,7 +104,7 @@ export default function CommentInput({ postId }: { postId: number }) {
 
     setIsPending(false);
 
-    if (res.ok === false) {
+    if (!res.ok) {
       toast.error(res.message);
       return;
     }

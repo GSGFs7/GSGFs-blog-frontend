@@ -100,7 +100,7 @@ export interface tokenResponse {
 export interface userData {
   id: number;
   username: string;
-  show_name?: string | null; // github only
+  show_name?: string | null; // GitHub only
   avatar_url: string;
   provider: "github" | "osu";
 }

@@ -8,14 +8,14 @@
   ],
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS",
+    "binding": "ASSETS"
   },
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
       // The service should match the "name" of your worker
-      "service": "gsgfs",
-    },
+      "service": "gsgfs"
+    }
   ],
   "kv_namespaces": [
     // Create a KV binding with the binding name "NEXT_INC_CACHE_KV"
@@ -27,7 +27,8 @@
   ],
   "observability": {
     "enabled": true,
-    "head_sampling_rate": 0.1 // debug
+    // debug
+    "head_sampling_rate": 0.1
   },
   "routes": [
     {
@@ -47,8 +48,8 @@
       },
       {
         "name": "NEXT_CACHE_DO_SHARDED",
-        "class_name": "DOShardedTagCache",
-      },
+        "class_name": "DOShardedTagCache"
+      }
     ]
   },
   "d1_databases": [
@@ -82,4 +83,5 @@
       "bucket_name": "next-cache"
     }
   ],
+  "send_metrics": false
 }

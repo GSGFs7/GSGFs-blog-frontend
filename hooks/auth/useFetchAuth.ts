@@ -116,7 +116,7 @@ export function useFetchAuth() {
   }, [isRefreshPending, refreshMutate]);
 
   useEffect(() => {
-    if (isLoading === true || session === undefined) {
+    if (isLoading || session === undefined) {
       return;
     }
 

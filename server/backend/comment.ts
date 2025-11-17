@@ -1,7 +1,7 @@
 "use server";
 
-import { getCaptcha, isCaptchaEnabled } from "@/components/captcha/switch";
 import { getGuest } from "@/lib/auth";
+import { getCaptcha, isCaptchaEnabled } from "@/lib/captcha";
 import { verifyCapToken, verifyTurnstileToken } from "@/lib/captcha/verify";
 import { fc } from "@/lib/fetchClient";
 import type { IDNumber } from "@/types";
