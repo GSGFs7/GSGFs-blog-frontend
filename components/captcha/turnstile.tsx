@@ -14,7 +14,7 @@ export class Turnstile implements Captcha {
     this.token = token;
   }
 
-  getToken(): string | null {
+  get getToken(): string | null {
     return this.token;
   }
 

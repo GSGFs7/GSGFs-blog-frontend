@@ -42,7 +42,7 @@ export class Cap implements Captcha {
     this.token = token;
   }
 
-  getToken(): string | null {
+  get getToken(): string | null {
     // or get token from HTML element?
     return this.token;
   }

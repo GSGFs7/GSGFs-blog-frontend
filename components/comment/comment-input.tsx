@@ -61,7 +61,7 @@ export default function CommentInput({ postId }: { postId: number }) {
       return;
     }
 
-    if (!captcha?.getToken() && (await isCaptchaEnabled())) {
+    if (!captcha?.getToken && (await isCaptchaEnabled())) {
       toast.error("请先通过人机验证");
 
       return;
@@ -89,7 +89,7 @@ export default function CommentInput({ postId }: { postId: number }) {
     const res = await apiAddComment(
       String(content),
       postId,
-      captcha?.getToken() ?? "",
+      captcha?.getToken ?? "",
       {
         user_agent: parser.getUA(),
         browser: parser.getBrowser().name,
