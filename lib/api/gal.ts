@@ -1,10 +1,8 @@
 "use server";
 
 import { fc } from "@/lib/fetchClient";
-import { GalData, GalResponse, Pagination } from "@/types";
+import type { ApiResult, GalData, GalResponse, Pagination } from "@/types";
 import { errorToString } from "@/utils/errorToString";
-
-import { ApiResult } from ".";
 
 export async function getGals(
   page: number = 1,
@@ -16,7 +14,7 @@ export async function getGals(
   }>
 > {
   try {
-    const data = await fc.get<GalResponse>("gal/gals", {
+    const data = await fc.get<GalResponse>("gal", {
       params: { page, size },
     });
 

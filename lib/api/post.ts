@@ -1,16 +1,14 @@
 "use server";
 
+import { FetchError, fc } from "@/lib/fetchClient";
 import type {
+  ApiResult,
   Post,
   PostCardWithSimilarityResponse,
   PostSitemapItem,
   PostWithPagination,
 } from "@/types";
 import { errorToString } from "@/utils/errorToString";
-
-import { FetchError, fc } from "../fetchClient";
-
-import type { ApiResult } from ".";
 
 export async function getPost(
   postIdOrSlug: number | string,
@@ -42,7 +40,7 @@ export async function getPostList(
 ): Promise<ApiResult<PostWithPagination>> {
   try {
     const res = await fc.get<PostWithPagination>(
-      `post/posts?page=${page}&size=${size}`,
+      `post?page=${page}&size=${size}`,
     );
 
     return { ok: true, data: res };
@@ -55,7 +53,7 @@ export async function getPostList(
 
 export async function getAllPostIds(): Promise<ApiResult<number[]>> {
   try {
-    const res = await fc.get<{ ids: number[] }>("post");
+    const res = await fc.get<{ ids: number[] }>("post/ids");
 
     return { ok: true, data: res.ids };
   } catch (e) {

@@ -1,5 +1,5 @@
 import { fc } from "@/lib/fetchClient";
-import { commentType, IDsNumber } from "@/types";
+import type { commentType, IDsNumber } from "@/types";
 
 export async function getAllCommentIdFromPostId(
   postId: number,

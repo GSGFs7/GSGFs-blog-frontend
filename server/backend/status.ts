@@ -3,7 +3,7 @@
 import { cacheGet, cacheSet } from "@/lib/cache";
 import { mailAdmin } from "@/lib/email";
 import { fc } from "@/lib/fetchClient";
-import { MessageResponse } from "@/types";
+import type { MessageResponse } from "@/types";
 import { getTimeDiffMins } from "@/utils";
 import { withLock } from "@/utils/lock";
 

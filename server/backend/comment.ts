@@ -4,10 +4,9 @@ import { getGuest } from "@/lib/auth";
 import { getCaptcha, isCaptchaEnabled } from "@/lib/captcha";
 import { verifyCapToken, verifyTurnstileToken } from "@/lib/captcha/verify";
 import { fc } from "@/lib/fetchClient";
-import type { IDNumber } from "@/types";
+import type { ApiResult, IDNumber } from "@/types";
 import { commentMarkdownToHtml } from "@/utils/markdown";
 
-import type { BackendApiFunctionResult } from ".";
 import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 import { apiGuestLogin } from "./guest";
 
@@ -23,7 +22,7 @@ export async function apiAddComment(
     OS?: string;
   },
   accessToken?: string,
-): Promise<BackendApiFunctionResult<number>> {
+): Promise<ApiResult<number>> {
   if (typeof content !== "string") {
     return {
       ok: false,
