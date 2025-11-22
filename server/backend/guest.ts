@@ -2,15 +2,14 @@
 
 import { getSession } from "@/lib/auth";
 import { fc } from "@/lib/fetchClient";
-import type { guestLogin, IDNumber } from "@/types";
+import type { ApiResult, guestLogin, IDNumber } from "@/types";
 import { errorToString } from "@/utils/errorToString";
 
-import type { BackendApiFunctionResult } from ".";
 import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
 
 export async function apiGuestLogin(
   accessToken?: string,
-): Promise<BackendApiFunctionResult<{ id: number }>> {
+): Promise<ApiResult<{ id: number }>> {
   try {
     const session = await getSession(accessToken);
 

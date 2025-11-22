@@ -1,4 +1,4 @@
-import { CreateEmailResponse, Resend } from "resend";
+import { type CreateEmailResponse, Resend } from "resend";
 
 import { EmailTemplate } from "./email-template";
 
@@ -9,7 +9,7 @@ export async function mailAdmin(
   subject: string,
   content: string,
 ): Promise<CreateEmailResponse | null> {
-  if (resend_api_key == "_") return null;
+  if (resend_api_key === "_") return null;
 
   const response = await resend.emails.send({
     from: process.env.DEFAULT_FROM_EMAIL!,

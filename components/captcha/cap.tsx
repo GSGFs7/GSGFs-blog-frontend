@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import type React from "react";
 import { createElement, useEffect, useRef, useState } from "react";
 
-import type { Captcha, Captchas, CaptchaWidget } from "@/types/captcha";
+import type { Captcha, Captchas, CaptchaWidgetProps } from "@/types/captcha";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -71,7 +71,7 @@ const CapWidgetInner = dynamic(
     window.CAP_CUSTOM_WASM_URL = `${window.location.origin}/cap/cap_wasm.js`;
     const { default: Cap } = await import("@cap.js/widget");
 
-    return function CapWidgetComponent({ setTokenAction }: CaptchaWidget) {
+    return function CapWidgetComponent({ setTokenAction }: CaptchaWidgetProps) {
       // const endpoint = `${window.location.origin}/api/proxy/cap/${NEXT_PUBLIC_CAP_SITE_KEY}/`;
       const endpoint = `${window.location.origin}/api/captcha/cap/`;
       const ref = useRef<any>(undefined);
@@ -144,6 +144,6 @@ const CapWidgetInner = dynamic(
   },
 );
 
-export function CapWidget({ setTokenAction }: CaptchaWidget) {
+export function CapWidget({ setTokenAction }: CaptchaWidgetProps) {
   return <CapWidgetInner setTokenAction={setTokenAction} />;
 }

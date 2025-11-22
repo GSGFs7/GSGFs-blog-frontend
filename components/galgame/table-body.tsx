@@ -69,7 +69,7 @@ export function GalTableBody() {
     if (!data) return;
 
     Object.keys(expandedRows).forEach((idStr) => {
-      const id = parseInt(idStr);
+      const id = parseInt(idStr, 10);
 
       if (expandedRows[id]) {
         const row = data.find((r) => r.id === id);

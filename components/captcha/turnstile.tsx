@@ -4,7 +4,7 @@ import type React from "react";
 import { default as ReactTurnstile } from "react-turnstile";
 
 import { NEXT_PUBLIC_TURNSTILE_SITE_KEY } from "@/env/public";
-import type { Captcha, Captchas, CaptchaWidget } from "@/types/captcha";
+import type { Captcha, Captchas, CaptchaWidgetProps } from "@/types/captcha";
 
 export class Turnstile implements Captcha {
   private token: string | null = null;
@@ -31,7 +31,7 @@ export class Turnstile implements Captcha {
   }
 }
 
-export function TurnstileWidget({ setTokenAction }: CaptchaWidget) {
+export function TurnstileWidget({ setTokenAction }: CaptchaWidgetProps) {
   if (!NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
     return null;
   }

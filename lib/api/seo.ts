@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL as SITE_URL } from "@/env/public";

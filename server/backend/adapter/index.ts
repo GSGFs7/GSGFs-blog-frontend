@@ -6,7 +6,7 @@
 // 3. use the function in module
 //  await (await adapter()).generateAuthToken()
 export default function adapter() {
-  if (process.env.NEXT_RUNTIME == "nodejs") {
+  if (process.env.NEXT_RUNTIME === "nodejs") {
     return import("./adapter-nodejs-runtime");
   } else {
     return import("./adapter-edge-runtime");
