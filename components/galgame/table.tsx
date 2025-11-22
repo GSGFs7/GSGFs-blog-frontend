@@ -1,8 +1,14 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
-import { GalData } from "@/types/gal";
+import type { GalData } from "@/types/gal";
 
 import { GalTableBody } from "./table-body";
 import { GalTableControl } from "./table-control";
@@ -72,10 +78,10 @@ function Table({
       // VNDB ID -> 'v' + number
       // only sort the number part
       if (sortField === "vndb_id") {
-        const aNum = parseInt(String(aValue).substring(1));
-        const bNum = parseInt(String(bValue).substring(1));
+        const aNum = parseInt(String(aValue).substring(1), 10);
+        const bNum = parseInt(String(bValue).substring(1), 10);
 
-        if (isNaN(aNum) || isNaN(bNum)) {
+        if (Number.isNaN(aNum) || Number.isNaN(bNum)) {
           // if parse failed
           compareResult = String(aValue).localeCompare(String(bValue));
         } else {

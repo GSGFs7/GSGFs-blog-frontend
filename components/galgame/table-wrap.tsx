@@ -1,12 +1,13 @@
 "use client";
 // must be a client component
 
-import { GalData } from "@/types/gal";
+import type { GalData } from "@/types/gal";
 
 import Table from "./table";
 
 import "github-markdown-css/github-markdown-dark.css";
 
+// TODO: refactor this, not use table HTML element
 export default function GalTable({
   data = [],
   tableColumns,

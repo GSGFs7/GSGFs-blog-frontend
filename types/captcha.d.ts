@@ -7,6 +7,6 @@ export interface Captcha {
   render(): React.ReactNode;
 }
 
-export interface CaptchaWidget {
+export interface CaptchaWidgetProps {
   setTokenAction: (token: string) => void;
 }
