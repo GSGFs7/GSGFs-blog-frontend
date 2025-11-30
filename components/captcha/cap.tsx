@@ -114,7 +114,7 @@ const CapWidgetInner = dynamic(
         "data-cap-i18n-solved-label": "U're a human",
         "data-cap-i18n-error-label": "Try again",
         "data-cap-i18n-wasm-disabled": "WASM pls",
-        onSolve: (e: CapSolveEvent) => handleSolve(e),
+        onsolve: (e: CapSolveEvent) => handleSolve(e),
         style: {
           "--cap-background": "#1a1c25",
           "--cap-border-color": "#ffffff00",

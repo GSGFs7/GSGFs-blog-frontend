@@ -11,6 +11,7 @@
     "bowser",
     "changefreq",
     "Galgame",
+    "genai",
     "gomomento",
     "gsgfs",
     "heimu",
@@ -22,6 +23,7 @@
     "lxgw",
     "Milkdown",
     "momento",
+    "Neko",
     "NEXTJS",
     "nodenext",
     "noopener",
@@ -41,5 +43,8 @@
   ],
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "prettier.configPath": ".prettierrc.json",
+  "prettier.prettierPath": "node_modules/prettier",
+  "prettier.resolveGlobalModules": false
 }

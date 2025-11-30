@@ -4,6 +4,7 @@ import { TURNSTILE_SECRET_KEY } from "@/env/private";
 import { fc } from "@/lib/fetchClient";
 
 import { capServer } from "./cap";
+import { getCaptcha } from "./switch";
 
 export async function verifyCapToken(token: string): Promise<boolean> {
   try {
@@ -28,5 +29,16 @@ export async function verifyTurnstileToken(token: string): Promise<boolean> {
   } catch (e) {
     console.error(e);
     return false;
+  }
+}
+
+export async function verifyCaptchaToken(token: string): Promise<boolean> {
+  switch (await getCaptcha()) {
+    case "Cap":
+      return await verifyCapToken(token);
+    case "Turnstile":
+      return await verifyTurnstileToken(token);
+    default:
+      return false;
   }
 }

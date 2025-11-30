@@ -25,4 +25,7 @@ export const privateSchema = publicSchema.extend({
   SUPABASE_URL: z.url().optional().nullable(),
   TURNSTILE_SECRET_KEY: z.string().optional().nullable(),
   CAP_SECRET_KEY: z.string().optional().nullable(),
+  GOOGLE_AI_API_KEY: z.string().optional().nullable(),
+  CLOUDFLARE_ACCOUNT_ID: z.string().optional().nullable(),
+  CLOUDFLARE_API_KEY: z.string().optional().nullable(),
 });

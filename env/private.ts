@@ -1,8 +1,8 @@
-export * from "./public.mjs";
+export * from "./public";
 
 // base
-export const BACKEND_URL = process.env.BACKEND_URL;
-export const SERVER_SECRET_KEY = process.env.SERVER_SECRET_KEY;
+export const BACKEND_URL = process.env.BACKEND_URL!;
+export const SERVER_SECRET_KEY = process.env.SERVER_SECRET_KEY!;
 
 // OAuth
 export const AUTH_GITHUB_ID = process.env.AUTH_GITHUB_ID;
@@ -27,3 +27,10 @@ export const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 // momento cache
 export const MOMENTO_API_KEY = process.env.MOMENTO_API_KEY;
 export const MOMENTO_BASE_URL = process.env.MOMENTO_BASE_URL;
+
+// Gemini API
+export const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
+
+// Cloudflare AI
+export const CLOUDFLARE_API_KEY = process.env.CLOUDFLARE_API_KEY;
+export const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;

@@ -8,6 +8,7 @@ import type { Metadata, Viewport } from "next";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import StructuredData from "@/components/structured-data";
+import AIChatWidget from "@/components/tools/ai-chat-widget";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 
@@ -107,6 +108,8 @@ export default async function RootLayout({
             <main className="dark container mx-auto max-w-7xl grow px-6 pt-24">
               {children}
             </main>
+
+            <AIChatWidget />
 
             <Footer />
           </div>
