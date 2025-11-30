@@ -6,11 +6,15 @@ export const dynamic = "force-static";
 export default function Page() {
   return (
     <div className="container mx-auto max-w-3xl px-4 py-8">
-      <h1 className="mb-6 text-3xl font-bold">隐私协议</h1>
+      <h1 className="mb-6 text-3xl font-bold" id="privacy">
+        隐私协议
+      </h1>
       <div className="privacy max-w-none">
-        <p className="text-lg">最后更新日期: 2025年10月30日</p>
+        <p className="text-lg">最后更新日期: 2025年11月30日</p>
 
-        <h2 className="mt-8">概述</h2>
+        <h2 className="mt-8" id="overview">
+          概述
+        </h2>
         <p>
           本网站 ({siteConfig.siteName})
           高度重视您的隐私.我们采取最小化数据收集原则, 仅在必要情况下收集信息.
@@ -50,12 +54,10 @@ export default function Page() {
             </a>
           </li>
         </ul>
-        <p>
-          此外，我们维护一台自有的 VPS 通过 Docker 部署与管理. 该 VPS
-          仅用于加速部分地区的访问速度, 不会记录访问日志或用于流量分析.
-        </p>
 
-        <h2 className="mt-6">我们收集的信息</h2>
+        <h2 className="mt-6" id="collected">
+          我们收集的信息
+        </h2>
         <p>我们仅在以下情况下收集用户信息: </p>
         <ul>
           <li>
@@ -72,14 +74,18 @@ export default function Page() {
           </li>
         </ul>
 
-        <h2 className="mt-6">信息使用</h2>
+        <h2 className="mt-6" id="use">
+          信息使用
+        </h2>
         <p>收集的有限信息仅用于: </p>
         <ul>
           <li>维护评论功能正常运行</li>
           <li>防止垃圾评论和滥用行为</li>
         </ul>
 
-        <h2 className="mt-6">第三方服务</h2>
+        <h2 className="mt-6" id="thirdparty">
+          第三方服务
+        </h2>
         <p>
           本网站使用以下第三方服务.当您与这些功能互动时,
           您可能受到这些服务的隐私政策约束:
@@ -97,7 +103,7 @@ export default function Page() {
           </li>
           <li>
             <strong>Cloudflare Turnstile</strong>: 用于防止机器人. 这些数据由
-            Cloudflare 根据其隐私政策处理与保存。详情请参阅{" "}
+            Cloudflare 根据其隐私政策处理与保存. 详情请参阅{" "}
             <a
               className="text-blue-400 hover:underline"
               href="https://developers.cloudflare.com/turnstile/"
@@ -115,25 +121,43 @@ export default function Page() {
             >
               Cloudflare 隐私政策
             </a>
-            。
+            .
+          </li>
+          <li>
+            <strong>Gemini API</strong>: 用于为页面提供便捷的 AI 服务. 注意⚠️:
+            此服务为非付费服务, Google 会使用你的数据来帮助其改进相关功能, 详阅:{" "}
+            <a
+              className="text-blue-400 hover:underline"
+              href="https://ai.google.dev/gemini-api/terms"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Gemini API 文档
+            </a>
           </li>
         </ul>
         <p>我们不会将您的数据出售或共享给任何第三方用于营销或广告目的.</p>
 
-        <h2 className="mt-6">数据存储</h2>
+        <h2 className="mt-6" id="storage">
+          数据存储
+        </h2>
         <p>
           用户评论和登录信息存储在我们自己维护的后端服务器上.我们仅在您主动与网站交互
           (如登录或发表评论) 时才会收集和存储相关信息.
         </p>
 
-        <h2 className="mt-6">数据安全</h2>
+        <h2 className="mt-6" id="security">
+          数据安全
+        </h2>
         <p>
           我们采取合理的技术措施保护您的信息安全,
           防止未经授权的访问、使用或披露. 所有与用户认证相关的数据传输均采用
           HTTPS 加密.
         </p>
 
-        <h2 className="mt-6">您的权利</h2>
+        <h2 className="mt-6" id="rights">
+          您的权利
+        </h2>
         <p>作为用户, 您拥有以下权利: </p>
         <ul>
           <li>访问您提供给我们的个人数据</li>
@@ -142,13 +166,17 @@ export default function Page() {
           <li>拒绝使用 Cookie</li>
         </ul>
 
-        <h2 className="mt-6">联系方式</h2>
+        <h2 className="mt-6" id="information">
+          联系方式
+        </h2>
         <p>
           如果您对本隐私协议有任何疑问或顾虑,
           请通过About页面的联系方式与我们取得联系
         </p>
 
-        <h2 className="mt-6">协议变更</h2>
+        <h2 className="mt-6" id="changes">
+          协议变更
+        </h2>
         <p>
           我们可能会不时更新本隐私协议. 任何变更都将在本页面发布.
           建议您定期查看本页面以了解我们如何保护您的信息.
