@@ -48,6 +48,7 @@ export default function AIChatWidget() {
 
     if (!getCapToken) {
       toast.error("人机验证失败");
+      setIsStreaming(false);
       return;
     }
     const token = await getCapToken();
@@ -66,6 +67,7 @@ export default function AIChatWidget() {
       if (!res.body) {
         toast.error("生成内容时出现错误");
         setMessages((prev) => [...prev, { from: "bot", text: "[error]" }]);
+        setIsStreaming(false);
         return;
       }
 

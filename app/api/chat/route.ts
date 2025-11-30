@@ -8,7 +8,9 @@ import { checkRateLimit } from "@/lib/ratelimit";
 import { getIP } from "@/utils/ip";
 
 const schema = z.object({
-  captcha_token: z.string().length(47),
+  // Accept any non-empty captcha token string.
+  // Avoid hardcoding length to prevent brittleness if the token format changes.
+  captcha_token: z.string().min(1),
   message: z.string().trim().min(1).max(1000),
 });
 
@@ -25,7 +27,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: "Invalid input" }, { status: 400 });
     }
 
-    if (!verifyCaptchaToken(parsed.data.captcha_token)) {
+    if (!(await verifyCaptchaToken(parsed.data.captcha_token))) {
       return NextResponse.json({ message: "CAPTCHA failed" }, { status: 400 });
     }
 
@@ -38,7 +40,7 @@ export async function POST(request: NextRequest) {
         for await (const chunk of result) {
           const content = chunk.text;
           if (content) {
-            controller.enqueue(content);
+            controller.enqueue(new TextEncoder().encode(content));
           }
         }
         controller.close();

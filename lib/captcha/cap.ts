@@ -9,7 +9,7 @@ export const capServer = new CapServer({
   storage: {
     challenges: {
       store: async (token, challengeData) => {
-        await cacheSet(`cap:challenges:${token}`, challengeData);
+        await cacheSet<ChallengeData>(`cap:challenges:${token}`, challengeData);
       },
       read: async (token) => {
         return await cacheGet<ChallengeData>(`cap:challenges:${token}`);
@@ -21,12 +21,12 @@ export const capServer = new CapServer({
     },
     tokens: {
       store: async (tokenKey, expires) => {
-        await cacheSet(`cap:tokens:${tokenKey}`, expires);
+        await cacheSet<number>(`cap:tokens:${tokenKey}`, expires);
       },
       get: async (tokenKey) => {
-        const data = await cacheGet<number>(`cap:tokens:${tokenKey}`);
-        if (data && data <= Date.now()) {
-          return data;
+        const expires = await cacheGet<number>(`cap:tokens:${tokenKey}`);
+        if (expires && expires >= Date.now()) {
+          return expires;
         }
         return null;
       },
