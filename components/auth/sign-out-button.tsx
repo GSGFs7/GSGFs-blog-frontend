@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useAuth } from "@/app/providers";
-import { isValidRedirectUrl } from "@/utils";
+import { isValidRedirectUrl } from "@/utils/valid-url";
 
 export function SignoutButton({ disabled = false }: { disabled?: boolean }) {
   const router = useRouter();
