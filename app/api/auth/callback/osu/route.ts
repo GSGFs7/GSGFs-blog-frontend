@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 
 import { osuAuth } from "@/lib/auth";
 import { cacheDelete, cacheGet } from "@/lib/cache";
-import { OAuthState } from "@/types";
-import { isValidRedirectUrl } from "@/utils";
+import type { OAuthState } from "@/types";
 import { getIP } from "@/utils/ip";
+import { isValidRedirectUrl } from "@/utils/valid-url";
 
 // TODO: Merge callback routes
 export const GET = async (request: Request) => {

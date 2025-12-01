@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 
-import { markdownToHtml } from "@/utils";
+import { markdownToHtml } from "@/utils/markdown";
 
 import { useGalTable } from "./table";
 

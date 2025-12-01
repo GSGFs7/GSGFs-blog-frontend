@@ -8,7 +8,7 @@ import { MdDateRange } from "react-icons/md";
 import { TbTagsFilled } from "react-icons/tb";
 
 import type { PostsCard } from "@/types";
-import { formatDate } from "@/utils";
+import { formatDate } from "@/utils/formatDate";
 
 import Link from "../link";
 

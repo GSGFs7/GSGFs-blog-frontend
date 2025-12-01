@@ -3,7 +3,7 @@
 import matter from "gray-matter";
 import dynamic from "next/dynamic";
 
-import { markdownToHtml } from "@/utils";
+import { markdownToHtml } from "@/utils/markdown";
 
 const Blog = dynamic(() => import("./blog-body"));
 

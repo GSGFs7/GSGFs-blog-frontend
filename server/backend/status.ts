@@ -4,7 +4,7 @@ import { cacheGet, cacheSet } from "@/lib/cache";
 import { mailAdmin } from "@/lib/email";
 import { fc } from "@/lib/fetchClient";
 import type { MessageResponse } from "@/types";
-import { getTimeDiffMins } from "@/utils";
+import { getTimeDiffMins } from "@/utils/formatDate";
 import { withLock } from "@/utils/lock";
 
 // monitor backend online status

@@ -10,7 +10,7 @@ import { useLoading } from "@/app/providers";
 import { getAllPostIds } from "@/lib/api";
 import cardImageR from "@/public/0.png";
 import cardImageL from "@/public/2_cut.jpg";
-import { getMousePosition } from "@/utils";
+import { getMousePosition } from "@/utils/getMousePosition";
 
 export default function BlogTopCard() {
   const router = useRouter();

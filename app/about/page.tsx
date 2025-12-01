@@ -2,7 +2,7 @@ import "@/styles/blog.css";
 import "github-markdown-css/github-markdown-dark.css";
 
 import aboutMd from "@/markdown/about.md";
-import { markdownToHtml } from "@/utils";
+import { markdownToHtml } from "@/utils/markdown";
 import { title } from "@/utils/primitives";
 
 export default async function AboutPage() {

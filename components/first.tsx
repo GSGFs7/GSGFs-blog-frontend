@@ -7,7 +7,7 @@ import { FaGithub } from "react-icons/fa";
 import { HiInformationCircle } from "react-icons/hi";
 
 import { siteConfig } from "@/config/site";
-import avatar_webp from "@/public/favicon.webp";
+import asumi from "@/public/asumi.jpg";
 import osu_svg from "@/public/osu.svg";
 
 export default function First() {
@@ -93,7 +93,7 @@ export default function First() {
 
       <div className="relative mt-16 flex h-fit flex-5 flex-col">
         <Image
-          alt="avatar"
+          alt="asumi"
           className="rounded-xl shadow-lg shadow-black/50 transition-all hover:scale-105"
           fetchPriority="high"
           loading="eager"
@@ -101,11 +101,11 @@ export default function First() {
           priority={true}
           quality={90}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          src={avatar_webp}
+          src={asumi}
         />
         <div className="group relative flex items-center justify-end">
           <p
-            className={`mt-4 w-full text-center text-gray-500 select-none ${show ? "opacity-100" : "opacity-0"}`}
+            className={`mt-4 w-full text-center text-gray-500 ${show ? "opacity-100" : "opacity-0 select-none"}`}
             id="image-description"
           >
             <span>图片中的角色是《常轨脱离Creative》中的锦亚澄</span>
