@@ -97,7 +97,7 @@ export default function AprilFoolConfirm() {
           }}
         >
           <Modal.Open autoOpen opens="AprilFoolConfirm">
-            <button className="hidden" />
+            <button className="hidden" type="button" />
           </Modal.Open>
           <Modal.Window
             className={
@@ -112,6 +112,7 @@ export default function AprilFoolConfirm() {
               <div className="mt-8 flex items-center justify-between">
                 <button
                   className="cursor-pointer text-blue-500 transition-all hover:text-inherit"
+                  type="button"
                   onClick={() => {
                     setIsOpen(false);
                     toast("乖萝莉, 摸摸头");

@@ -75,7 +75,7 @@ export const siteConfig = {
     "あなたを好きになりました 日记を买いました。花と散る日々を、つなぎあわせておくために",
     "これから先、どんなことが待っていようとも わたしと出会えたこと、後悔しないでください",
   ] as const,
-  // The link in the homepage button is not the friend link
+  // The link of the homepage button, not the friend link
   links: [
     {
       label: "Github",
