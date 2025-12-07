@@ -1,5 +1,5 @@
 export function formatDate(dateString: string): string {
-  if (!dateString || isNaN(Date.parse(dateString))) {
+  if (!dateString || Number.isNaN(Date.parse(dateString))) {
     return "unknown";
   }
 
