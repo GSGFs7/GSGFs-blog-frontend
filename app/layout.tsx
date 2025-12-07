@@ -7,7 +7,6 @@ import type { Metadata, Viewport } from "next";
 
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import StructuredData from "@/components/structured-data";
 import AIChatWidget from "@/components/tools/ai-chat-widget";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
@@ -90,7 +89,6 @@ export default async function RootLayout({
             .dark { background-color: #1c1b22; }`,
           }}
         />
-        <StructuredData />
       </head>
       <body
         className={clsx(
@@ -98,10 +96,7 @@ export default async function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <header
-            className="fixed z-40 flex w-full justify-center"
-            role="banner"
-          >
+          <header className="fixed z-40 flex w-full justify-center">
             <Navbar />
           </header>
           <div className="relative flex min-h-screen w-full flex-col items-center">
