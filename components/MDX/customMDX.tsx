@@ -1,5 +1,5 @@
-import { Element } from "mdx/types";
-import { MDXRemote, MDXRemoteOptions } from "next-mdx-remote-client/rsc";
+import type { Element } from "mdx/types";
+import { MDXRemote, type MDXRemoteOptions } from "next-mdx-remote-client/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
 import rehypeHighlightCodeLines from "rehype-highlight-code-lines";
@@ -9,6 +9,9 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
+
+import { rehypeCustomAttrs } from "@/utils/markdown/rehype-custom-attrs";
+import rehypeCustomImg from "@/utils/markdown/rehype-custom-img";
 
 import { components } from "./components";
 import ErrorComponent from "./error-component";
@@ -27,14 +30,16 @@ const rehypeClassToClassName = () => (tree: Element) => {
     }
 
     // Handle properties for standard HTML elements
-    if (node.properties && node.properties.class) {
+    if (node.properties?.class) {
       node.properties.className = node.properties.class;
       delete node.properties.class;
     }
 
     // Recursively process child nodes
     if (node.children && Array.isArray(node.children)) {
-      node.children.forEach((child: Element) => visitNode(child));
+      for (const child of node.children) {
+        visitNode(child);
+      }
     }
   }
 
@@ -58,6 +63,8 @@ export function CustomMDX({ source }: { source: string }) {
       ],
       rehypePlugins: [
         rehypeClassToClassName,
+        [rehypeCustomImg, { optimize: false }],
+        rehypeCustomAttrs,
         rehypeSlug,
         rehypeAutolinkHeadings,
         [rehypeKatex, { strict: false }],

@@ -1,10 +1,10 @@
-import { Element } from "hast";
+import type { Element } from "hast";
 import { SKIP, visit } from "unist-util-visit";
 
 import cloudflareLoader from "@/image-loader";
 
 export default function rehypeCustomImg(
-  options = { width: 1080, quality: 90 },
+  options = { width: 1080, quality: 90, optimize: true },
 ) {
   return (tree: any) => {
     visit(
@@ -16,7 +16,7 @@ export default function rehypeCustomImg(
           const src = node.properties?.src?.toString() || "";
 
           // optimize the image source
-          if (src && !src.startsWith("/")) {
+          if (options.optimize && src && !src.startsWith("/")) {
             const encodedSrc = encodeURIComponent(src);
             const optimizedSrc = process.env.CF
               ? cloudflareLoader({
@@ -32,7 +32,7 @@ export default function rehypeCustomImg(
           // add a wrapper to show the alt text
           const wrapper = {
             type: "element",
-            tagName: "div",
+            tagName: "span",
             properties: {
               className: ["image-wrapper"],
               dataAlt: alt,

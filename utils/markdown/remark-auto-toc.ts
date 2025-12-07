@@ -1,7 +1,7 @@
 import { visit } from "unist-util-visit";
 
 export function RemarkAutoToc() {
-  return (tree) => {
+  return (tree: any) => {
     let h1Index = -1;
     let h1Found = false;
 
