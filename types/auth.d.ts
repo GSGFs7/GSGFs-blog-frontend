@@ -1,4 +1,4 @@
-export interface sessionType {
+export interface SessionType {
   id?: number;
   name?: string;
   avatar_url?: string;
@@ -9,7 +9,7 @@ export interface sessionType {
   exp?: number;
 }
 
-export interface githubResponse {
+export interface GithubResponse {
   login: string;
   id: number;
   node_id: string;
@@ -68,7 +68,7 @@ type ProfileOrderType = Array<
   | "medals"
 >;
 
-export interface osuResponse {
+export interface OsuResponse {
   id: number;
   username: string;
   avatar_url: string;
@@ -92,12 +92,12 @@ export interface osuResponse {
   website?: string;
 }
 
-export interface tokenResponse {
+export interface TokenResponse {
   token_type: string;
   access_token: string;
 }
 
-export interface userData {
+export interface UserData {
   id: number;
   username: string;
   show_name?: string | null; // GitHub only

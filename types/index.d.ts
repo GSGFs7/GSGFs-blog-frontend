@@ -11,3 +11,4 @@ export * from "./common";
 export * from "./gal";
 export * from "./guest";
 export * from "./posts";
+export * from "./vndb";

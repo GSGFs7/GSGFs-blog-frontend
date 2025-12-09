@@ -2,7 +2,7 @@ import { jwtVerify } from "jose";
 import { type NextRequest, NextResponse } from "next/server";
 
 import { JWT_SECRET as SECRET } from "@/env/private";
-import type { sessionType } from "@/types";
+import type { SessionType } from "@/types";
 
 const JWT_SECRET = new TextEncoder().encode(SECRET);
 
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     const verified = await jwtVerify(token, JWT_SECRET);
-    const session = verified.payload as sessionType;
+    const session = verified.payload as SessionType;
     if (session.type !== "access") {
       return NextResponse.json(
         { error: "Invalid token type" },

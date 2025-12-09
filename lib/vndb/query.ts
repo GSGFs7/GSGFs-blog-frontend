@@ -1,8 +1,7 @@
-import { vndbVNQuery } from "@/types/vndb";
+import { fc } from "@/lib/fetchClient";
+import type { VndbVNQuery } from "@/types";
 
-import { fc } from "../fetchClient";
-
-export async function queryVN(id: string): Promise<vndbVNQuery | null> {
+export async function queryVN(id: string): Promise<VndbVNQuery | null> {
   try {
     // https://api.vndb.org/kana#vn-fields
     const fields = [
@@ -14,7 +13,7 @@ export async function queryVN(id: string): Promise<vndbVNQuery | null> {
       "rating",
     ];
 
-    const data = await fc.post<vndbVNQuery>("https://api.vndb.org/kana/vn", {
+    const data = await fc.post<VndbVNQuery>("https://api.vndb.org/kana/vn", {
       filters: ["id", "=", id],
       fields: fields.join(", "),
     });

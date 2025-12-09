@@ -2,7 +2,7 @@
 
 import AvatarImage from "@/components/avatar-image";
 import { useFetchAuth } from "@/hooks/auth/useFetchAuth";
-import { sessionType } from "@/types";
+import type { SessionType } from "@/types";
 
 import NavAvatarLink from "./avatar-link";
 import LoginButton from "./login-button";
@@ -10,7 +10,7 @@ import LoginButton from "./login-button";
 export default function NavAvatar({
   initialSession,
 }: {
-  initialSession: sessionType | null;
+  initialSession: SessionType | null;
 }) {
   const { session, isLoading } = useFetchAuth();
 

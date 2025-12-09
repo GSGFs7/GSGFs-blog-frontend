@@ -2,7 +2,7 @@
 
 import { getSession } from "@/lib/auth";
 import { fc } from "@/lib/fetchClient";
-import type { ApiResult, guestLogin, IDNumber } from "@/types";
+import type { ApiResult, GuestLogin, IDNumber } from "@/types";
 import { errorToString } from "@/utils/errorToString";
 
 import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
@@ -17,7 +17,7 @@ export async function apiGuestLogin(
       throw new Error("No guest provided");
     }
 
-    const loginDate: guestLogin = {
+    const loginDate: GuestLogin = {
       name: session.name!,
       provider: session.provider!,
       provider_id: session.id!,

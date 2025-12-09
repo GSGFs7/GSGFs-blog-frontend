@@ -7,13 +7,13 @@ import {
   JWT_REFRESH_SECRET as REFRESH_SECRET,
   JWT_SECRET as SECRET,
 } from "@/env/private";
-import type { JWTResult, userData } from "@/types";
+import type { JWTResult, UserData } from "@/types";
 
 const JWT_SECRET = new TextEncoder().encode(SECRET!);
 const JWT_REFRESH_SECRET = new TextEncoder().encode(REFRESH_SECRET!);
 
 export async function createJWT(
-  userData: userData,
+  userData: UserData,
   useCookies: boolean = false,
 ): Promise<JWTResult> {
   let show_name = "";

@@ -6,7 +6,7 @@ import {
   NEXT_PUBLIC_SITE_URL,
 } from "@/env/private";
 import { fc } from "@/lib/fetchClient";
-import type { githubResponse, JWTResult, tokenResponse } from "@/types";
+import type { GithubResponse, JWTResult, TokenResponse } from "@/types";
 
 import { createJWT } from "./jwt";
 
@@ -17,11 +17,11 @@ export async function githubOAuth(
   const GITHUB_CLIENT_ID = AUTH_GITHUB_ID;
   const GITHUB_CLIENT_SECRET = AUTH_GITHUB_SECRET;
 
-  let accessTokenData: tokenResponse;
+  let accessTokenData: TokenResponse;
 
   // 获取一次性的 access token
   try {
-    accessTokenData = await fc.post<tokenResponse>(
+    accessTokenData = await fc.post<TokenResponse>(
       "https://github.com/login/oauth/access_token",
       {
         client_id: GITHUB_CLIENT_ID,
@@ -43,11 +43,11 @@ export async function githubOAuth(
   const accessTokenType = accessTokenData.token_type;
   const accessToken = accessTokenData.access_token;
 
-  let userData: githubResponse;
+  let userData: GithubResponse;
 
   // 获取用户信息
   try {
-    userData = await fc.get<githubResponse>("https://api.github.com/user", {
+    userData = await fc.get<GithubResponse>("https://api.github.com/user", {
       headers: {
         Accept: "application/json",
         Authorization: `${accessTokenType} ${accessToken}`,

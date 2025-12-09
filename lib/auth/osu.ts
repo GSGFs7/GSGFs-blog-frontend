@@ -2,7 +2,7 @@ import "server-only";
 
 import { AUTH_OSU_ID, AUTH_OSU_SECRET } from "@/env/private";
 import { fc } from "@/lib/fetchClient";
-import type { JWTResult, osuResponse, tokenResponse } from "@/types";
+import type { JWTResult, OsuResponse, TokenResponse } from "@/types";
 
 import { createJWT } from "./jwt";
 
@@ -13,10 +13,10 @@ export async function osuAuth(
   const OSU_CLIENT_ID = AUTH_OSU_ID;
   const OSU_CLIENT_SECRET = AUTH_OSU_SECRET;
 
-  let accessTokenData: tokenResponse;
+  let accessTokenData: TokenResponse;
 
   try {
-    accessTokenData = await fc.post<tokenResponse>(
+    accessTokenData = await fc.post<TokenResponse>(
       `https://osu.ppy.sh/oauth/token`,
       {
         client_id: OSU_CLIENT_ID,
@@ -38,11 +38,11 @@ export async function osuAuth(
   const accessTokenType = accessTokenData.token_type;
   const accessToken = accessTokenData.access_token;
 
-  let userData: osuResponse;
+  let userData: OsuResponse;
 
   // 获取用户信息
   try {
-    userData = await fc.get<osuResponse>(`https://osu.ppy.sh/api/v2/me/osu`, {
+    userData = await fc.get<OsuResponse>(`https://osu.ppy.sh/api/v2/me/osu`, {
       headers: {
         Accept: "application/json",
         Authorization: `${accessTokenType} ${accessToken}`,

@@ -1,10 +1,10 @@
-export interface vndbAuthInfo {
+export interface VndbAuthInfo {
   id: string;
   permissions: string[];
   username: string;
 }
 
-export interface vndbStatistics {
+export interface VndbStatistics {
   vn: number;
   chars: number;
   tags: number;
@@ -19,7 +19,7 @@ interface VNTitle {
   title: string;
 }
 
-export interface vndbVNQuery {
+export interface VndbVNQuery {
   more: boolean;
   results: [
     {
