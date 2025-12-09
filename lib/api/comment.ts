@@ -1,3 +1,5 @@
+"use server";
+
 import { fc } from "@/lib/fetchClient";
 import type { commentType, IDsNumber } from "@/types";
 

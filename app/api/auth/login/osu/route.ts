@@ -1,10 +1,10 @@
 import { randomBytes } from "crypto";
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 import { AUTH_OSU_ID } from "@/env/private";
 import { cacheSet } from "@/lib/cache";
-import { OAuthState } from "@/types";
+import type { OAuthState } from "@/types";
 import { getIP } from "@/utils/ip";
 
 export async function GET(request: NextRequest) {
@@ -46,8 +46,6 @@ export async function GET(request: NextRequest) {
 
   // When returning, the state will be returned
   const clientId = AUTH_OSU_ID;
-  // const redirectUri = `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/osu`;
-
   const authUrl = `https://osu.ppy.sh/oauth/authorize?client_id=${clientId}&state=${state}&response_type=code`;
 
   return NextResponse.redirect(authUrl);

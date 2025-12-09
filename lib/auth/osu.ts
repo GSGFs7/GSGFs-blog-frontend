@@ -1,16 +1,17 @@
-"use server";
+import "server-only";
 
+import { AUTH_OSU_ID, AUTH_OSU_SECRET } from "@/env/private";
 import { fc } from "@/lib/fetchClient";
-import { osuResponse, tokenResponse } from "@/types";
+import type { JWTResult, osuResponse, tokenResponse } from "@/types";
 
-import { createJWT, JWTResult } from "./jwt";
+import { createJWT } from "./jwt";
 
 export async function osuAuth(
   code: string,
   useCookies: boolean = false,
 ): Promise<JWTResult> {
-  const OSU_CLIENT_ID = process.env.AUTH_OSU_ID!;
-  const OSU_CLIENT_SECRET = process.env.AUTH_OSU_SECRET!;
+  const OSU_CLIENT_ID = AUTH_OSU_ID;
+  const OSU_CLIENT_SECRET = AUTH_OSU_SECRET;
 
   let accessTokenData: tokenResponse;
 
@@ -21,8 +22,7 @@ export async function osuAuth(
         client_id: OSU_CLIENT_ID,
         client_secret: OSU_CLIENT_SECRET,
         code,
-        // redirect_uri: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/osu`, // 加上这个就不对了
-        grant_type: "authorization_code", // 比 github 多了这个必选项
+        grant_type: "authorization_code",
       },
       {
         headers: {

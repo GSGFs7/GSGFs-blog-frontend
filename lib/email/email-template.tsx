@@ -1,4 +1,4 @@
-import React from "react";
+import "server-only";
 
 export function EmailTemplate({ content }: { content: string }) {
   return (

@@ -1,3 +1,5 @@
+import { SERVER_SECRET_KEY } from "@/env/private";
+
 async function randomBytes(length: number): Promise<Buffer> {
   const array = new Uint8Array(length);
   const crypto = globalThis.crypto;
@@ -35,14 +37,14 @@ export async function generateAuthToken(): Promise<string> {
   const timestamp = Math.floor(globalThis.Date.now() / 1000 / 10); // 10s
   const message = (await randomBytes(8)).toString("hex");
 
-  if (!process.env.SERVER_SECRET_KEY) {
+  if (!SERVER_SECRET_KEY) {
     console.error("SERVER_SECRET_KEY not found");
 
     return "";
   }
 
   const signature = await createHMAC(
-    process.env.SERVER_SECRET_KEY,
+    SERVER_SECRET_KEY,
     timestamp.toString(),
     message,
   );

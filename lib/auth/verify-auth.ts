@@ -1,8 +1,9 @@
-"use server";
+import "server-only";
 
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
+import { JWT_SECRET as _JWT_SECRET } from "@/env/private";
 import type { guestLogin, sessionType } from "@/types";
 
 export async function getSession(
@@ -17,7 +18,7 @@ export async function getSession(
       return null;
     }
 
-    const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
+    const JWT_SECRET = new TextEncoder().encode(_JWT_SECRET);
     const verified = await jwtVerify(token, JWT_SECRET);
 
     return verified.payload as sessionType;

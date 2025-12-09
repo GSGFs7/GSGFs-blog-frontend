@@ -1,3 +1,7 @@
+import "server-only";
+
+// If imported at the same time with public
+// it can make import line more simple
 export * from "./public";
 
 // base

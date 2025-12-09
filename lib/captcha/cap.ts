@@ -1,3 +1,5 @@
+import "server-only";
+
 import CapServer, { type ChallengeData } from "@cap.js/server";
 
 import { cacheDelete, cacheGet, cacheSet } from "@/lib/cache";

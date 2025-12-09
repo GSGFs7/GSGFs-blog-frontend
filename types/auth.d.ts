@@ -112,3 +112,10 @@ export interface OAuthState {
   useCookies?: boolean;
   [key: string]: any;
 }
+
+export interface JWTResult {
+  accessToken: string;
+  refreshToken: string;
+  userData: userData;
+  useCookies: boolean;
+}

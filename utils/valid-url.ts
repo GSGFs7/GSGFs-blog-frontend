@@ -1,3 +1,5 @@
+import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
+
 /**
  * 检查是否是内部链接
  */
@@ -9,7 +11,7 @@ export function isValidRedirectUrl(url: string): boolean {
 
     const parsedUrl = new URL(url);
 
-    const allowedDomains = ["localhost", process.env.NEXT_PUBLIC_SITE_URL];
+    const allowedDomains = ["localhost", NEXT_PUBLIC_SITE_URL];
 
     return allowedDomains.some((domain) => parsedUrl.hostname === domain);
   } catch {

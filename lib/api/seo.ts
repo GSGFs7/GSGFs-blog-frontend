@@ -1,3 +1,5 @@
+"use server";
+
 import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";

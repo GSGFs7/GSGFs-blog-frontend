@@ -1,3 +1,6 @@
+import "server-only";
+
+import { MOMENTO_API_KEY, MOMENTO_BASE_URL } from "@/env/private";
 import type { CacheInterface } from "@/types/cache";
 
 import { CacheTTL } from ".";
@@ -97,9 +100,6 @@ function createCacheError(
 
 export function getCacheClient(): CacheClient {
   if (momentoClient) return momentoClient;
-
-  const MOMENTO_API_KEY = process.env.MOMENTO_API_KEY;
-  const MOMENTO_BASE_URL = process.env.MOMENTO_BASE_URL;
 
   if (!MOMENTO_API_KEY) {
     throw new Error("MOMENTO_API_KEY environment variable not set");

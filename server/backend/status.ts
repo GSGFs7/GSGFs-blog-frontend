@@ -1,5 +1,6 @@
 "use server";
 
+import { MOMENTO_API_KEY } from "@/env/private";
 import { cacheGet, cacheSet } from "@/lib/cache";
 import { mailAdmin } from "@/lib/email";
 import { fc } from "@/lib/fetchClient";
@@ -85,7 +86,9 @@ export async function apiGetBackendStatus(): Promise<MessageResponse | null> {
     //   console.error("Failed to send alert email:", mailError);
     // }
 
-    if (!process.env.MOMENTO_API_KEY) return null;
+    if (!MOMENTO_API_KEY) {
+      return null;
+    }
 
     // avoid short-duration case repeated alert
     await withLock(

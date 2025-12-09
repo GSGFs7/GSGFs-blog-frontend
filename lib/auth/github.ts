@@ -1,16 +1,21 @@
-"use server";
+import "server-only";
 
+import {
+  AUTH_GITHUB_ID,
+  AUTH_GITHUB_SECRET,
+  NEXT_PUBLIC_SITE_URL,
+} from "@/env/private";
 import { fc } from "@/lib/fetchClient";
-import { githubResponse, tokenResponse } from "@/types";
+import type { githubResponse, JWTResult, tokenResponse } from "@/types";
 
-import { createJWT, JWTResult } from "./jwt";
+import { createJWT } from "./jwt";
 
 export async function githubOAuth(
   code: string,
   useCookies: boolean = false,
 ): Promise<JWTResult> {
-  const GITHUB_CLIENT_ID = process.env.AUTH_GITHUB_ID!;
-  const GITHUB_CLIENT_SECRET = process.env.AUTH_GITHUB_SECRET!;
+  const GITHUB_CLIENT_ID = AUTH_GITHUB_ID;
+  const GITHUB_CLIENT_SECRET = AUTH_GITHUB_SECRET;
 
   let accessTokenData: tokenResponse;
 
@@ -22,7 +27,7 @@ export async function githubOAuth(
         client_id: GITHUB_CLIENT_ID,
         client_secret: GITHUB_CLIENT_SECRET,
         code,
-        redirect_uri: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/github`,
+        redirect_uri: `${NEXT_PUBLIC_SITE_URL}/api/auth/callback/github`,
       },
       {
         headers: {

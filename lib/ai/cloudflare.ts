@@ -1,4 +1,4 @@
-"use server";
+import "server-only";
 
 import { OpenAI } from "openai";
 import type { Stream } from "openai/core/streaming.mjs";
