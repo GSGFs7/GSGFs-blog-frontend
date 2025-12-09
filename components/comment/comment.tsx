@@ -1,10 +1,10 @@
-import { CaptchaProvider } from "@/components/captcha/provider";
+import { CaptchaProvider } from "@/components/captcha";
 import { getCaptcha } from "@/lib/captcha";
 
 import CommentAvatar from "./avatar";
 import CommentAvatarLink from "./avatar-link";
 import CommentButton from "./button";
-import { CommentCaptcha } from "./captcha";
+import CommentCaptcha from "./captcha";
 import CommentInput from "./comment-input";
 import CommentList from "./comment-list";
 import CommentProvider from "./provider";

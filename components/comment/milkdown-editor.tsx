@@ -3,7 +3,7 @@ import { listener, listenerCtx } from "@milkdown/kit/plugin/listener";
 import { commonmark } from "@milkdown/kit/preset/commonmark";
 import { Milkdown, MilkdownProvider, useEditor } from "@milkdown/react";
 import { nord } from "@milkdown/theme-nord";
-import React from "react";
+import type React from "react";
 
 function MilkdownEditor({
   content,

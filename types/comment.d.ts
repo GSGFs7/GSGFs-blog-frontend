@@ -1,4 +1,4 @@
-export interface commentType {
+export interface CommentType {
   id: number;
   content: string;
   post_id: string;
@@ -9,7 +9,11 @@ export interface commentType {
   avatar?: string;
 }
 
-export interface newCommentType {
+export interface NewCommentType {
   content: string;
   post: string;
+}
+
+export interface AllCommentsType {
+  comments: commentType[];
 }
