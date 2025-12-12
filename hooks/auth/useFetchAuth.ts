@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 import { useAuth } from "@/app/providers";
 import { fc } from "@/lib/fetchClient";
-import type { sessionType } from "@/types";
+import type { SessionType } from "@/types";
 
 const AUTH_QUERY_KEY = ["auth", "session"];
 const REFRESH_TOKEN_INTERVAL = 1000 * 60 * 45; // 45mins
@@ -23,9 +23,9 @@ function getStoredToken(key: string): string | null {
   }
 }
 
-export async function fetchSession(): Promise<sessionType | null> {
+export async function fetchSession(): Promise<SessionType | null> {
   try {
-    const session = await fc.get<sessionType | null>("/api/auth/me", {
+    const session = await fc.get<SessionType | null>("/api/auth/me", {
       cache: "no-store",
       headers: { "x-timestamp": Date.now().toString() },
     });
@@ -39,7 +39,7 @@ export async function fetchSession(): Promise<sessionType | null> {
       return null;
     }
 
-    return await fc.post<sessionType>("/api/auth/verify", {
+    return await fc.post<SessionType>("/api/auth/verify", {
       token: accessToken,
     });
   } catch {
@@ -131,7 +131,7 @@ export function useFetchAuth() {
     }
 
     try {
-      fc.post<sessionType>("/api/auth/verify", {
+      fc.post<SessionType>("/api/auth/verify", {
         token: accessToken,
       }).then((s) => {
         if (s.type !== "access") {

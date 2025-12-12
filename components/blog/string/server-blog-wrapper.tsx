@@ -7,7 +7,7 @@ import { markdownToHtml } from "@/utils/markdown";
 
 const Blog = dynamic(() => import("./blog-body"));
 
-export default async function ClientBlogWrapper({
+export default async function BlogBodyString({
   markdown,
   html,
 }: {
@@ -20,9 +20,5 @@ export default async function ClientBlogWrapper({
     html = await markdownToHtml(markdownContent);
   }
 
-  return (
-    <>
-      <Blog html={html} />
-    </>
-  );
+  return <Blog html={html} />;
 }

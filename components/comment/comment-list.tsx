@@ -1,16 +1,17 @@
-import { getAllCommentIdFromPostId } from "@/lib/api";
+import { getAllCommentFromPostId } from "@/lib/api";
 
 import CommentCard from "./comment-card";
 
 export default async function CommentList({ postId }: { postId: number }) {
-  const ids = await getAllCommentIdFromPostId(postId);
-
-  if (!ids) return null;
+  const res = await getAllCommentFromPostId(postId);
+  if (!res.ok) {
+    return null;
+  }
 
   return (
     <>
-      {ids.map((id) => (
-        <CommentCard key={id} id={id} />
+      {res.data.map((comment) => (
+        <CommentCard key={comment.id} comment={comment} />
       ))}
     </>
   );

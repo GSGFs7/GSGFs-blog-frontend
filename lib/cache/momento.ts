@@ -1,3 +1,5 @@
+import "server-only";
+
 import {
   CacheClient,
   CacheDeleteResponse,
@@ -6,7 +8,7 @@ import {
 } from "@gomomento/sdk";
 
 import { MOMENTO_API_KEY } from "@/env/private";
-import { CacheInterface } from "@/types/cache";
+import type { CacheInterface } from "@/types/cache";
 
 import { CacheError } from "./error";
 import { CacheTTL } from "./index";

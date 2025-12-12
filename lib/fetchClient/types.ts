@@ -1,6 +1,6 @@
-import { z } from "zod";
+import type { z } from "zod";
 
-import { FetchError } from "./error";
+import type { FetchError } from "./error";
 
 export interface FetchOptions extends RequestInit {
   timeout?: number;

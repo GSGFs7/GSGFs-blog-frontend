@@ -1,7 +1,6 @@
 import type { z } from "zod";
 
 import { siteConfig } from "@/config/site";
-import { BACKEND_URL } from "@/env/private";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 
 import { FetchError } from "./error";
@@ -43,8 +42,11 @@ export async function fetchClient<T = any>(
       url = `${baseUrl}${endpoint}`;
     }
   } else {
-    // backend URL
-    url = `${BACKEND_URL}/api/${endpoint}`;
+    // backend URL (shouldn't use on client side)
+    // NOTE: This is intentional, not a bug!
+    // Because `BACKEND_URL` is insignificant
+    // Avoid the limit of DAL(Data Access Layer)
+    url = `${process.env.BACKEND_URL}/api/${endpoint}`;
   }
 
   // Process URL query parameters

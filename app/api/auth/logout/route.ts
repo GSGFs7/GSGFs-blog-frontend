@@ -1,6 +1,6 @@
+import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 import { logout } from "@/lib/auth";
 
-// 使用 POST 触发
 export const POST = async () => {
   await logout();
 
@@ -11,7 +11,7 @@ export const POST = async () => {
   //   callbackUrl = "/";
   // }
 
-  const redirectUrl = new URL("/", process.env.NEXT_PUBLIC_SITE_URL).toString();
+  const redirectUrl = new URL("/", NEXT_PUBLIC_SITE_URL).toString();
 
   return Response.redirect(redirectUrl);
 };

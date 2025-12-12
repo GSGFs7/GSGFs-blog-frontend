@@ -1,4 +1,4 @@
-"use server";
+import "server-only";
 
 import {
   type ContentListUnion,
@@ -50,7 +50,7 @@ export async function googleChatStream(messages: ChatMessage[]) {
   }));
 
   const response = await ai.models.generateContentStream({
-    model: "gemini-3-pro-preview",
+    model: "gemini-2.5-flash",
     contents,
     config: {
       systemInstruction: SYSTEM_PROMPT,

@@ -1,5 +1,9 @@
-import { FetchError } from "./error";
-import { FetchOptions, RequestInterceptor, ResponseInterceptor } from "./types";
+import type { FetchError } from "./error";
+import type {
+  FetchOptions,
+  RequestInterceptor,
+  ResponseInterceptor,
+} from "./types";
 
 export class InterceptorManager {
   private requestInterceptors: RequestInterceptor[] = [];

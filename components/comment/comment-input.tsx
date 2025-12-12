@@ -8,7 +8,7 @@ import { flushSync } from "react-dom";
 import toast from "react-hot-toast";
 
 import { useAuth } from "@/app/providers";
-import { useCaptcha } from "@/components/captcha/provider";
+import { useCaptcha } from "@/components/captcha";
 import { isCaptchaEnabled } from "@/lib/captcha";
 import { apiAddComment } from "@/server/backend";
 

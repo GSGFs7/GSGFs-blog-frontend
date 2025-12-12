@@ -2,10 +2,13 @@ import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
-const JWT_REFRESH_SECRET = new TextEncoder().encode(
-  process.env.JWT_REFRESH_SECRET!,
-);
+import {
+  JWT_REFRESH_SECRET as _JWT_REFRESH_SECRET,
+  JWT_SECRET as _JWT_SECRET,
+} from "@/env/private";
+
+const JWT_SECRET = new TextEncoder().encode(_JWT_SECRET);
+const JWT_REFRESH_SECRET = new TextEncoder().encode(_JWT_REFRESH_SECRET);
 
 export async function GET(_request: NextRequest) {
   const cookieStore = await cookies();

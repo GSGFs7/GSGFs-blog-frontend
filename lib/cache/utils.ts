@@ -1,4 +1,6 @@
-import { CacheResult } from "@/types/cache";
+import "server-only";
+
+import type { CacheResult } from "@/types/cache";
 
 import { cacheDelete, cacheGet, cacheSet } from ".";
 

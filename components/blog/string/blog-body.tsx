@@ -21,13 +21,11 @@ export default function BlogBody({
   useBlog(html, ref);
 
   return (
-    <>
-      <article
-        dangerouslySetInnerHTML={{ __html: html }}
-        ref={ref}
-        className="markdown-body rounded-2xl backdrop-blur-lg md:border-2 md:border-gray-500/50 md:p-8"
-        data-theme="dark"
-      />
-    </>
+    <article
+      dangerouslySetInnerHTML={{ __html: html }}
+      ref={ref}
+      className="markdown-body rounded-2xl backdrop-blur-lg md:border-2 md:border-gray-500/50 md:p-8"
+      data-theme="dark"
+    />
   );
 }

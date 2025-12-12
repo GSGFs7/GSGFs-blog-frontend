@@ -58,7 +58,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
 
 export async function commentMarkdownToHtml(comment: string): Promise<string> {
   if (comment.length > 5000) {
-    comment = comment.substring(0, 5000) + "...(length limit exceeded)";
+    comment = `${comment.substring(0, 5000)}...(length limit exceeded)`;
   }
 
   const sanitizeSchema: import("rehype-sanitize").Options = {

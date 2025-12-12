@@ -26,7 +26,7 @@ export default function AIChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     { from: "bot", text: "Nyallo! How can I help you today?" },
   ]);
-  const getCapToken = useInvisibleCap();
+  const getCapTokenResult = useInvisibleCap();
 
   const handleMainButtonClick = () => {
     setIsOpen((prev) => !prev);
@@ -46,12 +46,12 @@ export default function AIChatWidget() {
     setMessages(newMessages);
     setIsStreaming(true);
 
-    if (!getCapToken) {
+    if (!getCapTokenResult) {
       toast.error("人机验证失败");
       setIsStreaming(false);
       return;
     }
-    const token = await getCapToken();
+    const { token } = await getCapTokenResult();
 
     let result = "";
     try {
@@ -60,7 +60,7 @@ export default function AIChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: userInput,
-          captcha_token: token.token,
+          captcha_token: token,
         }),
       });
 

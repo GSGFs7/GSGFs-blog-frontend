@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
-import { BlogTopCard } from "@/components/blog";
+import { BlogStructuredData, BlogTopCard } from "@/components/blog";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 import { getPostList } from "@/lib/api";
@@ -83,6 +83,8 @@ export default async function BlogPage({
 
   return (
     <BlogProvider>
+      <BlogStructuredData />
+
       <div className="flex flex-col items-center justify-center">
         <BlogTopCard />
 

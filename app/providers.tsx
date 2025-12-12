@@ -10,7 +10,7 @@ import {
 import * as React from "react";
 import { Toaster } from "react-hot-toast";
 
-import { sessionType } from "@/types";
+import type { SessionType } from "@/types";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -26,12 +26,12 @@ export interface ProvidersProps {
 // }
 
 type AuthAction =
-  | { type: "login"; payload: sessionType }
+  | { type: "login"; payload: SessionType }
   | { type: "logout" }
-  | { type: "update"; payload: Partial<sessionType> | null };
+  | { type: "update"; payload: Partial<SessionType> | null };
 
 interface AuthContextType {
-  session: sessionType | null;
+  session: SessionType | null;
   dispatch: React.Dispatch<AuthAction>;
   enableCookies: boolean;
   setEnableCookies: (_: boolean) => void;
@@ -49,9 +49,9 @@ export function useAuth(): AuthContextType {
 }
 
 function reducer(
-  state: { session: sessionType | null },
+  state: { session: SessionType | null },
   action: AuthAction,
-): { session: sessionType | null } {
+): { session: SessionType | null } {
   switch (action.type) {
     case "login":
       return { session: action.payload };
@@ -88,18 +88,20 @@ export const useLoading = () => {
   return React.useContext(LoadingContext);
 };
 
+// TODO: too complicated, refactor here
 export function Providers({ children, themeProps }: ProvidersProps) {
   const [{ session }, dispatch] = React.useReducer(reducer, { session: null });
   const [enableCookies, setEnableCookies] = React.useState(false);
   const authContextValue = React.useMemo(
     () => ({ session, dispatch, enableCookies, setEnableCookies }),
-    [session, dispatch, enableCookies, setEnableCookies],
+    [session, enableCookies],
   );
   const [isLoading, setIsLoading] = React.useState(false);
   const pathname = usePathname();
 
   // useSearchParams() should be wrapped in a suspense boundary
   // So, put it in nav logo component
+  // biome-ignore lint/correctness/useExhaustiveDependencies: use pathname update loading state
   React.useEffect(() => {
     setIsLoading(false);
   }, [pathname]);

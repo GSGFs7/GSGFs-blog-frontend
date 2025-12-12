@@ -1,13 +1,14 @@
-"use server";
+import "server-only";
 
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-import type { guestLogin, sessionType } from "@/types";
+import { JWT_SECRET as _JWT_SECRET } from "@/env/private";
+import type { GuestLogin, SessionType } from "@/types";
 
 export async function getSession(
   accessToken?: string,
-): Promise<sessionType | null> {
+): Promise<SessionType | null> {
   try {
     const token = accessToken
       ? accessToken
@@ -17,10 +18,10 @@ export async function getSession(
       return null;
     }
 
-    const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
+    const JWT_SECRET = new TextEncoder().encode(_JWT_SECRET);
     const verified = await jwtVerify(token, JWT_SECRET);
 
-    return verified.payload as sessionType;
+    return verified.payload as SessionType;
   } catch {
     (await cookies()).delete("access_token");
 
@@ -30,7 +31,7 @@ export async function getSession(
 
 export async function getGuest(
   accessToken?: string,
-): Promise<guestLogin | null> {
+): Promise<GuestLogin | null> {
   const session = await getSession(accessToken);
 
   if (!session) {

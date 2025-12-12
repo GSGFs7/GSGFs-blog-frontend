@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import BlogBody from "@/components/blog/server-blog-wrapper";
+import { BlogBodyMdx, BlogPostStructuredData } from "@/components/blog";
 import { getPost } from "@/lib/api";
 
 const Comment = dynamic(() => import("@/components/comment"));
@@ -36,7 +36,9 @@ export default async function Page({
 
   return (
     <div className="">
-      <BlogBody html={post.content_html ?? undefined} markdown={post.content} />
+      <BlogPostStructuredData post={post} />
+
+      <BlogBodyMdx post={post} />
       <Suspense fallback={<div className="spinner-big" />}>
         <Comment postId={Number(postId)} />
       </Suspense>
