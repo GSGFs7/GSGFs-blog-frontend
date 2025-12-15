@@ -17,7 +17,7 @@ export async function extractAudioMetadata(
     // transfer Uint8Array to base64 string
     // if return Uint8Array, it will cause a server-client serialization error
     const coverData = picture?.data
-      ? Buffer.from(common.picture?.[0]?.data).toString("base64")
+      ? Buffer.from(picture.data).toString("base64")
       : undefined;
 
     const metadata: MusicMetadata = {
