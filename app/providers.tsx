@@ -10,6 +10,7 @@ import {
 import * as React from "react";
 import { Toaster } from "react-hot-toast";
 
+import { MusicPlayerProvider } from "@/components/music";
 import type { SessionType } from "@/types";
 
 export interface ProvidersProps {
@@ -110,7 +111,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     <QueryClientProvider client={queryClient}>
       <AuthContext.Provider value={authContextValue}>
         <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-          <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+          <MusicPlayerProvider>
+            <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+          </MusicPlayerProvider>
         </LoadingContext.Provider>
       </AuthContext.Provider>
       <ReactQueryDevtools initialIsOpen={false} />

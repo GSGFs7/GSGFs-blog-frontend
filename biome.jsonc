@@ -10,6 +10,9 @@
       },
       "security": {
         "noDangerouslySetInnerHtml": "info"
+      },
+      "a11y": {
+        "useMediaCaption": "off"
       }
     }
   }
