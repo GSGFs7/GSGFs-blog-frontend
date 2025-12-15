@@ -10,14 +10,15 @@ export async function extractAudioMetadata(
 ): Promise<ApiResult<MusicMetadata>> {
   try {
     const httpTokenizer = await makeTokenizer(url);
+    const { common, format } = await parseFromTokenizer(httpTokenizer);
 
-    const data = await parseFromTokenizer(httpTokenizer);
-
-    const { common, format } = data;
+    const picture = common.picture?.[0];
 
     // transfer Uint8Array to base64 string
     // if return Uint8Array, it will cause a server-client serialization error
-    const coverData = Buffer.from(common.picture?.[0]?.data).toString("base64");
+    const coverData = picture?.data
+      ? Buffer.from(common.picture?.[0]?.data).toString("base64")
+      : undefined;
 
     const metadata: MusicMetadata = {
       title: common.title,
@@ -26,7 +27,7 @@ export async function extractAudioMetadata(
       duration: format.duration,
       size: httpTokenizer.fileInfo.size,
       coverData,
-      coverMimeType: common.picture?.[0]?.format,
+      coverMimeType: picture?.format,
       bitrate: format.bitrate,
       sampleRate: format.sampleRate,
       src: url,
