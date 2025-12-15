@@ -10,5 +10,6 @@ export * from "./comment";
 export * from "./common";
 export * from "./gal";
 export * from "./guest";
+export * from "./music";
 export * from "./posts";
 export * from "./vndb";

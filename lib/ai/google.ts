@@ -13,7 +13,7 @@ import { GOOGLE_AI_API_KEY } from "@/env/private";
 
 import { SYSTEM_PROMPT } from "./config";
 
-const ai = new GoogleGenAI({
+export const ai = new GoogleGenAI({
   apiKey: GOOGLE_AI_API_KEY,
 });
 
@@ -61,11 +61,3 @@ export async function googleChatStream(messages: ChatMessage[]) {
 
   return response;
 }
-
-// (async function test() {
-//   const stream = await googleChatStream("How LLM work?");
-
-//   for await (const chunk of stream) {
-//     console.log(chunk.text);
-//   }
-// })();

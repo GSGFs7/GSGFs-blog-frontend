@@ -2,7 +2,7 @@ import Link from "./link";
 
 export default function Footer() {
   return (
-    <footer className="flex w-fit flex-wrap items-center justify-center gap-1 px-4 py-3">
+    <footer className="flex w-fit flex-wrap items-center justify-center gap-1 px-4 py-3 transition-all duration-200">
       <span className="text-default-600">Powered by</span>
       <Link
         className="flex items-center text-current"
@@ -11,7 +11,7 @@ export default function Footer() {
         target="_blank"
         title="nextjs homepage"
       >
-        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+        <span className="text-primary transition-colors hover:text-[#aaaaaa] hover:underline">
           Next.js
         </span>
       </Link>
@@ -23,7 +23,7 @@ export default function Footer() {
         target="_blank"
         title="django homepage"
       >
-        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+        <span className="text-primary transition-colors hover:text-[#aaaaaa] hover:underline">
           Django
         </span>
       </Link>
@@ -35,7 +35,7 @@ export default function Footer() {
         target="_blank"
         title="Creative Commons Attribution 4.0 International License"
       >
-        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+        <span className="text-primary transition-colors hover:text-[#aaaaaa] hover:underline">
           CC BY 4.0
         </span>
       </Link>
@@ -45,7 +45,7 @@ export default function Footer() {
         href="/privacy"
         title="隐私协议"
       >
-        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+        <span className="text-primary transition-colors hover:text-[#aaaaaa] hover:underline">
           privacy
         </span>
       </Link>
@@ -55,7 +55,7 @@ export default function Footer() {
         href="/sitemap.xml"
         title="sitemap"
       >
-        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+        <span className="text-primary transition-colors hover:text-[#aaaaaa] hover:underline">
           sitemap
         </span>
       </Link>
@@ -65,7 +65,7 @@ export default function Footer() {
         href="/blog/feed.atom"
         title="rss feed"
       >
-        <span className="text-primary transition-colors hover:text-[#aaaaaa]">
+        <span className="text-primary transition-colors hover:text-[#aaaaaa] hover:underline">
           rss
         </span>
       </Link>

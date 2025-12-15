@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 
-export const dynamic = "force-dynamic";
-
 export const metadata: Metadata = {
   title: "login",
   description: `登陆到${siteConfig.siteName}`,

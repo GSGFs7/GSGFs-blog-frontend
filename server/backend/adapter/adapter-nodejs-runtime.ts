@@ -1,4 +1,6 @@
-import { createHmac, randomBytes } from "crypto";
+import "server-only";
+
+import { createHmac, randomBytes } from "node:crypto";
 
 import { SERVER_SECRET_KEY } from "@/env/private";
 
