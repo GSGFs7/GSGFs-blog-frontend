@@ -1,6 +1,6 @@
-export { fetchClient, fc } from "./fetchClient";
-export { interceptor, InterceptorManager } from "./interceptor";
 export { FetchError } from "./error";
+export { fc, fetchClient } from "./fetchClient";
+export { InterceptorManager, interceptor } from "./interceptor";
 export type {
   FetchOptions,
   RequestInterceptor,

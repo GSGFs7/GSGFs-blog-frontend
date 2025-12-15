@@ -8,7 +8,7 @@ import { CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_KEY } from "@/env/private";
 
 import { SYSTEM_PROMPT } from "./config";
 
-const ai = new OpenAI({
+export const ai = new OpenAI({
   apiKey: CLOUDFLARE_API_KEY,
   baseURL: `https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/ai/v1`,
 });
@@ -27,10 +27,3 @@ export async function cfChatStream(
 
   return chatStream;
 }
-
-// (async function test() {
-//   const stream = await chatStream("1+1=?");
-//   for await (const chunk of stream) {
-//     console.log(chunk);
-//   }
-// })();

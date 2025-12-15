@@ -9,7 +9,9 @@ export default function CacheStatus() {
 
   return (
     <div>
-      <button onClick={testCacheStatus}>test</button>
+      <button type="button" onClick={testCacheStatus}>
+        test cache
+      </button>
     </div>
   );
 }

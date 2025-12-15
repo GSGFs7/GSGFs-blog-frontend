@@ -6,8 +6,9 @@ import { clsx } from "clsx";
 import type { Metadata, Viewport } from "next";
 
 import Footer from "@/components/footer";
+import { MusicPlayerServer } from "@/components/music";
 import Navbar from "@/components/navbar";
-import AIChatWidget from "@/components/tools/ai-chat-widget";
+import { AIChatWidget } from "@/components/tools";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 
@@ -79,7 +80,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning className="scroll-p-24" lang="zh-CN">
+    <html suppressHydrationWarning className="scroll-p-24" lang="zh-Hans">
       <head>
         <style
           dangerouslySetInnerHTML={{
@@ -105,6 +106,8 @@ export default async function RootLayout({
             </main>
 
             <AIChatWidget />
+
+            <MusicPlayerServer />
 
             <Footer />
           </div>

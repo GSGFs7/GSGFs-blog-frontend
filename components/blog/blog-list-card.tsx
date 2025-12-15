@@ -7,10 +7,9 @@ import { IoFileTrayFullSharp } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
 import { TbTagsFilled } from "react-icons/tb";
 
+import Link from "@/components/link";
 import type { PostsCard } from "@/types";
 import { formatDate } from "@/utils/formatDate";
-
-import Link from "../link";
 
 export default function BlogListCard({
   category,

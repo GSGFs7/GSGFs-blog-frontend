@@ -26,7 +26,7 @@ export default function BlogPostStructuredData({ post }: { post: Post }) {
     inLanguage: "zh-Hans",
     keywords: post.keywords || "",
     mainEntityOfPage: {
-      "@type": "WebPage",
+      "@type": "Blog",
       "@id": `${NEXT_PUBLIC_SITE_URL}/blog/${post.id}`,
     },
     license: "https://creativecommons.org/licenses/by/4.0/",

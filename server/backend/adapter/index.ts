@@ -1,3 +1,5 @@
+import "server-only";
+
 // how to use?
 // 1. import the module:
 //  import adapter from "./runtime-adapter";

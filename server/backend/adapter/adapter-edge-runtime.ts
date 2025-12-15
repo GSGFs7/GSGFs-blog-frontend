@@ -1,3 +1,5 @@
+import "server-only";
+
 import { SERVER_SECRET_KEY } from "@/env/private";
 
 async function randomBytes(length: number): Promise<Buffer> {

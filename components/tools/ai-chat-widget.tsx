@@ -18,7 +18,7 @@ interface Message {
   text: string;
 }
 
-export default function AIChatWidget() {
+export function AIChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamResponse, setStreamResponse] = useState("");

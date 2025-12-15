@@ -1,5 +1,5 @@
 import matter from "gray-matter";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { commentMarkdownToHtml, markdownToHtml } from "@/utils/markdown";
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     // ===limit length===
     if (
-      (contentLength && parseInt(contentLength) > 128 * 1024) ||
+      (contentLength && parseInt(contentLength, 10) > 128 * 1024) ||
       content.length > 128 * 1024
     ) {
       return createErrorResponse(413, "Content is too long");

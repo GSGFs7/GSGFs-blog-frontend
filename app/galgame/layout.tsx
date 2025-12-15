@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 
-export const dynamic = "force-dynamic";
-
 export const metadata: Metadata = {
   title: "Galgame",
   description: "对我玩过的 Galgame 进行记录、介绍和推荐",

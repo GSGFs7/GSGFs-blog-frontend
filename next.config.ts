@@ -1,6 +1,7 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
 import type { NextConfig } from "next";
 
+import { siteConfig } from "@/config/site";
 import { privateSchema, publicSchema } from "@/env/schema";
 
 // env validation
@@ -71,7 +72,7 @@ const nextConfig: NextConfig = {
       `img-src 'self' data:`,
       "font-src 'self'",
       "object-src 'none'",
-      "media-src 'self'",
+      `media-src 'self' ${siteConfig.musicUrl}`,
       "child-src 'none'",
       "worker-src 'self' blob:", // Cap needs 'blob' for create workers
       "manifest-src 'self'",
