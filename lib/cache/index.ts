@@ -19,17 +19,9 @@ export async function cacheSet<T>(
   ttlSeconds?: number,
 ): Promise<boolean> {
   if (process.env.CF) {
-    return await cloudflareKVCache.cacheSet(
-      key,
-      JSON.stringify(value),
-      ttlSeconds,
-    );
+    return await cloudflareKVCache.cacheSet(key, value, ttlSeconds);
   } else {
-    return await momentoHttpCache.cacheSet(
-      key,
-      JSON.stringify(value),
-      ttlSeconds,
-    );
+    return await momentoHttpCache.cacheSet(key, value, ttlSeconds);
   }
 }
 
