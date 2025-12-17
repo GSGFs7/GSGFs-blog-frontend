@@ -10,8 +10,8 @@ import {
 import { MOMENTO_API_KEY } from "@/env/private";
 import type { CacheInterface } from "@/types/cache";
 
+import { CacheTTL } from "./core";
 import { CacheError } from "./error";
-import { CacheTTL } from "./index";
 
 const CACHE_NAME = "blog"; // Name of the cache to use
 let momentoClient: CacheClient | null;
