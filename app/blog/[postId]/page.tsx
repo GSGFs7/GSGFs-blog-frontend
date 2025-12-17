@@ -1,11 +1,9 @@
-import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { BlogBodyString, BlogPostStructuredData } from "@/components/blog";
+import Comment from "@/components/comment";
 import { getPost } from "@/lib/api";
-
-const Comment = dynamic(() => import("@/components/comment"));
 
 export default async function Page({
   params,

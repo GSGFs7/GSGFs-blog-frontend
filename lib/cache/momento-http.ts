@@ -3,7 +3,7 @@ import "server-only";
 import { MOMENTO_API_KEY, MOMENTO_BASE_URL } from "@/env/private";
 import type { CacheInterface } from "@/types/cache";
 
-import { CacheTTL } from ".";
+import { CacheTTL } from "./core";
 import { CacheError } from "./error";
 
 const CACHE_NAME = "blog"; // Name of the cache to use
@@ -173,10 +173,10 @@ export async function cacheDelete(key: string): Promise<boolean> {
   }
 }
 
-const momentoCache: CacheInterface = {
+const momentoHttpCache: CacheInterface = {
   cacheGet,
   cacheSet,
   cacheDelete,
 };
 
-export default momentoCache;
+export default momentoHttpCache;

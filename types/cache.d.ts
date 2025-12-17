@@ -1,3 +1,5 @@
+import type { CacheError } from "@/lib/cache/error";
+
 export interface CacheInterface {
   cacheGet<T>(key: string): Promise<T | null>;
   cacheSet<T>(key: string, value: T, ttlSeconds?: number): Promise<boolean>;

@@ -1,12 +1,11 @@
 "use server";
 
 import matter from "gray-matter";
-import dynamic from "next/dynamic";
 
 import type { Post } from "@/types";
 import { markdownToHtml } from "@/utils/markdown";
 
-const Blog = dynamic(() => import("./blog-body"));
+import BlogBody from "./blog-body";
 
 export default async function BlogBodyString({ post }: { post: Post }) {
   let html = post.content_html;
@@ -19,5 +18,5 @@ export default async function BlogBodyString({ post }: { post: Post }) {
     html = await markdownToHtml(markdownContent);
   }
 
-  return <Blog html={html} />;
+  return <BlogBody html={html} />;
 }
