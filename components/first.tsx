@@ -7,7 +7,8 @@ import { FaGithub } from "react-icons/fa";
 import { HiInformationCircle } from "react-icons/hi";
 
 import { siteConfig } from "@/config/site";
-import asumi from "@/public/asumi.jpg";
+// import asumi from "@/public/asumi.jpg";
+import christmas from "@/public/christmas.webp";
 import osu_svg from "@/public/osu.svg";
 
 export default function First() {
@@ -101,14 +102,15 @@ export default function First() {
           priority={true}
           quality={90}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          src={asumi}
+          src={christmas}
         />
         <div className="group relative flex items-center justify-end">
           <p
             className={`mt-4 w-full text-center text-gray-500 ${show ? "opacity-100" : "opacity-0 select-none"}`}
             id="image-description"
           >
-            <span>图片中的角色是《常轨脱离Creative》中的锦亚澄</span>
+            {/* <span>图片中的角色是《常轨脱离Creative》中的锦亚澄</span> */}
+            <span>Merry Christmas!</span>
           </p>
           <button
             aria-controls="image-description"
