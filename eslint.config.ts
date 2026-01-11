@@ -284,6 +284,7 @@ const eslintConfig = [
     "node_modules",
     "public",
     "next-env.d.ts",
+    "pnpm-lock.yaml",
   ]),
   {
     plugins: {

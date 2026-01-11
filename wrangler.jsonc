@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "gsgfs",
-  "compatibility_date": "2025-12-16",
+  "compatibility_date": "2026-1-10",
   "compatibility_flags": [
     "nodejs_compat"
   ],
@@ -39,7 +39,6 @@
   "limits": {
     "cpu_ms": 50
   },
-  // run `pnpm run dev` need to comment out this
   "durable_objects": {
     "bindings": [
       {
@@ -83,6 +82,9 @@
       "bucket_name": "next-cache"
     }
   ],
+  "images": {
+    "binding": "IMAGES"
+  },
   "send_metrics": false,
   // https://opennext.js.org/cloudflare/howtos/keep_names
   "keep_names": false
