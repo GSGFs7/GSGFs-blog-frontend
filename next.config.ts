@@ -24,8 +24,8 @@ const nextConfig: NextConfig = {
     ],
     qualities: [60, 75, 90],
     // use Cloudflare Image
-    loader: process.env.CF ? "custom" : "default",
-    loaderFile: process.env.CF ? "./image-loader.ts" : undefined,
+    loader: "default",
+    loaderFile: undefined,
   },
   turbopack: {
     resolveExtensions: [

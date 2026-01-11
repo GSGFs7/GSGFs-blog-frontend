@@ -13,7 +13,7 @@ export function CookiePreference() {
         type="checkbox"
         onChange={() => setEnableCookies(!enableCookies)}
       />
-      <label htmlFor="cookie_checkbox">是否启用 Cookies ?</label>
+      <label htmlFor="cookie_checkbox">启用 Cookies 以保存登录状态?</label>
     </div>
   );
 }

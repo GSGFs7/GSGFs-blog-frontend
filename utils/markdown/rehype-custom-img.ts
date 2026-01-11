@@ -1,8 +1,6 @@
 import type { Element } from "hast";
 import { SKIP, visit } from "unist-util-visit";
 
-import cloudflareLoader from "@/image-loader";
-
 export default function rehypeCustomImg(
   options = { width: 1080, quality: 90, optimize: true },
 ) {
@@ -18,13 +16,7 @@ export default function rehypeCustomImg(
           // optimize the image source
           if (options.optimize && src && !src.startsWith("/")) {
             const encodedSrc = encodeURIComponent(src);
-            const optimizedSrc = process.env.CF
-              ? cloudflareLoader({
-                  src: src,
-                  width: options.width,
-                  quality: options.quality,
-                }) // Use Cloudflare image
-              : `/_next/image?url=${encodedSrc}&w=${options.width}&q=${options.quality}`;
+            const optimizedSrc = `/_next/image?url=${encodedSrc}&w=${options.width}&q=${options.quality}`;
 
             node.properties.src = optimizedSrc;
           }
