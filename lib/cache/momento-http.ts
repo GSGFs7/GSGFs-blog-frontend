@@ -98,7 +98,7 @@ function createCacheError(
   return error;
 }
 
-export function getCacheClient(): CacheClient {
+function getCacheClient(): CacheClient {
   if (momentoClient) return momentoClient;
 
   if (!MOMENTO_API_KEY) {
@@ -119,7 +119,7 @@ export function getCacheClient(): CacheClient {
   }
 }
 
-export async function cacheGet<T>(key: string): Promise<T | null> {
+async function cacheGet<T>(key: string): Promise<T | null> {
   try {
     const client = getCacheClient();
     const response = await client.get(CACHE_NAME, key);
@@ -143,7 +143,7 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
   }
 }
 
-export async function cacheSet<T>(
+async function cacheSet<T>(
   key: string,
   value: T,
   ttlSeconds: number = CacheTTL,
@@ -160,7 +160,7 @@ export async function cacheSet<T>(
   }
 }
 
-export async function cacheDelete(key: string): Promise<boolean> {
+async function cacheDelete(key: string): Promise<boolean> {
   try {
     const client = getCacheClient();
 
