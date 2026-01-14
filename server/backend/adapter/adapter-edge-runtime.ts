@@ -35,6 +35,9 @@ async function createHMAC(
   return Buffer.from(signature).toString("hex");
 }
 
+/**
+ * @deprecated
+ */
 export async function generateAuthToken(): Promise<string> {
   const timestamp = Math.floor(globalThis.Date.now() / 1000 / 10); // 10s
   const message = (await randomBytes(8)).toString("hex");

@@ -23,7 +23,6 @@ const nextConfig: NextConfig = {
       { hostname: "a.ppy.sh" },
     ],
     qualities: [60, 75, 90],
-    // use Cloudflare Image
     loader: "default",
     loaderFile: undefined,
   },

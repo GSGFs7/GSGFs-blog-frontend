@@ -11,7 +11,6 @@
 - `hooks`: React hooks
 - `lib`: 服务端功能函数
 - `markdown`: markdown 文件
-- `proxy`: ~~Next.js proxy~~, 已移除
 - `public`: 静态文件
 - `scripts`: 辅助脚本
 - `server/backend`: 后端数据交换函数

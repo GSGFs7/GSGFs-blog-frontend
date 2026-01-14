@@ -27,7 +27,7 @@ function createCacheError(
   return error;
 }
 
-export async function cacheGet<T>(key: string): Promise<T | null> {
+async function cacheGet<T>(key: string): Promise<T | null> {
   try {
     const res = await getKV().get<T>(key, { type: "json" });
 
@@ -38,7 +38,7 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
   }
 }
 
-export async function cacheSet<T>(
+async function cacheSet<T>(
   key: string,
   value: T,
   ttlSeconds: number = CacheTTL,
@@ -55,7 +55,7 @@ export async function cacheSet<T>(
   }
 }
 
-export async function cacheDelete(key: string): Promise<boolean> {
+async function cacheDelete(key: string): Promise<boolean> {
   try {
     await getKV().delete(key);
 
