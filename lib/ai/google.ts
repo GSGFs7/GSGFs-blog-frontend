@@ -13,9 +13,11 @@ import { GOOGLE_AI_API_KEY } from "@/env/private";
 
 import { SYSTEM_PROMPT } from "./config";
 
-export const ai = new GoogleGenAI({
-  apiKey: GOOGLE_AI_API_KEY,
-});
+export const ai = GOOGLE_AI_API_KEY
+  ? new GoogleGenAI({
+      apiKey: GOOGLE_AI_API_KEY,
+    })
+  : null;
 
 const safetySettings: SafetySetting[] = [
   {
@@ -44,6 +46,12 @@ interface ChatMessage {
 }
 
 export async function googleChatStream(messages: ChatMessage[]) {
+  if (!ai) {
+    throw new Error(
+      "AI service is disabled. GOOGLE_AI_API_KEY is not configured.",
+    );
+  }
+
   const contents: ContentListUnion = messages.map((message) => ({
     role: message.role,
     parts: [{ text: message.content }],
