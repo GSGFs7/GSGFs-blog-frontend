@@ -6,7 +6,7 @@
 
 - A: `ArchLinux`, 误入Arch邪教
 - C: `Coding`, 想要成为py糕手
-- G: `rhythm Game`, __click__
+- G: `rhythm Game`, **click**
 - N: `visual Novel`, 剧情党
 
 联系方式:
@@ -35,4 +35,3 @@
 网站中的图片内容大多来自网路, 如果存在侵权问题, 请使用上面的联系方式联系我, 我会尽快删除.
 
 本站暂时没有支持友链的打算.
-

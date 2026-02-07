@@ -7,7 +7,7 @@ import { FaGithub } from "react-icons/fa";
 import { HiInformationCircle } from "react-icons/hi";
 
 import { siteConfig } from "@/config/site";
-import asumi from "@/public/asumi.jpg";
+import favicon from "@/public/favicon.webp";
 import osu_svg from "@/public/osu.svg";
 
 export default function First() {
@@ -101,7 +101,7 @@ export default function First() {
           priority={true}
           quality={90}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          src={asumi}
+          src={favicon}
         />
         <div className="group relative flex items-center justify-end">
           <p

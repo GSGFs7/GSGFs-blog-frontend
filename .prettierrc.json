@@ -1,9 +1,18 @@
 {
+  "$schema": "https://www.schemastore.org/prettierrc.json",
   "useTabs": false,
   "tabWidth": 2,
   "endOfLine": "lf",
   "singleQuote": false,
   "semi": true,
   "trailingComma": "all",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "overrides": [
+    {
+      "files": "*.jsonc",
+      "options": {
+        "trailingComma": "none"
+      }
+    }
+  ]
 }

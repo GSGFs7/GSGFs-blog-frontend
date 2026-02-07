@@ -1,3 +1,5 @@
+"use client";
+
 import type { RefObject } from "react";
 
 import { useImageZoom } from "@/hooks/useImageZoom";
@@ -6,7 +8,7 @@ import { useBlogAddCopyButton } from "./useBlogAddCopyButton";
 import { useBlogShowCodeLanguage } from "./useBlogShowCodeLanguage";
 
 export function useBlog(html: string, ref: RefObject<HTMLElement | null>) {
-  useBlogAddCopyButton(html);
-  useBlogShowCodeLanguage(html);
+  useBlogAddCopyButton();
+  useBlogShowCodeLanguage();
   useImageZoom(ref, [html]);
 }
