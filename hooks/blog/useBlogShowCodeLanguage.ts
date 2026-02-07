@@ -1,6 +1,8 @@
+"use client";
+
 import { useEffect } from "react";
 
-export function useBlogShowCodeLanguage(html: string) {
+export function useBlogShowCodeLanguage() {
   useEffect(() => {
     const codeBlocks = document.querySelectorAll(
       'pre code[class*="language-"]',
@@ -42,5 +44,5 @@ export function useBlogShowCodeLanguage(html: string) {
       // add the label
       pre.appendChild(label);
     });
-  }, [html]);
+  }, []);
 }

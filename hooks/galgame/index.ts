@@ -1,4 +1,6 @@
-import { RefObject } from "react";
+"use client";
+
+import type { RefObject } from "react";
 
 import { useImageZoom } from "@/hooks/useImageZoom";
 
