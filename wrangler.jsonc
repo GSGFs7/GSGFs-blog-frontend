@@ -2,10 +2,8 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "gsgfs",
-  "compatibility_date": "2026-01-10",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
+  "compatibility_date": "2026-02-06",
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
@@ -61,10 +59,7 @@
   "migrations": [
     {
       "tag": "v2",
-      "new_classes": [
-        "DurableObjectQueueHandler",
-        "DOShardedTagCache"
-      ]
+      "new_classes": ["DurableObjectQueueHandler", "DOShardedTagCache"]
     },
     {
       "tag": "v3",
