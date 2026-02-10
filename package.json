@@ -27,7 +27,7 @@
     "postinstall": "node scripts/copy-cap-wasm.cjs",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
-    "format": "prettier --write .",
+    "format": "prettier --write --cache .",
     "prepare": "husky",
     "analyze": "ANALYZE=true pnpm build",
     "nodejs-runtime": "node scripts/convert-to-nodejs-runtime.cjs",
