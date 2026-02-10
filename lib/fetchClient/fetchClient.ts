@@ -16,6 +16,7 @@ export async function fetchClient<T = any>(
     schema,
     params,
     skipInterceptors = false,
+    headers: userHeaders,
     ...fetchOptions
   } = options;
   let userAgent: string;
@@ -64,13 +65,28 @@ export async function fetchClient<T = any>(
     }
   }
 
-  // TODO: maybe not JSON?
-  const headers = {
+  // Process request headers
+  const headers: Record<string, string> = {
     Accept: "application/json",
-    "Content-Type": "application/json",
     "User-Agent": userAgent,
-    ...options.headers,
   };
+  if (userHeaders) {
+    if (userHeaders instanceof Headers) {
+      userHeaders.forEach((value, key) => {
+        headers[key] = value;
+      });
+    } else if (Array.isArray(userHeaders)) {
+      userHeaders.forEach(([key, value]) => {
+        headers[key] = value;
+      });
+    } else {
+      Object.assign(headers, userHeaders);
+    }
+  }
+  if (!headers["Content-Type"]) {
+    // If "Content-Type" not set
+    headers["Content-Type"] = "application/json";
+  }
 
   // request interceptor
   let finalUrl = url;
@@ -93,9 +109,11 @@ export async function fetchClient<T = any>(
   const internalController = new AbortController();
   const timeoutId = setTimeout(() => internalController.abort(), timeout);
   const userSignal = options.signal;
-  const signal = userSignal
-    ? composeSignal(userSignal, internalController.signal)
-    : internalController.signal;
+  const { signal, cleanupSignal } = composeSignal(
+    userSignal
+      ? [userSignal, internalController.signal]
+      : [internalController.signal],
+  );
 
   try {
     const response = await fetch(finalUrl, {
@@ -104,6 +122,7 @@ export async function fetchClient<T = any>(
       signal,
     });
 
+    cleanupSignal?.();
     clearTimeout(timeoutId);
 
     // report error when request failed
@@ -167,6 +186,7 @@ export async function fetchClient<T = any>(
       return text as T;
     }
   } catch (error: unknown) {
+    cleanupSignal?.();
     clearTimeout(timeoutId);
 
     if (error instanceof FetchError) {
@@ -220,9 +240,9 @@ export async function fetchClient<T = any>(
  * endpoint:
  * - if it starts with http or https, it will be used as is
  * - if it starts with /, it will use the frontend URL.
- *    such as: /api/test -> http://your-frontend.com/api/test
- * - if it starts not with /, it will use the backend URL.
- *    such as: test -> http://your-backend.com/api/test
+ *    such as: "/api/test" -> http://your-frontend.com/api/test
+ * - if it starts without /, it will use the backend API URL.
+ *    such as: "test" -> http://your-backend.com/api/test
  *
  * If use abort signal, put the signal in the options
  * such as:
@@ -286,25 +306,34 @@ export const fc = {
     }),
 };
 
-function composeSignal(...signals: AbortSignal[]): AbortSignal {
+function composeSignal(signals: AbortSignal[]): {
+  signal: AbortSignal;
+  cleanupSignal: () => void;
+} {
   const controller = new AbortController();
+  const abortHandlers: Array<{ signal: AbortSignal; handler: () => void }> = [];
 
   signals.forEach((signal) => {
-    // if any signal is aborted, abort the controller
     if (signal.aborted) {
       controller.abort(signal.reason);
 
       return;
     }
 
-    signal.addEventListener(
-      "abort",
-      () => {
-        controller.abort(signal.reason);
-      },
-      { once: true },
-    );
+    const abortHandler = () => {
+      controller.abort(signal.reason);
+    };
+
+    signal.addEventListener("abort", abortHandler, { once: true });
+    abortHandlers.push({ signal, handler: abortHandler });
   });
 
-  return controller.signal;
+  const cleanupSignal = () => {
+    abortHandlers.forEach(({ signal, handler }) => {
+      signal.removeEventListener("abort", handler);
+    });
+    abortHandlers.length = 0;
+  };
+
+  return { signal: controller.signal, cleanupSignal };
 }
