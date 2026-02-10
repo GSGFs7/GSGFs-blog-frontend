@@ -9,6 +9,9 @@ const supabaseUrl = SUPABASE_URL;
 const supabaseKey = SUPABASE_KEY;
 
 // If supabase configuration is not given
+/**
+ * @deprecated
+ */
 let supabaseClient: SupabaseClient | null = null;
 
 if (supabaseUrl && supabaseKey) {
