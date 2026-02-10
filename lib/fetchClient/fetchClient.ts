@@ -37,9 +37,9 @@ export async function fetchClient<T = any>(
     if (typeof window !== "undefined") {
       url = endpoint;
     } else {
-      const baseUrl = NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
-      url = `${baseUrl}${endpoint}`;
+      throw new FetchError(
+        "Cannot fetch frontend URLs on the server side. Use backend API endpoints instead.",
+      );
     }
   } else {
     // backend URL (shouldn't use on client side)
