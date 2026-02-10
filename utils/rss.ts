@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
-import { getAllPostForFeed } from "@/lib/api";
+import { getAllPostForFeed } from "@/lib/api-client";
 
 const escapeXML = (unsafe: string) => `<![CDATA[${unsafe}]]>`;
 

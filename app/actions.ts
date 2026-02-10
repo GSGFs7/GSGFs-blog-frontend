@@ -1,6 +1,6 @@
 "use server";
 
-import { getAllPostIds } from "@/lib/api";
+import { getAllPostIds } from "@/lib/api-client";
 import { cacheGet, cacheSet } from "@/lib/cache";
 
 /**

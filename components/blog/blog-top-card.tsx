@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { useLoading } from "@/app/providers";
-import { getAllPostIds } from "@/lib/api";
+import { getAllPostIds } from "@/lib/api-client";
 import cardImageR from "@/public/0.png";
 import cardImageL from "@/public/2_cut.jpg";
 import { getMousePosition } from "@/utils/getMousePosition";

@@ -3,7 +3,7 @@ import React, { type ReactNode } from "react";
 
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
-import { getPost } from "@/lib/api";
+import { getPost } from "@/lib/api-client";
 
 export async function generateMetadata({
   params,

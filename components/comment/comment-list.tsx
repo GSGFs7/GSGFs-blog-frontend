@@ -1,4 +1,4 @@
-import { getAllCommentFromPostId } from "@/lib/api";
+import { getAllCommentFromPostId } from "@/lib/api-client";
 
 import CommentCard from "./comment-card";
 
