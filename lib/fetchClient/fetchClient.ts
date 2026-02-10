@@ -306,7 +306,10 @@ export const fc = {
     }),
 };
 
-function composeSignal(signals: AbortSignal[]): {
+/**
+ * @deprecated
+ */
+function _composeSignal(signals: AbortSignal[]): {
   signal: AbortSignal;
   cleanupSignal: () => void;
 } {
@@ -336,4 +339,14 @@ function composeSignal(signals: AbortSignal[]): {
   };
 
   return { signal: controller.signal, cleanupSignal };
+}
+
+function composeSignal(signals: AbortSignal[]): {
+  signal: AbortSignal;
+  cleanupSignal: () => void;
+} {
+  // Node 20+
+  const signal = AbortSignal.any(signals);
+
+  return { signal, cleanupSignal: () => {} };
 }
