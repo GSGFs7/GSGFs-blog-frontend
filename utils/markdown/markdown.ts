@@ -12,6 +12,7 @@ import rehypeRaw from "rehype-raw";
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
+import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
@@ -21,6 +22,7 @@ import { unified } from "unified";
 
 import { rehypeCustomAttrs } from "./rehype-custom-attrs";
 import rehypeCustomImg from "./rehype-custom-img";
+import remarkAudio from "./remark-audio";
 // import { RemarkAutoToc } from "./remark-auto-toc";
 
 export async function markdownToHtml(markdown: string): Promise<string> {
@@ -36,6 +38,8 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     //   ordered: false, // 使用无序列表
     //   prefix: "", // 为链接添加前缀
     // }) // 添加目录
+    .use(remarkDirective) // Markdown Directive support
+    .use(remarkAudio) // music player
     .use(remarkMath) // 解析数学公式
     .use(remarkGfm) // Github Flavored Markdown支持 表格，删除线等
     .use(remarkRehype, { allowDangerousHtml: true }) // 将 Markdown AST 转换为 HTML AST
