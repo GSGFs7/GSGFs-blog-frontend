@@ -1,20 +1,12 @@
 import type React from "react";
 
+import { formatTime } from "@/utils/format";
+
 import { useMusicPlayer } from "./provider";
 
 export function ProgressBar() {
   const { currentTime, duration, seekTo } = useMusicPlayer();
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
-
-  const formatTime = (seconds: number) => {
-    if (!Number.isFinite(seconds)) {
-      return "0:00";
-    }
-
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
 
   const handleSeek = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();

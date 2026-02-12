@@ -11,6 +11,7 @@ import {
   useState,
 } from "react";
 
+import { useActiveMusicPlayer } from "@/hooks/music/useActiveMusicPlayer";
 import type { MusicMetadata } from "@/types";
 
 export interface MusicPlayerContextType {
@@ -49,22 +50,49 @@ const contextValue: MusicPlayerContextType = {
   duration: 0,
   playerBackgroundColor: "rgb(41, 39, 46)",
 
-  setCurrentTrack: (_: MusicMetadata | null) => {},
-  setIsLoading: (_: boolean) => {},
-  setIsPlaying: (_: boolean) => {},
-  setVolume: (_: number) => {},
-  setCurrentTime: (_: number) => {},
-  setDuration: (_: number) => {},
-  setPlayerBackgroundColor: (_: string) => {},
+  setCurrentTrack: (_: MusicMetadata | null) => {
+    throw new Error("Not implemented yet!");
+  },
+  setIsLoading: (_: boolean) => {
+    throw new Error("Not implemented yet!");
+  },
+
+  setIsPlaying: (_: boolean) => {
+    throw new Error("Not implemented yet!");
+  },
+  setVolume: (_: number) => {
+    throw new Error("Not implemented yet!");
+  },
+  setCurrentTime: (_: number) => {
+    throw new Error("Not implemented yet!");
+  },
+  setDuration: (_: number) => {
+    throw new Error("Not implemented yet!");
+  },
+  setPlayerBackgroundColor: (_: string) => {
+    throw new Error("Not implemented yet!");
+  },
 
   audioRef: createRef<HTMLAudioElement>(),
 
-  play: (_: MusicMetadata) => {},
-  pause: () => {},
-  togglePlayPause: () => {},
-  clearTrack: () => {},
-  seekTo: (_: number) => {},
-  changeVolume: (_: number) => {},
+  play: (_: MusicMetadata) => {
+    throw new Error("Not implemented yet!");
+  },
+  pause: () => {
+    throw new Error("Not implemented yet!");
+  },
+  togglePlayPause: () => {
+    throw new Error("Not implemented yet!");
+  },
+  clearTrack: () => {
+    throw new Error("Not implemented yet!");
+  },
+  seekTo: (_: number) => {
+    throw new Error("Not implemented yet!");
+  },
+  changeVolume: (_: number) => {
+    throw new Error("Not implemented yet!");
+  },
 };
 
 export const MusicPlayerContext =
@@ -193,6 +221,8 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       playerBackgroundColor,
     ],
   );
+
+  useActiveMusicPlayer(musicContextValue);
 
   return (
     <MusicPlayerContext.Provider value={musicContextValue}>
