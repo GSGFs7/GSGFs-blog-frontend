@@ -306,13 +306,18 @@ export const fc = {
     }),
 };
 
-/**
- * @deprecated
- */
-function _composeSignal(signals: AbortSignal[]): {
+function composeSignal(signals: AbortSignal[]): {
   signal: AbortSignal;
   cleanupSignal: () => void;
 } {
+  if (typeof AbortSignal.any === "function") {
+    // Node 20+ / Chrome 116+ / Firefox 124+
+    // If available, use the new API first.
+    const signal = AbortSignal.any(signals);
+
+    return { signal, cleanupSignal: () => {} };
+  }
+
   const controller = new AbortController();
   const abortHandlers: Array<{ signal: AbortSignal; handler: () => void }> = [];
 
@@ -339,14 +344,4 @@ function _composeSignal(signals: AbortSignal[]): {
   };
 
   return { signal: controller.signal, cleanupSignal };
-}
-
-function composeSignal(signals: AbortSignal[]): {
-  signal: AbortSignal;
-  cleanupSignal: () => void;
-} {
-  // Node 20+
-  const signal = AbortSignal.any(signals);
-
-  return { signal, cleanupSignal: () => {} };
 }
