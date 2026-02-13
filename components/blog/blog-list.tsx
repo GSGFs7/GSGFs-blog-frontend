@@ -1,5 +1,5 @@
 import Pagination from "@/components/pagination";
-import { getPostList } from "@/lib/api";
+import { getPostList } from "@/lib/api-client";
 
 import BlogListCard from "./blog-list-card";
 

@@ -1,0 +1,10 @@
+# packages
+node_modules
+
+# build
+.next
+.open-next
+.wrangler
+
+# git
+.git

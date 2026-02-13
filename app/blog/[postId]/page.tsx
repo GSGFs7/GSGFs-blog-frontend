@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 import { BlogBodyString, BlogPostStructuredData } from "@/components/blog";
 import Comment from "@/components/comment";
-import { getPost } from "@/lib/api";
+import { getPost } from "@/lib/api-client";
 
 export default async function Page({
   params,

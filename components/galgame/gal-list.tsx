@@ -7,7 +7,7 @@ import "github-markdown-css/github-markdown-dark.css";
 import { useCallback, useState } from "react";
 
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
-import { getGals } from "@/lib/api";
+import { getGals } from "@/lib/api-client";
 import type { GalData, Pagination } from "@/types";
 import { errorToString } from "@/utils/errorToString";
 

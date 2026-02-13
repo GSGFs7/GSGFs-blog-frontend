@@ -2,7 +2,7 @@ import { readdirSync, statSync } from "fs";
 import { join } from "path";
 
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
-import { getPostSitemap } from "@/lib/api/post";
+import { getPostSitemap } from "@/lib/api-client/post";
 import { getAllStaticRoutes } from "@/lib/routes";
 
 export interface SitemapField {

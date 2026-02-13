@@ -6,15 +6,16 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { LuPause, LuPlay } from "react-icons/lu";
 
+import { getContrastColor } from "@/utils/color";
+
 import { ProgressBar } from "./progress-bar";
-import { useMusicPlayer } from "./provider";
+import { useMusicActions, useMusicState } from "./provider";
 
 export function MusicPlayerServer() {
+  const { currentTrack, isPlaying, playerBackgroundColor } = useMusicState();
+
   const {
     audioRef,
-    currentTrack,
-    isPlaying,
-    playerBackgroundColor,
     setCurrentTime,
     setCurrentTrack,
     setDuration,
@@ -22,7 +23,10 @@ export function MusicPlayerServer() {
     setIsPlaying,
     setVolume,
     togglePlayPause,
-  } = useMusicPlayer();
+  } = useMusicActions();
+
+  const contrastColor = getContrastColor(playerBackgroundColor);
+  const isDark = contrastColor === "white";
 
   const handleCanPlay = () => {
     setIsLoading(false);
@@ -104,9 +108,9 @@ export function MusicPlayerServer() {
   return (
     <div
       className={clsx(
-        "fixed bottom-0 left-0 flex h-12 w-56",
-        "overflow-hidden border border-gray-500",
-        "transition-all duration-300",
+        "fixed bottom-0 left-0 z-50 flex h-12 w-56",
+        "overflow-hidden border transition-all duration-300",
+        isDark ? "border-white/10 text-white" : "border-black/10 text-black",
         currentTrack ? "" : "translate-y-full",
       )}
       style={{ backgroundColor: playerBackgroundColor }}
@@ -129,20 +133,23 @@ export function MusicPlayerServer() {
 
       <div className="relative">
         {currentTrack?.coverData && (
-          <Image
-            fill
-            alt={currentTrack?.title ?? "music cover"}
-            className="absolute -z-10"
-            src={
-              currentTrack?.coverData
-                ? `data:${currentTrack.coverMimeType};base64,${currentTrack.coverData}`
-                : "/default-cover.jpg"
-            }
-          />
+          <>
+            <Image
+              fill
+              alt={currentTrack?.title ?? "music cover"}
+              className="absolute -z-20 object-cover"
+              src={
+                currentTrack?.coverData
+                  ? `data:${currentTrack.coverMimeType};base64,${currentTrack.coverData}`
+                  : "/default-cover.jpg"
+              }
+            />
+            <div className="absolute inset-0 -z-10 bg-black/20" />
+          </>
         )}
 
         <button
-          className="mx-2 h-full w-full cursor-pointer p-2"
+          className="mx-2 h-full w-full cursor-pointer p-2 text-white drop-shadow-md"
           type="button"
           onClick={() => togglePlayPause()}
         >
@@ -150,8 +157,13 @@ export function MusicPlayerServer() {
         </button>
       </div>
 
-      <div className="bottom-1 flex-1 border-l border-gray-500">
-        <ProgressBar />
+      <div
+        className={clsx(
+          "flex-1 border-l",
+          isDark ? "border-white/10" : "border-black/10",
+        )}
+      >
+        <ProgressBar isDark={isDark} />
       </div>
     </div>
   );

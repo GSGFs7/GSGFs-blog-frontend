@@ -1,5 +1,3 @@
-"use server";
-
 import { makeTokenizer } from "@tokenizer/http";
 import { parseFromTokenizer } from "music-metadata";
 
@@ -7,9 +5,10 @@ import type { ApiResult, MusicMetadata } from "@/types";
 
 export async function extractAudioMetadata(
   url: string,
+  abortSignal?: AbortSignal,
 ): Promise<ApiResult<MusicMetadata>> {
   try {
-    const httpTokenizer = await makeTokenizer(url);
+    const httpTokenizer = await makeTokenizer(url, { abortSignal });
     const { common, format } = await parseFromTokenizer(httpTokenizer);
 
     const picture = common.picture?.[0];
@@ -31,6 +30,7 @@ export async function extractAudioMetadata(
       bitrate: format.bitrate,
       sampleRate: format.sampleRate,
       src: url,
+      isMetadataReady: true,
     };
 
     return { ok: true, data: metadata };

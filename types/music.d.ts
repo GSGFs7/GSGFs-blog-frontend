@@ -9,4 +9,5 @@ export interface MusicMetadata {
   sampleRate?: number;
   size?: number; // Bytes
   title?: string;
+  isMetadataReady: boolean;
 }

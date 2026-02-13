@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { BlogStructuredData, BlogTopCard } from "@/components/blog";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
-import { getPostList } from "@/lib/api";
+import { getPostList } from "@/lib/api-client";
 
 import BlogProvider from "./provider";
 

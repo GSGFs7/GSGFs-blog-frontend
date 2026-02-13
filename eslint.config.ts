@@ -270,6 +270,7 @@ import { globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import importPlugin from "eslint-plugin-import";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import reactHooks from "eslint-plugin-react-hooks";
 import unusedImports from "eslint-plugin-unused-imports";
 import tseslint from "typescript-eslint";
 
@@ -277,6 +278,7 @@ const eslintConfig = [
   ...nextVitals,
   ...pluginQuery.configs["flat/recommended"],
   ...tseslint.configs.recommended,
+  reactHooks.configs.flat["recommended-latest"],
   eslintPluginPrettierRecommended,
   globalIgnores([
     ".next",

@@ -1,20 +1,14 @@
+import clsx from "clsx";
 import type React from "react";
 
-import { useMusicPlayer } from "./provider";
+import { formatTime } from "@/utils/format";
 
-export function ProgressBar() {
-  const { currentTime, duration, seekTo } = useMusicPlayer();
+import { useMusicActions, useMusicTime } from "./provider";
+
+export function ProgressBar({ isDark = true }: { isDark?: boolean }) {
+  const { currentTime, duration } = useMusicTime();
+  const { seekTo } = useMusicActions();
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
-
-  const formatTime = (seconds: number) => {
-    if (!Number.isFinite(seconds)) {
-      return "0:00";
-    }
-
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
 
   const handleSeek = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -23,25 +17,31 @@ export function ProgressBar() {
   };
 
   return (
-    <div className="flex w-full flex-col gap-2">
-      <div className="flex w-full items-center justify-between p-1 text-sm">
+    <div className="flex h-full w-full flex-col">
+      <div
+        className={clsx(
+          "flex w-full items-center justify-between px-2 pt-1 text-[10px] font-medium",
+          isDark ? "text-white/60" : "text-black/60",
+        )}
+      >
         <span>{formatTime(currentTime)}</span>
-
         <span>{formatTime(duration)}</span>
       </div>
 
       <button
-        className="relative h-full w-full grow cursor-pointer p-1"
+        className="group relative mt-1 h-2 w-full cursor-pointer"
         type="button"
         onClick={handleSeek}
       >
         <div
-          className="absolute h-full w-full bg-blue-500"
-          style={{ width: `${progress}%` }}
+          className={clsx(
+            "absolute inset-0 my-auto h-1 w-full",
+            isDark ? "bg-white/10" : "bg-black/10",
+          )}
         />
         <div
-          className="absolute h-full w-full"
-          style={{ left: `calc(${progress}) - 6px` }}
+          className="absolute inset-y-0 left-0 my-auto h-1 bg-blue-500 transition-all duration-100"
+          style={{ width: `${progress}%` }}
         />
       </button>
     </div>
