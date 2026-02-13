@@ -12,26 +12,23 @@ import {
   useMusicMetadata,
 } from "@/hooks/music";
 import type { MusicMetadata } from "@/types";
+import { getContrastColor } from "@/utils/color";
 import { formatSize, formatTime } from "@/utils/format";
 
-import { useMusicPlayer } from "./provider";
+import { useMusicActions, useMusicState } from "./provider";
 
 export function MusicPlayerClient({
   metadata: initialMetadata,
 }: {
   metadata: MusicMetadata;
 }) {
-  const {
-    play,
-    isPlaying,
-    currentTrack,
-    togglePlayPause,
-    setPlayerBackgroundColor,
-  } = useMusicPlayer();
+  const { isPlaying, currentTrack } = useMusicState();
+  const { play, togglePlayPause, setPlayerBackgroundColor } = useMusicActions();
 
   const metadata = useMusicMetadata(initialMetadata);
   const backgroundColor = useBackgroundImageColor(metadata);
   const isThisTrackActive = currentTrack?.src === metadata.src;
+  const isDark = getContrastColor(backgroundColor) === "white";
   const coverUrl = metadata.coverData
     ? `data:${metadata.coverMimeType};base64,${metadata.coverData}`
     : EMPTY_IMG;
@@ -78,7 +75,7 @@ export function MusicPlayerClient({
           )}
         >
           <button
-            className="cursor-pointer text-white drop-shadow-md"
+            className="cursor-pointer text-white drop-shadow-lg"
             type="button"
             onClick={handleClickPlay}
           >
@@ -93,15 +90,30 @@ export function MusicPlayerClient({
 
       <div className="min-w-0 flex-1">
         <div className="mb-1 flex flex-col gap-0.5">
-          <span className="truncate text-base font-medium text-white">
+          <span
+            className={clsx(
+              "truncate text-base font-medium",
+              isDark ? "text-white" : "text-black",
+            )}
+          >
             {metadata.title ?? "Unknown title"}
           </span>
-          <span className="truncate text-sm text-gray-300">
+          <span
+            className={clsx(
+              "truncate text-sm",
+              isDark ? "text-white/70" : "text-black/70",
+            )}
+          >
             {metadata.artist ?? "Unknown artist"}
           </span>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-gray-400">
+        <div
+          className={clsx(
+            "flex items-center gap-2 text-xs",
+            isDark ? "text-white/50" : "text-black/50",
+          )}
+        >
           <span>{formatTime(metadata.duration ?? 0)}</span>
           <span className="opacity-50">|</span>
           <span>{formatSize(metadata.size ?? 0)}</span>
