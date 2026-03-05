@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
 
 import { useGalTable } from "./table";
 

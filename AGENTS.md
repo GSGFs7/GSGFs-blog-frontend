@@ -28,16 +28,6 @@ pnpm start                 # Start production server
 pnpm analyze               # Build with bundle analyzer
 ```
 
-### Cloudflare Deployment
-
-```bash
-pnpm build:cloudflare      # Build for Cloudflare
-pnpm preview               # Preview Cloudflare deployment
-pnpm deploy                # Deploy to Cloudflare
-pnpm deploy:cloudflare     # Deploy to Cloudflare (alias)
-pnpm cf-typegen            # Generate Cloudflare types
-```
-
 ### Code Quality
 
 ```bash

@@ -46,7 +46,7 @@ export function getAllStaticRoutes(routeObject: object = routes): string[] {
   const staticRoutes: string[] = [];
 
   for (const key in routeObject) {
-    if (Object.prototype.hasOwnProperty.call(routeObject, key)) {
+    if (Object.hasOwn(routeObject, key)) {
       const value = routeObject[key as keyof typeof routeObject];
       if (typeof value === "function") {
         staticRoutes.push((value as () => string)());

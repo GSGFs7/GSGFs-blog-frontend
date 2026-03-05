@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, ReactNode, useState } from "react";
+import { createContext, type ReactNode, useState } from "react";
 
 import { Open } from "./open";
 import { Window } from "./window";

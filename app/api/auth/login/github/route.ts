@@ -1,11 +1,11 @@
 import { randomBytes } from "crypto";
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 import { AUTH_GITHUB_ID } from "@/env/private";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 import { cacheSet } from "@/lib/cache";
-import { OAuthState } from "@/types";
+import type { OAuthState } from "@/types";
 import { getIP } from "@/utils/ip";
 
 export async function GET(request: NextRequest) {

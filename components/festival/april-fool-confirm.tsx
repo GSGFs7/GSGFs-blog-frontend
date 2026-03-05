@@ -37,8 +37,7 @@ export default function AprilFoolConfirm() {
     };
 
     const distance = Math.sqrt(
-      Math.pow(mousePos.x - buttonCenter.x, 2) +
-        Math.pow(mousePos.y - buttonCenter.y, 2),
+      (mousePos.x - buttonCenter.x) ** 2 + (mousePos.y - buttonCenter.y) ** 2,
     );
 
     // run!

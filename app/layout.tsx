@@ -47,6 +47,7 @@ export const metadata: Metadata = {
     url: siteConfig.canonicalUrl,
     description: siteConfig.description,
     images: {
+      // TODO: og
       url: `${NEXT_PUBLIC_SITE_URL}/api/og`,
       width: 1200,
       height: 630,

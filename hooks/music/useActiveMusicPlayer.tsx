@@ -1,18 +1,19 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import type React from "react";
 import { useEffect, useRef } from "react";
 import { createRoot, type Root } from "react-dom/client";
 
+import { MusicPlayerClient } from "@/components/music/music-client";
 import {
   MusicActionsContext,
   type MusicPlayerActions,
-  MusicPlayerClient,
   type MusicPlayerState,
   type MusicPlayerTime,
   MusicStateContext,
   MusicTimeContext,
-} from "@/components/music";
+} from "@/components/music/provider";
 
 export function useActiveMusicPlayer(
   state: MusicPlayerState,

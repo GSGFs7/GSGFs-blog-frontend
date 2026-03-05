@@ -1,3 +1,5 @@
+"use server";
+
 import Pagination from "@/components/pagination";
 import { getPostList } from "@/lib/api-client";
 
