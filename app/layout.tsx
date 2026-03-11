@@ -8,7 +8,7 @@ import type { Metadata, Viewport } from "next";
 import Footer from "@/components/footer";
 import { MusicPlayerServer } from "@/components/music";
 import Navbar from "@/components/navbar";
-import { AIChatWidget } from "@/components/tools";
+import { ToolsHub } from "@/components/tools";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 
@@ -106,7 +106,7 @@ export default async function RootLayout({
               {children}
             </main>
 
-            <AIChatWidget />
+            <ToolsHub />
 
             <MusicPlayerServer />
 

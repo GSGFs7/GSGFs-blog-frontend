@@ -104,11 +104,11 @@ export function AIChatWidget() {
   };
 
   return (
-    <div className="fixed right-4 bottom-4 z-50">
+    <>
       {isOpen && (
         <div
           className={clsx(
-            "absolute right-4 bottom-16 w-80 overflow-hidden",
+            "fixed right-4 bottom-20 z-50 w-80 overflow-hidden",
             "rounded-lg border border-gray-700 shadow-sm shadow-black",
           )}
         >
@@ -202,13 +202,13 @@ export function AIChatWidget() {
       )}
 
       <button
-        className="cursor-pointer rounded-full border-gray-600 bg-blue-500/60 p-2"
+        className="cursor-pointer rounded-full border-gray-600 bg-blue-500/60 p-2 backdrop-blur-sm"
         type="button"
         onClick={() => handleMainButtonClick()}
       >
         <LuMessageCircleCode className="h-8 w-8" />
         <span className="sr-only">Open chat</span>
       </button>
-    </div>
+    </>
   );
 }

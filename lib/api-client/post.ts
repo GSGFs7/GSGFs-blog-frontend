@@ -45,7 +45,7 @@ export async function getPostList(
 
     return { ok: true, data: res };
   } catch (e) {
-    console.error("get post list error: ", e);
+    // console.error("get post list error: ", e);
 
     return { ok: false, message: errorToString(e) };
   }
@@ -57,7 +57,7 @@ export async function getAllPostIds(): Promise<ApiResult<number[]>> {
 
     return { ok: true, data: res.ids };
   } catch (e) {
-    console.error(`getAllPosts error: ${e}`);
+    // console.error(`getAllPosts error: ${e}`);
 
     return { ok: false, message: errorToString(e) };
   }
@@ -94,8 +94,8 @@ export async function getPostSitemap(): Promise<PostSitemapItem[] | null> {
     const res = await fc.get<PostSitemapItem[]>("post/sitemap");
 
     return res;
-  } catch (e) {
-    console.error(`getAllPosts for sitemap error: ${e}`);
+  } catch {
+    // console.error(`getAllPosts for sitemap error: ${e}`);
 
     return null;
   }
@@ -111,8 +111,32 @@ export async function getPostBySearch(
 
     return { ok: true, data: res };
   } catch (e) {
-    console.error(e);
+    if (e instanceof FetchError) {
+      const status = e.status;
 
-    return { ok: false, message: errorToString(e) };
+      if (status === 502 || status === 503 || status === 504) {
+        return { ok: false, message: "search_service_unavailable" };
+      }
+
+      if (status === 429) {
+        return { ok: false, message: "search_rate_limited" };
+      }
+
+      if (status !== undefined && status >= 500) {
+        return { ok: false, message: "search_server_error" };
+      }
+
+      if (status !== undefined && status >= 400) {
+        return { ok: false, message: "search_client_error" };
+      }
+    }
+
+    const errorStr = errorToString(e);
+
+    if (/timeout|timed out/i.test(errorStr)) {
+      return { ok: false, message: "search_timeout" };
+    }
+
+    return { ok: false, message: "search_network_error" };
   }
 }

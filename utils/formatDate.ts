@@ -9,7 +9,7 @@ export function formatDate(dateString: string): string {
     year: "numeric",
     month: "long",
     day: "2-digit",
-    hour: "2-digit",
+    // hour: "2-digit",
     // minute: "2-digit",
     timeZone: "Asia/Shanghai",
   }).format(date);
