@@ -283,6 +283,8 @@ const eslintConfig = [
   globalIgnores([
     ".next",
     ".open-next",
+    ".wrangler",
+    "dist",
     "node_modules",
     "public",
     "next-env.d.ts",

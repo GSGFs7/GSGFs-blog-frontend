@@ -21,10 +21,6 @@ export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 export const DEFAULT_FROM_EMAIL = process.env.DEFAULT_FROM_EMAIL;
 export const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
-// supabase
-export const SUPABASE_URL = process.env.SUPABASE_URL;
-export const SUPABASE_KEY = process.env.SUPABASE_KEY;
-
 // cloudflare turnstile
 export const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 

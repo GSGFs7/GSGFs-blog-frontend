@@ -26,6 +26,36 @@
       transform: rotate(1turn);
     }
   }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-down {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.2s ease-out both;
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.15s ease-in both;
+  }
 }
 
 @layer utilities {

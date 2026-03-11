@@ -8,7 +8,7 @@ import type { Metadata, Viewport } from "next";
 import Footer from "@/components/footer";
 import { MusicPlayerServer } from "@/components/music";
 import Navbar from "@/components/navbar";
-import { AIChatWidget } from "@/components/tools";
+import { ToolsHub } from "@/components/tools";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 
@@ -47,6 +47,7 @@ export const metadata: Metadata = {
     url: siteConfig.canonicalUrl,
     description: siteConfig.description,
     images: {
+      // TODO: og
       url: `${NEXT_PUBLIC_SITE_URL}/api/og`,
       width: 1200,
       height: 630,
@@ -105,7 +106,7 @@ export default async function RootLayout({
               {children}
             </main>
 
-            <AIChatWidget />
+            <ToolsHub />
 
             <MusicPlayerServer />
 

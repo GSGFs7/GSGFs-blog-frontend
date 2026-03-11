@@ -1,16 +1,13 @@
 import type { Metadata, ResolvingMetadata } from "next";
-import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
-import { BlogStructuredData, BlogTopCard } from "@/components/blog";
+import { BlogList, BlogStructuredData, BlogTopCard } from "@/components/blog";
 import { siteConfig } from "@/config/site";
 import { NEXT_PUBLIC_SITE_URL } from "@/env/public";
 import { getPostList } from "@/lib/api-client";
 
 import BlogProvider from "./provider";
-
-const BlogList = dynamic(() => import("@/components/blog/blog-list"));
 
 type Props = {
   params: Promise<{ id: string }>;

@@ -17,6 +17,14 @@ export interface MessageResponse {
   message: string;
 }
 
-export type ApiResult<T> =
-  | { ok: true; data: T }
-  | { ok: false; message: string };
+export type ApiResultSuccess<T> = {
+  ok: true;
+  data: T;
+};
+
+export type ApiResultError = {
+  ok: false;
+  message: string;
+};
+
+export type ApiResult<T> = ApiResultSuccess<T> | ApiResultError;

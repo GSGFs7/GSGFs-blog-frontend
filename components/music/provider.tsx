@@ -117,7 +117,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // split all of the state to 3 parts to avoid performance issues
+  // split all the state to 3 parts to avoid performance issues
   const state = useMemo<MusicPlayerState>(
     () => ({
       currentTrack,

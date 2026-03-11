@@ -21,8 +21,6 @@ export const privateSchema = publicSchema.extend({
   MOMENTO_API_KEY: z.string().optional().nullable(),
   MOMENTO_BASE_URL: z.url().optional().nullable(),
   RESEND_API_KEY: z.string().optional().nullable(),
-  SUPABASE_KEY: z.string().optional().nullable(),
-  SUPABASE_URL: z.url().optional().nullable(),
   TURNSTILE_SECRET_KEY: z.string().optional().nullable(),
   CAP_SECRET_KEY: z.string().optional().nullable(),
   GOOGLE_AI_API_KEY: z.string().optional().nullable(),

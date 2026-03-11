@@ -116,7 +116,11 @@ export function Providers({ children, themeProps }: ProvidersProps) {
           </MusicPlayerProvider>
         </LoadingContext.Provider>
       </AuthContext.Provider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools
+        buttonPosition="top-right"
+        initialIsOpen={false}
+        theme="dark"
+      />
       <Toaster
         containerClassName="text-lg"
         containerStyle={{ margin: "64px" }}

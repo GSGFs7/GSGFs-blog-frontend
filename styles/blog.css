@@ -10,19 +10,11 @@
     height: auto;
     max-height: none;
     width: 100%;
-    font: 1rem sans-serif;
-    font-family: var(--font-sans);
     font-weight: 400;
     color: var(--text-primary);
-    background-color: var(--bg-primary);
     line-height: 1.8;
     overflow-x: hidden;
     scroll-behavior: smooth;
-
-    /* pre,
-    code {
-      font-family: "Maple Mono" !important;
-    } */
 
     br {
       margin-bottom: 0.75rem !important;
@@ -30,6 +22,7 @@
 
     /* ===== 2. 代码块样式 ===== */
     /* 代码使用等宽字体 */
+
     pre,
     code {
       @apply font-mono;
@@ -119,6 +112,7 @@
     }
 
     /* high light */
+
     .parent-container-of-pre {
       display: grid;
       /* in order { overflow-x: auto; } works in child <pre> */
@@ -126,6 +120,7 @@
 
     /* ===== 3. 列表样式 ===== */
     /* 列表加上象征性的点 */
+
     ul {
       @apply list-none;
       padding-left: 1rem !important;
@@ -141,6 +136,7 @@
     }
 
     /* 有序列表样式 */
+
     ol {
       @apply list-decimal pl-6;
     }
@@ -150,6 +146,7 @@
     }
 
     /* 嵌套列表样式 */
+
     ol ol {
       list-style-type: lower-alpha;
     }
@@ -159,11 +156,13 @@
     }
 
     /* ===== 4. 表格样式 ===== */
+
     table {
       @apply rounded-md;
     }
 
     /* ===== 5. 锚点和链接样式 ===== */
+
     .blog-link {
       @apply rounded-full border border-gray-500/20 bg-gray-500/20 px-1;
     }
@@ -181,6 +180,7 @@
     }
 
     /* ===== 8. 图片样式 ===== */
+
     .image-wrapper {
       @apply flex w-full flex-col items-center justify-center;
     }
@@ -208,97 +208,10 @@
     color: inherit !important;
   }
 
-  /* ===== 7. blog-header的过渡波浪 ===== */
-  .main-hero-waves-area {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    bottom: -11px;
-    z-index: 0;
-  }
-
-  .waves-area .waves-svg {
-    width: 100%;
-    height: 4rem;
-  }
-
-  .parallax > use {
-    animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-  }
-
-  /* .parallax > use:nth-child(1) {
-    animation-delay: -2s;
-    animation-duration: 7s;
-    fill: #f7f9febd;
-  }
-
-  .parallax > use:nth-child(2) {
-    animation-delay: -3s;
-    animation-duration: 10s;
-    fill: #f7f9fe82;
-  }
-
-  .parallax > use:nth-child(3) {
-    animation-delay: -4s;
-    animation-duration: 13s;
-    fill: #f7f9fe36;
-  }
-
-  .parallax > use:nth-child(4) {
-    animation-delay: -5s;
-    animation-duration: 20s;
-    fill: #f7f9fe;
-  } */
-
-  /* @media (prefers-color-scheme: dark) { */
-  .parallax > use:nth-child(1) {
-    animation-delay: -2s;
-    animation-duration: 7s;
-    fill: #474557c8;
-  }
-
-  .parallax > use:nth-child(2) {
-    animation-delay: -3s;
-    animation-duration: 10s;
-    fill: #38364480;
-  }
-
-  .parallax > use:nth-child(3) {
-    animation-delay: -4s;
-    animation-duration: 13s;
-    fill: #2b2a353e;
-  }
-
-  .parallax > use:nth-child(4) {
-    animation-delay: -5s;
-    animation-duration: 20s;
-    fill: #1c1b22;
-  }
-
-  /* } */
-
-  @keyframes move-forever {
-    0% {
-      transform: translate3d(-90px, 0, 0);
-    }
-
-    100% {
-      transform: translate3d(85px, 0, 0);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .waves-area .waves-svg {
-      height: 40px;
-      min-height: 40px;
-    }
-  }
-
   .about {
     /* background: #1c1b2294 !important; */
     font-family: "LXGW WenKai Screen", var(--font-family) !important;
     background: inherit !important;
-    background-color: inherit !important;
   }
 
   /* image zoom */

@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, cloneElement, useEffect } from "react";
+import { cloneElement, useContext, useEffect } from "react";
 
 import { ModalContext } from "./modal";
 

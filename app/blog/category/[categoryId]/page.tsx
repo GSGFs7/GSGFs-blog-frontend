@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { fc } from "@/lib/fetchClient";
-import { CategoryResponse } from "@/types/posts";
+import type { CategoryResponse } from "@/types/posts";
 
 export default async function Page({
   params,
