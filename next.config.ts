@@ -1,8 +1,8 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
 import type { NextConfig } from "next";
 
-import { siteConfig } from "@/config/site";
-import { privateSchema, publicSchema } from "@/env/schema";
+import { siteConfig } from "./config/site";
+import { privateSchema, publicSchema } from "./env/schema";
 
 // env validation
 privateSchema.parse(process.env);
@@ -46,14 +46,6 @@ const nextConfig: NextConfig = {
   },
   // Source maps are disabled in production to prevent exposing code in the browser.
   productionBrowserSourceMaps: false,
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.md$/,
-      use: "raw-loader",
-    });
-
-    return config;
-  },
   async headers() {
     const isDev = process.env.NODE_ENV === "development";
 
@@ -68,7 +60,7 @@ const nextConfig: NextConfig = {
       `frame-src ${captchaSrc}`,
       `connect-src 'self' ${captchaSrc}`,
       "style-src 'self' 'unsafe-inline'",
-      `img-src 'self' data:`,
+      `img-src 'self' data: https://img.gsgfs.moe`,
       "font-src 'self'",
       "object-src 'none'",
       `media-src 'self' ${siteConfig.musicUrl}`,
