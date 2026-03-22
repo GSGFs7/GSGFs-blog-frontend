@@ -24,13 +24,14 @@ export const RESEND_API_KEY = process.env.RESEND_API_KEY;
 // cloudflare turnstile
 export const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
-// momento cache
-export const MOMENTO_API_KEY = process.env.MOMENTO_API_KEY;
-export const MOMENTO_BASE_URL = process.env.MOMENTO_BASE_URL;
-
 // Gemini API
 export const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
 
-// Cloudflare AI
+// Cloudflare
 export const CLOUDFLARE_API_KEY = process.env.CLOUDFLARE_API_KEY;
 export const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+export const CLOUDFLARE_KV_NAMESPACE_ID =
+  process.env.CLOUDFLARE_KV_NAMESPACE_ID;
+
+// S2S
+export const CLIENT_ID = process.env.CLIENT_ID;
