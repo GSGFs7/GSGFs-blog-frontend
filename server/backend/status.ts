@@ -1,6 +1,5 @@
 "use server";
 
-import { MOMENTO_API_KEY } from "@/env/private";
 import { cacheGet, cacheSet } from "@/lib/cache";
 import { mailAdmin } from "@/lib/email";
 import { fc } from "@/lib/fetchClient";
@@ -31,10 +30,6 @@ export async function apiGetBackendStatus(): Promise<MessageResponse | null> {
         <p><strong>Time:</strong> ${new Date().toISOString()}</p>
         <p><strong>Error:</strong> ${e}</p>
         <p>This alert will not be repeated for the next 1 day.</p>`;
-
-    if (!MOMENTO_API_KEY && process.env.CF) {
-      return null;
-    }
 
     // avoid short-duration case repeated alert
     await withLock(

@@ -5,7 +5,7 @@ import { fc } from "@/lib/fetchClient";
 import type { ApiResult, GuestLogin, IDNumber } from "@/types";
 import { errorToString } from "@/utils/errorToString";
 
-import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
+import { generateAuthToken } from "./auth";
 
 export async function apiGuestLogin(
   accessToken?: string,

@@ -3,13 +3,13 @@ import "server-only";
 import type { CacheResult } from "@/types/cache";
 
 import cloudflareKVCache from "./cloudflare-KV";
-import momentoHttpCache from "./momento-http";
+import cloudflareKVHttpCache from "./cloudflare-KV-http";
 
 export async function cacheGet<T>(key: string): Promise<T | null> {
   if (process.env.CF) {
     return await cloudflareKVCache.cacheGet(key);
   } else {
-    return await momentoHttpCache.cacheGet(key);
+    return await cloudflareKVHttpCache.cacheGet(key);
   }
 }
 
@@ -21,7 +21,7 @@ export async function cacheSet<T>(
   if (process.env.CF) {
     return await cloudflareKVCache.cacheSet(key, value, ttlSeconds);
   } else {
-    return await momentoHttpCache.cacheSet(key, value, ttlSeconds);
+    return await cloudflareKVHttpCache.cacheSet(key, value, ttlSeconds);
   }
 }
 
@@ -29,7 +29,7 @@ export async function cacheDelete(key: string): Promise<boolean> {
   if (process.env.CF) {
     return await cloudflareKVCache.cacheDelete(key);
   } else {
-    return await momentoHttpCache.cacheDelete(key);
+    return await cloudflareKVHttpCache.cacheDelete(key);
   }
 }
 

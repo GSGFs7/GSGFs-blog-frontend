@@ -7,7 +7,7 @@ import { fc } from "@/lib/fetchClient";
 import type { ApiResult, IDNumber } from "@/types";
 import { commentMarkdownToHtml } from "@/utils/markdown";
 
-import { generateAuthToken } from "./adapter/adapter-nodejs-runtime";
+import { generateAuthToken } from "./auth";
 import { apiGuestLogin } from "./guest";
 
 export async function apiAddComment(

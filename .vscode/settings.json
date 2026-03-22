@@ -1,5 +1,5 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
   "editor.tabSize": 2,
   "eslint.useFlatConfig": true,
   "prettier.bracketSameLine": false,
@@ -10,6 +10,7 @@
     "beatmaps",
     "bowser",
     "changefreq",
+    "Fernet",
     "Galgame",
     "genai",
     "gomomento",
@@ -38,6 +39,7 @@
     "supabase",
     "taiko",
     "Turbopack",
+    "vinext",
     "vndb",
     "wenkai"
   ],
