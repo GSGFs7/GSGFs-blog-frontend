@@ -19,7 +19,7 @@ export async function generateAuthToken(): Promise<string> {
 
   // NOTE: KV not support CAS
   let nonce = randomBytes(16).toString();
-  while (await cacheGet(nonce)) {
+  while (await cacheGet(generateAuthCacheKey(client_id, nonce))) {
     nonce = randomBytes(16).toString();
     await cacheSet(generateAuthCacheKey(client_id, nonce), nonce);
   }
