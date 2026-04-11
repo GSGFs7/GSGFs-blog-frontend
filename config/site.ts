@@ -74,6 +74,7 @@ export const siteConfig = {
     "人間は寂しさを永久になくすことはできない 人は一人だからね ただ忘れることができるから人は生きていけるのさ",
     "あなたを好きになりました 日记を买いました。花と散る日々を、つなぎあわせておくために",
     "これから先、どんなことが待っていようとも わたしと出会えたこと、後悔しないでください",
+    "To live an age, yet remember so little... Perhaps I should be thankful?\nAll tragedy erased. I see only wonders...",
   ] as const,
   // The link of the homepage button, not the friend link
   links: [
