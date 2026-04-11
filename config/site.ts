@@ -94,4 +94,6 @@ export const siteConfig = {
   canonicalUrl: "https://gsgfs.moe" as const,
   enableCaptcha: true as const,
   musicUrl: "https://music.gsgfs.moe" as const,
+  postSearchingGIF:
+    "https://img.gsgfs.moe/img/bac2d4bb0a3b8a7829f9c5ae18d144cc.gif" as const,
 };
