@@ -1,10 +1,5 @@
 {
   "js/ts.tsdk.path": "node_modules/typescript/lib",
-  "editor.tabSize": 2,
-  "eslint.useFlatConfig": true,
-  "prettier.bracketSameLine": false,
-  "prettier.singleAttributePerLine": false,
-  "prettier.trailingComma": "all",
   "cSpell.words": [
     "alttitle",
     "beatmaps",

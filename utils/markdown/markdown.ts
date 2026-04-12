@@ -16,16 +16,27 @@ import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
+import remarkRehype, {
+  type Options as RemarkRehypeOptions,
+} from "remark-rehype";
 // import remarkToc from "remark-toc";
 import { unified } from "unified";
 
 import { rehypeCustomAttrs } from "./rehype-custom-attrs";
 import rehypeCustomImg from "./rehype-custom-img";
 import remarkAudio from "./remark-audio";
+import {
+  ImageConvertHandler,
+  RemarkImageConvert,
+} from "./remark-image-convert";
 // import { RemarkAutoToc } from "./remark-auto-toc";
 
 export async function markdownToHtml(markdown: string): Promise<string> {
+  const remarkRehypeOptions: RemarkRehypeOptions = {
+    allowDangerousHtml: true,
+    handlers: { picture: ImageConvertHandler },
+  };
+
   const result = await unified()
     .use(remarkParse) // 解析为AST(抽象语法树)
     // .use(RemarkAutoToc) // 自动添加目录
@@ -42,7 +53,8 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     .use(remarkAudio) // music player
     .use(remarkMath) // 解析数学公式
     .use(remarkGfm) // Github Flavored Markdown支持 表格，删除线等
-    .use(remarkRehype, { allowDangerousHtml: true }) // 将 Markdown AST 转换为 HTML AST
+    .use(RemarkImageConvert)
+    .use(remarkRehype, remarkRehypeOptions) // 将 Markdown AST 转换为 HTML AST
     .use(rehypeRaw) // 允许在 Markdown 中使用 HTML
     .use(rehypeCustomAttrs) // 自定义a标签
     .use(rehypeCustomImg)
