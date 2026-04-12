@@ -8,7 +8,13 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api", "/user"],
+        disallow: [
+          "/admin",
+          "/api",
+          "/user",
+          // CF's endpoint
+          "/cdn-cgi",
+        ],
       },
     ],
     sitemap: `${NEXT_PUBLIC_SITE_URL}/sitemap.xml`,
